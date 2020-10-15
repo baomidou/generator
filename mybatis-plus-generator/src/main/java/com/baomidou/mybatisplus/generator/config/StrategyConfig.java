@@ -28,7 +28,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -42,7 +41,6 @@ import java.util.Set;
  * @since 2016/8/30
  */
 @Data
-@Accessors(chain = true)
 public class StrategyConfig {
     /**
      * 是否大写命名

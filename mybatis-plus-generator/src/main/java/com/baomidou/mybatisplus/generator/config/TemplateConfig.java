@@ -19,8 +19,6 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +33,6 @@ import java.util.regex.Pattern;
  * @since 2017-06-17
  */
 @Data
-@Accessors(chain = true)
 public class TemplateConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TemplateConfig.class);
@@ -54,7 +51,6 @@ public class TemplateConfig {
     private String entity;
 
     @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     private boolean disableEntity;
 
     /**

@@ -19,7 +19,6 @@ package com.baomidou.mybatisplus.generator.config;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,7 +32,6 @@ import java.util.Map;
  */
 
 @Data
-@Accessors(chain = true)
 public class PackageConfig {
 
     /**

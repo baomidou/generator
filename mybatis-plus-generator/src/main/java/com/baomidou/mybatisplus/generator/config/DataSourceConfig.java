@@ -23,7 +23,6 @@ import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -38,7 +37,6 @@ import java.util.Optional;
  * @since 2016/8/30
  */
 @Data
-@Accessors(chain = true)
 public class DataSourceConfig {
 
     /**

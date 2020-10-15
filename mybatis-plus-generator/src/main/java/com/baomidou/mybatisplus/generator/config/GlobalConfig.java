@@ -21,7 +21,6 @@ import com.baomidou.mybatisplus.generator.config.builder.Mapper;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * 全局配置
@@ -30,7 +29,6 @@ import lombok.experimental.Accessors;
  * @since 2016-12-02
  */
 @Data
-@Accessors(chain = true)
 public class GlobalConfig {
 
     /**
