@@ -75,6 +75,7 @@ ext {
         "sqlite"                     : "org.xerial:sqlite-jdbc:3.32.3.1",
         "firebird"                   : "org.firebirdsql.jdbc:jaybird:4.0.1.java8",
         //code generator
+        "mybatis-plus"               : "com.baomidou:mybatis-plus:3.4.0",
         "velocity"                   : "org.apache.velocity:velocity-engine-core:2.2",
         "freemarker"                 : "org.freemarker:freemarker:2.3.30",
         "beetl"                      : "com.ibeetl:beetl:3.2.1.RELEASE",

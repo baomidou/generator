@@ -1,5 +1,5 @@
 dependencies {
-    api project(":mybatis-plus-extension")
+    api "${lib.'mybatis-plus'}"
 
     implementation "${lib.velocity}"
     implementation "${lib.freemarker}"
