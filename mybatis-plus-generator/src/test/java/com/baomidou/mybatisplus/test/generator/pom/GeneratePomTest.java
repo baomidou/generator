@@ -55,7 +55,7 @@ class GeneratePomTest {
                 String artifactId = $this.s("artifactId").text();
                 dependenciesMap.put(artifactId, new Dependency(artifactId, $this.s("scope").text(), Boolean.parseBoolean($this.s("optional").text())));
             });
-            Dependency extension = dependenciesMap.get("mybatis-plus-extension");
+            Dependency extension = dependenciesMap.get("mybatis-plus");
             Assertions.assertEquals("compile", extension.getScope());
             Assertions.assertFalse(extension.isOptional());
             Dependency velocity = dependenciesMap.get("velocity-engine-core");

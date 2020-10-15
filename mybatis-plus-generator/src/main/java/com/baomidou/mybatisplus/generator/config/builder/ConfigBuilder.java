@@ -105,14 +105,14 @@ public class ConfigBuilder {
      */
     public ConfigBuilder(PackageConfig packageConfig, DataSourceConfig dataSourceConfig, StrategyConfig strategyConfig,
                          TemplateConfig template, GlobalConfig globalConfig) {
-        this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(StrategyConfig::new);
+        this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(() -> new StrategyConfig.Builder().build());
         //TODO 先把验证插在这里，后续改成build构建的话在build的时候验证
         this.strategyConfig.validate();
         this.dataSourceConfig = dataSourceConfig;
         this.dbQuery = new DecoratorDbQuery(dataSourceConfig.getDbQuery(), dataSourceConfig, strategyConfig);
-        this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(GlobalConfig::new);
+        this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(() -> new GlobalConfig.Builder().build());
         this.template = Optional.ofNullable(template).orElseGet(() -> new TemplateConfig.Builder().all().build());
-        this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(PackageConfig::new);
+        this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(() -> new PackageConfig.Builder().build());
         this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.template, this.packageConfig).getPathInfo());
         this.tableInfoList.addAll(getTablesInfo());
     }
