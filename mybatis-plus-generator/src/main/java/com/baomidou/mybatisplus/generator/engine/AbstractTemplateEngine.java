@@ -93,13 +93,13 @@ public abstract class AbstractTemplateEngine {
      */
     protected void outputEntity(TableInfo tableInfo, Map<String, Object> objectMap) {
         String entityName = tableInfo.getEntityName();
-        getTemplateFilePath(template -> template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())).ifPresent((entity) -> {
-            String entityPath = getPathInfo(ConstVal.ENTITY_PATH);
-            if (StringUtils.isNotBlank(entityName) && StringUtils.isNotBlank(entityPath)) {
+        String entityPath = getPathInfo(ConstVal.ENTITY_PATH);
+        if (StringUtils.isNotBlank(entityName) && StringUtils.isNotBlank(entityPath)) {
+            getTemplateFilePath(template -> template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())).ifPresent((entity) -> {
                 String entityFile = String.format((entityPath + File.separator + "%s" + suffixJavaOrKt()), entityName);
                 outputFile(entityFile, FileType.ENTITY, objectMap, entity);
-            }
-        });
+            });
+        }
     }
 
     /**
@@ -110,23 +110,23 @@ public abstract class AbstractTemplateEngine {
      * @since 3.4.1
      */
     protected void outputMapper(TableInfo tableInfo, Map<String, Object> objectMap) {
-        String entityName = tableInfo.getEntityName();
         // MpMapper.java
-        getTemplateFilePath(TemplateConfig::getMapper).ifPresent(mapper -> {
-            String mapperPath = getPathInfo(ConstVal.MAPPER_PATH);
-            if (StringUtils.isNotBlank(tableInfo.getMapperName()) && StringUtils.isNotBlank(mapperPath)) {
+        String entityName = tableInfo.getEntityName();
+        String mapperPath = getPathInfo(ConstVal.MAPPER_PATH);
+        if (StringUtils.isNotBlank(tableInfo.getMapperName()) && StringUtils.isNotBlank(mapperPath)) {
+            getTemplateFilePath(TemplateConfig::getMapper).ifPresent(mapper -> {
                 String mapperFile = String.format((mapperPath + File.separator + tableInfo.getMapperName() + suffixJavaOrKt()), entityName);
                 outputFile(mapperFile, FileType.MAPPER, objectMap, mapper);
-            }
-        });
+            });
+        }
         // MpMapper.xml
-        getTemplateFilePath(TemplateConfig::getXml).ifPresent(xml -> {
-            String xmlPath = getPathInfo(ConstVal.XML_PATH);
-            if (StringUtils.isNotBlank(tableInfo.getXmlName()) && StringUtils.isNotBlank(xmlPath)) {
+        String xmlPath = getPathInfo(ConstVal.XML_PATH);
+        if (StringUtils.isNotBlank(tableInfo.getXmlName()) && StringUtils.isNotBlank(xmlPath)) {
+            getTemplateFilePath(TemplateConfig::getXml).ifPresent(xml -> {
                 String xmlFile = String.format((xmlPath + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
                 outputFile(xmlFile, FileType.XML, objectMap, xml);
-            }
-        });
+            });
+        }
     }
 
     /**
@@ -139,21 +139,21 @@ public abstract class AbstractTemplateEngine {
     protected void outputService(TableInfo tableInfo, Map<String, Object> objectMap) {
         // IMpService.java
         String entityName = tableInfo.getEntityName();
-        getTemplateFilePath(TemplateConfig::getService).ifPresent(service -> {
-            String servicePath = getPathInfo(ConstVal.SERVICE_PATH);
-            if (StringUtils.isNotBlank(tableInfo.getServiceName()) && StringUtils.isNotBlank(servicePath)) {
+        String servicePath = getPathInfo(ConstVal.SERVICE_PATH);
+        if (StringUtils.isNotBlank(tableInfo.getServiceName()) && StringUtils.isNotBlank(servicePath)) {
+            getTemplateFilePath(TemplateConfig::getService).ifPresent(service -> {
                 String serviceFile = String.format((servicePath + File.separator + tableInfo.getServiceName() + suffixJavaOrKt()), entityName);
                 outputFile(serviceFile, FileType.SERVICE, objectMap, service);
-            }
-        });
+            });
+        }
         // MpServiceImpl.java
-        getTemplateFilePath(TemplateConfig::getServiceImpl).ifPresent(serviceImpl -> {
-            String serviceImplPath = getPathInfo(ConstVal.SERVICE_IMPL_PATH);
-            if (StringUtils.isNotBlank(tableInfo.getServiceImplName()) && StringUtils.isNotBlank(serviceImplPath)) {
+        String serviceImplPath = getPathInfo(ConstVal.SERVICE_IMPL_PATH);
+        if (StringUtils.isNotBlank(tableInfo.getServiceImplName()) && StringUtils.isNotBlank(serviceImplPath)) {
+            getTemplateFilePath(TemplateConfig::getServiceImpl).ifPresent(serviceImpl -> {
                 String implFile = String.format((serviceImplPath + File.separator + tableInfo.getServiceImplName() + suffixJavaOrKt()), entityName);
                 outputFile(implFile, FileType.SERVICE_IMPL, objectMap, serviceImpl);
-            }
-        });
+            });
+        }
     }
 
     /**
@@ -165,14 +165,14 @@ public abstract class AbstractTemplateEngine {
      */
     protected void outputController(TableInfo tableInfo, Map<String, Object> objectMap) {
         // MpController.java
-        getTemplateFilePath(TemplateConfig::getController).ifPresent(controller -> {
-            String controllerPath = getPathInfo(ConstVal.CONTROLLER_PATH);
-            if (StringUtils.isNotBlank(tableInfo.getControllerName()) && StringUtils.isNotBlank(controllerPath)) {
+        String controllerPath = getPathInfo(ConstVal.CONTROLLER_PATH);
+        if (StringUtils.isNotBlank(tableInfo.getControllerName()) && StringUtils.isNotBlank(controllerPath)) {
+            getTemplateFilePath(TemplateConfig::getController).ifPresent(controller -> {
                 String entityName = tableInfo.getEntityName();
                 String controllerFile = String.format((controllerPath + File.separator + tableInfo.getControllerName() + suffixJavaOrKt()), entityName);
                 outputFile(controllerFile, FileType.CONTROLLER, objectMap, controller);
-            }
-        });
+            });
+        }
     }
 
     /**
