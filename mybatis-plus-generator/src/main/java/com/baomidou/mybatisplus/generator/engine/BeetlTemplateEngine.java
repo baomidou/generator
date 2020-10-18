@@ -53,7 +53,6 @@ public class BeetlTemplateEngine extends AbstractTemplateEngine {
 
     @Override
     public AbstractTemplateEngine init(ConfigBuilder configBuilder) {
-        super.init(configBuilder);
         try {
             Configuration cfg = Configuration.defaultConfiguration();
             groupTemplate = new GroupTemplate(new ClasspathResourceLoader("/"), cfg);

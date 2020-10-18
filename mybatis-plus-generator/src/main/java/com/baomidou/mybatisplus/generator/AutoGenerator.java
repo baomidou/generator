@@ -295,6 +295,7 @@ public class AutoGenerator {
             // 为了兼容之前逻辑，采用 Velocity 引擎 【 默认 】
             templateEngine = new VelocityTemplateEngine();
         }
+        templateEngine.setConfigBuilder(config);
         // 模板引擎初始化执行文件输出
         templateEngine.init(this.pretreatmentConfigBuilder(config)).mkdirs().batchOutput().open();
         logger.debug("==========================文件生成完成！！！==========================");

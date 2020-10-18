@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.Function;
 
 
 /**
@@ -60,6 +61,165 @@ public abstract class AbstractTemplateEngine {
         return this;
     }
 
+    /**
+     * 自定义内容输出
+     *
+     * @param tableInfo 表信息
+     * @param objectMap 渲染数据
+     * @throws Exception ex
+     * @since 3.4.1
+     */
+    protected void outputCustomFile(TableInfo tableInfo, Map<String, Object> objectMap) throws Exception {
+        InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
+        if (null != injectionConfig) {
+            injectionConfig.initTableMap(tableInfo);
+            objectMap.put("cfg", injectionConfig.getMap());
+            List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
+            for (FileOutConfig foc : focList) {
+                String outputFile = foc.outputFile(tableInfo);
+                if (isCreate(FileType.OTHER, outputFile)) {
+                    writerFile(objectMap, foc.getTemplatePath(), outputFile);
+                }
+            }
+        }
+    }
+
+    /**
+     * 输出实体文件
+     *
+     * @param tableInfo 表信息
+     * @param objectMap 渲染数据
+     * @since 3.4.1
+     */
+    protected void outputEntity(TableInfo tableInfo, Map<String, Object> objectMap) {
+        String entityName = tableInfo.getEntityName();
+        getTemplateFilePath(template -> template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())).ifPresent((entity) -> {
+            String entityPath = getPathInfo(ConstVal.ENTITY_PATH);
+            if (StringUtils.isNotBlank(entityName) && StringUtils.isNotBlank(entityPath)) {
+                String entityFile = String.format((entityPath + File.separator + "%s" + suffixJavaOrKt()), entityName);
+                outputFile(entityFile, FileType.ENTITY, objectMap, entity);
+            }
+        });
+    }
+
+    /**
+     * 输出Mapper文件(含xml)
+     *
+     * @param tableInfo 表信息
+     * @param objectMap 渲染数据
+     * @since 3.4.1
+     */
+    protected void outputMapper(TableInfo tableInfo, Map<String, Object> objectMap) {
+        String entityName = tableInfo.getEntityName();
+        // MpMapper.java
+        getTemplateFilePath(TemplateConfig::getMapper).ifPresent(mapper -> {
+            String mapperPath = getPathInfo(ConstVal.MAPPER_PATH);
+            if (StringUtils.isNotBlank(tableInfo.getMapperName()) && StringUtils.isNotBlank(mapperPath)) {
+                String mapperFile = String.format((mapperPath + File.separator + tableInfo.getMapperName() + suffixJavaOrKt()), entityName);
+                outputFile(mapperFile, FileType.MAPPER, objectMap, mapper);
+            }
+        });
+        // MpMapper.xml
+        getTemplateFilePath(TemplateConfig::getXml).ifPresent(xml -> {
+            String xmlPath = getPathInfo(ConstVal.XML_PATH);
+            if (StringUtils.isNotBlank(tableInfo.getXmlName()) && StringUtils.isNotBlank(xmlPath)) {
+                String xmlFile = String.format((xmlPath + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
+                outputFile(xmlFile, FileType.XML, objectMap, xml);
+            }
+        });
+    }
+
+    /**
+     * 输出service文件
+     *
+     * @param tableInfo 表信息
+     * @param objectMap 渲染数据
+     * @since 3.4.1
+     */
+    protected void outputService(TableInfo tableInfo, Map<String, Object> objectMap) {
+        // IMpService.java
+        String entityName = tableInfo.getEntityName();
+        getTemplateFilePath(TemplateConfig::getService).ifPresent(service -> {
+            String servicePath = getPathInfo(ConstVal.SERVICE_PATH);
+            if (StringUtils.isNotBlank(tableInfo.getServiceName()) && StringUtils.isNotBlank(servicePath)) {
+                String serviceFile = String.format((servicePath + File.separator + tableInfo.getServiceName() + suffixJavaOrKt()), entityName);
+                outputFile(serviceFile, FileType.SERVICE, objectMap, service);
+            }
+        });
+        // MpServiceImpl.java
+        getTemplateFilePath(TemplateConfig::getServiceImpl).ifPresent(serviceImpl -> {
+            String serviceImplPath = getPathInfo(ConstVal.SERVICE_IMPL_PATH);
+            if (StringUtils.isNotBlank(tableInfo.getServiceImplName()) && StringUtils.isNotBlank(serviceImplPath)) {
+                String implFile = String.format((serviceImplPath + File.separator + tableInfo.getServiceImplName() + suffixJavaOrKt()), entityName);
+                outputFile(implFile, FileType.SERVICE_IMPL, objectMap, serviceImpl);
+            }
+        });
+    }
+
+    /**
+     * 输出controller文件
+     *
+     * @param tableInfo 表信息
+     * @param objectMap 渲染数据
+     * @since 3.4.1
+     */
+    protected void outputController(TableInfo tableInfo, Map<String, Object> objectMap) {
+        // MpController.java
+        getTemplateFilePath(TemplateConfig::getController).ifPresent(controller -> {
+            String controllerPath = getPathInfo(ConstVal.CONTROLLER_PATH);
+            if (StringUtils.isNotBlank(tableInfo.getControllerName()) && StringUtils.isNotBlank(controllerPath)) {
+                String entityName = tableInfo.getEntityName();
+                String controllerFile = String.format((controllerPath + File.separator + tableInfo.getControllerName() + suffixJavaOrKt()), entityName);
+                outputFile(controllerFile, FileType.CONTROLLER, objectMap, controller);
+            }
+        });
+    }
+
+    /**
+     * 输出文件
+     *
+     * @param fileName     文件名称
+     * @param fileType     文件类型
+     * @param objectMap    渲染信息
+     * @param templatePath 模板路径
+     * @since 3.4.1
+     */
+    protected void outputFile(String fileName, FileType fileType, Map<String, Object> objectMap, String templatePath) {
+        if (StringUtils.isNotBlank(templatePath) && isCreate(fileType, fileName)) {
+            try {
+                writer(objectMap, templatePath, fileName);
+            } catch (Exception exception) {
+                throw new RuntimeException(exception);
+            }
+        }
+    }
+
+    /**
+     * 获取模板路径
+     *
+     * @param function function
+     * @return 模板路径
+     * @since 3.4.1
+     */
+    protected Optional<String> getTemplateFilePath(Function<TemplateConfig, String> function) {
+        TemplateConfig template = getConfigBuilder().getTemplate();
+        String templateFilePath = templateFilePath(function.apply(template));
+        if (StringUtils.isNotBlank(templateFilePath)) {
+            return Optional.of(templateFilePath);
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * 获取路径信息
+     *
+     * @param key key {@link ConstVal}_xxxPath
+     * @return 路径信息
+     */
+    protected String getPathInfo(String key) {
+        Map<String, String> pathInfo = getConfigBuilder().getPathInfo();
+        return pathInfo.get(key);
+    }
 
     /**
      * 输出 java xml 文件
@@ -67,67 +227,18 @@ public abstract class AbstractTemplateEngine {
     public AbstractTemplateEngine batchOutput() {
         try {
             List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
-            Map<String, String> pathInfo = getConfigBuilder().getPathInfo();
-            TemplateConfig template = getConfigBuilder().getTemplate();
-            // 自定义内容
-            InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
             for (TableInfo tableInfo : tableInfoList) {
                 Map<String, Object> objectMap = getObjectMap(tableInfo);
-                if (null != injectionConfig) {
-                    injectionConfig.initTableMap(tableInfo);
-                    objectMap.put("cfg", injectionConfig.getMap());
-                    List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
-                    if (CollectionUtils.isNotEmpty(focList)) {
-                        for (FileOutConfig foc : focList) {
-                            if (isCreate(FileType.OTHER, foc.outputFile(tableInfo))) {
-                                writerFile(objectMap, foc.getTemplatePath(), foc.outputFile(tableInfo));
-                            }
-                        }
-                    }
-                }
+                // 自定义内容
+                outputCustomFile(tableInfo, objectMap);
                 // Mp.java
-                String entityName = tableInfo.getEntityName();
-                if (null != entityName && null != pathInfo.get(ConstVal.ENTITY_PATH)) {
-                    String entityFile = String.format((pathInfo.get(ConstVal.ENTITY_PATH) + File.separator + "%s" + suffixJavaOrKt()), entityName);
-                    if (isCreate(FileType.ENTITY, entityFile)) {
-                        writerFile(objectMap, templateFilePath(template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())), entityFile);
-                    }
-                }
-                // MpMapper.java
-                if (null != tableInfo.getMapperName() && null != pathInfo.get(ConstVal.MAPPER_PATH)) {
-                    String mapperFile = String.format((pathInfo.get(ConstVal.MAPPER_PATH) + File.separator + tableInfo.getMapperName() + suffixJavaOrKt()), entityName);
-                    if (isCreate(FileType.MAPPER, mapperFile)) {
-                        writerFile(objectMap, templateFilePath(template.getMapper()), mapperFile);
-                    }
-                }
-                // MpMapper.xml
-                if (null != tableInfo.getXmlName() && null != pathInfo.get(ConstVal.XML_PATH)) {
-                    String xmlFile = String.format((pathInfo.get(ConstVal.XML_PATH) + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
-                    if (isCreate(FileType.XML, xmlFile)) {
-                        writerFile(objectMap, templateFilePath(template.getXml()), xmlFile);
-                    }
-                }
-                // IMpService.java
-                if (null != tableInfo.getServiceName() && null != pathInfo.get(ConstVal.SERVICE_PATH)) {
-                    String serviceFile = String.format((pathInfo.get(ConstVal.SERVICE_PATH) + File.separator + tableInfo.getServiceName() + suffixJavaOrKt()), entityName);
-                    if (isCreate(FileType.SERVICE, serviceFile)) {
-                        writerFile(objectMap, templateFilePath(template.getService()), serviceFile);
-                    }
-                }
-                // MpServiceImpl.java
-                if (null != tableInfo.getServiceImplName() && null != pathInfo.get(ConstVal.SERVICE_IMPL_PATH)) {
-                    String implFile = String.format((pathInfo.get(ConstVal.SERVICE_IMPL_PATH) + File.separator + tableInfo.getServiceImplName() + suffixJavaOrKt()), entityName);
-                    if (isCreate(FileType.SERVICE_IMPL, implFile)) {
-                        writerFile(objectMap, templateFilePath(template.getServiceImpl()), implFile);
-                    }
-                }
+                outputEntity(tableInfo, objectMap);
+                // mapper and xml
+                outputMapper(tableInfo, objectMap);
+                // service
+                outputService(tableInfo, objectMap);
                 // MpController.java
-                if (null != tableInfo.getControllerName() && null != pathInfo.get(ConstVal.CONTROLLER_PATH)) {
-                    String controllerFile = String.format((pathInfo.get(ConstVal.CONTROLLER_PATH) + File.separator + tableInfo.getControllerName() + suffixJavaOrKt()), entityName);
-                    if (isCreate(FileType.CONTROLLER, controllerFile)) {
-                        writerFile(objectMap, templateFilePath(template.getController()), controllerFile);
-                    }
-                }
+                outputController(tableInfo, objectMap);
             }
         } catch (Exception e) {
             logger.error("无法创建文件，请检查配置信息！", e);
@@ -135,6 +246,17 @@ public abstract class AbstractTemplateEngine {
         return this;
     }
 
+    /**
+     * 输出文件
+     *
+     * @param objectMap    渲染数据
+     * @param templatePath 模板路径
+     * @param outputFile   输出文件
+     * @throws Exception ex
+     * @see #outputFile(String, FileType, Map, String)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
     protected void writerFile(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {
         if (StringUtils.isNotBlank(templatePath)) this.writer(objectMap, templatePath, outputFile);
     }

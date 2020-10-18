@@ -42,7 +42,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
 
     @Override
     public VelocityTemplateEngine init(ConfigBuilder configBuilder) {
-        super.init(configBuilder);
         if (null == velocityEngine) {
             Properties p = new Properties();
             p.setProperty(ConstVal.VM_LOAD_PATH_KEY, ConstVal.VM_LOAD_PATH_VALUE);

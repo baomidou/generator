@@ -15,9 +15,8 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
+import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * 输出文件配置
@@ -25,8 +24,6 @@ import lombok.experimental.Accessors;
  * @author hubin
  * @since 2017-01-18
  */
-@Data
-@Accessors(chain = true)
 public abstract class FileOutConfig {
 
     /**
@@ -34,11 +31,19 @@ public abstract class FileOutConfig {
      */
     private String templatePath;
 
+    /**
+     * 默认构造方法
+     *
+     * @see #FileOutConfig(String)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
     public FileOutConfig() {
         // to do nothing
     }
 
     public FileOutConfig(String templatePath) {
+        Assert.notEmpty(templatePath, "模板路径不能为空!");
         this.templatePath = templatePath;
     }
 
@@ -46,4 +51,25 @@ public abstract class FileOutConfig {
      * 输出文件
      */
     public abstract String outputFile(TableInfo tableInfo);
+
+    /**
+     * @param templatePath 模块路径
+     * @return this
+     * @see #FileOutConfig(String)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public FileOutConfig setTemplatePath(String templatePath) {
+        this.templatePath = templatePath;
+        return this;
+    }
+
+    /**
+     * 获取模板路径信息
+     *
+     * @return 模板路径信息
+     */
+    public String getTemplatePath() {
+        return templatePath;
+    }
 }
