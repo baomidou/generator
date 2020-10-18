@@ -56,10 +56,7 @@ public abstract class AbstractTemplateEngine {
     /**
      * 模板引擎初始化
      */
-    public AbstractTemplateEngine init(ConfigBuilder configBuilder) {
-        this.configBuilder = configBuilder;
-        return this;
-    }
+    public abstract AbstractTemplateEngine init(ConfigBuilder configBuilder);
 
     /**
      * 自定义内容输出
