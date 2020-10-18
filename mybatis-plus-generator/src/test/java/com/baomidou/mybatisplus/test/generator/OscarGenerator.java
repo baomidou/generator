@@ -27,10 +27,7 @@ import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Collections;
 
 /**
  * KingbaseESGenerator
@@ -123,23 +120,14 @@ public class OscarGenerator extends GeneratorTest {
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
-        InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
-                this.setMap(map);
-            }
-        };
-        List<FileOutConfig> focList = new ArrayList<>();
-        focList.add(new FileOutConfig("/templates/dto.java" + ((1 == result) ? ".ftl" : ".vm")) {
+        InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));
+        cfg.addFileOutConfig(new FileOutConfig("/templates/dto.java" + ((1 == result) ? ".ftl" : ".vm")) {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return "D://test/my_" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
             }
         });
-        cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
 
         // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy

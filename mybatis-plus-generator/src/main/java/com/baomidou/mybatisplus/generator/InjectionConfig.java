@@ -15,6 +15,8 @@
  */
 package com.baomidou.mybatisplus.generator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +36,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public abstract class InjectionConfig {
+public class InjectionConfig {
 
     /**
      * 全局配置
@@ -44,12 +46,12 @@ public abstract class InjectionConfig {
     /**
      * 自定义返回配置 Map 对象
      */
-    private Map<String, Object> map;
+    private final Map<String, Object> map = new HashMap<>();
 
     /**
      * 自定义输出文件
      */
-    private List<FileOutConfig> fileOutConfigList;
+    private final List<FileOutConfig> fileOutConfigList = new ArrayList<>();
 
     /**
      * 自定义判断是否创建文件
@@ -57,9 +59,16 @@ public abstract class InjectionConfig {
     private IFileCreate fileCreate;
 
     /**
+     * 初始化自定义全局参数
+     *
+     * @see #InjectionConfig(Map)
      * 注入自定义 Map 对象，针对所有表的全局参数
+     * @deprecated 3.4.1
      */
-    public abstract void initMap();
+    @Deprecated
+    public void initMap() {
+
+    }
 
     /**
      * 依据表相关信息，从三方获取到需要元数据，处理方法环境里面
@@ -78,4 +87,70 @@ public abstract class InjectionConfig {
     public Map<String, Object> prepareObjectMap(Map<String, Object> objectMap) {
         return objectMap;
     }
+
+    /**
+     * @param map 自定义全局参数
+     * @return this
+     * @see #InjectionConfig(Map)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public InjectionConfig setMap(Map<String, Object> map) {
+        this.map.putAll(map);
+        return this;
+    }
+
+    /**
+     * 默认构造
+     */
+    public InjectionConfig() {
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param map 自定义全局参数
+     * @since 3.4.1
+     */
+    public InjectionConfig(Map<String, Object> map) {
+        this.map.putAll(map);
+    }
+
+    /**
+     * 指定自定义输出文件
+     *
+     * @param fileOutConfigList 自定义输出文件集合
+     * @return this
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public InjectionConfig setFileOutConfigList(List<FileOutConfig> fileOutConfigList) {
+        this.fileOutConfigList.clear(); //保持方法语义
+        return addFileOutConfig(fileOutConfigList);
+    }
+
+    /**
+     * 添加自定义输出文件
+     *
+     * @param fileOutConfigList 自定义输出文件集合
+     * @return this
+     * @since 3.4.1
+     */
+    public InjectionConfig addFileOutConfig(List<FileOutConfig> fileOutConfigList) {
+        this.fileOutConfigList.addAll(fileOutConfigList);
+        return this;
+    }
+
+    /**
+     * 添加自定义输出文件
+     *
+     * @param fileOutConfig 自定义输出文件
+     * @return this
+     * @since 3.4.1
+     */
+    public InjectionConfig addFileOutConfig(FileOutConfig fileOutConfig) {
+        this.fileOutConfigList.add(fileOutConfig);
+        return this;
+    }
+
 }

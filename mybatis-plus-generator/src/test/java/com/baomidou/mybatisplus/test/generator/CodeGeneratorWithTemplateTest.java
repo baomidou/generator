@@ -25,8 +25,7 @@ import com.mysql.cj.jdbc.Driver;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
 
 /**
  * 代码生成器 示例
@@ -95,16 +94,7 @@ class CodeGeneratorWithTemplateTest {
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         TemplateConfig templateConfig = new TemplateConfig()
             .setEntity("templates/entity2.java");
-        InjectionConfig injectionConfig = new InjectionConfig() {
-            //自定义属性注入:abc
-            //在.vm/ftl模板中，通过${cfg.abc}获取属性
-            @Override
-            public void initMap() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
-                this.setMap(map);
-            }
-        };
+        InjectionConfig injectionConfig = new InjectionConfig(Collections.singletonMap("abc", config.getAuthor() + "-mp"));
         new AutoGenerator().setGlobalConfig(config)
             .setDataSource(dataSourceConfig)
             .setStrategy(strategyConfig)
