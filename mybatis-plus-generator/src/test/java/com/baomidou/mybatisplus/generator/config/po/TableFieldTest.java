@@ -33,13 +33,13 @@ public class TableFieldTest {
         tableField = new TableField().setName("delete").setColumnType(DbColumnType.BOOLEAN).setPropertyName(new StrategyConfig().setEntityBooleanColumnRemoveIsPrefix(true), "delete");
         Assertions.assertEquals("delete", tableField.getPropertyName());
         Assertions.assertFalse(tableField.isConvert());
-        tableField = new TableField().setName("delete").setPropertyName("delete", new StrategyConfig().setEntityBooleanColumnRemoveIsPrefix(true), DbColumnType.BOOLEAN);
+        tableField = new TableField("delete",new StrategyConfig().setEntityBooleanColumnRemoveIsPrefix(true)).setName("delete").setPropertyName("delete", DbColumnType.BOOLEAN);
         Assertions.assertEquals("delete", tableField.getPropertyName());
         Assertions.assertFalse(tableField.isConvert());
         tableField = new TableField().setName("is_delete").setColumnType(DbColumnType.BOOLEAN).setPropertyName(new StrategyConfig().setEntityBooleanColumnRemoveIsPrefix(true), "isDelete");
         Assertions.assertEquals("delete", tableField.getPropertyName());
         Assertions.assertTrue(tableField.isConvert());
-        tableField = new TableField().setName("is_delete").setPropertyName("isDelete", new StrategyConfig().setEntityBooleanColumnRemoveIsPrefix(true), DbColumnType.BOOLEAN);
+        tableField = new TableField("is_delete",new StrategyConfig().setEntityBooleanColumnRemoveIsPrefix(true)).setName("is_delete").setPropertyName("isDelete", DbColumnType.BOOLEAN);
         Assertions.assertEquals("delete", tableField.getPropertyName());
         Assertions.assertTrue(tableField.isConvert());
     }

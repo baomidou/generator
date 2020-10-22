@@ -300,12 +300,10 @@ public class TableInfo {
                 //TODO 好像default的不用处理也行,这个做优化项目.
                 importPackages.add(FieldFill.class.getCanonicalName());
             }
-            String versionFieldName = strategyConfig.entity().getVersionFieldName();
-            if (field.isVersionField(versionFieldName)) {
+            if (field.isVersionField()) {
                 this.importPackages.add(Version.class.getCanonicalName());
             }
-            String logicDeleteFiledName = strategyConfig.entity().getLogicDeleteFieldName();
-            if (field.isLogicDeleteFiled(logicDeleteFiledName)) {
+            if (field.isLogicDeleteFiled()) {
                 this.importPackages.add(TableLogic.class.getCanonicalName());
             }
         });

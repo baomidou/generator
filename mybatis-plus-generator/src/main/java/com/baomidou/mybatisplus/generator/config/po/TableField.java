@@ -19,7 +19,10 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.Map;
@@ -62,6 +65,34 @@ public class TableField {
      */
     private Map<String, Object> customMap;
 
+    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
+    private StrategyConfig strategyConfig;
+
+    /**
+     * 默认构造
+     *
+     * @see #TableField(String, StrategyConfig)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public TableField() {
+
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param name           数据库字段名称
+     * @param strategyConfig 策略配置
+     * @since 3.4.1
+     */
+    public TableField(String name, StrategyConfig strategyConfig) {
+        //TODO 有空把必须字段统一下.
+        this.name = name;
+        this.strategyConfig = strategyConfig;
+    }
+
     /**
      * @param convert
      * @return this
@@ -98,7 +129,7 @@ public class TableField {
     /**
      * @param propertyName 属性名称
      * @return this
-     * @deprecated 3.4.1 {@link #setPropertyName(String, StrategyConfig, IColumnType)}
+     * @deprecated 3.4.1 {@link #setPropertyName(String, IColumnType)}
      */
     @Deprecated
     public TableField setPropertyName(String propertyName) {
@@ -110,12 +141,11 @@ public class TableField {
      * 设置属性名称
      *
      * @param propertyName   属性名
-     * @param strategyConfig 策略配置
      * @param columnType     字段类型
      * @return this
      * @since 3.4.1
      */
-    public TableField setPropertyName(String propertyName, StrategyConfig strategyConfig, IColumnType columnType) {
+    public TableField setPropertyName(String propertyName, IColumnType columnType) {
         this.columnType = columnType;
         if (strategyConfig.entity().isBooleanColumnRemoveIsPrefix()
             && "boolean".equalsIgnoreCase(this.getPropertyType()) && propertyName.startsWith("is")) {
@@ -138,13 +168,14 @@ public class TableField {
      */
     @Deprecated
     public TableField setPropertyName(StrategyConfig strategyConfig, String propertyName) {
-        return setPropertyName(propertyName, strategyConfig, this.columnType);
+        this.strategyConfig = strategyConfig;
+        return setPropertyName(propertyName, this.columnType);
     }
 
     /**
      * @param columnType 字段类型
      * @return this
-     * @deprecated 3.4.1 {@link #setPropertyName(String, StrategyConfig, IColumnType)}
+     * @deprecated 3.4.1 {@link #setPropertyName(String, IColumnType)}
      */
     @Deprecated
     public TableField setColumnType(IColumnType columnType) {
@@ -196,22 +227,26 @@ public class TableField {
     /**
      * 是否为乐观锁字段
      *
-     * @param versionFieldName 乐观锁属性字段
      * @return 是否为乐观锁字段
      * @since 3.4.1
      */
-    public boolean isVersionField(String versionFieldName) {
-        return StringUtils.isNotBlank(versionFieldName) && versionFieldName.equals(this.propertyName);
+    public boolean isVersionField() {
+        String propertyName = this.strategyConfig.entity().getVersionPropertyName();
+        String columnName = this.strategyConfig.entity().getVersionColumnName();
+        return StringUtils.isNotBlank(propertyName) && this.propertyName.equals(propertyName)
+            || StringUtils.isNotBlank(columnName) && this.name.equalsIgnoreCase(columnName);
     }
 
     /**
      * 是否为逻辑删除字段
      *
-     * @param logicDeleteFiledName 逻辑删除字段
      * @return 是否为逻辑删除字段
      * @since 3.4.1
      */
-    public boolean isLogicDeleteFiled(String logicDeleteFiledName) {
-        return StringUtils.isNotBlank(logicDeleteFiledName) && logicDeleteFiledName.equals(this.propertyName);
+    public boolean isLogicDeleteFiled() {
+        String propertyName = this.strategyConfig.entity().getLogicDeletePropertyName();
+        String columnName = this.strategyConfig.entity().getLogicDeleteColumnName();
+        return StringUtils.isNotBlank(propertyName) && this.propertyName.equals(propertyName)
+            || StringUtils.isNotBlank(columnName) && this.name.equalsIgnoreCase(columnName);
     }
 }

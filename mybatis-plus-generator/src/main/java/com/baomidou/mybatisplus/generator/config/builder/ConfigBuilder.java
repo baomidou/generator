@@ -205,8 +205,8 @@ public class ConfigBuilder {
                 });
             }
             dbQuery.query(tableFieldsSql, result -> {
-                TableField field = new TableField();
                 String columnName = result.getStringResult(dbQuery.fieldName());
+                TableField field = new TableField(columnName,this.strategyConfig);
                 // 避免多重主键设置，目前只取第一个找到ID，并放到list中的索引为0的位置
                 boolean isId = DbType.H2 == dbType ? h2PkColumns.contains(columnName) : result.isPrimaryKey();
                 // 处理ID
@@ -223,7 +223,7 @@ public class ConfigBuilder {
                 }
                 field.setName(columnName).setColumnName(newColumnName)
                     .setType(result.getStringResult(dbQuery.fieldType()))
-                    .setPropertyName(strategyConfig.entity().getNameConvert().propertyNameConvert(field), this.strategyConfig, dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field))
+                    .setPropertyName(strategyConfig.entity().getNameConvert().propertyNameConvert(field),  dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field))
                     .setComment(result.getFiledComment())
                     .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
                 // 填充逻辑判断

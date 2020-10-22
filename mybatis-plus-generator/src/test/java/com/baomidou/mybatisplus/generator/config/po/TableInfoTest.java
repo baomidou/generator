@@ -136,24 +136,27 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableLogic.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
 
+        strategyConfig = new StrategyConfig();
         tableInfo = new TableInfo().setName("user");
         tableInfo.addFields(new TableField().setName("name").setPropertyName(strategyConfig, "name").setColumnType(DbColumnType.STRING));
-        tableInfo.importPackage(new StrategyConfig(), new GlobalConfig().setIdType(IdType.ASSIGN_ID));
+        tableInfo.importPackage(strategyConfig, new GlobalConfig().setIdType(IdType.ASSIGN_ID));
         Assertions.assertEquals(1, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
 
+        strategyConfig = new StrategyConfig();
         tableInfo = new TableInfo().setName("user").setHavePrimaryKey(true);
         tableInfo.addFields(new TableField().setName("u_id").setPropertyName(strategyConfig, "uid").setColumnType(DbColumnType.LONG).setKeyFlag(true));
-        tableInfo.importPackage(new StrategyConfig(), new GlobalConfig().setIdType(IdType.ASSIGN_ID));
+        tableInfo.importPackage(strategyConfig, new GlobalConfig().setIdType(IdType.ASSIGN_ID));
         Assertions.assertEquals(3, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
 
+        strategyConfig = new StrategyConfig().entityBuilder().addTableFills(new TableFill("createTime", FieldFill.DEFAULT)).build();
         tableInfo = new TableInfo().setName("user").setHavePrimaryKey(true);
         tableInfo.addFields(new TableField().setName("u_id").setPropertyName(strategyConfig, "uid").setColumnType(DbColumnType.LONG).setKeyFlag(true));
         tableInfo.addFields(new TableField().setName("create_time").setPropertyName(strategyConfig, "createTime").setColumnType(DbColumnType.DATE).setFill(FieldFill.DEFAULT.name()));
-        tableInfo.importPackage(new StrategyConfig().entityBuilder().addTableFills(new TableFill("createTime", FieldFill.DEFAULT)).build(), new GlobalConfig());
+        tableInfo.importPackage(strategyConfig, new GlobalConfig());
         Assertions.assertEquals(5, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Date.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
@@ -161,10 +164,11 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(com.baomidou.mybatisplus.annotation.TableField.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(FieldFill.class.getName()));
 
+        strategyConfig =new StrategyConfig().setVersionFieldName("version");
         tableInfo = new TableInfo().setName("user").setHavePrimaryKey(true);
         tableInfo.addFields(new TableField().setName("u_id").setPropertyName(strategyConfig, "uid").setColumnType(DbColumnType.LONG).setKeyFlag(true));
         tableInfo.addFields(new TableField().setName("version").setPropertyName(strategyConfig, "version").setColumnType(DbColumnType.LONG));
-        tableInfo.importPackage(new StrategyConfig().setVersionFieldName("version"), new GlobalConfig());
+        tableInfo.importPackage(strategyConfig, new GlobalConfig());
         Assertions.assertEquals(3, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));

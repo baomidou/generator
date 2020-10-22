@@ -106,15 +106,32 @@ public class Entity {
      */
     private boolean tableFieldAnnotationEnable;
 
-    /**
-     * 乐观锁属性名称
-     */
-    private String versionFieldName;
 
     /**
-     * 逻辑删除属性名称
+     * 乐观锁字段名称(数据库字段)
+     *
+     * @since 3.4.1
      */
-    private String logicDeleteFieldName;
+    private String versionColumnName;
+
+    /**
+     * 乐观锁属性名称(实体字段)
+     *
+     * @since 3.4.1
+     */
+    private String versionPropertyName;
+
+    /**
+     * 逻辑删除属性数据库字段名称
+     * @since 3.4.1
+     */
+    private String logicDeleteColumnName;
+
+    /**
+     * 逻辑删除实体属性名称
+     * @since 3.4.1
+     */
+    private String logicDeletePropertyName;
 
     /**
      * 表填充字段
@@ -198,6 +215,30 @@ public class Entity {
     public boolean matchSuperEntityColumns(String fieldName) {
         // 公共字段判断忽略大小写【 部分数据库大小写不敏感 】
         return superEntityColumns.stream().anyMatch(e -> e.equalsIgnoreCase(fieldName));
+    }
+
+    /**
+     * 获取乐观锁字段名称
+     *
+     * @return 乐观锁字段名称
+     * @see #getVersionColumnName()
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public String getVersionFieldName() {
+        return getVersionColumnName();
+    }
+
+    /**
+     * 获取逻辑删除字段名称
+     *
+     * @return 逻辑删除字段
+     * @see #getLogicDeleteColumnName()
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public String getLogicDeleteFieldName() {
+        return getLogicDeleteColumnName();
     }
 
     public static class Builder extends BaseBuilder {
@@ -300,9 +341,32 @@ public class Entity {
          *
          * @param versionFieldName 乐观锁属性名称
          * @return this
+         * @see #versionColumnName(String)
          */
+        @Deprecated
         public Builder versionFieldName(String versionFieldName) {
-            this.entity.versionFieldName = versionFieldName;
+            return versionColumnName(versionFieldName);
+        }
+
+        /**
+         * 设置乐观锁数据库表字段名称
+         *
+         * @param versionColumnName 乐观锁数据库字段名称
+         * @return this
+         */
+        public Builder versionColumnName(String versionColumnName) {
+            this.entity.versionColumnName = versionColumnName;
+            return this;
+        }
+
+        /**
+         * 设置乐观锁实体属性字段名称
+         *
+         * @param versionPropertyName 乐观锁实体属性字段名称
+         * @return this
+         */
+        public Builder versionPropertyName(String versionPropertyName) {
+            this.entity.versionPropertyName = versionPropertyName;
             return this;
         }
 
@@ -311,9 +375,32 @@ public class Entity {
          *
          * @param logicDeleteFieldName 逻辑删除属性名称
          * @return this
+         * @deprecated 3.4.1
          */
+        @Deprecated
         public Builder logicDeleteFieldName(String logicDeleteFieldName) {
-            this.entity.logicDeleteFieldName = logicDeleteFieldName;
+            return logicDeleteColumnName(logicDeleteFieldName);
+        }
+
+        /**
+         * 逻辑删除数据库字段名称
+         *
+         * @param logicDeleteColumnName 逻辑删除字段名称
+         * @return this
+         */
+        public Builder logicDeleteColumnName(String logicDeleteColumnName) {
+            this.entity.logicDeleteColumnName = logicDeleteColumnName;
+            return this;
+        }
+
+        /**
+         * 逻辑删除实体属性名称
+         *
+         * @param logicDeletePropertyName 逻辑删除实体属性名称
+         * @return this
+         */
+        public Builder logicDeletePropertyName(String logicDeletePropertyName) {
+            this.entity.logicDeletePropertyName = logicDeletePropertyName;
             return this;
         }
 
