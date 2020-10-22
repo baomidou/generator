@@ -92,13 +92,13 @@ public class ${entity} implements Serializable {
     <%
     /*乐观锁注解*/
     %>
-    <% if(versionFieldName!'' == field.name){ %>
+    <% if(versionFieldName!'' == field.propertyName){ %>
     @Version
     <% } %>
     <%
     /*逻辑删除注解*/
     %>
-    <% if(logicDeleteFieldName!'' == field.name){ %>
+    <% if(logicDeleteFieldName!'' == field.propertyName){ %>
     @TableLogic
     <% } %>
     private ${field.propertyType} ${field.propertyName};

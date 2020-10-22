@@ -65,11 +65,11 @@ class ${entity} : Serializable {
     @TableField("${field.annotationColumnName}")
 </#if>
 <#-- 乐观锁注解 -->
-<#if (versionFieldName!"") == field.name>
+<#if (versionFieldName!"") == field.propertyName>
     @Version
 </#if>
 <#-- 逻辑删除注解 -->
-<#if (logicDeleteFieldName!"") == field.name>
+<#if (logicDeleteFieldName!"") == field.propertyName>
     @TableLogic
 </#if>
     <#if field.propertyType == "Integer">

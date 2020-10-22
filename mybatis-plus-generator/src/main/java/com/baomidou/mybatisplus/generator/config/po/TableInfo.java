@@ -180,7 +180,10 @@ public class TableInfo {
 
     /**
      * 逻辑删除
+     *
+     * @deprecated 3.4.1
      */
+    @Deprecated
     public boolean isLogicDelete(String logicDeletePropertyName) {
         return fields.parallelStream().anyMatch(tf -> tf.getName().equals(logicDeletePropertyName));
     }
@@ -268,9 +271,6 @@ public class TableInfo {
         if (this.isConvert()) {
             this.importPackages.add(TableName.class.getCanonicalName());
         }
-        if (strategyConfig.entity().getLogicDeleteFieldName() != null && this.isLogicDelete(strategyConfig.entity().getLogicDeleteFieldName())) {
-            this.importPackages.add(TableLogic.class.getCanonicalName());
-        }
         IdType idType = Optional.ofNullable(strategyConfig.entity().getIdType()).orElseGet(globalConfig::getIdType);
         if (null != idType && this.isHavePrimaryKey()) {
             // 指定需要 IdType 场景
@@ -301,8 +301,12 @@ public class TableInfo {
                 importPackages.add(FieldFill.class.getCanonicalName());
             }
             String versionFieldName = strategyConfig.entity().getVersionFieldName();
-            if (StringUtils.isNotBlank(versionFieldName) && versionFieldName.equals(field.getName())) {
+            if (field.isVersionField(versionFieldName)) {
                 this.importPackages.add(Version.class.getCanonicalName());
+            }
+            String logicDeleteFiledName = strategyConfig.entity().getLogicDeleteFieldName();
+            if (field.isLogicDeleteFiled(logicDeleteFiledName)) {
+                this.importPackages.add(TableLogic.class.getCanonicalName());
             }
         });
     }

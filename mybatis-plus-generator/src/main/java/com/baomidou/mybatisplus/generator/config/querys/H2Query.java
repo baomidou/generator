@@ -33,51 +33,43 @@ public class H2Query extends AbstractDbQuery {
         return "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE 1=1 ";
     }
 
-
     @Override
     public String tableFieldsSql() {
-        return "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '%s' ";
+        return "select c.*,s.INCREMENT FROM INFORMATION_SCHEMA.COLUMNS c left join INFORMATION_SCHEMA.SEQUENCES s on c.SEQUENCE_NAME = s.SEQUENCE_NAME WHERE TABLE_NAME= '%s' ";
     }
-
 
     @Override
     public String tableName() {
         return "TABLE_NAME";
     }
 
-
     @Override
     public String tableComment() {
         return "REMARKS";
     }
-
 
     @Override
     public String fieldName() {
         return "COLUMN_NAME";
     }
 
-
     @Override
     public String fieldType() {
         return "TYPE_NAME";
     }
-
 
     @Override
     public String fieldComment() {
         return "REMARKS";
     }
 
-
     @Override
     public String fieldKey() {
         return "PRIMARY_KEY";
     }
 
-
     @Override
     public boolean isKeyIdentity(ResultSet results) throws SQLException {
-        return "auto_increment".equals(results.getString("Extra"));
+        return results.getObject("INCREMENT") != null;
     }
 }

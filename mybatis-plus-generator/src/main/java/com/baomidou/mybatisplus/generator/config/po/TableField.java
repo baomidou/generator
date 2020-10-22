@@ -192,4 +192,26 @@ public class TableField {
         }
         return columnName;
     }
+
+    /**
+     * 是否为乐观锁字段
+     *
+     * @param versionFieldName 乐观锁属性字段
+     * @return 是否为乐观锁字段
+     * @since 3.4.1
+     */
+    public boolean isVersionField(String versionFieldName) {
+        return StringUtils.isNotBlank(versionFieldName) && versionFieldName.equals(this.propertyName);
+    }
+
+    /**
+     * 是否为逻辑删除字段
+     *
+     * @param logicDeleteFiledName 逻辑删除字段
+     * @return 是否为逻辑删除字段
+     * @since 3.4.1
+     */
+    public boolean isLogicDeleteFiled(String logicDeleteFiledName) {
+        return StringUtils.isNotBlank(logicDeleteFiledName) && logicDeleteFiledName.equals(this.propertyName);
+    }
 }

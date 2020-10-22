@@ -71,13 +71,13 @@ class ${entity} : Serializable {
     <%
     /*乐观锁注解*/
     %>
-    <% if(versionFieldName!'' == field.name){ %>
+    <% if(versionFieldName!'' == field.propertyName){ %>
     @Version
     <% } %>
     <%
     /*逻辑删除注解*/
     %>
-    <% if(logicDeleteFieldName!'' == field.name){ %>
+    <% if(logicDeleteFieldName!'' == field.propertyName){ %>
     @TableLogic
     <% } %>
     <% if(field.propertyType == 'Integer'){ %>
