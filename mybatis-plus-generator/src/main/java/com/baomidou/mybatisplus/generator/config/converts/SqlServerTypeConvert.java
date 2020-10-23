@@ -69,13 +69,13 @@ public class SqlServerTypeConvert implements ITypeConvert {
      * 转换为日期类型
      *
      * @param config 配置信息
-     * @param type   类型
+     * @param fieldType   类型
      * @return 返回对应的列类型
      */
-    public static IColumnType toDateType(GlobalConfig config, String type) {
+    public static IColumnType toDateType(GlobalConfig config, String fieldType) {
         switch (config.getDateType()) {
             case SQL_PACK:
-                switch (type) {
+                switch (fieldType) {
                     case "date":
                         return DATE_SQL;
                     case "time":
@@ -84,7 +84,7 @@ public class SqlServerTypeConvert implements ITypeConvert {
                         return TIMESTAMP;
                 }
             case TIME_PACK:
-                switch (type) {
+                switch (fieldType) {
                     case "date":
                         return LOCAL_DATE;
                     case "time":
