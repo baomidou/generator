@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -206,12 +207,12 @@ public class ConfigBuilder {
             }
             dbQuery.query(tableFieldsSql, result -> {
                 String columnName = result.getStringResult(dbQuery.fieldName());
-                TableField field = new TableField(columnName,this.strategyConfig);
+                TableField field = new TableField(columnName, this.strategyConfig);
                 // 避免多重主键设置，目前只取第一个找到ID，并放到list中的索引为0的位置
                 boolean isId = DbType.H2 == dbType ? h2PkColumns.contains(columnName) : result.isPrimaryKey();
                 // 处理ID
                 if (isId) {
-                    field.setKeyFlag(true).setKeyIdentityFlag(dbQuery.isKeyIdentity(result.getResultSet()));
+                    field.primaryKey(dbQuery.isKeyIdentity(result.getResultSet()));
                     tableInfo.setHavePrimaryKey(true);
                 }
                 String newColumnName = columnName;
@@ -221,17 +222,14 @@ public class ConfigBuilder {
                     field.setKeyWords(true);
                     newColumnName = keyWordsHandler.formatColumn(columnName);
                 }
-                field.setName(columnName).setColumnName(newColumnName)
+                field.setColumnName(newColumnName)
                     .setType(result.getStringResult(dbQuery.fieldType()))
-                    .setPropertyName(strategyConfig.entity().getNameConvert().propertyNameConvert(field),  dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field))
                     .setComment(result.getFiledComment())
                     .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
-                // 填充逻辑判断
-                strategyConfig.entity().getTableFillList().stream()
-                    //忽略大写字段问题
-                    .filter(tf -> tf.getFieldName().equalsIgnoreCase(field.getName()))
-                    .findFirst().ifPresent(tf -> field.setFill(tf.getFieldFill().name()));
-                if (strategyConfig.entity().matchSuperEntityColumns(field.getName())) {
+                String propertyName = strategyConfig.entity().getNameConvert().propertyNameConvert(field);
+                IColumnType columnType = dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field);
+                field.setPropertyName(propertyName, columnType);
+                if (strategyConfig.entity().matchSuperEntityColumns(columnName)) {
                     // 跳过公共字段
                     commonFieldList.add(field);
                 } else {

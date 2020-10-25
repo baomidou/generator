@@ -181,6 +181,7 @@ public class TableInfo {
     /**
      * 逻辑删除
      *
+     * @see TableField#isLogicDeleteFiled()
      * @deprecated 3.4.1
      */
     @Deprecated

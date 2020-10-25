@@ -158,6 +158,7 @@ public class PackageConfig {
      * @see Builder#entity(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public PackageConfig setEntity(String entity) {
         this.entity = entity;
         return this;
@@ -169,6 +170,7 @@ public class PackageConfig {
      * @see Builder#service(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public PackageConfig setService(String service) {
         this.service = service;
         return this;
@@ -180,6 +182,7 @@ public class PackageConfig {
      * @see Builder#serviceImpl(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public PackageConfig setServiceImpl(String serviceImpl) {
         this.serviceImpl = serviceImpl;
         return this;
@@ -191,6 +194,7 @@ public class PackageConfig {
      * @see Builder#mapper(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public PackageConfig setMapper(String mapper) {
         this.mapper = mapper;
         return this;
@@ -202,6 +206,7 @@ public class PackageConfig {
      * @see Builder#xml(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public PackageConfig setXml(String xml) {
         this.xml = xml;
         return this;
@@ -213,6 +218,7 @@ public class PackageConfig {
      * @see Builder#controller(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public PackageConfig setController(String controller) {
         this.controller = controller;
         return this;
@@ -224,6 +230,7 @@ public class PackageConfig {
      * @see Builder#pathInfo(Map)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public PackageConfig setPathInfo(Map<String, String> pathInfo) {
         this.pathInfo = pathInfo;
         return this;

@@ -91,6 +91,11 @@ public class TableField {
         //TODO 有空把必须字段统一下.
         this.name = name;
         this.strategyConfig = strategyConfig;
+        //TODO 先插这里填充字段处理.
+        this.strategyConfig.entity().getTableFillList().stream()
+            //忽略大写字段问题
+            .filter(tf -> tf.getFieldName().equalsIgnoreCase(columnName))
+            .findFirst().ifPresent(tf -> this.setFill(tf.getFieldFill().name()));
     }
 
     /**
@@ -99,12 +104,20 @@ public class TableField {
      * @see #setConvert(StrategyConfig)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public TableField setConvert(boolean convert) {
         this.convert = convert;
         return this;
     }
 
+    /**
+     * @param strategyConfig 策略配置
+     * @return this
+     * @deprecated 3.4.1 后期不再公开此方法
+     */
+    @Deprecated
     protected TableField setConvert(StrategyConfig strategyConfig) {
+        this.strategyConfig = strategyConfig;
         if (strategyConfig.entity().isTableFieldAnnotationEnable() || isKeyWords()) {
             this.convert = true;
             return this;
@@ -140,9 +153,10 @@ public class TableField {
     /**
      * 设置属性名称
      *
-     * @param propertyName   属性名
-     * @param columnType     字段类型
+     * @param propertyName 属性名
+     * @param columnType   字段类型
      * @return this
+     * @see #TableField(String, StrategyConfig)
      * @since 3.4.1
      */
     public TableField setPropertyName(String propertyName, IColumnType columnType) {
@@ -156,6 +170,21 @@ public class TableField {
         this.propertyName = propertyName;
         this.setConvert(strategyConfig);
         return this;
+    }
+
+    /**
+     * 设置属性名称
+     *
+     * @param strategyConfig 策略配置
+     * @param propertyName   属性名称
+     * @param columnType     字段类型
+     * @return this
+     * @see #TableField(String, StrategyConfig)#setPropertyName(String, IColumnType)
+     */
+    @Deprecated
+    public TableField setPropertyName(StrategyConfig strategyConfig, String propertyName, IColumnType columnType) {
+        this.strategyConfig = strategyConfig;
+        return setPropertyName(propertyName, columnType);
     }
 
     /**
@@ -249,4 +278,69 @@ public class TableField {
         return StringUtils.isNotBlank(propertyName) && this.propertyName.equals(propertyName)
             || StringUtils.isNotBlank(columnName) && this.name.equalsIgnoreCase(columnName);
     }
+
+    /**
+     * @param keyFlag 主键标识
+     * @return this
+     * @see #primaryKey(boolean)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public TableField setKeyFlag(boolean keyFlag) {
+        this.keyFlag = keyFlag;
+        return this;
+    }
+
+    /**
+     * 主键自增标志
+     *
+     * @param keyIdentityFlag 自增标志
+     * @return this
+     * @see #primaryKey(boolean)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public TableField setKeyIdentityFlag(boolean keyIdentityFlag) {
+        this.keyIdentityFlag = keyIdentityFlag;
+        return this;
+    }
+
+    /**
+     * 设置主键
+     *
+     * @param autoIncrement 自增标识
+     * @return this
+     * @since 3.4.1
+     */
+    public TableField primaryKey(boolean autoIncrement) {
+        this.keyFlag = true;
+        this.keyIdentityFlag = autoIncrement;
+        return this;
+    }
+
+    /**
+     * @param fill 填充策略
+     * @return this
+     * @see #TableField(String, StrategyConfig)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public TableField setFill(String fill) {
+        this.fill = fill;
+        return this;
+    }
+
+    /**
+     * 设置数据库字段名
+     *
+     * @param name 数据库字段名
+     * @see #TableField(String, StrategyConfig)
+     * @deprecated 3.4.1
+     */
+    @Deprecated
+    public TableField setName(String name) {
+        this.name = name;
+        return this;
+    }
+
 }

@@ -43,4 +43,39 @@ public class TableFieldTest {
         Assertions.assertEquals("delete", tableField.getPropertyName());
         Assertions.assertTrue(tableField.isConvert());
     }
+
+    @Test
+    void versionFieldTest() {
+        StrategyConfig strategyConfig;
+        strategyConfig = new StrategyConfig.Builder().entityBuilder().versionColumnName("c_version").build();
+        Assertions.assertFalse(new TableField("version", strategyConfig).setPropertyName("version", DbColumnType.LONG).isVersionField());
+        Assertions.assertFalse(new TableField("version", strategyConfig).setPropertyName("version", DbColumnType.LONG).isVersionField());
+        Assertions.assertTrue(new TableField("c_version", strategyConfig).setPropertyName("version", DbColumnType.LONG).isVersionField());
+        Assertions.assertTrue(new TableField("C_VERSION", strategyConfig).setPropertyName("version", DbColumnType.LONG).isVersionField());
+
+        strategyConfig = new StrategyConfig.Builder().entityBuilder().versionPropertyName("version").build();
+        Assertions.assertTrue(new TableField("version", strategyConfig).setPropertyName("version", DbColumnType.LONG).isVersionField());
+        Assertions.assertTrue(new TableField("VERSION", strategyConfig).setPropertyName("version", DbColumnType.LONG).isVersionField());
+        Assertions.assertFalse(new TableField("c_version", strategyConfig).setPropertyName("cVersion", DbColumnType.LONG).isVersionField());
+        Assertions.assertFalse(new TableField("C_VERSION", strategyConfig).setPropertyName("cVersion", DbColumnType.LONG).isVersionField());
+    }
+
+    @Test
+    void logicDeleteFiledTest() {
+        StrategyConfig strategyConfig;
+        strategyConfig = new StrategyConfig.Builder().entityBuilder().logicDeleteColumnName("delete").build();
+        Assertions.assertTrue(new TableField("DELETE", strategyConfig).setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertTrue(new TableField("delete", strategyConfig).setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+
+        strategyConfig = new StrategyConfig.Builder().entityBuilder().logicDeletePropertyName("delete").build();
+        Assertions.assertTrue(new TableField("IS_DELETE", strategyConfig).setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertTrue(new TableField("is_delete", strategyConfig).setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertFalse(new TableField("is_delete", strategyConfig).setPropertyName("isDelete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+
+        strategyConfig = new StrategyConfig.Builder().entityBuilder().booleanColumnRemoveIsPrefix(true).logicDeletePropertyName("delete").build();
+        Assertions.assertTrue(new TableField("IS_DELETE", strategyConfig).setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertTrue(new TableField("is_delete", strategyConfig).setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertTrue(new TableField("is_delete", strategyConfig).setPropertyName("isDelete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertFalse(new TableField("is_delete", strategyConfig).setPropertyName("isDelete", DbColumnType.INTEGER).isLogicDeleteFiled());
+    }
 }
