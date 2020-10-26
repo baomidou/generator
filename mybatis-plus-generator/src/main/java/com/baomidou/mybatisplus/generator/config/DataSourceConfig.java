@@ -15,6 +15,12 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Optional;
+
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.ExceptionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -22,13 +28,8 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
-import lombok.Data;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Optional;
+import lombok.Data;
 
 /**
  * 数据库配置
@@ -277,6 +278,8 @@ public class DataSourceConfig {
             return DbType.OSCAR;
         } else if (str.contains(":firebird:")) {
             return DbType.FIREBIRD;
+        } else if (url.contains(":xugu:")) {
+            return DbType.XU_GU;
         } else {
             return DbType.OTHER;
         }
