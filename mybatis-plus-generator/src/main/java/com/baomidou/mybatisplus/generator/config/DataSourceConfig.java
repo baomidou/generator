@@ -235,10 +235,7 @@ public class DataSourceConfig {
         if (null == this.dbType) {
             this.dbType = this.getDbType(this.url.toLowerCase());
             if (null == this.dbType) {
-                this.dbType = this.getDbType(this.driverName);
-                if (null == this.dbType) {
-                    throw ExceptionUtils.mpe("Unknown type of database!");
-                }
+                throw ExceptionUtils.mpe("Unknown type of database!");
             }
         }
 
@@ -252,7 +249,7 @@ public class DataSourceConfig {
      * @return 类型枚举值，如果没找到，则返回 null
      */
     private DbType getDbType(String str) {
-        if (url.contains(":mysql:") || url.contains(":cobar:")) {
+        if (str.contains(":mysql:") || str.contains(":cobar:")) {
             return DbType.MYSQL;
         } else if (str.contains(":oracle:")) {
             return DbType.ORACLE;
@@ -278,7 +275,7 @@ public class DataSourceConfig {
             return DbType.OSCAR;
         } else if (str.contains(":firebird:")) {
             return DbType.FIREBIRD;
-        } else if (url.contains(":xugu:")) {
+        } else if (str.contains(":xugu:")) {
             return DbType.XU_GU;
         } else {
             return DbType.OTHER;
