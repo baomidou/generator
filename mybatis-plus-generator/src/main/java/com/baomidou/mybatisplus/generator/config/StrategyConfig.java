@@ -15,6 +15,11 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.builder.BaseBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.Controller;
@@ -24,15 +29,11 @@ import com.baomidou.mybatisplus.generator.config.builder.Service;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * 策略配置项
@@ -749,8 +750,11 @@ public class StrategyConfig {
 
     /**
      * 设置是否为lombok模型
+     *
      * @param entityLombokModel 是否为lombok模型
      * @return this
+     * @see Entity.Builder#lombok(boolean)
+     * @deprecated 3.4.1
      */
     @Deprecated
     public StrategyConfig setEntityLombokModel(boolean entityLombokModel) {
