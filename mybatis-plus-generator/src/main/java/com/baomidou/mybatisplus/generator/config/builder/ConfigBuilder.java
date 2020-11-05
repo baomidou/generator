@@ -25,11 +25,6 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +39,6 @@ import java.util.stream.Collectors;
  * @author YangHu, tangguo, hubin, Juzi
  * @since 2016-08-30
  */
-@Data
-@Accessors(chain = true)
 public class ConfigBuilder {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ConfigBuilder.class);
@@ -53,13 +46,10 @@ public class ConfigBuilder {
     /**
      * 模板路径配置信息
      */
-    @Setter(value = AccessLevel.NONE)
     private final TemplateConfig template;
     /**
      * 数据库配置
      */
-    @Getter(value = AccessLevel.NONE)
-    @Setter(value = AccessLevel.NONE)
     private final DataSourceConfig dataSourceConfig;
     /**
      * 数据库表信息
@@ -68,7 +58,6 @@ public class ConfigBuilder {
     /**
      * 路径配置信息
      */
-    @Setter(value = AccessLevel.NONE)
     private final Map<String, String> pathInfo = new HashMap<>();
     /**
      * 策略配置
@@ -295,4 +284,50 @@ public class ConfigBuilder {
         return packageConfig.getPackageInfo();
     }
 
+    public ConfigBuilder setStrategyConfig(StrategyConfig strategyConfig) {
+        this.strategyConfig = strategyConfig;
+        return this;
+    }
+
+    public ConfigBuilder setGlobalConfig(GlobalConfig globalConfig) {
+        this.globalConfig = globalConfig;
+        return this;
+    }
+
+    public ConfigBuilder setInjectionConfig(InjectionConfig injectionConfig) {
+        this.injectionConfig = injectionConfig;
+        return this;
+    }
+
+    public TemplateConfig getTemplate() {
+        return template;
+    }
+
+    public List<TableInfo> getTableInfoList() {
+        return tableInfoList;
+    }
+
+    public Map<String, String> getPathInfo() {
+        return pathInfo;
+    }
+
+    public StrategyConfig getStrategyConfig() {
+        return strategyConfig;
+    }
+
+    public GlobalConfig getGlobalConfig() {
+        return globalConfig;
+    }
+
+    public InjectionConfig getInjectionConfig() {
+        return injectionConfig;
+    }
+
+    public DecoratorDbQuery getDbQuery() {
+        return dbQuery;
+    }
+
+    public PackageConfig getPackageConfig() {
+        return packageConfig;
+    }
 }

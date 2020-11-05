@@ -18,7 +18,6 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import lombok.Data;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,8 +29,6 @@ import java.util.Map;
  * @author YangHu, tangguo, hubin
  * @since 2016-08-30
  */
-
-@Data
 public class PackageConfig {
 
     /**
@@ -245,6 +242,38 @@ public class PackageConfig {
      */
     public String getPackageInfo(String module) {
         return getPackageInfo().get(module);
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public String getEntity() {
+        return entity;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public String getServiceImpl() {
+        return serviceImpl;
+    }
+
+    public String getMapper() {
+        return mapper;
+    }
+
+    public String getXml() {
+        return xml;
+    }
+
+    public String getController() {
+        return controller;
+    }
+
+    public Map<String, String> getPathInfo() {
+        return pathInfo;
     }
 
     /**

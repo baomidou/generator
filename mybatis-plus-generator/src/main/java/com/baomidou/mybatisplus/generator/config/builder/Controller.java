@@ -16,7 +16,6 @@
 package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -25,7 +24,6 @@ import org.jetbrains.annotations.NotNull;
  * @author nieqiurong 2020/10/11.
  * @since 3.4.1
  */
-@Getter
 public class Controller {
 
     private Controller() {
@@ -51,6 +49,17 @@ public class Controller {
      */
     private String superClass;
 
+    public boolean isRestStyle() {
+        return restStyle;
+    }
+
+    public boolean isHyphenStyle() {
+        return hyphenStyle;
+    }
+
+    public String getSuperClass() {
+        return superClass;
+    }
 
     public static class Builder extends BaseBuilder {
 

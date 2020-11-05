@@ -25,8 +25,6 @@ import com.baomidou.mybatisplus.generator.config.IFileCreate;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * 抽象的对外接口
@@ -34,8 +32,6 @@ import lombok.experimental.Accessors;
  * @author hubin
  * @since 2016-12-07
  */
-@Data
-@Accessors(chain = true)
 public class InjectionConfig {
 
     /**
@@ -153,4 +149,29 @@ public class InjectionConfig {
         return this;
     }
 
+    public InjectionConfig setConfig(ConfigBuilder config) {
+        this.config = config;
+        return this;
+    }
+
+    public InjectionConfig setFileCreate(IFileCreate fileCreate) {
+        this.fileCreate = fileCreate;
+        return this;
+    }
+
+    public ConfigBuilder getConfig() {
+        return config;
+    }
+
+    public Map<String, Object> getMap() {
+        return map;
+    }
+
+    public List<FileOutConfig> getFileOutConfigList() {
+        return fileOutConfigList;
+    }
+
+    public IFileCreate getFileCreate() {
+        return fileCreate;
+    }
 }

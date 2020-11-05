@@ -20,7 +20,6 @@ import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.builder.Mapper;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 
-import lombok.Data;
 
 /**
  * 全局配置
@@ -28,7 +27,6 @@ import lombok.Data;
  * @author hubin
  * @since 2016-12-02
  */
-@Data
 public class GlobalConfig {
 
     /**
@@ -248,6 +246,7 @@ public class GlobalConfig {
      * @see Builder#mapperName(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public GlobalConfig setMapperName(String mapperName) {
         this.mapperName = mapperName;
         return this;
@@ -259,6 +258,7 @@ public class GlobalConfig {
      * @see Builder#xmlName(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public GlobalConfig setXmlName(String xmlName) {
         this.xmlName = xmlName;
         return this;
@@ -270,6 +270,7 @@ public class GlobalConfig {
      * @see Builder#serviceName(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public GlobalConfig setServiceName(String serviceName) {
         this.serviceName = serviceName;
         return this;
@@ -281,6 +282,7 @@ public class GlobalConfig {
      * @see Builder#serviceImplName(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public GlobalConfig setServiceImplName(String serviceImplName) {
         this.serviceImplName = serviceImplName;
         return this;
@@ -292,6 +294,7 @@ public class GlobalConfig {
      * @see Builder#controllerName(String)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public GlobalConfig setControllerName(String controllerName) {
         this.controllerName = controllerName;
         return this;
@@ -303,6 +306,7 @@ public class GlobalConfig {
      * @see Builder#dateType(DateType)
      * @deprecated 3.4.1
      */
+    @Deprecated
     public GlobalConfig setDateType(DateType dateType) {
         this.dateType = dateType;
         return this;
@@ -380,6 +384,57 @@ public class GlobalConfig {
         return this;
     }
 
+    public String getOutputDir() {
+        return outputDir;
+    }
+
+    public boolean isFileOverride() {
+        return fileOverride;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public boolean isKotlin() {
+        return kotlin;
+    }
+
+    public boolean isSwagger2() {
+        return swagger2;
+    }
+
+    public DateType getDateType() {
+        return dateType;
+    }
+
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public String getMapperName() {
+        return mapperName;
+    }
+
+    public String getXmlName() {
+        return xmlName;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public String getServiceImplName() {
+        return serviceImplName;
+    }
+
+    public String getControllerName() {
+        return controllerName;
+    }
 
     /**
      * 全局配置构建

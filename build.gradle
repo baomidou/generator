@@ -118,8 +118,6 @@ subprojects {
     }
 
     dependencies {
-        annotationProcessor "${lib.lombok}"
-        compileOnly "${lib.lombok}"
         testAnnotationProcessor "${lib.lombok}"
         testCompileOnly "${lib.lombok}"
 

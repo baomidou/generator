@@ -17,7 +17,6 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
  * @author nieqiurong 2020/10/11.
  * @since 3.4.1
  */
-@Getter
 public class Mapper {
 
     private Mapper() {
@@ -57,6 +55,22 @@ public class Mapper {
      * @since 3.4.1
      */
     private boolean enableXmlCache;
+
+    public String getSuperClass() {
+        return superClass;
+    }
+
+    public boolean isBaseResultMap() {
+        return baseResultMap;
+    }
+
+    public boolean isBaseColumnList() {
+        return baseColumnList;
+    }
+
+    public boolean isEnableXmlCache() {
+        return enableXmlCache;
+    }
 
     public static class Builder extends BaseBuilder {
 

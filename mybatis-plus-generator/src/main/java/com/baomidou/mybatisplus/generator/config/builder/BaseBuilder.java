@@ -16,8 +16,6 @@
 package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 /**
  * 配置构建
@@ -27,7 +25,6 @@ import lombok.Getter;
  */
 public class BaseBuilder {
 
-    @Getter(AccessLevel.NONE)
     private final StrategyConfig strategyConfig;
 
     public BaseBuilder(StrategyConfig strategyConfig) {

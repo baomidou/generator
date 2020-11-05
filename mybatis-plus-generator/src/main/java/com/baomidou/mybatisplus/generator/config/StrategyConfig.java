@@ -30,10 +30,6 @@ import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,7 +38,6 @@ import org.jetbrains.annotations.NotNull;
  * @author YangHu, tangguo, hubin
  * @since 2016/8/30
  */
-@Data
 public class StrategyConfig {
     /**
      * 是否大写命名
@@ -55,24 +50,20 @@ public class StrategyConfig {
     /**
      * 表前缀
      */
-    @Setter(AccessLevel.NONE)
     private final Set<String> tablePrefix = new HashSet<>();
     /**
      * 字段前缀
      */
-    @Setter(AccessLevel.NONE)
     private final Set<String> fieldPrefix = new HashSet<>();
     /**
      * 需要包含的表名，允许正则表达式（与exclude二选一配置）<br/>
      * 当{@link #enableSqlFilter}为true时，正则表达式无效.
      */
-    @Setter(AccessLevel.NONE)
     private final Set<String> include = new HashSet<>();
     /**
      * 需要排除的表名，允许正则表达式<br/>
      * 当{@link #enableSqlFilter}为true时，正则表达式无效.
      */
-    @Setter(AccessLevel.NONE)
     private final Set<String> exclude = new HashSet<>();
     /**
      * 启用sql过滤，语法不能支持使用sql过滤表的话，可以考虑关闭此开关.
@@ -103,16 +94,12 @@ public class StrategyConfig {
     public StrategyConfig() {
     }
 
-    @Getter(AccessLevel.NONE)
     private final Entity.Builder entityBuilder = new Entity.Builder(this);
 
-    @Getter(AccessLevel.NONE)
     private final Controller.Builder controllerBuilder = new Controller.Builder(this);
 
-    @Getter(AccessLevel.NONE)
     private final Mapper.Builder mapperBuilder = new Mapper.Builder(this);
 
-    @Getter(AccessLevel.NONE)
     private final Service.Builder serviceBuilder = new Service.Builder(this);
 
     /**
@@ -1048,6 +1035,42 @@ public class StrategyConfig {
     public StrategyConfig setNotLikeTable(LikeTable notLikeTable) {
         this.notLikeTable = notLikeTable;
         return this;
+    }
+
+    public boolean isCapitalMode() {
+        return isCapitalMode;
+    }
+
+    public boolean isSkipView() {
+        return skipView;
+    }
+
+    public Set<String> getTablePrefix() {
+        return tablePrefix;
+    }
+
+    public Set<String> getFieldPrefix() {
+        return fieldPrefix;
+    }
+
+    public Set<String> getInclude() {
+        return include;
+    }
+
+    public Set<String> getExclude() {
+        return exclude;
+    }
+
+    public boolean isEnableSqlFilter() {
+        return enableSqlFilter;
+    }
+
+    public LikeTable getLikeTable() {
+        return likeTable;
+    }
+
+    public LikeTable getNotLikeTable() {
+        return notLikeTable;
     }
 
     /**

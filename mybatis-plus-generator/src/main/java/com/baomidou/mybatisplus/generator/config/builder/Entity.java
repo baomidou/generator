@@ -25,9 +25,6 @@ import com.baomidou.mybatisplus.generator.config.INameConvert;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -45,7 +42,6 @@ import java.util.stream.Collectors;
  * @author nieqiurong 2020/10/11.
  * @since 3.4.1
  */
-@Getter
 public class Entity {
 
     private Entity() {
@@ -60,13 +56,11 @@ public class Entity {
     /**
      * 自定义继承的Entity类全称，带包名
      */
-    @Setter(AccessLevel.NONE)
     private String superClass;
 
     /**
      * 自定义基础的Entity类，公共字段
      */
-    @Setter(AccessLevel.NONE)
     private final Set<String> superEntityColumns = new HashSet<>();
 
     /**
@@ -240,6 +234,70 @@ public class Entity {
     @Deprecated
     public String getLogicDeleteFieldName() {
         return getLogicDeleteColumnName();
+    }
+
+    public INameConvert getNameConvert() {
+        return nameConvert;
+    }
+
+    public String getSuperClass() {
+        return superClass;
+    }
+
+    public boolean isSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public boolean isColumnConstant() {
+        return columnConstant;
+    }
+
+    public boolean isChain() {
+        return chain;
+    }
+
+    public boolean isLombok() {
+        return lombok;
+    }
+
+    public boolean isBooleanColumnRemoveIsPrefix() {
+        return booleanColumnRemoveIsPrefix;
+    }
+
+    public boolean isTableFieldAnnotationEnable() {
+        return tableFieldAnnotationEnable;
+    }
+
+    public String getVersionColumnName() {
+        return versionColumnName;
+    }
+
+    public String getVersionPropertyName() {
+        return versionPropertyName;
+    }
+
+    public String getLogicDeleteColumnName() {
+        return logicDeleteColumnName;
+    }
+
+    public String getLogicDeletePropertyName() {
+        return logicDeletePropertyName;
+    }
+
+    public List<TableFill> getTableFillList() {
+        return tableFillList;
+    }
+
+    public NamingStrategy getNaming() {
+        return naming;
+    }
+
+    public boolean isActiveRecord() {
+        return activeRecord;
+    }
+
+    public IdType getIdType() {
+        return idType;
     }
 
     public static class Builder extends BaseBuilder {

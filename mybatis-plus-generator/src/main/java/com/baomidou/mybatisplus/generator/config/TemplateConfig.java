@@ -16,9 +16,6 @@
 package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +29,6 @@ import java.util.regex.Pattern;
  * @author tzg hubin
  * @since 2017-06-17
  */
-@Data
 public class TemplateConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TemplateConfig.class);
@@ -47,10 +43,8 @@ public class TemplateConfig {
      * 3.setEntity("/templates/entity%s")
      * 设置实体模板路径
      */
-    @Getter(AccessLevel.NONE)
     private String entity;
 
-    @Getter(AccessLevel.NONE)
     private boolean disableEntity;
 
     /**
@@ -284,6 +278,25 @@ public class TemplateConfig {
         return disable(TemplateType.values());
     }
 
+    public String getService() {
+        return service;
+    }
+
+    public String getServiceImpl() {
+        return serviceImpl;
+    }
+
+    public String getMapper() {
+        return mapper;
+    }
+
+    public String getXml() {
+        return xml;
+    }
+
+    public String getController() {
+        return controller;
+    }
 
     /**
      * 模板路径配置构建者

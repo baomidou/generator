@@ -29,7 +29,6 @@ import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 
-import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -38,7 +37,6 @@ import org.jetbrains.annotations.NotNull;
  * @author YangHu, hcl
  * @since 2016/8/30
  */
-@Data
 public class DataSourceConfig {
 
     /**
@@ -246,7 +244,7 @@ public class DataSourceConfig {
     /**
      * 判断数据库类型
      *
-     * @param str 用于寻找特征的字符串，可以是 driverName 或小写后的 url
+     * @param str url
      * @return 类型枚举值，如果没找到，则返回 null
      */
     private DbType getDbType(String str) {
@@ -344,6 +342,31 @@ public class DataSourceConfig {
         }
         return schema;
     }
+
+    public String getSchemaName() {
+        return schemaName;
+    }
+
+    public IKeyWordsHandler getKeyWordsHandler() {
+        return keyWordsHandler;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 
     /**
      * 数据库配置构建者

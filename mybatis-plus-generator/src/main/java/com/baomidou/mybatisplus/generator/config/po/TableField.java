@@ -19,11 +19,6 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.util.Map;
 
@@ -33,8 +28,6 @@ import java.util.Map;
  * @author YangHu
  * @since 2016-12-03
  */
-@Data
-@Accessors(chain = true)
 public class TableField {
     private boolean convert;
     private boolean keyFlag;
@@ -65,8 +58,6 @@ public class TableField {
      */
     private Map<String, Object> customMap;
 
-    @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
     private StrategyConfig strategyConfig;
 
     /**
@@ -343,4 +334,76 @@ public class TableField {
         return this;
     }
 
+    public TableField setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public TableField setComment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    public TableField setKeyWords(boolean keyWords) {
+        this.keyWords = keyWords;
+        return this;
+    }
+
+    public TableField setColumnName(String columnName) {
+        this.columnName = columnName;
+        return this;
+    }
+
+    public TableField setCustomMap(Map<String, Object> customMap) {
+        this.customMap = customMap;
+        return this;
+    }
+
+    public boolean isConvert() {
+        return convert;
+    }
+
+    public boolean isKeyFlag() {
+        return keyFlag;
+    }
+
+    public boolean isKeyIdentityFlag() {
+        return keyIdentityFlag;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public IColumnType getColumnType() {
+        return columnType;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getFill() {
+        return fill;
+    }
+
+    public boolean isKeyWords() {
+        return keyWords;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public Map<String, Object> getCustomMap() {
+        return customMap;
+    }
 }

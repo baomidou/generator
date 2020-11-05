@@ -17,7 +17,6 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
  * @author nieqiurong 2020/10/11.
  * @since 3.4.1
  */
-@Getter
 public class Service {
 
     private Service() {
@@ -41,6 +39,13 @@ public class Service {
      */
     private String superServiceImplClass = ConstVal.SUPER_SERVICE_IMPL_CLASS;
 
+    public String getSuperServiceClass() {
+        return superServiceClass;
+    }
+
+    public String getSuperServiceImplClass() {
+        return superServiceImplClass;
+    }
 
     public static class Builder extends BaseBuilder {
 

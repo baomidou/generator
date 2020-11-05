@@ -38,8 +38,6 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * 表信息，关联到当前字段信息
@@ -47,8 +45,6 @@ import lombok.experimental.Accessors;
  * @author YangHu
  * @since 2016/8/30
  */
-@Data
-@Accessors(chain = true)
 public class TableInfo {
 
     private final Set<String> importPackages = new HashSet<>();
@@ -340,5 +336,97 @@ public class TableInfo {
      */
     public String getFileName(String entityName, String value, Supplier<String> defaultValue) {
         return StringUtils.isNotBlank(value) ? String.format(value, entityName) : defaultValue.get();
+    }
+
+    public TableInfo setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public TableInfo setComment(String comment) {
+        this.comment = comment;
+        return this;
+    }
+
+    public TableInfo setMapperName(String mapperName) {
+        this.mapperName = mapperName;
+        return this;
+    }
+
+    public TableInfo setXmlName(String xmlName) {
+        this.xmlName = xmlName;
+        return this;
+    }
+
+    public TableInfo setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+        return this;
+    }
+
+    public TableInfo setServiceImplName(String serviceImplName) {
+        this.serviceImplName = serviceImplName;
+        return this;
+    }
+
+    public TableInfo setControllerName(String controllerName) {
+        this.controllerName = controllerName;
+        return this;
+    }
+
+    public TableInfo setHavePrimaryKey(boolean havePrimaryKey) {
+        this.havePrimaryKey = havePrimaryKey;
+        return this;
+    }
+
+    public Set<String> getImportPackages() {
+        return importPackages;
+    }
+
+    public boolean isConvert() {
+        return convert;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public String getMapperName() {
+        return mapperName;
+    }
+
+    public String getXmlName() {
+        return xmlName;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public String getServiceImplName() {
+        return serviceImplName;
+    }
+
+    public String getControllerName() {
+        return controllerName;
+    }
+
+    public List<TableField> getFields() {
+        return fields;
+    }
+
+    public boolean isHavePrimaryKey() {
+        return havePrimaryKey;
+    }
+
+    public List<TableField> getCommonFields() {
+        return commonFields;
     }
 }
