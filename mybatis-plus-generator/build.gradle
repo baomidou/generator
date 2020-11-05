@@ -1,5 +1,5 @@
 dependencies {
-    implementation "${lib.'mybatis-plus'}"
+    api "${lib.'mybatis-plus'}"
     implementation 'org.jetbrains:annotations:16.0.2'
     implementation "${lib.velocity}"
     implementation "${lib.freemarker}"
