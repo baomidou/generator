@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -56,6 +57,21 @@ public class Mapper {
      */
     private boolean enableXmlCache;
 
+    /**
+     * 转换输出Mapper文件名称
+     *
+     * @since 3.4.1
+     */
+    private ConverterFileName converterMapperFileName = (entityName -> entityName + ConstVal.MAPPER);
+
+    /**
+     * 转换输出Xml文件名称
+     *
+     * @since 3.4.1
+     */
+    private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.XML);
+
+
     public String getSuperClass() {
         return superClass;
     }
@@ -70,6 +86,14 @@ public class Mapper {
 
     public boolean isEnableXmlCache() {
         return enableXmlCache;
+    }
+
+    public ConverterFileName getConverterMapperFileName() {
+        return converterMapperFileName;
+    }
+
+    public ConverterFileName getConverterXmlFileName() {
+        return converterXmlFileName;
     }
 
     public static class Builder extends BaseBuilder {
@@ -135,6 +159,53 @@ public class Mapper {
         public Builder enableXmlCache(boolean enableXmlCache) {
             this.mapper.enableXmlCache = enableXmlCache;
             return this;
+        }
+
+        /**
+         * 输出Mapper文件名称转换
+         *
+         * @param converter 　转换处理
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder convertMapperFileName(@NotNull ConverterFileName converter) {
+            this.mapper.converterMapperFileName = converter;
+            return this;
+        }
+
+        /**
+         * 转换Xml文件名称处理
+         *
+         * @param converter 　转换处理
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder convertXmlFileName(@NotNull ConverterFileName converter) {
+            this.mapper.converterXmlFileName = converter;
+            return this;
+        }
+
+
+        /**
+         * 格式化Mapper文件名称
+         *
+         * @param format 　格式
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder formatMapperFileName(String format) {
+            return convertMapperFileName((entityName) -> String.format(entityName, format));
+        }
+
+        /**
+         * 格式化Xml文件名称
+         *
+         * @param format 格式
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder formatXmlFileName(String format) {
+            return convertXmlFileName((entityName) -> String.format(entityName, format));
         }
 
         public Mapper get() {

@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -45,6 +46,29 @@ public class Service {
 
     public String getSuperServiceImplClass() {
         return superServiceImplClass;
+    }
+
+    /**
+     * 转换输出Service文件名称
+     *
+     * @since 3.4.1
+     */
+    private ConverterFileName converterServiceFileName = (entityName -> "I" + entityName + ConstVal.SERVICE);
+
+    /**
+     * 转换输出ServiceImpl文件名称
+     *
+     * @since 3.4.1
+     */
+    private ConverterFileName converterServiceImplFileName = (entityName -> entityName + ConstVal.SERVICE_IMPL);
+
+
+    public ConverterFileName getConverterServiceFileName() {
+        return converterServiceFileName;
+    }
+
+    public ConverterFileName getConverterServiceImplFileName() {
+        return converterServiceImplFileName;
     }
 
     public static class Builder extends BaseBuilder {
@@ -95,6 +119,52 @@ public class Service {
         public Builder superServiceImplClass(String superServiceImplClass) {
             this.service.superServiceImplClass = superServiceImplClass;
             return this;
+        }
+
+        /**
+         * 转换输出service接口文件名称
+         *
+         * @param converter 　转换处理
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder convertServiceFileName(@NotNull ConverterFileName converter) {
+            this.service.converterServiceFileName = converter;
+            return this;
+        }
+
+        /**
+         * 转换输出service实现类文件名称
+         *
+         * @param converter 　转换处理
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder convertServiceImplFileName(@NotNull ConverterFileName converter) {
+            this.service.converterServiceImplFileName = converter;
+            return this;
+        }
+
+        /**
+         * 格式化service接口文件名称
+         *
+         * @param format 　格式
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder formatServiceFileName(String format) {
+            return convertServiceFileName((entityName) -> String.format(entityName, format));
+        }
+
+        /**
+         * 格式化service实现类文件名称
+         *
+         * @param format 　格式
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder formatServiceImplFileName(String format) {
+            return convertServiceImplFileName((entityName) -> String.format(entityName, format));
         }
 
         public Service get() {

@@ -16,6 +16,8 @@
 package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.generator.config.builder.Service;
+import com.baomidou.mybatisplus.generator.config.builder.Controller;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.builder.Mapper;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
@@ -91,11 +93,17 @@ public class GlobalConfig {
      * 各层文件名称方式，例如： %sAction 生成 UserAction
      * %s 为占位符
      */
+    @Deprecated
     private String entityName;
+    @Deprecated
     private String mapperName;
+    @Deprecated
     private String xmlName;
+    @Deprecated
     private String serviceName;
+    @Deprecated
     private String serviceImplName;
+    @Deprecated
     private String controllerName;
 
     /**
@@ -231,7 +239,7 @@ public class GlobalConfig {
     /**
      * @param entityName
      * @return this
-     * @see Builder#entityName(String)
+     * @see Entity.Builder#formatFileName(String)
      * @deprecated 3.4.1
      */
     @Deprecated
@@ -243,7 +251,7 @@ public class GlobalConfig {
     /**
      * @param mapperName
      * @return this
-     * @see Builder#mapperName(String)
+     * @see Mapper.Builder#formatMapperFileName(String)
      * @deprecated 3.4.1
      */
     @Deprecated
@@ -255,7 +263,7 @@ public class GlobalConfig {
     /**
      * @param xmlName
      * @return this
-     * @see Builder#xmlName(String)
+     * @see Mapper.Builder#formatXmlFileName(String)
      * @deprecated 3.4.1
      */
     @Deprecated
@@ -267,7 +275,7 @@ public class GlobalConfig {
     /**
      * @param serviceName
      * @return this
-     * @see Builder#serviceName(String)
+     * @see Service.Builder#formatServiceFileName(String)
      * @deprecated 3.4.1
      */
     @Deprecated
@@ -279,7 +287,7 @@ public class GlobalConfig {
     /**
      * @param serviceImplName
      * @return this
-     * @see Builder#serviceImplName(String)
+     * @see Service.Builder#formatServiceFileName(String)
      * @deprecated 3.4.1
      */
     @Deprecated
@@ -291,7 +299,7 @@ public class GlobalConfig {
     /**
      * @param controllerName
      * @return this
-     * @see Builder#controllerName(String)
+     * @see Controller.Builder#formatFileName(java.lang.String)
      * @deprecated 3.4.1
      */
     @Deprecated
@@ -412,26 +420,32 @@ public class GlobalConfig {
         return dateType;
     }
 
+    @Deprecated
     public String getEntityName() {
         return entityName;
     }
 
+    @Deprecated
     public String getMapperName() {
         return mapperName;
     }
 
+    @Deprecated
     public String getXmlName() {
         return xmlName;
     }
 
+    @Deprecated
     public String getServiceName() {
         return serviceName;
     }
 
+    @Deprecated
     public String getServiceImplName() {
         return serviceImplName;
     }
 
+    @Deprecated
     public String getControllerName() {
         return controllerName;
     }
@@ -546,31 +560,37 @@ public class GlobalConfig {
             return this;
         }
 
+        @Deprecated
         public Builder entityName(String entityName){
             this.globalConfig.entityName = entityName;
             return this;
         }
 
+        @Deprecated
         public Builder xmlName(String xmlName) {
             this.globalConfig.xmlName = xmlName;
             return this;
         }
 
+        @Deprecated
         public Builder serviceName(String serviceName) {
             this.globalConfig.serviceName = serviceName;
             return this;
         }
 
+        @Deprecated
         public Builder serviceImplName(String serviceImplName) {
             this.globalConfig.serviceImplName = serviceImplName;
             return this;
         }
 
+        @Deprecated
         public Builder controllerName(String controllerName) {
             this.globalConfig.controllerName = controllerName;
             return this;
         }
 
+        @Deprecated
         public Builder mapperName(String mapperName) {
             this.globalConfig.mapperName = mapperName;
             return this;

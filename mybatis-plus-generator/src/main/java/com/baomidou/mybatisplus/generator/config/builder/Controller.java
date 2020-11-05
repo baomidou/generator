@@ -15,7 +15,9 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -49,6 +51,13 @@ public class Controller {
      */
     private String superClass;
 
+    /**
+     * 转换输出控制器文件名称
+     *
+     * @since 3.4.1
+     */
+    private ConverterFileName converterFileName = (entityName -> entityName + ConstVal.CONTROLLER);
+
     public boolean isRestStyle() {
         return restStyle;
     }
@@ -59,6 +68,10 @@ public class Controller {
 
     public String getSuperClass() {
         return superClass;
+    }
+
+    public ConverterFileName getConverterFileName() {
+        return converterFileName;
     }
 
     public static class Builder extends BaseBuilder {
@@ -109,6 +122,29 @@ public class Controller {
         public Builder restStyle(boolean restStyle) {
             this.controller.restStyle = restStyle;
             return this;
+        }
+
+        /**
+         * 转换输出文件名称
+         *
+         * @param converter 　转换处理
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder convertFileName(@NotNull ConverterFileName converter) {
+            this.controller.converterFileName = converter;
+            return this;
+        }
+
+        /**
+         * 格式化文件名称
+         *
+         * @param format 　格式
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder formatFileName(String format) {
+            return convertFileName((entityName) -> String.format(entityName, format));
         }
 
         public Controller get() {

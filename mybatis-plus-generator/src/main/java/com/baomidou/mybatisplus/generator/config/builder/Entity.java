@@ -25,6 +25,7 @@ import com.baomidou.mybatisplus.generator.config.INameConvert;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -157,6 +158,13 @@ public class Entity {
      * @since 3.4.1
      */
     private IdType idType;
+
+    /**
+     * 转换输出文件名称
+     *
+     * @since 3.4.1
+     */
+    private ConverterFileName converterFileName = (entityName -> entityName);
 
     /**
      * <p>
@@ -298,6 +306,10 @@ public class Entity {
 
     public IdType getIdType() {
         return idType;
+    }
+
+    public ConverterFileName getConverterFileName() {
+        return converterFileName;
     }
 
     public static class Builder extends BaseBuilder {
@@ -531,6 +543,29 @@ public class Entity {
         public Builder idType(IdType idType) {
             this.entity.idType = idType;
             return this;
+        }
+
+        /**
+         * 转换输出文件名称
+         *
+         * @param converter 　转换处理
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder convertFileName(@NotNull ConverterFileName converter) {
+            this.entity.converterFileName = converter;
+            return this;
+        }
+
+        /**
+         * 格式化文件名称
+         *
+         * @param format 　格式
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder formatFileName(String format) {
+            return convertFileName((entityName) -> String.format(entityName, format));
         }
 
         public Entity get(){

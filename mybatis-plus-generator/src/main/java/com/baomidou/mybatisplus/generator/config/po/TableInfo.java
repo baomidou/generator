@@ -315,12 +315,12 @@ public class TableInfo {
      */
     public void processTable(StrategyConfig strategyConfig, GlobalConfig globalConfig) {
         String entityName = strategyConfig.entity().getNameConvert().entityNameConvert(this);
-        this.setEntityName(strategyConfig, this.getFileName(entityName, globalConfig.getEntityName(), () -> entityName));
-        this.mapperName = this.getFileName(entityName, globalConfig.getMapperName(), () -> entityName + ConstVal.MAPPER);
-        this.xmlName = this.getFileName(entityName, globalConfig.getXmlName(), () -> entityName + ConstVal.XML);
-        this.serviceName = this.getFileName(entityName, globalConfig.getServiceName(), () -> "I" + entityName + ConstVal.SERVICE);
-        this.serviceImplName = this.getFileName(entityName, globalConfig.getServiceImplName(), () -> entityName + ConstVal.SERVICE_IMPL);
-        this.controllerName = this.getFileName(entityName, globalConfig.getControllerName(), () -> entityName + ConstVal.CONTROLLER);
+        this.setEntityName(strategyConfig, this.getFileName(entityName, globalConfig.getEntityName(), () -> strategyConfig.entity().getConverterFileName().convert(entityName)));
+        this.mapperName = this.getFileName(entityName, globalConfig.getMapperName(), () -> strategyConfig.mapper().getConverterMapperFileName().convert(entityName));
+        this.xmlName = this.getFileName(entityName, globalConfig.getXmlName(), () -> strategyConfig.mapper().getConverterXmlFileName().convert(entityName));
+        this.serviceName = this.getFileName(entityName, globalConfig.getServiceName(), () -> strategyConfig.service().getConverterServiceFileName().convert(entityName));
+        this.serviceImplName = this.getFileName(entityName, globalConfig.getServiceImplName(), () -> strategyConfig.service().getConverterServiceImplFileName().convert(entityName));
+        this.controllerName = this.getFileName(entityName, globalConfig.getControllerName(), () -> strategyConfig.controller().getConverterFileName().convert(entityName));
         this.importPackage(strategyConfig, globalConfig);
     }
 
@@ -334,6 +334,7 @@ public class TableInfo {
      * @return 文件名称
      * @since 3.4.1
      */
+    @Deprecated
     public String getFileName(String entityName, String value, Supplier<String> defaultValue) {
         return StringUtils.isNotBlank(value) ? String.format(value, entityName) : defaultValue.get();
     }
