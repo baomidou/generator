@@ -30,6 +30,7 @@ import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 数据库配置
@@ -417,7 +418,7 @@ public class DataSourceConfig {
          * @param driver 驱动类
          * @return this
          */
-        public Builder driver(Class<? extends Driver> driver) {
+        public Builder driver(@NotNull Class<? extends Driver> driver) {
             return driver(driver.getName());
         }
 

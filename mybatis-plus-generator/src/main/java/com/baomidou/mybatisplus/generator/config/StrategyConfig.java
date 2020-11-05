@@ -34,6 +34,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 策略配置项
@@ -309,7 +310,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setTablePrefix(String... tablePrefix) {
+    public StrategyConfig setTablePrefix(@NotNull String... tablePrefix) {
         this.tablePrefix.clear();   //保持语义
         this.tablePrefix.addAll(Arrays.asList(tablePrefix));
         return this;
@@ -334,7 +335,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setSuperEntityColumns(String... superEntityColumns) {
+    public StrategyConfig setSuperEntityColumns(@NotNull String... superEntityColumns) {
         this.entityBuilder.get().getSuperEntityColumns().clear();    //保持语义
         this.entityBuilder.get().getSuperEntityColumns().addAll(Arrays.asList(superEntityColumns));
         return this;
@@ -347,7 +348,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setInclude(String... include) {
+    public StrategyConfig setInclude(@NotNull String... include) {
         this.include.clear();   //保持语义
         this.include.addAll(Arrays.asList(include));
         return this;
@@ -360,7 +361,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setExclude(String... exclude) {
+    public StrategyConfig setExclude(@NotNull String... exclude) {
         this.exclude.clear();   //保持语义
         this.exclude.addAll(Arrays.asList(exclude));
         return this;
@@ -373,7 +374,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setFieldPrefix(String... fieldPrefixs) {
+    public StrategyConfig setFieldPrefix(@NotNull String... fieldPrefixs) {
         this.fieldPrefix.clear();   //保持语义
         this.fieldPrefix.addAll(Arrays.asList(fieldPrefixs));
         return this;
@@ -420,7 +421,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setSuperEntityClass(Class<?> clazz) {
+    public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz) {
         this.entityBuilder.superClass(clazz);
         return this;
     }
@@ -439,7 +440,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1 {@link #setSuperEntityClass(Class)} {@link #setColumnNaming(NamingStrategy)}
      */
     @Deprecated
-    public StrategyConfig setSuperEntityClass(Class<?> clazz, NamingStrategy columnNaming) {
+    public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz, NamingStrategy columnNaming) {
         this.entityBuilder.columnNaming(columnNaming);
         this.entityBuilder.superClass(clazz);
         return this;
@@ -454,7 +455,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setSuperServiceClass(Class<?> clazz) {
+    public StrategyConfig setSuperServiceClass(@NotNull Class<?> clazz) {
         this.serviceBuilder.superServiceClass(clazz);
         return this;
     }
@@ -494,7 +495,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setSuperServiceImplClass(Class<?> clazz) {
+    public StrategyConfig setSuperServiceImplClass(@NotNull Class<?> clazz) {
         this.serviceBuilder.superServiceImplClass(clazz);
         return this;
     }
@@ -534,7 +535,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setSuperControllerClass(Class<?> clazz) {
+    public StrategyConfig setSuperControllerClass(@NotNull Class<?> clazz) {
         this.controllerBuilder.superClass(clazz);
         return this;
     }
@@ -623,7 +624,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    public StrategyConfig setTableFillList(List<TableFill> tableFillList) {
+    public StrategyConfig setTableFillList(@NotNull List<TableFill> tableFillList) {
         this.entityBuilder.get().getTableFillList().clear(); //保持语义
         this.entityBuilder.addTableFills(tableFillList.toArray(new TableFill[]{}));
         return this;
@@ -651,7 +652,7 @@ public class StrategyConfig {
      * @deprecated 3.4.1
      */
     @Deprecated
-    protected void convertSuperEntityColumns(Class<?> clazz) {
+    protected void convertSuperEntityColumns(@NotNull Class<?> clazz) {
         entity().convertSuperEntityColumns(clazz);
     }
 
@@ -952,7 +953,7 @@ public class StrategyConfig {
      * @return 是否匹配
      * @since 3.4.1
      */
-    public boolean matchExcludeTable(String tableName) {
+    public boolean matchExcludeTable(@NotNull String tableName) {
         return matchTable(tableName, this.getExclude());
     }
 
@@ -964,7 +965,7 @@ public class StrategyConfig {
      * @return 是否匹配
      * @since 3.4.1
      */
-    private boolean matchTable(String tableName, Set<String> matchTables) {
+    private boolean matchTable(@NotNull String tableName, @NotNull Set<String> matchTables) {
         return matchTables.stream().anyMatch(t -> tableNameMatches(t, tableName));
     }
 
@@ -975,7 +976,7 @@ public class StrategyConfig {
      * @param dbTableName    数据库表名
      * @return 是否匹配
      */
-    private boolean tableNameMatches(String matchTableName, String dbTableName) {
+    private boolean tableNameMatches(@NotNull String matchTableName, @NotNull String dbTableName) {
         return matchTableName.equalsIgnoreCase(dbTableName) || StringUtils.matches(matchTableName, dbTableName);
     }
 
@@ -1096,7 +1097,7 @@ public class StrategyConfig {
          * @return this
          * @since 3.4.1
          */
-        public Builder addFieldPrefix(String... fieldPrefix) {
+        public Builder addFieldPrefix(@NotNull String... fieldPrefix) {
             this.strategyConfig.fieldPrefix.addAll(Arrays.asList(fieldPrefix));
             return this;
         }
@@ -1108,7 +1109,7 @@ public class StrategyConfig {
          * @return this
          * @since 3.4.1
          */
-        public Builder addInclude(String... include) {
+        public Builder addInclude(@NotNull String... include) {
             this.strategyConfig.include.addAll(Arrays.asList(include));
             return this;
         }
@@ -1120,7 +1121,7 @@ public class StrategyConfig {
          * @return this
          * @since 3.4.1
          */
-        public Builder addExclude(String... exclude) {
+        public Builder addExclude(@NotNull String... exclude) {
             this.strategyConfig.exclude.addAll(Arrays.asList(exclude));
             return this;
         }
@@ -1132,7 +1133,7 @@ public class StrategyConfig {
          * @return this
          * @since 3.4.1
          */
-        public Builder addTablePrefix(String... tablePrefix) {
+        public Builder addTablePrefix(@NotNull String... tablePrefix) {
             this.strategyConfig.tablePrefix.addAll(Arrays.asList(tablePrefix));
             return this;
         }

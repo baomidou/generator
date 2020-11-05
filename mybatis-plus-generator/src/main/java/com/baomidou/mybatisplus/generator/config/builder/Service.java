@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config.builder;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Service属性配置
@@ -55,7 +56,7 @@ public class Service {
          * @param clazz 类
          * @return this
          */
-        public Builder superServiceClass(Class<?> clazz) {
+        public Builder superServiceClass(@NotNull Class<?> clazz) {
             return superServiceClass(clazz.getName());
         }
 
@@ -76,7 +77,7 @@ public class Service {
          * @param clazz 类
          * @return this
          */
-        public Builder superServiceImplClass(Class<?> clazz) {
+        public Builder superServiceImplClass(@NotNull Class<?> clazz) {
             return superServiceImplClass(clazz.getName());
         }
 

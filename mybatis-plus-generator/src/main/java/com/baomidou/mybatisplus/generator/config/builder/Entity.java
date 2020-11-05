@@ -28,6 +28,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -261,7 +262,7 @@ public class Entity {
             return this;
         }
 
-        public Builder superClass(Class<?> clazz) {
+        public Builder superClass(@NotNull Class<?> clazz) {
             return superClass(clazz.getName());
         }
 
@@ -421,7 +422,7 @@ public class Entity {
          * @return this
          * @since 3.4.1
          */
-        public Builder addSuperEntityColumns(String... superEntityColumns) {
+        public Builder addSuperEntityColumns(@NotNull String... superEntityColumns) {
             this.entity.superEntityColumns.addAll(Arrays.asList(superEntityColumns));
             return this;
         }
@@ -433,7 +434,7 @@ public class Entity {
          * @return this
          * @since 3.4.1
          */
-        public Builder addTableFills(TableFill... tableFill) {
+        public Builder addTableFills(@NotNull TableFill... tableFill) {
             this.entity.tableFillList.addAll(Arrays.asList(tableFill));
             return this;
         }
@@ -445,7 +446,7 @@ public class Entity {
          * @return this
          * @since 3.4.1
          */
-        public Builder addTableFills(List<TableFill> tableFillList) {
+        public Builder addTableFills(@NotNull List<TableFill> tableFillList) {
             this.entity.tableFillList.addAll(tableFillList);
             return this;
         }

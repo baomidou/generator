@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config.builder;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 控制器属性配置
@@ -83,7 +84,7 @@ public class Mapper {
          * @return this
          * @since 3.4.1
          */
-        public Builder superClass(Class<?> superClass) {
+        public Builder superClass(@NotNull Class<?> superClass) {
             return superClass(superClass.getName());
         }
 

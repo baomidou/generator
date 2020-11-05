@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 控制器属性配置
@@ -65,7 +66,7 @@ public class Controller {
          * @param clazz 父类控制器
          * @return this
          */
-        public Builder superClass(Class<?> clazz) {
+        public Builder superClass(@NotNull Class<?> clazz) {
             return superClass(clazz.getName());
         }
 
