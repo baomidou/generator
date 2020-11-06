@@ -194,7 +194,7 @@ public class Mapper {
          * @since 3.4.1
          */
         public Builder formatMapperFileName(String format) {
-            return convertMapperFileName((entityName) -> String.format(entityName, format));
+            return convertMapperFileName((entityName) -> String.format(format, entityName));
         }
 
         /**
@@ -205,7 +205,7 @@ public class Mapper {
          * @since 3.4.1
          */
         public Builder formatXmlFileName(String format) {
-            return convertXmlFileName((entityName) -> String.format(entityName, format));
+            return convertXmlFileName((entityName) -> String.format(format, entityName));
         }
 
         public Mapper get() {

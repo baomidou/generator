@@ -565,7 +565,7 @@ public class Entity {
          * @since 3.4.1
          */
         public Builder formatFileName(String format) {
-            return convertFileName((entityName) -> String.format(entityName, format));
+            return convertFileName((entityName) -> String.format(format, entityName));
         }
 
         public Entity get(){

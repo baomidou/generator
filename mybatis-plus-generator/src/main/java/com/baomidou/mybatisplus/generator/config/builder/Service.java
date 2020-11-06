@@ -153,7 +153,7 @@ public class Service {
          * @since 3.4.1
          */
         public Builder formatServiceFileName(String format) {
-            return convertServiceFileName((entityName) -> String.format(entityName, format));
+            return convertServiceFileName((entityName) -> String.format(format, entityName));
         }
 
         /**
@@ -164,7 +164,7 @@ public class Service {
          * @since 3.4.1
          */
         public Builder formatServiceImplFileName(String format) {
-            return convertServiceImplFileName((entityName) -> String.format(entityName, format));
+            return convertServiceImplFileName((entityName) -> String.format(format, entityName));
         }
 
         public Service get() {
