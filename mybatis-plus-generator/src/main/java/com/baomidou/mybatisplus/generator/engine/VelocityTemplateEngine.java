@@ -15,19 +15,22 @@
  */
 package com.baomidou.mybatisplus.generator.engine;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.generator.config.ConstVal;
-import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.app.VelocityEngine;
-
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Map;
 import java.util.Properties;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.generator.config.ConstVal;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 
 /**
  * Velocity 模板引擎实现文件输出
@@ -37,8 +40,18 @@ import java.util.Properties;
  */
 public class VelocityTemplateEngine extends AbstractTemplateEngine {
 
+    private static final Logger logger = LoggerFactory.getLogger(VelocityTemplateEngine.class);
     private static final String DOT_VM = ".vm";
     private VelocityEngine velocityEngine;
+
+    static {
+        try {
+            Class.forName("org.apache.velocity.util.DuckType");
+        } catch (ClassNotFoundException e) {
+            // velocity1.x的生成格式错乱 https://github.com/baomidou/generator/issues/5
+            logger.warn("Velocity 1.x is outdated, please upgrade to 2.x or later.");
+        }
+    }
 
     @Override
     public VelocityTemplateEngine init(ConfigBuilder configBuilder) {
