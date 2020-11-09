@@ -72,7 +72,7 @@ public class AutoGenerator {
      * 后续不公开此构造方法
      *
      * @see #AutoGenerator(DataSourceConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator() {
@@ -82,7 +82,7 @@ public class AutoGenerator {
      * 构造方法
      *
      * @param dataSourceConfig 数据库配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public AutoGenerator(DataSourceConfig dataSourceConfig) {
         //这个是必须参数,其他都是可选的,后续去除默认构造更改成final
@@ -95,7 +95,7 @@ public class AutoGenerator {
      * @param dataSource 数据库配置
      * @return this
      * @see #AutoGenerator(DataSourceConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setDataSource(DataSourceConfig dataSource) {
@@ -109,7 +109,7 @@ public class AutoGenerator {
      * @param templateEngine 模板引擎
      * @return this
      * @see #engine(AbstractTemplateEngine)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setTemplateEngine(AbstractTemplateEngine templateEngine) {
@@ -121,7 +121,7 @@ public class AutoGenerator {
      *
      * @param templateEngine 模板引擎
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public AutoGenerator engine(AbstractTemplateEngine templateEngine) {
         this.templateEngine = templateEngine;
@@ -134,7 +134,7 @@ public class AutoGenerator {
      * @param injectionConfig 注入配置
      * @return this
      * @see #injection(InjectionConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setInjectionConfig(InjectionConfig injectionConfig) {
@@ -146,7 +146,7 @@ public class AutoGenerator {
      *
      * @param injectionConfig 注入配置
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public AutoGenerator injection(InjectionConfig injectionConfig) {
         this.injectionConfig = injectionConfig;
@@ -158,7 +158,7 @@ public class AutoGenerator {
      *
      * @param strategyConfig 策略配置
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public AutoGenerator strategy(StrategyConfig strategyConfig) {
         this.strategy = strategyConfig;
@@ -171,7 +171,7 @@ public class AutoGenerator {
      * @param strategy 策略配置
      * @return this
      * @see #strategy(StrategyConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setStrategy(StrategyConfig strategy) {
@@ -183,7 +183,7 @@ public class AutoGenerator {
      *
      * @param packageConfig 包配置
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public AutoGenerator packageInfo(PackageConfig packageConfig) {
         this.packageInfo = packageConfig;
@@ -196,7 +196,7 @@ public class AutoGenerator {
      * @param packageInfo 包配置
      * @return this
      * @see #packageInfo(PackageConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setPackageInfo(PackageConfig packageInfo) {
@@ -209,7 +209,7 @@ public class AutoGenerator {
      * @param template 模板配置
      * @return this
      * @see #template(TemplateConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setTemplate(TemplateConfig template) {
@@ -221,7 +221,7 @@ public class AutoGenerator {
      *
      * @param templateConfig 模板配置
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public AutoGenerator template(TemplateConfig templateConfig) {
         this.template = templateConfig;
@@ -234,7 +234,7 @@ public class AutoGenerator {
      * @param globalConfig 全局配置
      * @return this
      * @see #global(GlobalConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setGlobalConfig(GlobalConfig globalConfig) {
@@ -246,7 +246,7 @@ public class AutoGenerator {
      *
      * @param globalConfig 全局配置
      * @return this
-     * @see 3.4.1
+     * @see 3.5.0
      */
     public AutoGenerator global(GlobalConfig globalConfig) {
         this.globalConfig = globalConfig;
@@ -258,7 +258,7 @@ public class AutoGenerator {
      *
      * @param configBuilder 配置汇总
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public AutoGenerator config(ConfigBuilder configBuilder) {
         this.config = configBuilder;
@@ -271,7 +271,7 @@ public class AutoGenerator {
      * @param config 配置汇总
      * @return this
      * @see #config(ConfigBuilder)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setConfig(ConfigBuilder config) {
@@ -330,7 +330,7 @@ public class AutoGenerator {
     /**
      * @return this
      * @see #getInjectionConfig()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public InjectionConfig getCfg() {
@@ -341,7 +341,7 @@ public class AutoGenerator {
      * @param injectionConfig injectionConfig
      * @return this
      * @see #injection(InjectionConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public AutoGenerator setCfg(InjectionConfig injectionConfig) {

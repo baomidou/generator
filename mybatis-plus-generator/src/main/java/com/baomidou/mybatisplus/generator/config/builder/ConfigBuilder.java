@@ -240,7 +240,7 @@ public class ConfigBuilder {
      * @return 注释
      * @see DecoratorDbQuery.ResultSetWrapper#formatComment(java.lang.String)
      * @since 3.4.0
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String formatComment(String comment) {
@@ -252,7 +252,7 @@ public class ConfigBuilder {
      *
      * @param tableInfoList tableInfoList
      * @return configBuild
-     * @deprecated 3.4.1 {@link #getTableInfoList()} 返回引用，如果有需要请直接操作
+     * @deprecated 3.5.0 {@link #getTableInfoList()} 返回引用，如果有需要请直接操作
      */
     @Deprecated
     public ConfigBuilder setTableInfoList(List<TableInfo> tableInfoList) {
@@ -266,7 +266,7 @@ public class ConfigBuilder {
      *
      * @param tableName 表名
      * @return 是否正则
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public static boolean matcherRegTable(String tableName) {
         return REGX.matcher(tableName).find();
@@ -277,7 +277,7 @@ public class ConfigBuilder {
      *
      * @return 包配置信息
      * @see PackageConfig#getPackageInfo()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public Map<String, String> getPackageInfo() {

@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
  * 配置构建
  *
  * @author nieqiurong 2020/10/11.
- * @since 3.4.1
+ * @since 3.5.0
  */
 public class BaseBuilder {
 

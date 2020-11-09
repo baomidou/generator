@@ -64,7 +64,7 @@ public abstract class AbstractTemplateEngine {
      * @param tableInfo 表信息
      * @param objectMap 渲染数据
      * @throws Exception ex
-     * @since 3.4.1
+     * @since 3.5.0
      */
     protected void outputCustomFile(TableInfo tableInfo, Map<String, Object> objectMap) throws Exception {
         InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
@@ -86,7 +86,7 @@ public abstract class AbstractTemplateEngine {
      *
      * @param tableInfo 表信息
      * @param objectMap 渲染数据
-     * @since 3.4.1
+     * @since 3.5.0
      */
     protected void outputEntity(TableInfo tableInfo, Map<String, Object> objectMap) {
         String entityName = tableInfo.getEntityName();
@@ -104,7 +104,7 @@ public abstract class AbstractTemplateEngine {
      *
      * @param tableInfo 表信息
      * @param objectMap 渲染数据
-     * @since 3.4.1
+     * @since 3.5.0
      */
     protected void outputMapper(TableInfo tableInfo, Map<String, Object> objectMap) {
         // MpMapper.java
@@ -131,7 +131,7 @@ public abstract class AbstractTemplateEngine {
      *
      * @param tableInfo 表信息
      * @param objectMap 渲染数据
-     * @since 3.4.1
+     * @since 3.5.0
      */
     protected void outputService(TableInfo tableInfo, Map<String, Object> objectMap) {
         // IMpService.java
@@ -158,7 +158,7 @@ public abstract class AbstractTemplateEngine {
      *
      * @param tableInfo 表信息
      * @param objectMap 渲染数据
-     * @since 3.4.1
+     * @since 3.5.0
      */
     protected void outputController(TableInfo tableInfo, Map<String, Object> objectMap) {
         // MpController.java
@@ -179,7 +179,7 @@ public abstract class AbstractTemplateEngine {
      * @param fileType     文件类型
      * @param objectMap    渲染信息
      * @param templatePath 模板路径
-     * @since 3.4.1
+     * @since 3.5.0
      */
     protected void outputFile(String fileName, FileType fileType, Map<String, Object> objectMap, String templatePath) {
         if (StringUtils.isNotBlank(templatePath) && isCreate(fileType, fileName)) {
@@ -196,7 +196,7 @@ public abstract class AbstractTemplateEngine {
      *
      * @param function function
      * @return 模板路径
-     * @since 3.4.1
+     * @since 3.5.0
      */
     protected Optional<String> getTemplateFilePath(Function<TemplateConfig, String> function) {
         TemplateConfig template = getConfigBuilder().getTemplate();
@@ -251,7 +251,7 @@ public abstract class AbstractTemplateEngine {
      * @param outputFile   输出文件
      * @throws Exception ex
      * @see #outputFile(String, FileType, Map, String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     protected void writerFile(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {

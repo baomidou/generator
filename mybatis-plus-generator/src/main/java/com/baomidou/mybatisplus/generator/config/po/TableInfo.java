@@ -69,7 +69,7 @@ public class TableInfo {
      * @param convert convert
      * @return this
      * @see #setConvert(StrategyConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableInfo setConvert(boolean convert) {
@@ -106,7 +106,7 @@ public class TableInfo {
      * @param entityName 实体名称
      * @return this
      * @see #setEntityName(StrategyConfig, String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableInfo setEntityName(String entityName) {
@@ -124,7 +124,7 @@ public class TableInfo {
     /**
      * @see #addFields(List)
      * @see #addFields(TableField...)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableInfo setFields(List<TableField> fields) {
@@ -135,7 +135,7 @@ public class TableInfo {
     /**
      * @param fields 字段集合
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableInfo addFields(List<TableField> fields) {
         this.fields.addAll(fields);
@@ -145,7 +145,7 @@ public class TableInfo {
     /**
      * @param fields 字段集合
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableInfo addFields(TableField... fields) {
         this.fields.addAll(Arrays.asList(fields));
@@ -156,7 +156,7 @@ public class TableInfo {
      * @param pkg 包空间
      * @return this
      * @see #addImportPackages(String...)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableInfo setImportPackages(String pkg) {
@@ -167,7 +167,7 @@ public class TableInfo {
     /**
      * @param pkgs 包空间
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableInfo addImportPackages(String... pkgs) {
         importPackages.addAll(Arrays.asList(pkgs));
@@ -178,7 +178,7 @@ public class TableInfo {
      * 逻辑删除
      *
      * @see TableField#isLogicDeleteFiled()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isLogicDelete(String logicDeletePropertyName) {
@@ -187,7 +187,7 @@ public class TableInfo {
 
     /**
      * @param fieldNames fieldNames
-     * @deprecated 3.4.1 不打算公开此方法了
+     * @deprecated 3.5.0 不打算公开此方法了
      */
     @Deprecated
     public TableInfo setFieldNames(String fieldNames) {
@@ -211,7 +211,7 @@ public class TableInfo {
      * @return this
      * @see #addCommonFields(TableField...)
      * @see #addCommonFields(List)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableInfo setCommonFields(List<TableField> commonFields) {
@@ -224,7 +224,7 @@ public class TableInfo {
      *
      * @param commonFields 公共字段
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableInfo addCommonFields(TableField... commonFields) {
         return addCommonFields(Arrays.asList(commonFields));
@@ -235,7 +235,7 @@ public class TableInfo {
      *
      * @param commonFields 公共字段
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableInfo addCommonFields(List<TableField> commonFields) {
         this.commonFields.addAll(commonFields);
@@ -247,7 +247,7 @@ public class TableInfo {
      *
      * @param strategyConfig 策略配置
      * @param globalConfig   全局配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public void importPackage(StrategyConfig strategyConfig, GlobalConfig globalConfig) {
         boolean importSerializable = true;
@@ -311,7 +311,7 @@ public class TableInfo {
      *
      * @param strategyConfig 策略配置
      * @param globalConfig   全局配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public void processTable(StrategyConfig strategyConfig, GlobalConfig globalConfig) {
         String entityName = strategyConfig.entity().getNameConvert().entityNameConvert(this);
@@ -332,7 +332,7 @@ public class TableInfo {
      * @param value        文件名(支持格式化处理)
      * @param defaultValue 默认文件名
      * @return 文件名称
-     * @since 3.4.1
+     * @since 3.5.0
      */
     @Deprecated
     public String getFileName(String entityName, String value, Supplier<String> defaultValue) {

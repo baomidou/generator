@@ -82,7 +82,7 @@ public class DataSourceConfig {
      * 后续不再公开次构造方法
      *
      * @see Builder#Builder(String, String, String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig() {
@@ -94,7 +94,7 @@ public class DataSourceConfig {
      * @param dbQuery 表数据查询
      * @return this
      * @see Builder#dbQuery(IDbQuery)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setDbQuery(IDbQuery dbQuery) {
@@ -108,7 +108,7 @@ public class DataSourceConfig {
      * @param dbType 数据库类型
      * @return this
      * @see Builder#dbType(DbType)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setDbType(DbType dbType) {
@@ -122,7 +122,7 @@ public class DataSourceConfig {
      * @param schemaName 指定schema
      * @return this
      * @see Builder#schema(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setSchemaName(String schemaName) {
@@ -136,7 +136,7 @@ public class DataSourceConfig {
      * @param typeConvert 数据库字段转换实现
      * @return this
      * @see Builder#typeConvert(ITypeConvert)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setTypeConvert(ITypeConvert typeConvert) {
@@ -150,7 +150,7 @@ public class DataSourceConfig {
      * @param keyWordsHandler 关键字处理器
      * @return this
      * @see Builder#keyWordsHandler(IKeyWordsHandler)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setKeyWordsHandler(IKeyWordsHandler keyWordsHandler) {
@@ -164,7 +164,7 @@ public class DataSourceConfig {
      * @param url 数据库连接地址
      * @return this
      * @see Builder#Builder(java.lang.String, java.lang.String, java.lang.String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setUrl(String url) {
@@ -178,7 +178,7 @@ public class DataSourceConfig {
      * @param driverName 驱动名
      * @return this
      * @see Builder#driver(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setDriverName(String driverName) {
@@ -192,7 +192,7 @@ public class DataSourceConfig {
      * @param username 数据库账号
      * @return this
      * @see Builder#Builder(java.lang.String, java.lang.String, java.lang.String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setUsername(String username) {
@@ -206,7 +206,7 @@ public class DataSourceConfig {
      * @param password 数据库密码
      * @return this
      * @see Builder#Builder(java.lang.String, java.lang.String, java.lang.String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public DataSourceConfig setPassword(String password) {
@@ -322,7 +322,7 @@ public class DataSourceConfig {
      * 获取数据库默认schema
      *
      * @return 默认schema
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private String getDefaultSchema() {
         DbType dbType = getDbType();
@@ -372,7 +372,7 @@ public class DataSourceConfig {
      * 数据库配置构建者
      *
      * @author nieqiurong 2020/10/10.
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public static class Builder {
 

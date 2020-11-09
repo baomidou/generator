@@ -110,7 +110,7 @@ public class GlobalConfig {
      * 后续不再公开此构造方法
      *
      * @see Builder
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig() {
@@ -127,7 +127,7 @@ public class GlobalConfig {
      *
      * @return 是否开启
      * @see Entity#isActiveRecord()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     public boolean isActiveRecord() {
         return activeRecord;
@@ -139,7 +139,7 @@ public class GlobalConfig {
      * @param activeRecord 是否开启
      * @return this
      * @see com.baomidou.mybatisplus.generator.config.builder.Entity.Builder#activeRecord(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setActiveRecord(boolean activeRecord) {
@@ -150,7 +150,7 @@ public class GlobalConfig {
     /**
      * @return this
      * @see Entity#getIdType()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public IdType getIdType() {
@@ -163,7 +163,7 @@ public class GlobalConfig {
      * @param idType 主键类型
      * @return this
      * @see Entity.Builder#idType(IdType)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setIdType(IdType idType) {
@@ -174,7 +174,7 @@ public class GlobalConfig {
     /**
      * @return 是否开启
      * @see Mapper#isBaseResultMap() a
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isBaseResultMap() {
@@ -185,7 +185,7 @@ public class GlobalConfig {
      * @param baseResultMap 是否开启
      * @return this
      * @see Mapper.Builder#baseResultMap(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setBaseResultMap(boolean baseResultMap) {
@@ -196,7 +196,7 @@ public class GlobalConfig {
     /**
      * @return 是否开启
      * @see Mapper#isBaseColumnList()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isBaseColumnList() {
@@ -217,7 +217,7 @@ public class GlobalConfig {
     /**
      * @return 是否开启
      * @see Mapper#isEnableXmlCache()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isEnableCache() {
@@ -228,7 +228,7 @@ public class GlobalConfig {
      * @param enableCache 是否开启
      * @return this
      * @see Mapper.Builder#enableXmlCache(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setEnableCache(boolean enableCache) {
@@ -240,7 +240,7 @@ public class GlobalConfig {
      * @param entityName
      * @return this
      * @see Entity.Builder#formatFileName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setEntityName(String entityName) {
@@ -252,7 +252,7 @@ public class GlobalConfig {
      * @param mapperName
      * @return this
      * @see Mapper.Builder#formatMapperFileName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setMapperName(String mapperName) {
@@ -264,7 +264,7 @@ public class GlobalConfig {
      * @param xmlName
      * @return this
      * @see Mapper.Builder#formatXmlFileName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setXmlName(String xmlName) {
@@ -276,7 +276,7 @@ public class GlobalConfig {
      * @param serviceName
      * @return this
      * @see Service.Builder#formatServiceFileName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setServiceName(String serviceName) {
@@ -288,7 +288,7 @@ public class GlobalConfig {
      * @param serviceImplName
      * @return this
      * @see Service.Builder#formatServiceFileName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setServiceImplName(String serviceImplName) {
@@ -300,7 +300,7 @@ public class GlobalConfig {
      * @param controllerName
      * @return this
      * @see Controller.Builder#formatFileName(java.lang.String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setControllerName(String controllerName) {
@@ -312,7 +312,7 @@ public class GlobalConfig {
      * @param dateType
      * @return this
      * @see Builder#dateType(DateType)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setDateType(DateType dateType) {
@@ -324,7 +324,7 @@ public class GlobalConfig {
      * @param outputDir
      * @return this
      * @see Builder#outputDir(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setOutputDir(String outputDir) {
@@ -336,7 +336,7 @@ public class GlobalConfig {
      * @param fileOverride
      * @return this
      * @see Builder#fileOverride(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setFileOverride(boolean fileOverride) {
@@ -348,7 +348,7 @@ public class GlobalConfig {
      * @param open
      * @return this
      * @see Builder#openDir(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setOpen(boolean open) {
@@ -360,7 +360,7 @@ public class GlobalConfig {
      * @param author
      * @return this
      * @see Builder#author(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setAuthor(String author) {
@@ -372,7 +372,7 @@ public class GlobalConfig {
      * @param kotlin
      * @return this
      * @see Builder#kotlin(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setKotlin(boolean kotlin) {
@@ -384,7 +384,7 @@ public class GlobalConfig {
      * @param swagger2
      * @return this
      * @see Builder#swagger2(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public GlobalConfig setSwagger2(boolean swagger2) {
@@ -454,7 +454,7 @@ public class GlobalConfig {
      * 全局配置构建
      *
      * @author nieqiurong 2020/10/11.
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public static class Builder {
 
@@ -466,7 +466,7 @@ public class GlobalConfig {
          * @param activeRecord 是否开启
          * @return this
          * @see com.baomidou.mybatisplus.generator.config.builder.Entity.Builder#activeRecord(boolean)
-         * @deprecated 3.4.1
+         * @deprecated 3.5.0
          */
         @Deprecated
         public Builder activeRecord(boolean activeRecord) {
@@ -480,7 +480,7 @@ public class GlobalConfig {
          * @param idType 主键类型
          * @return this
          * @see Entity.Builder#idType(IdType)
-         * @deprecated 3.4.1
+         * @deprecated 3.5.0
          */
         @Deprecated
         public Builder idType(IdType idType) {
@@ -494,7 +494,7 @@ public class GlobalConfig {
          * @param baseResultMap 是否开启
          * @return this
          * @see Mapper.Builder#baseResultMap(boolean)
-         * @deprecated 3.4.1
+         * @deprecated 3.5.0
          */
         @Deprecated
         public Builder baseResultMap(boolean baseResultMap) {
@@ -508,7 +508,7 @@ public class GlobalConfig {
          * @param baseColumnList 是否开启
          * @return this
          * @see Mapper.Builder#baseColumnList(boolean)
-         * @deprecated 3.4.1
+         * @deprecated 3.5.0
          */
         @Deprecated
         public Builder baseColumnList(boolean baseColumnList) {
@@ -522,7 +522,7 @@ public class GlobalConfig {
          * @param enableCache 是否开启
          * @return this
          * @see Mapper.Builder#enableXmlCache(boolean)
-         * @deprecated 3.4.1
+         * @deprecated 3.5.0
          */
         @Deprecated
         public Builder enableCache(boolean enableCache) {

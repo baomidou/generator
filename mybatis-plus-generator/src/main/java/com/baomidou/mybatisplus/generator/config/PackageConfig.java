@@ -71,7 +71,7 @@ public class PackageConfig {
     /**
      * 包配置信息
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private final Map<String, String> packageInfo = new HashMap<>();
 
@@ -90,7 +90,7 @@ public class PackageConfig {
      * 连接父子包名
      *
      * @return 连接后的包名
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public String joinPackage(String subPackage) {
         String parent = getParent();
@@ -101,7 +101,7 @@ public class PackageConfig {
      * 获取包配置信息
      *
      * @return 包配置信息
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Map<String, String> getPackageInfo() {
         if (packageInfo.isEmpty()) {
@@ -120,7 +120,7 @@ public class PackageConfig {
      * 后续不再公开此构造方法
      *
      * @see Builder
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     public PackageConfig() {
     }
@@ -129,7 +129,7 @@ public class PackageConfig {
      * @param parent 父包名
      * @return this
      * @see Builder#parent(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setParent(String parent) {
@@ -141,7 +141,7 @@ public class PackageConfig {
      * @param moduleName 模块名
      * @return this
      * @see Builder#moduleName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setModuleName(String moduleName) {
@@ -153,7 +153,7 @@ public class PackageConfig {
      * @param entity 实体名
      * @return this
      * @see Builder#entity(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setEntity(String entity) {
@@ -165,7 +165,7 @@ public class PackageConfig {
      * @param service service接口包名
      * @return this
      * @see Builder#service(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setService(String service) {
@@ -177,7 +177,7 @@ public class PackageConfig {
      * @param serviceImpl service实现类包名
      * @return this
      * @see Builder#serviceImpl(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setServiceImpl(String serviceImpl) {
@@ -189,7 +189,7 @@ public class PackageConfig {
      * @param mapper mapper包名
      * @return this
      * @see Builder#mapper(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setMapper(String mapper) {
@@ -201,7 +201,7 @@ public class PackageConfig {
      * @param xml xml包名
      * @return this
      * @see Builder#xml(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setXml(String xml) {
@@ -213,7 +213,7 @@ public class PackageConfig {
      * @param controller 控制器包名
      * @return this
      * @see Builder#controller(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setController(String controller) {
@@ -225,7 +225,7 @@ public class PackageConfig {
      * @param pathInfo 路径信息
      * @return this
      * @see Builder#pathInfo(Map)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public PackageConfig setPathInfo(Map<String, String> pathInfo) {
@@ -238,7 +238,7 @@ public class PackageConfig {
      *
      * @param module 模块
      * @return 配置信息
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public String getPackageInfo(String module) {
         return getPackageInfo().get(module);
@@ -280,7 +280,7 @@ public class PackageConfig {
      * 构建者
      *
      * @author nieqiurong 2020/10/13.
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public static class Builder {
 

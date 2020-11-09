@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  * 实体属性配置
  *
  * @author nieqiurong 2020/10/11.
- * @since 3.4.1
+ * @since 3.5.0
  */
 public class Entity {
 
@@ -106,26 +106,26 @@ public class Entity {
     /**
      * 乐观锁字段名称(数据库字段)
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private String versionColumnName;
 
     /**
      * 乐观锁属性名称(实体字段)
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private String versionPropertyName;
 
     /**
      * 逻辑删除属性数据库字段名称
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private String logicDeleteColumnName;
 
     /**
      * 逻辑删除实体属性名称
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private String logicDeletePropertyName;
 
@@ -148,21 +148,21 @@ public class Entity {
     /**
      * 开启 ActiveRecord 模式
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private boolean activeRecord;
 
     /**
      * 指定生成的主键的ID类型
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private IdType idType;
 
     /**
      * 转换输出文件名称
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private ConverterFileName converterFileName = (entityName -> entityName);
 
@@ -213,7 +213,7 @@ public class Entity {
      *
      * @param fieldName 字段名
      * @return 是否匹配
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public boolean matchSuperEntityColumns(String fieldName) {
         // 公共字段判断忽略大小写【 部分数据库大小写不敏感 】
@@ -225,7 +225,7 @@ public class Entity {
      *
      * @return 乐观锁字段名称
      * @see #getVersionColumnName()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getVersionFieldName() {
@@ -237,7 +237,7 @@ public class Entity {
      *
      * @return 逻辑删除字段
      * @see #getLogicDeleteColumnName()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getLogicDeleteFieldName() {
@@ -446,7 +446,7 @@ public class Entity {
          *
          * @param logicDeleteFieldName 逻辑删除属性名称
          * @return this
-         * @deprecated 3.4.1
+         * @deprecated 3.5.0
          */
         @Deprecated
         public Builder logicDeleteFieldName(String logicDeleteFieldName) {
@@ -490,7 +490,7 @@ public class Entity {
          *
          * @param superEntityColumns 父类字段(数据库字段列名)
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder addSuperEntityColumns(@NotNull String... superEntityColumns) {
             this.entity.superEntityColumns.addAll(Arrays.asList(superEntityColumns));
@@ -502,7 +502,7 @@ public class Entity {
          *
          * @param tableFill 填充字段
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder addTableFills(@NotNull TableFill... tableFill) {
             this.entity.tableFillList.addAll(Arrays.asList(tableFill));
@@ -514,7 +514,7 @@ public class Entity {
          *
          * @param tableFillList 填充字段集合
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder addTableFills(@NotNull List<TableFill> tableFillList) {
             this.entity.tableFillList.addAll(tableFillList);
@@ -526,7 +526,7 @@ public class Entity {
          *
          * @param activeRecord 是否开启
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder activeRecord(boolean activeRecord) {
             this.entity.activeRecord = activeRecord;
@@ -538,7 +538,7 @@ public class Entity {
          *
          * @param idType ID类型
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder idType(IdType idType) {
             this.entity.idType = idType;
@@ -550,7 +550,7 @@ public class Entity {
          *
          * @param converter 　转换处理
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder convertFileName(@NotNull ConverterFileName converter) {
             this.entity.converterFileName = converter;
@@ -562,7 +562,7 @@ public class Entity {
          *
          * @param format 　格式
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder formatFileName(String format) {
             return convertFileName((entityName) -> String.format(format, entityName));

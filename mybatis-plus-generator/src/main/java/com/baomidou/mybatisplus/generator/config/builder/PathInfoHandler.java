@@ -32,7 +32,7 @@ import java.util.Map;
  * 路径信息处理
  *
  * @author nieqiurong 2020/10/6.
- * @since 3.4.1
+ * @since 3.5.0
  */
 class PathInfoHandler {
 

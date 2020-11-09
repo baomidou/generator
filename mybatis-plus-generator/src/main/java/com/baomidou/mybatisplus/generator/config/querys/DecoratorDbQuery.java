@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * 装饰DbQuery
  *
  * @author nieqiurong 2020/9/17.
- * @since 3.4.1
+ * @since 3.5.0
  */
 public class DecoratorDbQuery extends AbstractDbQuery {
 

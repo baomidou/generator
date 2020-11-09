@@ -88,7 +88,7 @@ public class StrategyConfig {
      * 后续不再公开此构造方法
      *
      * @see Builder
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig() {
@@ -106,7 +106,7 @@ public class StrategyConfig {
      * 实体配置构建者
      *
      * @return 实体配置构建者
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Entity.Builder entityBuilder() {
         return entityBuilder;
@@ -114,7 +114,7 @@ public class StrategyConfig {
 
     /**
      * @return 实体配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Entity entity() {
         return entityBuilder.get();
@@ -124,7 +124,7 @@ public class StrategyConfig {
      * 控制器配置构建者
      *
      * @return 控制器配置构建者
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Controller.Builder controllerBuilder() {
         return controllerBuilder;
@@ -134,7 +134,7 @@ public class StrategyConfig {
      * 控制器配置
      *
      * @return 控制器配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Controller controller() {
         return controllerBuilder.get();
@@ -144,7 +144,7 @@ public class StrategyConfig {
      * Mapper配置构建者
      *
      * @return Mapper配置构建者
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Mapper.Builder mapperBuilder() {
         return mapperBuilder;
@@ -155,7 +155,7 @@ public class StrategyConfig {
      * Mapper配置
      *
      * @return Mapper配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Mapper mapper() {
         return mapperBuilder.get();
@@ -166,7 +166,7 @@ public class StrategyConfig {
      * Service配置构建者
      *
      * @return Service配置构建者
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Service.Builder serviceBuilder() {
         return serviceBuilder;
@@ -177,7 +177,7 @@ public class StrategyConfig {
      * Service配置
      *
      * @return Service配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public Service service() {
         return serviceBuilder.get();
@@ -188,7 +188,7 @@ public class StrategyConfig {
      *
      * @return 名称转换
      * @see Entity#getNameConvert()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     public INameConvert getNameConvert() {
         return entity().getNameConvert();
@@ -200,7 +200,7 @@ public class StrategyConfig {
      * @param nameConvert 名称转换实现
      * @return this
      * @see Entity.Builder#nameConvert(INameConvert)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setNameConvert(INameConvert nameConvert) {
@@ -213,7 +213,7 @@ public class StrategyConfig {
      *
      * @return 命名策略
      * @see Entity.Builder#getNaming()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public NamingStrategy getNaming() {
@@ -226,7 +226,7 @@ public class StrategyConfig {
      * @param naming 命名策略
      * @return this
      * @see Entity.Builder#naming(NamingStrategy)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setNaming(NamingStrategy naming) {
@@ -269,7 +269,7 @@ public class StrategyConfig {
      *
      * @return 命名策略
      * @see Entity.Builder#getColumnNaming()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public NamingStrategy getColumnNaming() {
@@ -282,7 +282,7 @@ public class StrategyConfig {
      * @param columnNaming 命名策略
      * @return this
      * @see Entity.Builder#columnNaming(NamingStrategy)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setColumnNaming(NamingStrategy columnNaming) {
@@ -294,7 +294,7 @@ public class StrategyConfig {
      * @param tablePrefix 表前缀
      * @return this
      * @see Builder#addTablePrefix(String...)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setTablePrefix(@NotNull String... tablePrefix) {
@@ -307,7 +307,7 @@ public class StrategyConfig {
      * @param fieldName 字段名
      * @return 是否匹配
      * @see Entity.Builder#matchSuperEntityColumns(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean includeSuperEntityColumns(String fieldName) {
@@ -319,7 +319,7 @@ public class StrategyConfig {
      * @param superEntityColumns 父类字段
      * @return this
      * @see Entity.Builder#addSuperEntityColumns(String...)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperEntityColumns(@NotNull String... superEntityColumns) {
@@ -332,7 +332,7 @@ public class StrategyConfig {
      * @param include 包含表
      * @return this
      * @see Builder#addInclude(String...)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setInclude(@NotNull String... include) {
@@ -345,7 +345,7 @@ public class StrategyConfig {
      * @param exclude 排除表
      * @return this
      * @see Builder#addExclude(String...)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setExclude(@NotNull String... exclude) {
@@ -358,7 +358,7 @@ public class StrategyConfig {
      * @param fieldPrefixs 字段前缀
      * @return this
      * @see Builder#addFieldPrefix(String...)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setFieldPrefix(@NotNull String... fieldPrefixs) {
@@ -373,7 +373,7 @@ public class StrategyConfig {
      * @param superEntityClass 类全名称
      * @return this
      * @see Entity.Builder#superClass(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperEntityClass(String superEntityClass) {
@@ -386,7 +386,7 @@ public class StrategyConfig {
      *
      * @return 类全名称
      * @see Entity.Builder#getSuperClass() ()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getSuperEntityClass() {
@@ -405,7 +405,7 @@ public class StrategyConfig {
      * @param clazz 实体父类 Class
      * @return this
      * @see Entity.Builder#superClass(Class)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz) {
@@ -424,7 +424,7 @@ public class StrategyConfig {
      * @return this
      * @see Entity.Builder#columnNaming(NamingStrategy)
      * @see Entity.Builder#superClass(Class)
-     * @deprecated 3.4.1 {@link #setSuperEntityClass(Class)} {@link #setColumnNaming(NamingStrategy)}
+     * @deprecated 3.5.0 {@link #setSuperEntityClass(Class)} {@link #setColumnNaming(NamingStrategy)}
      */
     @Deprecated
     public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz, NamingStrategy columnNaming) {
@@ -439,7 +439,7 @@ public class StrategyConfig {
      * @param clazz 类
      * @return this
      * @see Service.Builder#superServiceClass(Class)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperServiceClass(@NotNull Class<?> clazz) {
@@ -453,7 +453,7 @@ public class StrategyConfig {
      * @param superServiceClass 类名
      * @return this
      * @see Service.Builder#superServiceClass(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperServiceClass(String superServiceClass) {
@@ -466,7 +466,7 @@ public class StrategyConfig {
      *
      * @return Service接口父类
      * @see Service.Builder#getSuperServiceClass()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getSuperServiceClass() {
@@ -479,7 +479,7 @@ public class StrategyConfig {
      * @param clazz 类
      * @return this
      * @see Service.Builder#superServiceImplClass(Class)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperServiceImplClass(@NotNull Class<?> clazz) {
@@ -493,7 +493,7 @@ public class StrategyConfig {
      * @param superServiceImplClass 类名
      * @return this
      * @see Service.Builder#superServiceImplClass(Class)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperServiceImplClass(String superServiceImplClass) {
@@ -506,7 +506,7 @@ public class StrategyConfig {
      *
      * @return this
      * @see Service.Builder#getSuperServiceImplClass()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getSuperServiceImplClass() {
@@ -519,7 +519,7 @@ public class StrategyConfig {
      * @param clazz 父类控制器
      * @return this
      * @see Controller.Builder#superClass(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperControllerClass(@NotNull Class<?> clazz) {
@@ -533,7 +533,7 @@ public class StrategyConfig {
      * @param superControllerClass 父类控制器
      * @return this
      * @see Controller.Builder#superClass(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperControllerClass(String superControllerClass) {
@@ -546,7 +546,7 @@ public class StrategyConfig {
      *
      * @return 父类控制器
      * @see Controller.Builder#getSuperClass()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getSuperControllerClass() {
@@ -582,7 +582,7 @@ public class StrategyConfig {
      *
      * @return 是否驼峰转连字符
      * @see Controller.Builder#isHyphenStyle()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isControllerMappingHyphenStyle() {
@@ -595,7 +595,7 @@ public class StrategyConfig {
      * @param controllerMappingHyphenStyle 是否驼峰转连字符
      * @return this
      * @see Controller.Builder#hyphenStyle(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setControllerMappingHyphenStyle(boolean controllerMappingHyphenStyle) {
@@ -608,7 +608,7 @@ public class StrategyConfig {
      *
      * @param tableFillList tableFillList
      * @see Entity.Builder#addTableFills(List)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setTableFillList(@NotNull List<TableFill> tableFillList) {
@@ -622,7 +622,7 @@ public class StrategyConfig {
      *
      * @return 表填充字段
      * @see Entity.Builder#getTableFillList()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public List<TableFill> getTableFillList() {
@@ -636,7 +636,7 @@ public class StrategyConfig {
      *
      * @param clazz 实体父类 Class
      * @see Entity.Builder#convertSuperEntityColumns(Class)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     protected void convertSuperEntityColumns(@NotNull Class<?> clazz) {
@@ -669,7 +669,7 @@ public class StrategyConfig {
     /**
      * @return 父类字段
      * @see Entity.Builder#getSuperEntityColumns()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public Set<String> getSuperEntityColumns() {
@@ -681,7 +681,7 @@ public class StrategyConfig {
      *
      * @return 是否为链式模型
      * @see Entity#isChain()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isChainModel() {
@@ -694,7 +694,7 @@ public class StrategyConfig {
      * @param chainModel 链式模型
      * @return this
      * @see Entity.Builder#chainModel(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     public StrategyConfig setChainModel(boolean chainModel) {
         this.entityBuilder.chainModel(chainModel);
@@ -706,7 +706,7 @@ public class StrategyConfig {
      *
      * @return 是否生成
      * @see Entity.Builder#isSerialVersionUID()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     public boolean isEntitySerialVersionUID() {
         return entity().isSerialVersionUID();
@@ -716,7 +716,7 @@ public class StrategyConfig {
      * @param entitySerialVersionUID 是否生成
      * @return this
      * @see Entity.Builder#serialVersionUID(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setEntitySerialVersionUID(boolean entitySerialVersionUID) {
@@ -729,7 +729,7 @@ public class StrategyConfig {
      *
      * @return 是否为lombok模型
      * @see Entity#isLombok()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isEntityLombokModel() {
@@ -742,7 +742,7 @@ public class StrategyConfig {
      * @param entityLombokModel 是否为lombok模型
      * @return this
      * @see Entity.Builder#lombok(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setEntityLombokModel(boolean entityLombokModel) {
@@ -755,7 +755,7 @@ public class StrategyConfig {
      *
      * @return 是否生成字段常量
      * @see Entity#isColumnConstant()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isEntityColumnConstant() {
@@ -768,7 +768,7 @@ public class StrategyConfig {
      * @param entityColumnConstant 是否生成字段常量
      * @return this
      * @see Entity.Builder#columnConstant(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setEntityColumnConstant(boolean entityColumnConstant) {
@@ -781,7 +781,7 @@ public class StrategyConfig {
      *
      * @return 是否移除
      * @see Entity#isBooleanColumnRemoveIsPrefix()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isEntityBooleanColumnRemoveIsPrefix() {
@@ -794,7 +794,7 @@ public class StrategyConfig {
      * @param entityBooleanColumnRemoveIsPrefix 是否移除
      * @return this
      * @see Entity.Builder#booleanColumnRemoveIsPrefix(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setEntityBooleanColumnRemoveIsPrefix(boolean entityBooleanColumnRemoveIsPrefix) {
@@ -807,7 +807,7 @@ public class StrategyConfig {
      *
      * @return 是否生成
      * @see Entity.Builder#isTableFieldAnnotationEnable()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public boolean isEntityTableFieldAnnotationEnable() {
@@ -820,7 +820,7 @@ public class StrategyConfig {
      * @param entityTableFieldAnnotationEnable 是否生成
      * @return this
      * @see Entity.Builder#tableFieldAnnotationEnable(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setEntityTableFieldAnnotationEnable(boolean entityTableFieldAnnotationEnable) {
@@ -833,7 +833,7 @@ public class StrategyConfig {
      *
      * @return 乐观锁属性名称
      * @see Entity#getVersionFieldName()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getVersionFieldName() {
@@ -846,7 +846,7 @@ public class StrategyConfig {
      * @param versionFieldName 乐观锁属性名称
      * @return this
      * @see Entity.Builder#versionFieldName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setVersionFieldName(String versionFieldName) {
@@ -859,7 +859,7 @@ public class StrategyConfig {
      *
      * @return 逻辑删除属性名称
      * @see Entity#getLogicDeleteFieldName()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getLogicDeleteFieldName() {
@@ -872,7 +872,7 @@ public class StrategyConfig {
      * @param logicDeleteFieldName 逻辑删除属性名称
      * @return this
      * @see Entity.Builder#logicDeleteFieldName(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setLogicDeleteFieldName(String logicDeleteFieldName) {
@@ -885,7 +885,7 @@ public class StrategyConfig {
      *
      * @return 类名
      * @see Mapper.Builder#getSuperClass()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public String getSuperMapperClass() {
@@ -898,7 +898,7 @@ public class StrategyConfig {
      * @param superMapperClass 类名
      * @return this
      * @see Mapper.Builder#superClass(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSuperMapperClass(String superMapperClass) {
@@ -909,7 +909,7 @@ public class StrategyConfig {
     /**
      * 验证配置项
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public void validate() {
         boolean isInclude = this.getInclude().size() > 0;
@@ -927,7 +927,7 @@ public class StrategyConfig {
      *
      * @param tableName 表名
      * @return 是否匹配
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public boolean matchIncludeTable(String tableName) {
         return matchTable(tableName, this.getInclude());
@@ -938,7 +938,7 @@ public class StrategyConfig {
      *
      * @param tableName 表名
      * @return 是否匹配
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public boolean matchExcludeTable(@NotNull String tableName) {
         return matchTable(tableName, this.getExclude());
@@ -950,7 +950,7 @@ public class StrategyConfig {
      * @param tableName   表名
      * @param matchTables 匹配集合
      * @return 是否匹配
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private boolean matchTable(@NotNull String tableName, @NotNull Set<String> matchTables) {
         return matchTables.stream().anyMatch(t -> tableNameMatches(t, tableName));
@@ -973,7 +973,7 @@ public class StrategyConfig {
      * @param capitalMode 是否大写命名
      * @return this
      * @see Builder#capitalMode(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setCapitalMode(boolean capitalMode) {
@@ -987,7 +987,7 @@ public class StrategyConfig {
      * @param skipView 是否跳过视图
      * @return this
      * @see Builder#skipView(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setSkipView(boolean skipView) {
@@ -1001,7 +1001,7 @@ public class StrategyConfig {
      * @param enableSqlFilter 是否启用
      * @return this
      * @see Builder#enableSqlFilter(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setEnableSqlFilter(boolean enableSqlFilter) {
@@ -1015,7 +1015,7 @@ public class StrategyConfig {
      * @param likeTable 包含表名
      * @return this
      * @see Builder#likeTable(LikeTable)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setLikeTable(LikeTable likeTable) {
@@ -1029,7 +1029,7 @@ public class StrategyConfig {
      * @param notLikeTable 不包含表名
      * @return this
      * @see Builder#notLikeTable(LikeTable)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public StrategyConfig setNotLikeTable(LikeTable notLikeTable) {
@@ -1077,7 +1077,7 @@ public class StrategyConfig {
      * 策略配置构建者
      *
      * @author nieqiurong 2020/10/11.
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public static class Builder extends BaseBuilder {
 
@@ -1118,7 +1118,7 @@ public class StrategyConfig {
          *
          * @param fieldPrefix 字段前缀
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder addFieldPrefix(@NotNull String... fieldPrefix) {
             this.strategyConfig.fieldPrefix.addAll(Arrays.asList(fieldPrefix));
@@ -1130,7 +1130,7 @@ public class StrategyConfig {
          *
          * @param include 包含表
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder addInclude(@NotNull String... include) {
             this.strategyConfig.include.addAll(Arrays.asList(include));
@@ -1142,7 +1142,7 @@ public class StrategyConfig {
          *
          * @param exclude 排除表
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder addExclude(@NotNull String... exclude) {
             this.strategyConfig.exclude.addAll(Arrays.asList(exclude));
@@ -1154,7 +1154,7 @@ public class StrategyConfig {
          *
          * @param tablePrefix 表前缀
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder addTablePrefix(@NotNull String... tablePrefix) {
             this.strategyConfig.tablePrefix.addAll(Arrays.asList(tablePrefix));

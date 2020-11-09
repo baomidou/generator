@@ -51,7 +51,7 @@ public class TemplateConfig {
      * 设置实体模板路径
      *
      * @see #entity
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     private String entityKt = ConstVal.TEMPLATE_ENTITY_KT;
@@ -70,7 +70,7 @@ public class TemplateConfig {
      * 后续不再公开此方法.
      *
      * @see Builder#all()
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TemplateConfig() {
@@ -88,7 +88,7 @@ public class TemplateConfig {
      * @param entity 实体模板
      * @return this
      * @see Builder#entity(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TemplateConfig setEntity(String entity) {
@@ -103,7 +103,7 @@ public class TemplateConfig {
      * @param service service接口模板
      * @return this
      * @see Builder#service(String, String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TemplateConfig setService(String service) {
@@ -118,7 +118,7 @@ public class TemplateConfig {
      * @param serviceImpl service实现类模板
      * @return this
      * @see Builder#service(String, String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TemplateConfig setServiceImpl(String serviceImpl) {
@@ -133,7 +133,7 @@ public class TemplateConfig {
      * @param mapper mapper模板
      * @return this
      * @see Builder#mapper(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TemplateConfig setMapper(String mapper) {
@@ -148,7 +148,7 @@ public class TemplateConfig {
      * @param xml mapperXml模板
      * @return this
      * @see Builder#mapperXml(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TemplateConfig setXml(String xml) {
@@ -163,7 +163,7 @@ public class TemplateConfig {
      * @param controller 控制器模板
      * @return this
      * @see Builder#controller(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TemplateConfig setController(String controller) {
@@ -188,7 +188,7 @@ public class TemplateConfig {
      * 设置实体模板路径
      *
      * @param entityKt 模板路径
-     * @deprecated 3.4.1 {@link #setEntity(String)}
+     * @deprecated 3.5.0 {@link #setEntity(String)}
      */
     @Deprecated
     public TemplateConfig setEntityKt(String entityKt) {
@@ -197,7 +197,7 @@ public class TemplateConfig {
 
     /**
      * @return 获取实体模板路径
-     * @deprecated 3.4.1 {@link #getEntity(boolean)}
+     * @deprecated 3.5.0 {@link #getEntity(boolean)}
      */
     @Deprecated
     public String getEntityKt() {
@@ -272,7 +272,7 @@ public class TemplateConfig {
      * 禁用全部模板
      *
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TemplateConfig disable() {
         return disable(TemplateType.values());
@@ -301,7 +301,7 @@ public class TemplateConfig {
     /**
      * 模板路径配置构建者
      *
-     * @author nieqiurong 3.4.1
+     * @author nieqiurong 3.5.0
      */
     public static class Builder {
 

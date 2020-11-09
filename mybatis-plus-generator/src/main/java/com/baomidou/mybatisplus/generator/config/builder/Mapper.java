@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
  * 控制器属性配置
  *
  * @author nieqiurong 2020/10/11.
- * @since 3.4.1
+ * @since 3.5.0
  */
 public class Mapper {
 
@@ -39,35 +39,35 @@ public class Mapper {
     /**
      * 开启 BaseResultMap
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private boolean baseResultMap;
 
     /**
      * 开启 baseColumnList
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private boolean baseColumnList;
 
     /**
      * 是否在xml中添加二级缓存配置
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private boolean enableXmlCache;
 
     /**
      * 转换输出Mapper文件名称
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private ConverterFileName converterMapperFileName = (entityName -> entityName + ConstVal.MAPPER);
 
     /**
      * 转换输出Xml文件名称
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.XML);
 
@@ -120,7 +120,7 @@ public class Mapper {
          *
          * @param superClass 类
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder superClass(@NotNull Class<?> superClass) {
             return superClass(superClass.getName());
@@ -131,7 +131,7 @@ public class Mapper {
          *
          * @param baseResultMap 是否开启baseResultMap
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder baseResultMap(boolean baseResultMap){
             this.mapper.baseResultMap = baseResultMap;
@@ -143,7 +143,7 @@ public class Mapper {
          *
          * @param baseColumnList 是否开启baseColumnList
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder baseColumnList(boolean baseColumnList) {
             this.mapper.baseColumnList = baseColumnList;
@@ -166,7 +166,7 @@ public class Mapper {
          *
          * @param converter 　转换处理
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder convertMapperFileName(@NotNull ConverterFileName converter) {
             this.mapper.converterMapperFileName = converter;
@@ -178,7 +178,7 @@ public class Mapper {
          *
          * @param converter 　转换处理
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder convertXmlFileName(@NotNull ConverterFileName converter) {
             this.mapper.converterXmlFileName = converter;
@@ -191,7 +191,7 @@ public class Mapper {
          *
          * @param format 　格式
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder formatMapperFileName(String format) {
             return convertMapperFileName((entityName) -> String.format(format, entityName));
@@ -202,7 +202,7 @@ public class Mapper {
          *
          * @param format 格式
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder formatXmlFileName(String format) {
             return convertXmlFileName((entityName) -> String.format(format, entityName));

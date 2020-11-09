@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
  * 控制器属性配置
  *
  * @author nieqiurong 2020/10/11.
- * @since 3.4.1
+ * @since 3.5.0
  */
 public class Controller {
 
@@ -54,7 +54,7 @@ public class Controller {
     /**
      * 转换输出控制器文件名称
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private ConverterFileName converterFileName = (entityName -> entityName + ConstVal.CONTROLLER);
 
@@ -129,7 +129,7 @@ public class Controller {
          *
          * @param converter 　转换处理
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder convertFileName(@NotNull ConverterFileName converter) {
             this.controller.converterFileName = converter;
@@ -141,7 +141,7 @@ public class Controller {
          *
          * @param format 　格式
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder formatFileName(String format) {
             return convertFileName((entityName) -> String.format(format, entityName));

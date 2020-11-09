@@ -98,7 +98,7 @@ public enum NamingStrategy {
      * @param name   ignore
      * @param prefix ignore
      * @return ignore
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public static boolean isPrefixContained(String name, String... prefix) {

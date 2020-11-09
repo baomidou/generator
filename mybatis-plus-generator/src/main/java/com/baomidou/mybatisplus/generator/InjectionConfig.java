@@ -59,7 +59,7 @@ public class InjectionConfig {
      *
      * @see #InjectionConfig(Map)
      * 注入自定义 Map 对象，针对所有表的全局参数
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public void initMap() {
@@ -88,7 +88,7 @@ public class InjectionConfig {
      * @param map 自定义全局参数
      * @return this
      * @see #InjectionConfig(Map)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public InjectionConfig setMap(Map<String, Object> map) {
@@ -106,7 +106,7 @@ public class InjectionConfig {
      * 构造方法
      *
      * @param map 自定义全局参数
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public InjectionConfig(Map<String, Object> map) {
         this.map.putAll(map);
@@ -117,7 +117,7 @@ public class InjectionConfig {
      *
      * @param fileOutConfigList 自定义输出文件集合
      * @return this
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public InjectionConfig setFileOutConfigList(List<FileOutConfig> fileOutConfigList) {
@@ -130,7 +130,7 @@ public class InjectionConfig {
      *
      * @param fileOutConfigList 自定义输出文件集合
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public InjectionConfig addFileOutConfig(List<FileOutConfig> fileOutConfigList) {
         this.fileOutConfigList.addAll(fileOutConfigList);
@@ -142,7 +142,7 @@ public class InjectionConfig {
      *
      * @param fileOutConfig 自定义输出文件
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public InjectionConfig addFileOutConfig(FileOutConfig fileOutConfig) {
         this.fileOutConfigList.add(fileOutConfig);

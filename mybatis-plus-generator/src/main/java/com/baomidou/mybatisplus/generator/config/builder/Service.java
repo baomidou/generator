@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
  * Service属性配置
  *
  * @author nieqiurong 2020/10/11.
- * @since 3.4.1
+ * @since 3.5.0
  */
 public class Service {
 
@@ -51,14 +51,14 @@ public class Service {
     /**
      * 转换输出Service文件名称
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private ConverterFileName converterServiceFileName = (entityName -> "I" + entityName + ConstVal.SERVICE);
 
     /**
      * 转换输出ServiceImpl文件名称
      *
-     * @since 3.4.1
+     * @since 3.5.0
      */
     private ConverterFileName converterServiceImplFileName = (entityName -> entityName + ConstVal.SERVICE_IMPL);
 
@@ -126,7 +126,7 @@ public class Service {
          *
          * @param converter 　转换处理
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder convertServiceFileName(@NotNull ConverterFileName converter) {
             this.service.converterServiceFileName = converter;
@@ -138,7 +138,7 @@ public class Service {
          *
          * @param converter 　转换处理
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder convertServiceImplFileName(@NotNull ConverterFileName converter) {
             this.service.converterServiceImplFileName = converter;
@@ -150,7 +150,7 @@ public class Service {
          *
          * @param format 　格式
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder formatServiceFileName(String format) {
             return convertServiceFileName((entityName) -> String.format(format, entityName));
@@ -161,7 +161,7 @@ public class Service {
          *
          * @param format 　格式
          * @return this
-         * @since 3.4.1
+         * @since 3.5.0
          */
         public Builder formatServiceImplFileName(String format) {
             return convertServiceImplFileName((entityName) -> String.format(format, entityName));

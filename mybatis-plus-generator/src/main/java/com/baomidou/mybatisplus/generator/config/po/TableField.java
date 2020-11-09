@@ -64,7 +64,7 @@ public class TableField {
      * 默认构造
      *
      * @see #TableField(String, StrategyConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableField() {
@@ -76,7 +76,7 @@ public class TableField {
      *
      * @param name           数据库字段名称
      * @param strategyConfig 策略配置
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableField(String name, StrategyConfig strategyConfig) {
         //TODO 有空把必须字段统一下.
@@ -93,7 +93,7 @@ public class TableField {
      * @param convert
      * @return this
      * @see #setConvert(StrategyConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableField setConvert(boolean convert) {
@@ -104,7 +104,7 @@ public class TableField {
     /**
      * @param strategyConfig 策略配置
      * @return this
-     * @deprecated 3.4.1 后期不再公开此方法
+     * @deprecated 3.5.0 后期不再公开此方法
      */
     @Deprecated
     protected TableField setConvert(StrategyConfig strategyConfig) {
@@ -133,7 +133,7 @@ public class TableField {
     /**
      * @param propertyName 属性名称
      * @return this
-     * @deprecated 3.4.1 {@link #setPropertyName(String, IColumnType)}
+     * @deprecated 3.5.0 {@link #setPropertyName(String, IColumnType)}
      */
     @Deprecated
     public TableField setPropertyName(String propertyName) {
@@ -148,7 +148,7 @@ public class TableField {
      * @param columnType   字段类型
      * @return this
      * @see #TableField(String, StrategyConfig)
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableField setPropertyName(String propertyName, IColumnType columnType) {
         this.columnType = columnType;
@@ -184,7 +184,7 @@ public class TableField {
      * @param strategyConfig 策略配置
      * @param propertyName   属性名
      * @return this
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableField setPropertyName(StrategyConfig strategyConfig, String propertyName) {
@@ -195,7 +195,7 @@ public class TableField {
     /**
      * @param columnType 字段类型
      * @return this
-     * @deprecated 3.4.1 {@link #setPropertyName(String, IColumnType)}
+     * @deprecated 3.5.0 {@link #setPropertyName(String, IColumnType)}
      */
     @Deprecated
     public TableField setColumnType(IColumnType columnType) {
@@ -248,7 +248,7 @@ public class TableField {
      * 是否为乐观锁字段
      *
      * @return 是否为乐观锁字段
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public boolean isVersionField() {
         String propertyName = this.strategyConfig.entity().getVersionPropertyName();
@@ -261,7 +261,7 @@ public class TableField {
      * 是否为逻辑删除字段
      *
      * @return 是否为逻辑删除字段
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public boolean isLogicDeleteFiled() {
         String propertyName = this.strategyConfig.entity().getLogicDeletePropertyName();
@@ -274,7 +274,7 @@ public class TableField {
      * @param keyFlag 主键标识
      * @return this
      * @see #primaryKey(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableField setKeyFlag(boolean keyFlag) {
@@ -288,7 +288,7 @@ public class TableField {
      * @param keyIdentityFlag 自增标志
      * @return this
      * @see #primaryKey(boolean)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableField setKeyIdentityFlag(boolean keyIdentityFlag) {
@@ -301,7 +301,7 @@ public class TableField {
      *
      * @param autoIncrement 自增标识
      * @return this
-     * @since 3.4.1
+     * @since 3.5.0
      */
     public TableField primaryKey(boolean autoIncrement) {
         this.keyFlag = true;
@@ -313,7 +313,7 @@ public class TableField {
      * @param fill 填充策略
      * @return this
      * @see #TableField(String, StrategyConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableField setFill(String fill) {
@@ -326,7 +326,7 @@ public class TableField {
      *
      * @param name 数据库字段名
      * @see #TableField(String, StrategyConfig)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public TableField setName(String name) {

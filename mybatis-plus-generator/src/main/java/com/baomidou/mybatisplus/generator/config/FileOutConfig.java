@@ -35,7 +35,7 @@ public abstract class FileOutConfig {
      * 默认构造方法
      *
      * @see #FileOutConfig(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public FileOutConfig() {
@@ -56,7 +56,7 @@ public abstract class FileOutConfig {
      * @param templatePath 模块路径
      * @return this
      * @see #FileOutConfig(String)
-     * @deprecated 3.4.1
+     * @deprecated 3.5.0
      */
     @Deprecated
     public FileOutConfig setTemplatePath(String templatePath) {
