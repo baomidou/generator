@@ -15,10 +15,18 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
+import com.baomidou.mybatisplus.generator.util.ClassUtils;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 控制器属性配置
@@ -26,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
  * @author nieqiurong 2020/10/11.
  * @since 3.5.0
  */
-public class Controller {
+public class Controller implements ITemplate {
 
     private Controller() {
     }
@@ -72,6 +80,20 @@ public class Controller {
 
     public ConverterFileName getConverterFileName() {
         return converterFileName;
+    }
+
+    @Override
+    @NotNull
+    public Map<String, Object> renderData(@NotNull TableInfo tableInfo) {
+        Map<String, Object> data = new HashMap<>();
+        if (this.hyphenStyle) {
+            data.put("controllerMappingHyphen", StringUtils.camelToHyphen(tableInfo.getEntityPath()));
+        }
+        data.put("controllerMappingHyphenStyle", this.hyphenStyle);
+        data.put("restControllerStyle", this.restStyle);
+        data.put("superControllerClassPackage", StringUtils.isBlank(superClass) ? null : superClass);
+        data.put("superControllerClass", ClassUtils.getSimpleName(this.superClass));
+        return data;
     }
 
     public static class Builder extends BaseBuilder {

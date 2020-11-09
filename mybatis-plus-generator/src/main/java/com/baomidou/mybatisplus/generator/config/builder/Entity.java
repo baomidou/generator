@@ -19,22 +19,19 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.INameConvert;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
+import com.baomidou.mybatisplus.generator.util.ClassUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -43,7 +40,7 @@ import java.util.stream.Collectors;
  * @author nieqiurong 2020/10/11.
  * @since 3.5.0
  */
-public class Entity {
+public class Entity implements ITemplate {
 
     private Entity() {
 
@@ -310,6 +307,24 @@ public class Entity {
 
     public ConverterFileName getConverterFileName() {
         return converterFileName;
+    }
+
+    @Override
+    @NotNull
+    public Map<String, Object> renderData(@NotNull TableInfo tableInfo) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("idType", idType == null ? null : idType.toString());
+        data.put("logicDeleteFieldName", this.logicDeleteColumnName);
+        data.put("versionFieldName", this.versionColumnName);
+        data.put("activeRecord", this.activeRecord);
+        data.put("entitySerialVersionUID", this.serialVersionUID);
+        data.put("entityColumnConstant", this.columnConstant);
+        data.put("entityBuilderModel", this.chain);
+        data.put("chainModel", this.chain);
+        data.put("entityLombokModel", this.lombok);
+        data.put("entityBooleanColumnRemoveIsPrefix", this.booleanColumnRemoveIsPrefix);
+        data.put("superEntityClass", ClassUtils.getSimpleName(this.superClass));
+        return data;
     }
 
     public static class Builder extends BaseBuilder {

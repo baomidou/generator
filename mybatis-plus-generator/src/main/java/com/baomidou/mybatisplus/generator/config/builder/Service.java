@@ -15,10 +15,16 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
+import com.baomidou.mybatisplus.generator.util.ClassUtils;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Service属性配置
@@ -26,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
  * @author nieqiurong 2020/10/11.
  * @since 3.5.0
  */
-public class Service {
+public class Service implements ITemplate {
 
     private Service() {
     }
@@ -69,6 +75,17 @@ public class Service {
 
     public ConverterFileName getConverterServiceImplFileName() {
         return converterServiceImplFileName;
+    }
+
+    @Override
+    @NotNull
+    public Map<String, Object> renderData(@NotNull TableInfo tableInfo) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("superServiceClassPackage", this.superServiceClass);
+        data.put("superServiceClass", ClassUtils.getSimpleName(this.superServiceClass));
+        data.put("superServiceImplClassPackage", this.superServiceImplClass);
+        data.put("superServiceImplClass", ClassUtils.getSimpleName(this.superServiceImplClass));
+        return data;
     }
 
     public static class Builder extends BaseBuilder {

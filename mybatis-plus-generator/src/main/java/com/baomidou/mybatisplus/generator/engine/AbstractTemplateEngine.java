@@ -15,8 +15,6 @@
  */
 package com.baomidou.mybatisplus.generator.engine;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -316,59 +314,47 @@ public abstract class AbstractTemplateEngine {
      * @return ignore
      */
     public Map<String, Object> getObjectMap(TableInfo tableInfo) {
-        Map<String, Object> objectMap;
+        Map<String, Object> objectMap = new HashMap<>();
         ConfigBuilder config = getConfigBuilder();
-        if (config.getStrategyConfig().controller().isHyphenStyle()) {
-            objectMap = CollectionUtils.newHashMapWithExpectedSize(33);
-            objectMap.put("controllerMappingHyphenStyle", config.getStrategyConfig().controller().isHyphenStyle());
-            objectMap.put("controllerMappingHyphen", StringUtils.camelToHyphen(tableInfo.getEntityPath()));
-        } else {
-            objectMap = CollectionUtils.newHashMapWithExpectedSize(31);
+        GlobalConfig globalConfig = config.getGlobalConfig();
+        Map<String, Object> controllerData = config.getStrategyConfig().controller().renderData(tableInfo);
+        objectMap.put("controller", controllerData);
+        objectMap.putAll(controllerData);
+        Map<String, Object> mapperData = config.getStrategyConfig().mapper().renderData(tableInfo);
+        //　兼容过渡代码
+        if (globalConfig.isEnableCache()) {
+            mapperData.put("enableCache", true);
         }
-        objectMap.put("restControllerStyle", config.getStrategyConfig().controller().isRestStyle());
+        if (globalConfig.isBaseResultMap()) {
+            mapperData.put("baseResultMap", true);
+        }
+        if (globalConfig.isBaseColumnList()) {
+            mapperData.put("baseColumnList", true);
+        }
+        objectMap.put("mapper", mapperData);
+        objectMap.putAll(mapperData);
+        Map<String, Object> serviceData = config.getStrategyConfig().service().renderData(tableInfo);
+        objectMap.put("service", serviceData);
+        objectMap.putAll(serviceData);
+        Map<String, Object> entityData = config.getStrategyConfig().entity().renderData(tableInfo);
+        //　兼容过渡代码
+        if (globalConfig.getIdType() != null) {
+            entityData.put("idType", globalConfig.getIdType().toString());
+        }
+        if (globalConfig.isActiveRecord()) {
+            entityData.put("activeRecord", true);
+        }
+        objectMap.put("entity", entityData);
+        objectMap.putAll(entityData);
         objectMap.put("config", config);
         objectMap.put("package", config.getPackageConfig().getPackageInfo());
-        GlobalConfig globalConfig = config.getGlobalConfig();
         objectMap.put("author", globalConfig.getAuthor());
-        IdType idType = Optional.ofNullable(config.getStrategyConfig().entity().getIdType()).orElseGet(globalConfig::getIdType);
-        objectMap.put("idType", idType == null ? null : idType.toString());
-        objectMap.put("logicDeleteFieldName", config.getStrategyConfig().entity().getLogicDeleteFieldName());
-        objectMap.put("versionFieldName", config.getStrategyConfig().entity().getVersionFieldName());
-        objectMap.put("activeRecord", globalConfig.isActiveRecord() || config.getStrategyConfig().entity().isActiveRecord());
         objectMap.put("kotlin", globalConfig.isKotlin());
         objectMap.put("swagger2", globalConfig.isSwagger2());
         objectMap.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         objectMap.put("table", tableInfo);
-        objectMap.put("enableCache", globalConfig.isEnableCache() || config.getStrategyConfig().mapper().isEnableXmlCache());
-        objectMap.put("baseResultMap", globalConfig.isBaseResultMap() || config.getStrategyConfig().mapper().isBaseResultMap());
-        objectMap.put("baseColumnList", globalConfig.isBaseColumnList() || config.getStrategyConfig().mapper().isBaseResultMap());
         objectMap.put("entity", tableInfo.getEntityName());
-        objectMap.put("entitySerialVersionUID", config.getStrategyConfig().entity().isSerialVersionUID());
-        objectMap.put("entityColumnConstant", config.getStrategyConfig().entity().isColumnConstant());
-        objectMap.put("entityBuilderModel", config.getStrategyConfig().entity().isChain());
-        objectMap.put("chainModel", config.getStrategyConfig().entity().isChain());
-        objectMap.put("entityLombokModel", config.getStrategyConfig().entity().isLombok());
-        objectMap.put("entityBooleanColumnRemoveIsPrefix", config.getStrategyConfig().entity().isBooleanColumnRemoveIsPrefix());
-        objectMap.put("superEntityClass", getSuperClassName(config.getStrategyConfig().entity().getSuperClass()));
-        objectMap.put("superMapperClassPackage", config.getStrategyConfig().mapper().getSuperClass());
-        objectMap.put("superMapperClass", getSuperClassName(config.getStrategyConfig().mapper().getSuperClass()));
-        objectMap.put("superServiceClassPackage", config.getStrategyConfig().service().getSuperServiceClass());
-        objectMap.put("superServiceClass", getSuperClassName(config.getStrategyConfig().service().getSuperServiceClass()));
-        objectMap.put("superServiceImplClassPackage", config.getStrategyConfig().service().getSuperServiceImplClass());
-        objectMap.put("superServiceImplClass", getSuperClassName(config.getStrategyConfig().service().getSuperServiceImplClass()));
-        objectMap.put("superControllerClassPackage", verifyClassPacket(config.getStrategyConfig().controller().getSuperClass()));
-        objectMap.put("superControllerClass", getSuperClassName(config.getStrategyConfig().controller().getSuperClass()));
         return Objects.isNull(config.getInjectionConfig()) ? objectMap : config.getInjectionConfig().prepareObjectMap(objectMap);
-    }
-
-    /**
-     * 用于渲染对象MAP信息 {@link #getObjectMap(TableInfo)} 时的superClassPacket非空校验
-     *
-     * @param classPacket ignore
-     * @return ignore
-     */
-    private String verifyClassPacket(String classPacket) {
-        return StringUtils.isBlank(classPacket) ? null : classPacket;
     }
 
     /**

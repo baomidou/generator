@@ -54,11 +54,11 @@ public class TemplateEngineTest {
 
         compatibleAssert(new ConfigBuilder(new PackageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER"))
-                .entityBuilder().activeRecord(true).idType(IdType.INPUT)
+                .entityBuilder().activeRecord(true)
                 .mapperBuilder().baseResultMap(true).baseColumnList(true).enableXmlCache(true)
                 .build(),
             new TemplateConfig.Builder().build(),
-            new GlobalConfig.Builder().activeRecord(false).baseColumnList(false).enableCache(false).baseResultMap(false).idType(IdType.ASSIGN_ID).build()));
+            new GlobalConfig.Builder().activeRecord(false).baseColumnList(false).enableCache(false).baseResultMap(false).idType(IdType.INPUT).build()));
 
 
     }
