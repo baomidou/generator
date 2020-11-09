@@ -33,10 +33,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -77,7 +77,7 @@ public class TableInfo {
         return this;
     }
 
-    protected TableInfo setConvert(StrategyConfig strategyConfig) {
+    protected TableInfo setConvert(@NotNull StrategyConfig strategyConfig) {
         if (strategyConfig.startsWithTablePrefix(name) || strategyConfig.entity().isTableFieldAnnotationEnable()) {
             // 包含前缀
             this.convert = true;
@@ -109,12 +109,12 @@ public class TableInfo {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public TableInfo setEntityName(String entityName) {
+    public TableInfo setEntityName(@NotNull String entityName) {
         this.entityName = entityName;
         return this;
     }
 
-    public TableInfo setEntityName(StrategyConfig strategyConfig, String entityName) {
+    public TableInfo setEntityName(@NotNull StrategyConfig strategyConfig, @NotNull String entityName) {
         this.entityName = entityName;
         this.setConvert(strategyConfig);
         return this;
@@ -127,7 +127,7 @@ public class TableInfo {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public TableInfo setFields(List<TableField> fields) {
+    public TableInfo setFields(@NotNull List<TableField> fields) {
         this.fields.clear();    //保持语义
         return addFields(fields);
     }
@@ -137,7 +137,7 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
-    public TableInfo addFields(List<TableField> fields) {
+    public TableInfo addFields(@NotNull List<TableField> fields) {
         this.fields.addAll(fields);
         return this;
     }
@@ -147,7 +147,7 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
-    public TableInfo addFields(TableField... fields) {
+    public TableInfo addFields(@NotNull TableField... fields) {
         this.fields.addAll(Arrays.asList(fields));
         return this;
     }
@@ -159,7 +159,7 @@ public class TableInfo {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public TableInfo setImportPackages(String pkg) {
+    public TableInfo setImportPackages(@NotNull String pkg) {
         importPackages.clear(); //保持语义
         return addImportPackages(pkg);
     }
@@ -169,7 +169,7 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
-    public TableInfo addImportPackages(String... pkgs) {
+    public TableInfo addImportPackages(@NotNull String... pkgs) {
         importPackages.addAll(Arrays.asList(pkgs));
         return this;
     }
@@ -214,7 +214,7 @@ public class TableInfo {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public TableInfo setCommonFields(List<TableField> commonFields) {
+    public TableInfo setCommonFields(@NotNull List<TableField> commonFields) {
         this.commonFields.clear(); //保持语义
         return addCommonFields(commonFields);
     }
@@ -226,7 +226,7 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
-    public TableInfo addCommonFields(TableField... commonFields) {
+    public TableInfo addCommonFields(@NotNull TableField... commonFields) {
         return addCommonFields(Arrays.asList(commonFields));
     }
 
@@ -237,7 +237,7 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
-    public TableInfo addCommonFields(List<TableField> commonFields) {
+    public TableInfo addCommonFields(@NotNull List<TableField> commonFields) {
         this.commonFields.addAll(commonFields);
         return this;
     }
@@ -249,7 +249,7 @@ public class TableInfo {
      * @param globalConfig   全局配置
      * @since 3.5.0
      */
-    public void importPackage(StrategyConfig strategyConfig, GlobalConfig globalConfig) {
+    public void importPackage(@NotNull StrategyConfig strategyConfig, @NotNull GlobalConfig globalConfig) {
         boolean importSerializable = true;
         if (StringUtils.isNotBlank(strategyConfig.entity().getSuperClass())) {
             // 自定义父类
@@ -313,7 +313,7 @@ public class TableInfo {
      * @param globalConfig   全局配置
      * @since 3.5.0
      */
-    public void processTable(StrategyConfig strategyConfig, GlobalConfig globalConfig) {
+    public void processTable(@NotNull StrategyConfig strategyConfig, @NotNull GlobalConfig globalConfig) {
         String entityName = strategyConfig.entity().getNameConvert().entityNameConvert(this);
         this.setEntityName(strategyConfig, this.getFileName(entityName, globalConfig.getEntityName(), () -> strategyConfig.entity().getConverterFileName().convert(entityName)));
         this.mapperName = this.getFileName(entityName, globalConfig.getMapperName(), () -> strategyConfig.mapper().getConverterMapperFileName().convert(entityName));
@@ -379,6 +379,7 @@ public class TableInfo {
         return this;
     }
 
+    @NotNull
     public Set<String> getImportPackages() {
         return importPackages;
     }
@@ -419,6 +420,7 @@ public class TableInfo {
         return controllerName;
     }
 
+    @NotNull
     public List<TableField> getFields() {
         return fields;
     }
@@ -427,6 +429,7 @@ public class TableInfo {
         return havePrimaryKey;
     }
 
+    @NotNull
     public List<TableField> getCommonFields() {
         return commonFields;
     }

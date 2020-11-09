@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -78,7 +79,7 @@ public class TableField {
      * @param strategyConfig 策略配置
      * @since 3.5.0
      */
-    public TableField(String name, StrategyConfig strategyConfig) {
+    public TableField(@NotNull String name, @NotNull StrategyConfig strategyConfig) {
         //TODO 有空把必须字段统一下.
         this.name = name;
         this.strategyConfig = strategyConfig;
@@ -107,7 +108,7 @@ public class TableField {
      * @deprecated 3.5.0 后期不再公开此方法
      */
     @Deprecated
-    protected TableField setConvert(StrategyConfig strategyConfig) {
+    protected TableField setConvert(@NotNull StrategyConfig strategyConfig) {
         this.strategyConfig = strategyConfig;
         if (strategyConfig.entity().isTableFieldAnnotationEnable() || isKeyWords()) {
             this.convert = true;
@@ -136,7 +137,7 @@ public class TableField {
      * @deprecated 3.5.0 {@link #setPropertyName(String, IColumnType)}
      */
     @Deprecated
-    public TableField setPropertyName(String propertyName) {
+    public TableField setPropertyName(@NotNull String propertyName) {
         this.propertyName = propertyName;
         return this;
     }
@@ -150,7 +151,7 @@ public class TableField {
      * @see #TableField(String, StrategyConfig)
      * @since 3.5.0
      */
-    public TableField setPropertyName(String propertyName, IColumnType columnType) {
+    public TableField setPropertyName(@NotNull String propertyName, @NotNull IColumnType columnType) {
         this.columnType = columnType;
         if (strategyConfig.entity().isBooleanColumnRemoveIsPrefix()
             && "boolean".equalsIgnoreCase(this.getPropertyType()) && propertyName.startsWith("is")) {
@@ -173,7 +174,7 @@ public class TableField {
      * @see #TableField(String, StrategyConfig)#setPropertyName(String, IColumnType)
      */
     @Deprecated
-    public TableField setPropertyName(StrategyConfig strategyConfig, String propertyName, IColumnType columnType) {
+    public TableField setPropertyName(@NotNull StrategyConfig strategyConfig, @NotNull String propertyName, @NotNull IColumnType columnType) {
         this.strategyConfig = strategyConfig;
         return setPropertyName(propertyName, columnType);
     }
@@ -187,7 +188,7 @@ public class TableField {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public TableField setPropertyName(StrategyConfig strategyConfig, String propertyName) {
+    public TableField setPropertyName(@NotNull StrategyConfig strategyConfig, @NotNull String propertyName) {
         this.strategyConfig = strategyConfig;
         return setPropertyName(propertyName, this.columnType);
     }
@@ -198,7 +199,7 @@ public class TableField {
      * @deprecated 3.5.0 {@link #setPropertyName(String, IColumnType)}
      */
     @Deprecated
-    public TableField setColumnType(IColumnType columnType) {
+    public TableField setColumnType(@NotNull IColumnType columnType) {
         this.columnType = columnType;
         return this;
     }

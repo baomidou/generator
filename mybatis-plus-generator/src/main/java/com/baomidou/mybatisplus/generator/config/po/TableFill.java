@@ -16,6 +16,7 @@
 package com.baomidou.mybatisplus.generator.config.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 字段填充
@@ -30,19 +31,36 @@ public class TableFill {
      */
     private String fieldName;
     /**
-     * 忽略类型
+     * 填充策略
      */
     private FieldFill fieldFill;
 
-    public TableFill(String fieldName, FieldFill ignore) {
+    /**
+     * 默认填充策略
+     *
+     * @param fieldName 字段名称
+     * @since 3.5.0
+     */
+    public TableFill(@NotNull String fieldName) {
         this.fieldName = fieldName;
-        this.fieldFill = ignore;
+        this.fieldFill = FieldFill.DEFAULT;
+    }
+
+    public TableFill(@NotNull String fieldName, @NotNull FieldFill fieldFill) {
+        this.fieldName = fieldName;
+        this.fieldFill = fieldFill;
     }
 
     public String getFieldName() {
         return fieldName;
     }
 
+    /**
+     * @param fieldName 字段名
+     * @see #TableFill(String, FieldFill)
+     * @deprecated 3.5.0
+     */
+    @Deprecated
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
     }
@@ -51,6 +69,12 @@ public class TableFill {
         return fieldFill;
     }
 
+    /**
+     * @param fieldFill 填充策略
+     * @see #TableFill(String, FieldFill)
+     * @deprecated 3.5.0
+     */
+    @Deprecated
     public void setFieldFill(FieldFill fieldFill) {
         this.fieldFill = fieldFill;
     }
