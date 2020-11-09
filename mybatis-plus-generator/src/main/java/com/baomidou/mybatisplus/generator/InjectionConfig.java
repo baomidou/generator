@@ -20,10 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.IFileCreate;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
-
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 
 /**
@@ -80,7 +81,8 @@ public class InjectionConfig {
      * com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine
      * 方法： getObjectMap 结果处理
      */
-    public Map<String, Object> prepareObjectMap(Map<String, Object> objectMap) {
+    @NotNull
+    public Map<String, Object> prepareObjectMap(@NotNull Map<String, Object> objectMap) {
         return objectMap;
     }
 
@@ -91,7 +93,7 @@ public class InjectionConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public InjectionConfig setMap(Map<String, Object> map) {
+    public InjectionConfig setMap(@NotNull Map<String, Object> map) {
         this.map.putAll(map);
         return this;
     }
@@ -108,7 +110,7 @@ public class InjectionConfig {
      * @param map 自定义全局参数
      * @since 3.5.0
      */
-    public InjectionConfig(Map<String, Object> map) {
+    public InjectionConfig(@NotNull Map<String, Object> map) {
         this.map.putAll(map);
     }
 
@@ -120,7 +122,7 @@ public class InjectionConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public InjectionConfig setFileOutConfigList(List<FileOutConfig> fileOutConfigList) {
+    public InjectionConfig setFileOutConfigList(@NotNull List<FileOutConfig> fileOutConfigList) {
         this.fileOutConfigList.clear(); //保持方法语义
         return addFileOutConfig(fileOutConfigList);
     }
@@ -132,7 +134,7 @@ public class InjectionConfig {
      * @return this
      * @since 3.5.0
      */
-    public InjectionConfig addFileOutConfig(List<FileOutConfig> fileOutConfigList) {
+    public InjectionConfig addFileOutConfig(@NotNull List<FileOutConfig> fileOutConfigList) {
         this.fileOutConfigList.addAll(fileOutConfigList);
         return this;
     }

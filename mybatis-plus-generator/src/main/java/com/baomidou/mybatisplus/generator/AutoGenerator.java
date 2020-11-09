@@ -15,15 +15,21 @@
  */
 package com.baomidou.mybatisplus.generator;
 
-import com.baomidou.mybatisplus.generator.config.*;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * 生成文件
@@ -84,7 +90,7 @@ public class AutoGenerator {
      * @param dataSourceConfig 数据库配置
      * @since 3.5.0
      */
-    public AutoGenerator(DataSourceConfig dataSourceConfig) {
+    public AutoGenerator(@NotNull DataSourceConfig dataSourceConfig) {
         //这个是必须参数,其他都是可选的,后续去除默认构造更改成final
         this.dataSource = dataSourceConfig;
     }
@@ -123,7 +129,7 @@ public class AutoGenerator {
      * @return this
      * @since 3.5.0
      */
-    public AutoGenerator engine(AbstractTemplateEngine templateEngine) {
+    public AutoGenerator engine(@NotNull AbstractTemplateEngine templateEngine) {
         this.templateEngine = templateEngine;
         return this;
     }
@@ -148,7 +154,7 @@ public class AutoGenerator {
      * @return this
      * @since 3.5.0
      */
-    public AutoGenerator injection(InjectionConfig injectionConfig) {
+    public AutoGenerator injection(@NotNull InjectionConfig injectionConfig) {
         this.injectionConfig = injectionConfig;
         return this;
     }
@@ -160,7 +166,7 @@ public class AutoGenerator {
      * @return this
      * @since 3.5.0
      */
-    public AutoGenerator strategy(StrategyConfig strategyConfig) {
+    public AutoGenerator strategy(@NotNull StrategyConfig strategyConfig) {
         this.strategy = strategyConfig;
         return this;
     }
@@ -185,7 +191,7 @@ public class AutoGenerator {
      * @return this
      * @since 3.5.0
      */
-    public AutoGenerator packageInfo(PackageConfig packageConfig) {
+    public AutoGenerator packageInfo(@NotNull PackageConfig packageConfig) {
         this.packageInfo = packageConfig;
         return this;
     }
@@ -223,7 +229,7 @@ public class AutoGenerator {
      * @return this
      * @since 3.5.0
      */
-    public AutoGenerator template(TemplateConfig templateConfig) {
+    public AutoGenerator template(@NotNull TemplateConfig templateConfig) {
         this.template = templateConfig;
         return this;
     }
@@ -248,7 +254,7 @@ public class AutoGenerator {
      * @return this
      * @see 3.5.0
      */
-    public AutoGenerator global(GlobalConfig globalConfig) {
+    public AutoGenerator global(@NotNull GlobalConfig globalConfig) {
         this.globalConfig = globalConfig;
         return this;
     }
@@ -260,7 +266,7 @@ public class AutoGenerator {
      * @return this
      * @since 3.5.0
      */
-    public AutoGenerator config(ConfigBuilder configBuilder) {
+    public AutoGenerator config(@NotNull ConfigBuilder configBuilder) {
         this.config = configBuilder;
         return this;
     }
@@ -306,7 +312,8 @@ public class AutoGenerator {
      * @param config 配置信息
      * @return ignore
      */
-    protected List<TableInfo> getAllTableInfoList(ConfigBuilder config) {
+    @NotNull
+    protected List<TableInfo> getAllTableInfoList(@NotNull ConfigBuilder config) {
         return config.getTableInfoList();
     }
 
@@ -316,7 +323,8 @@ public class AutoGenerator {
      * @param config 总配置信息
      * @return 解析数据结果集
      */
-    protected ConfigBuilder pretreatmentConfigBuilder(ConfigBuilder config) {
+    @NotNull
+    protected ConfigBuilder pretreatmentConfigBuilder(@NotNull ConfigBuilder config) {
         /*
          * 注入自定义配置
          */

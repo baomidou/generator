@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * mysql关键字处理
  * 这里选取了mysql5.7文档中的关键字和保留字（含移除）https://dev.mysql.com/doc/refman/5.7/en/keywords.html
@@ -656,7 +658,7 @@ public class MySqlKeyWordsHandler extends BaseKeyWordsHandler {
         super(KEY_WORDS);
     }
 
-    public MySqlKeyWordsHandler(List<String> keyWords) {
+    public MySqlKeyWordsHandler(@NotNull List<String> keyWords) {
         super(keyWords);
     }
 

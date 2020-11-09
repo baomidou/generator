@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * h2数据库关键字处理
  * http://www.h2database.com/html/advanced.html#keywords
@@ -115,7 +117,7 @@ public class H2KeyWordsHandler extends BaseKeyWordsHandler {
         super(KEY_WORDS);
     }
 
-    public H2KeyWordsHandler(List<String> keyWords) {
+    public H2KeyWordsHandler(@NotNull List<String> keyWords) {
         super(keyWords);
     }
 

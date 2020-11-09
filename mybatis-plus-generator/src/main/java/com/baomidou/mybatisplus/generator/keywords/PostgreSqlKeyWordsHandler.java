@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * postgresql关键字处理
  * https://www.postgresql.org/docs/11/sql-keywords-appendix.html
@@ -135,7 +137,7 @@ public class PostgreSqlKeyWordsHandler extends BaseKeyWordsHandler {
         super(KEY_WORDS);
     }
 
-    public PostgreSqlKeyWordsHandler(List<String> keyWords) {
+    public PostgreSqlKeyWordsHandler(@NotNull List<String> keyWords) {
         super(keyWords);
     }
 

@@ -15,10 +15,12 @@
  */
 package com.baomidou.mybatisplus.generator.keywords;
 
-import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
-
 import java.util.List;
 import java.util.Locale;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
 
 /**
  * 基类关键字处理
@@ -30,7 +32,7 @@ public abstract class BaseKeyWordsHandler implements IKeyWordsHandler {
 
     public List<String> keyWords;
 
-    public BaseKeyWordsHandler(List<String> keyWords) {
+    public BaseKeyWordsHandler(@NotNull List<String> keyWords) {
         this.keyWords = keyWords;
     }
 
