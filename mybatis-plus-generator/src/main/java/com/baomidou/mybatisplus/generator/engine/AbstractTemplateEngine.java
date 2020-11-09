@@ -15,7 +15,6 @@
  */
 package com.baomidou.mybatisplus.generator.engine;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -356,20 +355,6 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("entity", tableInfo.getEntityName());
         return Objects.isNull(config.getInjectionConfig()) ? objectMap : config.getInjectionConfig().prepareObjectMap(objectMap);
     }
-
-    /**
-     * 获取类名
-     *
-     * @param classPath ignore
-     * @return ignore
-     */
-    private String getSuperClassName(String classPath) {
-        if (StringUtils.isBlank(classPath)) {
-            return null;
-        }
-        return classPath.substring(classPath.lastIndexOf(StringPool.DOT) + 1);
-    }
-
 
     /**
      * 模板真实文件路径
