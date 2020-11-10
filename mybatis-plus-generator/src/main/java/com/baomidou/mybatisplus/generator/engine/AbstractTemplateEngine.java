@@ -350,7 +350,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("author", globalConfig.getAuthor());
         objectMap.put("kotlin", globalConfig.isKotlin());
         objectMap.put("swagger2", globalConfig.isSwagger2());
-        objectMap.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        objectMap.put("date", globalConfig.getCommentDate());
         objectMap.put("table", tableInfo);
         objectMap.put("entity", tableInfo.getEntityName());
         return Objects.isNull(config.getInjectionConfig()) ? objectMap : config.getInjectionConfig().prepareObjectMap(objectMap);

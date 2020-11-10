@@ -21,6 +21,11 @@ import com.baomidou.mybatisplus.generator.config.builder.Controller;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.builder.Mapper;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
+import org.jetbrains.annotations.NotNull;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.function.Supplier;
 
 
 /**
@@ -105,6 +110,13 @@ public class GlobalConfig {
     private String serviceImplName;
     @Deprecated
     private String controllerName;
+
+    /**
+     * 获取注释日期
+     *
+     * @since 3.5.0
+     */
+    private Supplier<String> commentDate = () -> new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
     /**
      * 后续不再公开此构造方法
@@ -450,6 +462,11 @@ public class GlobalConfig {
         return controllerName;
     }
 
+    @NotNull
+    public String getCommentDate() {
+        return commentDate.get();
+    }
+
     /**
      * 全局配置构建
      *
@@ -599,6 +616,30 @@ public class GlobalConfig {
         public Builder dateType(DateType dateType) {
             this.globalConfig.dateType = dateType;
             return this;
+        }
+
+        /**
+         * 注释日志获取处理
+         * example: () -> LocalDateTime.now().format(DateTimeFormatter.ISO_DATE)
+         *
+         * @param commentDate 获取注释日期
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder commentDate(@NotNull Supplier<String> commentDate) {
+            this.globalConfig.commentDate = commentDate;
+            return this;
+        }
+
+        /**
+         * 指定注释日期格式化
+         *
+         * @param pattern 格式
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder commentDate(@NotNull String pattern) {
+            return commentDate(() -> new SimpleDateFormat(pattern).format(new Date()));
         }
 
         public GlobalConfig build() {
