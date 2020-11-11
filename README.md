@@ -26,9 +26,9 @@ new DataSourceConfig.
 ```java
 new DataSourceConfig
     .Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","123456")
-	.driver(Driver.class)	
-	.dbType(DbType.MYSQL)	
-	.typeConvert(new MySqlTypeConvert()) 
+	.driver(Driver.class)
+	.dbType(DbType.MYSQL)
+	.typeConvert(new MySqlTypeConvert())
 	.keyWordsHandler(new MySqlKeyWordsHandler())
 	.dbQuery(new MySqlQuery())
 	.schema("mybatis-plus")
@@ -38,7 +38,7 @@ new DataSourceConfig
 #### 全局配置(GlobalConfig)
 | 方法            | 说明       | 示例 |
 | --------------- | ---------- | ------ |
-| fileOverride             | 是否覆盖已生成文件   | true 默认值:false |
+| fileOverride             | 是否覆盖已生成文件   | 默认值:false |
 | openDir        | 是否打开生成目录 | 默认值:true   |
 | outputDir        | 指定输出目录 | /opt/baomidou/ 默认值: windows:D:// linux or mac : /tmp |
 | author        | 作者名 | baomidou 默认值:无 |
@@ -55,3 +55,27 @@ new GlobalConfig.Builder()
    .build();
 ```
 
+#### 包配置(PackageConfig)
+| 方法            | 说明       | 示例 |
+| --------------- | ---------- | ------ |
+| parent      | 父包名      | 默认值:com.baomidou |
+| moduleName  | 父包模块名  | sys 默认值:无 |
+| entity      | Entity包名  | 默认值:entity |
+| service     | Service包名 | 默认值:service |
+| serviceImpl     | Service Impl包名 | 默认值:service.impl |
+| mapper     | Mapper包名 | 默认值:mapper |
+| xml     | Mapper XML包名 | 默认值:mapper.xml |
+| controller     | Controller包名 | 默认值:controller |
+
+```
+包名拼接规则:${parent}.${moduleName}.${type}
+比如:
+parent = "com.baomidou"
+moduleName = "sys"
+type = "entity"（或者"service"、"serviceImpl"、"mapper"、"xml"、"controller"）
+包名就是:com.baomidou.sys.entity
+```
+
+```java
+new PackageConfig.Builder().parent("com.baomidou.mybatisplus.samples.generator").moduleName("sys").build();
+```
