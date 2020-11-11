@@ -31,6 +31,8 @@ import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.sql.DataSource;
+
 /**
  * 数据库配置
  *
@@ -77,6 +79,18 @@ public class DataSourceConfig {
      * 数据库连接密码
      */
     private String password;
+    /**
+     * 数据源实例
+     *
+     * @since 3.5.0
+     */
+    private DataSource dataSource;
+    /**
+     * 数据库连接
+     *
+     * @since 3.5.0
+     */
+    private Connection connection;
 
     /**
      * 后续不再公开次构造方法
@@ -301,21 +315,30 @@ public class DataSourceConfig {
      * @see DecoratorDbQuery#getConnection()
      */
     public Connection getConn() {
-        Connection conn;
         try {
-            if (StringUtils.isNotBlank(this.driverName)) {
-                Class.forName(this.driverName);
+            if (connection != null && !connection.isClosed()) {
+                return connection;
+            } else {
+                synchronized (this) {
+                    if (dataSource != null) {
+                        connection = dataSource.getConnection();
+                    } else {
+                        if (StringUtils.isNotBlank(driverName)) {
+                            Class.forName(driverName);
+                        }
+                        this.connection = DriverManager.getConnection(url, username, password);
+                    }
+                }
             }
-            conn = DriverManager.getConnection(this.url, this.username, this.password);
-            String schema = StringUtils.isNotBlank(this.schemaName) ? this.schemaName : getDefaultSchema();
+            String schema = StringUtils.isNotBlank(schemaName) ? schemaName : getDefaultSchema();
             if (StringUtils.isNotBlank(schema)) {
-                this.schemaName = schema;
-                conn.setSchema(schema);
+                schemaName = schema;
+                connection.setSchema(schemaName);
             }
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-        return conn;
+        return connection;
     }
 
     /**
@@ -324,7 +347,7 @@ public class DataSourceConfig {
      * @return 默认schema
      * @since 3.5.0
      */
-    private String getDefaultSchema() {
+    protected String getDefaultSchema() {
         DbType dbType = getDbType();
         String schema = null;
         if (DbType.POSTGRE_SQL == dbType) {
@@ -389,6 +412,24 @@ public class DataSourceConfig {
             this.dataSourceConfig.url = url;
             this.dataSourceConfig.username = username;
             this.dataSourceConfig.password = password;
+        }
+    
+        /**
+         * 构造初始化方法
+         *
+         * @param dataSource 外部数据源实例
+         */
+        public Builder(@NotNull DataSource dataSource) {
+            this.dataSourceConfig.dataSource = dataSource;
+            try {
+                Connection conn = dataSource.getConnection();
+                this.dataSourceConfig.url = conn.getMetaData().getURL();
+                this.dataSourceConfig.schemaName = conn.getSchema();
+                this.dataSourceConfig.connection = conn;
+                this.dataSourceConfig.username = conn.getMetaData().getUserName();
+            } catch (SQLException ex) {
+                throw new RuntimeException("构建数据库配置对象失败!", ex);
+            }
         }
 
         /**

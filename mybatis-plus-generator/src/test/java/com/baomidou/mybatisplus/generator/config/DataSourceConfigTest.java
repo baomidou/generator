@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.generator.config.converts.PostgreSqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
+import org.apache.ibatis.datasource.unpooled.UnpooledDataSource;
 import org.h2.Driver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -45,4 +46,16 @@ public class DataSourceConfigTest {
         Assertions.assertEquals(dataSourceConfig.getTypeConvert().getClass(), PostgreSqlTypeConvert.class);
     }
 
+    @Test
+    void dataSourceTest(){
+        UnpooledDataSource dataSource = new UnpooledDataSource(Driver.class.getName(), "jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE", "sa", "");
+        DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(dataSource).build();
+        Assertions.assertNotNull(dataSourceConfig.getConn());
+        Assertions.assertNotNull(dataSourceConfig.getDbType());
+        Assertions.assertNotNull(dataSourceConfig.getDbType());
+        Assertions.assertNotNull(dataSourceConfig.getTypeConvert());
+        Assertions.assertEquals(dataSourceConfig.getDbType(), DbType.H2);
+        Assertions.assertEquals(dataSourceConfig.getDbQuery().getClass(), H2Query.class);
+    }
+    
 }
