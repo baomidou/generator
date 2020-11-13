@@ -52,7 +52,10 @@ public class InjectionConfig {
 
     /**
      * 自定义判断是否创建文件
+     *
+     * @deprecated 3.5.0
      */
+    @Deprecated
     private IFileCreate fileCreate;
 
     /**
@@ -173,6 +176,7 @@ public class InjectionConfig {
         return fileOutConfigList;
     }
 
+    @Deprecated
     public IFileCreate getFileCreate() {
         return fileCreate;
     }

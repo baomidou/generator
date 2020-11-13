@@ -27,6 +27,7 @@ import java.io.File;
  * @author hubin
  * @since 2018-08-07
  */
+@Deprecated
 public interface IFileCreate {
 
     /**
@@ -36,14 +37,18 @@ public interface IFileCreate {
      * @param fileType      文件类型
      * @param filePath      文件路径
      * @return ignore
+     * @deprecated 3.5.0
      */
+    @Deprecated
     boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath);
 
     /**
      * 检查文件目录，不存在自动递归创建
      *
      * @param filePath 文件路径
+     * @deprecated 3.5.0
      */
+    @Deprecated
     default void checkDir(String filePath) {
         File file = new File(filePath);
         boolean exist = file.exists();

@@ -50,6 +50,7 @@ public abstract class FileOutConfig {
     /**
      * 输出文件
      */
+    //TODO 这里有空换成File
     public abstract String outputFile(TableInfo tableInfo);
 
     /**
