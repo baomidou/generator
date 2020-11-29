@@ -168,11 +168,11 @@ class StrategyConfigTest {
 
     @Test
     void propertyNameConvertTest() {
+        ConfigBuilder configBuilder;
         StrategyConfig strategyConfig;
-        TableField tableField = new TableField();
-        tableField.setName("c_user_name");
-
         strategyConfig = new StrategyConfig();
+        configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, null);
+        TableField tableField = new TableField(configBuilder,"c_user_name");
         Assertions.assertEquals("c_user_name", strategyConfig.getNameConvert().propertyNameConvert(tableField));
         strategyConfig.setTablePrefix("t_", "c_");
         Assertions.assertEquals("user_name", strategyConfig.getNameConvert().propertyNameConvert(tableField));

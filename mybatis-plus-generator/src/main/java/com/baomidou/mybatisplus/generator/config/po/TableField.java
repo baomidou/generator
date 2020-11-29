@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.config.po;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.jetbrains.annotations.NotNull;
@@ -59,30 +60,19 @@ public class TableField {
      */
     private Map<String, Object> customMap;
 
-    private StrategyConfig strategyConfig;
-
-    /**
-     * 默认构造
-     *
-     * @see #TableField(String, StrategyConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableField() {
-
-    }
+    private final StrategyConfig strategyConfig;
 
     /**
      * 构造方法
      *
-     * @param name           数据库字段名称
-     * @param strategyConfig 策略配置
+     * @param configBuilder 配置构建
+     * @param name          数据库字段名称
      * @since 3.5.0
      */
-    public TableField(@NotNull String name, @NotNull StrategyConfig strategyConfig) {
+    public TableField(@NotNull ConfigBuilder configBuilder, @NotNull String name) {
         //TODO 有空把必须字段统一下.
         this.name = name;
-        this.strategyConfig = strategyConfig;
+        this.strategyConfig = configBuilder.getStrategyConfig();
         //TODO 先插这里填充字段处理.
         this.strategyConfig.entity().getTableFillList().stream()
             //忽略大写字段问题
@@ -93,7 +83,7 @@ public class TableField {
     /**
      * @param convert
      * @return this
-     * @see #setConvert(StrategyConfig)
+     * @see #setConvert()
      * @deprecated 3.5.0
      */
     @Deprecated
@@ -103,13 +93,10 @@ public class TableField {
     }
 
     /**
-     * @param strategyConfig 策略配置
      * @return this
-     * @deprecated 3.5.0 后期不再公开此方法
      */
     @Deprecated
-    protected TableField setConvert(@NotNull StrategyConfig strategyConfig) {
-        this.strategyConfig = strategyConfig;
+    protected TableField setConvert() {
         if (strategyConfig.entity().isTableFieldAnnotationEnable() || isKeyWords()) {
             this.convert = true;
             return this;
@@ -130,25 +117,12 @@ public class TableField {
         return this;
     }
 
-
-    /**
-     * @param propertyName 属性名称
-     * @return this
-     * @deprecated 3.5.0 {@link #setPropertyName(String, IColumnType)}
-     */
-    @Deprecated
-    public TableField setPropertyName(@NotNull String propertyName) {
-        this.propertyName = propertyName;
-        return this;
-    }
-
     /**
      * 设置属性名称
      *
      * @param propertyName 属性名
      * @param columnType   字段类型
      * @return this
-     * @see #TableField(String, StrategyConfig)
      * @since 3.5.0
      */
     public TableField setPropertyName(@NotNull String propertyName, @NotNull IColumnType columnType) {
@@ -160,37 +134,9 @@ public class TableField {
             return this;
         }
         this.propertyName = propertyName;
-        this.setConvert(strategyConfig);
+        //TODO 先放置在这里调用
+        this.setConvert();
         return this;
-    }
-
-    /**
-     * 设置属性名称
-     *
-     * @param strategyConfig 策略配置
-     * @param propertyName   属性名称
-     * @param columnType     字段类型
-     * @return this
-     * @see #TableField(String, StrategyConfig)#setPropertyName(String, IColumnType)
-     */
-    @Deprecated
-    public TableField setPropertyName(@NotNull StrategyConfig strategyConfig, @NotNull String propertyName, @NotNull IColumnType columnType) {
-        this.strategyConfig = strategyConfig;
-        return setPropertyName(propertyName, columnType);
-    }
-
-    /**
-     * 设置属性名称
-     *
-     * @param strategyConfig 策略配置
-     * @param propertyName   属性名
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableField setPropertyName(@NotNull StrategyConfig strategyConfig, @NotNull String propertyName) {
-        this.strategyConfig = strategyConfig;
-        return setPropertyName(propertyName, this.columnType);
     }
 
     /**
@@ -313,7 +259,7 @@ public class TableField {
     /**
      * @param fill 填充策略
      * @return this
-     * @see #TableField(String, StrategyConfig)
+     * @see #TableField(ConfigBuilder, String)
      * @deprecated 3.5.0
      */
     @Deprecated
@@ -326,7 +272,7 @@ public class TableField {
      * 设置数据库字段名
      *
      * @param name 数据库字段名
-     * @see #TableField(String, StrategyConfig)
+     * @see #TableField(ConfigBuilder, String)
      * @deprecated 3.5.0
      */
     @Deprecated
