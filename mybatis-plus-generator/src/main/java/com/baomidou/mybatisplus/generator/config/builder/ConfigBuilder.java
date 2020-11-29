@@ -25,6 +25,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,8 +124,7 @@ public class ConfigBuilder {
             dbQuery.query(dbQuery.tablesSql(), result -> {
                 String tableName = result.getStringResult(dbQuery.tableName());
                 if (StringUtils.isNotBlank(tableName)) {
-                    TableInfo tableInfo = new TableInfo();
-                    tableInfo.setName(tableName);
+                    TableInfo tableInfo = new TableInfo(this, tableName);
                     String tableComment = result.getTableComment();
                     // 跳过视图
                     if (!(strategyConfig.isSkipView() && "VIEW".equals(tableComment))) {
@@ -230,7 +230,7 @@ public class ConfigBuilder {
         }
         tableInfo.addFields(fieldList);
         tableInfo.addCommonFields(commonFieldList);
-        tableInfo.processTable(strategyConfig, globalConfig);
+        tableInfo.processTable();
     }
 
     /**
@@ -299,22 +299,27 @@ public class ConfigBuilder {
         return this;
     }
 
+    @NotNull
     public TemplateConfig getTemplate() {
         return template;
     }
 
+    @NotNull
     public List<TableInfo> getTableInfoList() {
         return tableInfoList;
     }
 
+    @NotNull
     public Map<String, String> getPathInfo() {
         return pathInfo;
     }
 
+    @NotNull
     public StrategyConfig getStrategyConfig() {
         return strategyConfig;
     }
 
+    @NotNull
     public GlobalConfig getGlobalConfig() {
         return globalConfig;
     }
@@ -323,10 +328,7 @@ public class ConfigBuilder {
         return injectionConfig;
     }
 
-    public DecoratorDbQuery getDbQuery() {
-        return dbQuery;
-    }
-
+    @NotNull
     public PackageConfig getPackageConfig() {
         return packageConfig;
     }

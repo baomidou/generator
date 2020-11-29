@@ -187,7 +187,7 @@ public abstract class AbstractTemplateEngine {
                 boolean exist = file.exists();
                 if (!exist) {
                     File parentFile = file.getParentFile();
-                    FileUtils.forceMkdirParent(parentFile);
+                    FileUtils.forceMkdir(parentFile);
                 }
                 writer(objectMap, templatePath, file);
             } catch (Exception exception) {

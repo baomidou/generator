@@ -22,9 +22,12 @@ import java.util.Set;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.config.INameConvert;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.po.TableInfoTest;
 import lombok.Data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -109,10 +112,10 @@ class StrategyConfigTest {
     }
 
     @Test
-    void startsWithTablePrefixTest(){
+    void startsWithTablePrefixTest() {
         StrategyConfig strategyConfig = new StrategyConfig();
         Assertions.assertFalse(strategyConfig.startsWithTablePrefix("t_name"));
-        strategyConfig.setTablePrefix("a_","t_");
+        strategyConfig.setTablePrefix("a_", "t_");
         Assertions.assertTrue(strategyConfig.startsWithTablePrefix("t_name"));
     }
 
@@ -132,7 +135,7 @@ class StrategyConfigTest {
     @Test
     void entityNameConvertTest() {
         StrategyConfig strategyConfig;
-        TableInfo tableInfo = new TableInfo();
+        TableInfo tableInfo = new TableInfo(new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, new StrategyConfig(), null, null), "t_user");
         tableInfo.setName("t_user");
 
         strategyConfig = new StrategyConfig();
@@ -198,7 +201,7 @@ class StrategyConfigTest {
     }
 
     @Test
-    void matchExcludeTableTest(){
+    void matchExcludeTableTest() {
         StrategyConfig strategyConfig = new StrategyConfig();
         strategyConfig.setExclude("system", "user_1", "test[a|b]");
         Assertions.assertTrue(strategyConfig.matchExcludeTable("system"));
@@ -209,7 +212,7 @@ class StrategyConfigTest {
     }
 
     @Test
-    void matchIncludeTableTest(){
+    void matchIncludeTableTest() {
         StrategyConfig strategyConfig = new StrategyConfig();
         strategyConfig.setInclude("system", "user_1", "test[a|b]");
         Assertions.assertTrue(strategyConfig.matchIncludeTable("system"));
@@ -229,7 +232,7 @@ class StrategyConfigTest {
         Assertions.assertTrue(new StrategyConfig().setCapitalMode(true).isCapitalModeNaming("NAME"));
     }
 
-    private void buildAssert(StrategyConfig strategyConfig){
+    private void buildAssert(StrategyConfig strategyConfig) {
         Assertions.assertTrue(strategyConfig.isSkipView());
         Assertions.assertTrue(strategyConfig.isChainModel());
         Assertions.assertTrue(strategyConfig.entity().isChain());

@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -103,6 +104,7 @@ public class PackageConfig {
      * @return 包配置信息
      * @since 3.5.0
      */
+    //TODO xml需要自定义,可能不需要包定义
     public Map<String, String> getPackageInfo() {
         if (packageInfo.isEmpty()) {
             packageInfo.put(ConstVal.MODULE_NAME, this.getModuleName());
@@ -286,13 +288,21 @@ public class PackageConfig {
 
         private final PackageConfig packageConfig = new PackageConfig();
 
+        public Builder() {
+        }
+
+        public Builder(@NotNull String parent, @NotNull String moduleName) {
+            this.packageConfig.parent = parent;
+            this.packageConfig.moduleName = moduleName;
+        }
+
         /**
          * 指定父包名
          *
          * @param parent 父包名
          * @return this
          */
-        public Builder parent(String parent) {
+        public Builder parent(@NotNull String parent) {
             this.packageConfig.parent = parent;
             return this;
         }
@@ -303,7 +313,7 @@ public class PackageConfig {
          * @param moduleName 模块名
          * @return this
          */
-        public Builder moduleName(String moduleName) {
+        public Builder moduleName(@NotNull String moduleName) {
             this.packageConfig.moduleName = moduleName;
             return this;
         }
@@ -314,7 +324,7 @@ public class PackageConfig {
          * @param entity 实体包名
          * @return this
          */
-        public Builder entity(String entity) {
+        public Builder entity(@NotNull String entity) {
             this.packageConfig.entity = entity;
             return this;
         }
@@ -325,7 +335,7 @@ public class PackageConfig {
          * @param service service包名
          * @return this
          */
-        public Builder service(String service) {
+        public Builder service(@NotNull String service) {
             this.packageConfig.service = service;
             return this;
         }
@@ -336,7 +346,7 @@ public class PackageConfig {
          * @param serviceImpl service实现类包名
          * @return this
          */
-        public Builder serviceImpl(String serviceImpl) {
+        public Builder serviceImpl(@NotNull String serviceImpl) {
             this.packageConfig.serviceImpl = serviceImpl;
             return this;
         }
@@ -347,7 +357,7 @@ public class PackageConfig {
          * @param mapper mapper包名
          * @return this
          */
-        public Builder mapper(String mapper) {
+        public Builder mapper(@NotNull String mapper) {
             this.packageConfig.mapper = mapper;
             return this;
         }
@@ -358,7 +368,7 @@ public class PackageConfig {
          * @param xml xml包名
          * @return this
          */
-        public Builder xml(String xml) {
+        public Builder xml(@NotNull String xml) {
             this.packageConfig.xml = xml;
             return this;
         }
@@ -369,7 +379,7 @@ public class PackageConfig {
          * @param controller 控制器包名
          * @return this
          */
-        public Builder controller(String controller) {
+        public Builder controller(@NotNull String controller) {
             this.packageConfig.controller = controller;
             return this;
         }
@@ -380,7 +390,7 @@ public class PackageConfig {
          * @param pathInfo 路径配置信息
          * @return this
          */
-        public Builder pathInfo(Map<String, String> pathInfo) {
+        public Builder pathInfo(@NotNull Map<String, String> pathInfo) {
             this.packageConfig.pathInfo = pathInfo;
             return this;
         }

@@ -35,6 +35,8 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,6 +49,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TableInfo {
 
+    private final StrategyConfig strategyConfig;
+    private final GlobalConfig globalConfig;
     private final Set<String> importPackages = new HashSet<>();
     private boolean convert;
     private String name;
@@ -66,9 +70,21 @@ public class TableInfo {
     private String fieldNames;
 
     /**
+     * 构造方法
+     *
+     * @param configBuilder 配置构建
+     * @param name          表名
+     * @since 3.5.0
+     */
+    public TableInfo(@NotNull ConfigBuilder configBuilder, @NotNull String name) {
+        this.strategyConfig = configBuilder.getStrategyConfig();
+        this.globalConfig = configBuilder.getGlobalConfig();
+        this.name = name;
+    }
+
+    /**
      * @param convert convert
      * @return this
-     * @see #setConvert(StrategyConfig)
      * @deprecated 3.5.0
      */
     @Deprecated
@@ -77,7 +93,11 @@ public class TableInfo {
         return this;
     }
 
-    protected TableInfo setConvert(@NotNull StrategyConfig strategyConfig) {
+    /**
+     * @return this
+     * @since 3.5.0
+     */
+    protected TableInfo setConvert() {
         if (strategyConfig.startsWithTablePrefix(name) || strategyConfig.entity().isTableFieldAnnotationEnable()) {
             // 包含前缀
             this.convert = true;
@@ -105,21 +125,13 @@ public class TableInfo {
     /**
      * @param entityName 实体名称
      * @return this
-     * @see #setEntityName(StrategyConfig, String)
-     * @deprecated 3.5.0
      */
-    @Deprecated
     public TableInfo setEntityName(@NotNull String entityName) {
         this.entityName = entityName;
+        //TODO 先放置在这里
+        setConvert();
         return this;
     }
-
-    public TableInfo setEntityName(@NotNull StrategyConfig strategyConfig, @NotNull String entityName) {
-        this.entityName = entityName;
-        this.setConvert(strategyConfig);
-        return this;
-    }
-
 
     /**
      * @see #addFields(List)
@@ -245,16 +257,15 @@ public class TableInfo {
     /**
      * 导包处理
      *
-     * @param strategyConfig 策略配置
-     * @param globalConfig   全局配置
      * @since 3.5.0
      */
-    public void importPackage(@NotNull StrategyConfig strategyConfig, @NotNull GlobalConfig globalConfig) {
+    public void importPackage() {
         boolean importSerializable = true;
-        if (StringUtils.isNotBlank(strategyConfig.entity().getSuperClass())) {
+        String superEntity = strategyConfig.entity().getSuperClass();
+        if (StringUtils.isNotBlank(superEntity)) {
             // 自定义父类
             importSerializable = false;
-            this.importPackages.add(strategyConfig.entity().getSuperClass());
+            this.importPackages.add(superEntity);
         } else {
             if (globalConfig.isActiveRecord() || strategyConfig.entity().isActiveRecord()) {
                 // 无父类开启 AR 模式
@@ -275,8 +286,9 @@ public class TableInfo {
             this.importPackages.add(TableId.class.getCanonicalName());
         }
         this.fields.forEach(field -> {
-            if (null != field.getColumnType() && null != field.getColumnType().getPkg()) {
-                importPackages.add(field.getColumnType().getPkg());
+            IColumnType columnType = field.getColumnType();
+            if (null != columnType && null != columnType.getPkg()) {
+                importPackages.add(columnType.getPkg());
             }
             if (field.isKeyFlag()) {
                 // 主键
@@ -309,19 +321,17 @@ public class TableInfo {
     /**
      * 处理表信息(文件名与导包)
      *
-     * @param strategyConfig 策略配置
-     * @param globalConfig   全局配置
      * @since 3.5.0
      */
-    public void processTable(@NotNull StrategyConfig strategyConfig, @NotNull GlobalConfig globalConfig) {
+    public void processTable() {
         String entityName = strategyConfig.entity().getNameConvert().entityNameConvert(this);
-        this.setEntityName(strategyConfig, this.getFileName(entityName, globalConfig.getEntityName(), () -> strategyConfig.entity().getConverterFileName().convert(entityName)));
+        this.setEntityName(this.getFileName(entityName, globalConfig.getEntityName(), () -> strategyConfig.entity().getConverterFileName().convert(entityName)));
         this.mapperName = this.getFileName(entityName, globalConfig.getMapperName(), () -> strategyConfig.mapper().getConverterMapperFileName().convert(entityName));
         this.xmlName = this.getFileName(entityName, globalConfig.getXmlName(), () -> strategyConfig.mapper().getConverterXmlFileName().convert(entityName));
         this.serviceName = this.getFileName(entityName, globalConfig.getServiceName(), () -> strategyConfig.service().getConverterServiceFileName().convert(entityName));
         this.serviceImplName = this.getFileName(entityName, globalConfig.getServiceImplName(), () -> strategyConfig.service().getConverterServiceImplFileName().convert(entityName));
         this.controllerName = this.getFileName(entityName, globalConfig.getControllerName(), () -> strategyConfig.controller().getConverterFileName().convert(entityName));
-        this.importPackage(strategyConfig, globalConfig);
+        this.importPackage();
     }
 
 
@@ -339,6 +349,12 @@ public class TableInfo {
         return StringUtils.isNotBlank(value) ? String.format(value, entityName) : defaultValue.get();
     }
 
+    /**
+     * @param name 表名
+     * @return this
+     * @see #TableInfo(ConfigBuilder, String)
+     */
+    @Deprecated
     public TableInfo setName(String name) {
         this.name = name;
         return this;

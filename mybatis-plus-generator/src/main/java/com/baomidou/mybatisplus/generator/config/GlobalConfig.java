@@ -216,9 +216,9 @@ public class GlobalConfig {
     }
 
     /**
-     * @see Mapper.Builder#baseColumnList(boolean)
      * @param baseColumnList 是否开启
      * @return this
+     * @see Mapper.Builder#baseColumnList(boolean)
      */
     @Deprecated
     public GlobalConfig setBaseColumnList(boolean baseColumnList) {
@@ -428,6 +428,7 @@ public class GlobalConfig {
         return swagger2;
     }
 
+    @NotNull
     public DateType getDateType() {
         return dateType;
     }
@@ -552,7 +553,7 @@ public class GlobalConfig {
             return this;
         }
 
-        public Builder openDir(boolean open){
+        public Builder openDir(boolean open) {
             this.globalConfig.open = open;
             return this;
         }
@@ -562,23 +563,23 @@ public class GlobalConfig {
             return this;
         }
 
-        public Builder author(String author){
+        public Builder author(String author) {
             this.globalConfig.author = author;
             return this;
         }
 
-        public Builder kotlin(boolean kotlin){
+        public Builder kotlin(boolean kotlin) {
             this.globalConfig.kotlin = kotlin;
             return this;
         }
 
-        public Builder swagger2(boolean swagger2){
+        public Builder swagger2(boolean swagger2) {
             this.globalConfig.swagger2 = swagger2;
             return this;
         }
 
         @Deprecated
-        public Builder entityName(String entityName){
+        public Builder entityName(String entityName) {
             this.globalConfig.entityName = entityName;
             return this;
         }

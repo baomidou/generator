@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.po.TableInfoTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,10 +21,10 @@ import java.util.Map;
 public class TemplateEngineTest {
 
 
-    private void compatibleAssert(ConfigBuilder configBuilder){
+    private void compatibleAssert(ConfigBuilder configBuilder) {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
         velocityTemplateEngine.setConfigBuilder(configBuilder);
-        Map<String, Object> objectMap = velocityTemplateEngine.getObjectMap(new TableInfo());
+        Map<String, Object> objectMap = velocityTemplateEngine.getObjectMap(new TableInfo(new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, new StrategyConfig(), null, null), "user"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("enableCache"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("baseResultMap"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("baseColumnList"));
@@ -32,7 +33,7 @@ public class TemplateEngineTest {
     }
 
     @Test
-    void compatibleTest(){
+    void compatibleTest() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE", "sa", "").build();
         compatibleAssert(new ConfigBuilder(new PackageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER")).build(),
@@ -59,8 +60,6 @@ public class TemplateEngineTest {
                 .build(),
             new TemplateConfig.Builder().build(),
             new GlobalConfig.Builder().activeRecord(false).baseColumnList(false).enableCache(false).baseResultMap(false).idType(IdType.INPUT).build()));
-
-
     }
 
 }
