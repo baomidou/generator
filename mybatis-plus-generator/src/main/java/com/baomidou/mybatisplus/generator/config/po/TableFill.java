@@ -16,6 +16,7 @@
 package com.baomidou.mybatisplus.generator.config.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.generator.IFill;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
  * @author hubin
  * @since 2017-06-26
  */
-public class TableFill {
+public class TableFill implements IFill {
 
     /**
      * 字段名称
@@ -63,6 +64,11 @@ public class TableFill {
     @Deprecated
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
+    }
+
+    @Override
+    public String getName() {
+        return this.fieldName;
     }
 
     public FieldFill getFieldFill() {

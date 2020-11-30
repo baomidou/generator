@@ -109,11 +109,18 @@ public class TableFieldTest {
         strategyConfig = new StrategyConfig.Builder()
             .entityBuilder()
             .addTableFills(
-                new TableFill("create_time", FieldFill.INSERT), new TableFill("update_time", FieldFill.UPDATE)).build();
+                new TableFill("create_time", FieldFill.INSERT), new TableFill("update_time", FieldFill.UPDATE),
+                new PropertyFill("createBy", FieldFill.INSERT), new PropertyFill("updateBy", FieldFill.INSERT)
+            ).build();
         configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, new GlobalConfig());
         Assertions.assertNotNull(new TableField(configBuilder, "create_time").getFill());
         Assertions.assertNotNull(new TableField(configBuilder, "update_time").getFill());
         Assertions.assertNull(new TableField(configBuilder, "name").getFill());
+        Assertions.assertNull(new TableField(configBuilder, "createBy").getFill());
+        Assertions.assertNull(new TableField(configBuilder, "updateBy").getFill());
+        Assertions.assertNull(new TableField(configBuilder, "create_by").getFill());
+        Assertions.assertNull(new TableField(configBuilder, "update_by").getFill());
+        Assertions.assertNotNull(new TableField(configBuilder, "createBy").setPropertyName("createBy", DbColumnType.STRING).getFill());
+        Assertions.assertNotNull(new TableField(configBuilder, "updateBy").setPropertyName("createBy", DbColumnType.STRING).getFill());
     }
-
 }

@@ -337,7 +337,8 @@ public class TableField {
         if (StringUtils.isBlank(fill)) {
             this.strategyConfig.entity().getTableFillList().stream()
                 //忽略大写字段问题
-                .filter(tf -> tf.getFieldName().equalsIgnoreCase(name))
+                .filter(tf -> tf instanceof TableFill && tf.getName().equalsIgnoreCase(name)
+                    || tf instanceof PropertyFill && tf.getName().equals(propertyName))
                 .findFirst().ifPresent(tf -> this.fill = tf.getFieldFill().name());
         }
         return fill;

@@ -20,10 +20,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.IFill;
 import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.INameConvert;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
@@ -129,7 +129,7 @@ public class Entity implements ITemplate {
     /**
      * 表填充字段
      */
-    private final List<TableFill> tableFillList = new ArrayList<>();
+    private final List<IFill> tableFillList = new ArrayList<>();
 
     /**
      * 数据库表映射到实体的命名策略
@@ -289,7 +289,7 @@ public class Entity implements ITemplate {
         return logicDeletePropertyName;
     }
 
-    public List<TableFill> getTableFillList() {
+    public List<IFill> getTableFillList() {
         return tableFillList;
     }
 
@@ -519,7 +519,7 @@ public class Entity implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder addTableFills(@NotNull TableFill... tableFill) {
+        public Builder addTableFills(@NotNull IFill... tableFill) {
             this.entity.tableFillList.addAll(Arrays.asList(tableFill));
             return this;
         }
@@ -531,7 +531,7 @@ public class Entity implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder addTableFills(@NotNull List<TableFill> tableFillList) {
+        public Builder addTableFills(@NotNull List<IFill> tableFillList) {
             this.entity.tableFillList.addAll(tableFillList);
             return this;
         }

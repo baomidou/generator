@@ -21,13 +21,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.IFill;
 import com.baomidou.mybatisplus.generator.config.builder.BaseBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.Controller;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.builder.Mapper;
 import com.baomidou.mybatisplus.generator.config.builder.Service;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
-import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import org.jetbrains.annotations.NotNull;
@@ -611,9 +611,9 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setTableFillList(@NotNull List<TableFill> tableFillList) {
+    public StrategyConfig setTableFillList(@NotNull List<? extends IFill> tableFillList) {
         this.entityBuilder.get().getTableFillList().clear(); //保持语义
-        this.entityBuilder.addTableFills(tableFillList.toArray(new TableFill[]{}));
+        this.entityBuilder.addTableFills(tableFillList.toArray(new IFill[]{}));
         return this;
     }
 
@@ -625,7 +625,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public List<TableFill> getTableFillList() {
+    public List<IFill> getTableFillList() {
         return entityBuilder.get().getTableFillList();
     }
 
