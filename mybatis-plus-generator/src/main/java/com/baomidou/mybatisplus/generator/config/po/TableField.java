@@ -70,14 +70,9 @@ public class TableField {
      * @since 3.5.0
      */
     public TableField(@NotNull ConfigBuilder configBuilder, @NotNull String name) {
-        //TODO 有空把必须字段统一下.
         this.name = name;
+        this.columnName = name;
         this.strategyConfig = configBuilder.getStrategyConfig();
-        //TODO 先插这里填充字段处理.
-        this.strategyConfig.entity().getTableFillList().stream()
-            //忽略大写字段问题
-            .filter(tf -> tf.getFieldName().equalsIgnoreCase(columnName))
-            .findFirst().ifPresent(tf -> this.setFill(tf.getFieldFill().name()));
     }
 
     /**
@@ -339,6 +334,12 @@ public class TableField {
     }
 
     public String getFill() {
+        if (StringUtils.isBlank(fill)) {
+            this.strategyConfig.entity().getTableFillList().stream()
+                //忽略大写字段问题
+                .filter(tf -> tf.getFieldName().equalsIgnoreCase(name))
+                .findFirst().ifPresent(tf -> this.fill = tf.getFieldFill().name());
+        }
         return fill;
     }
 

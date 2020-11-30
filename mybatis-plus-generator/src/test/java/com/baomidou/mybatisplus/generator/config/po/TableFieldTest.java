@@ -1,5 +1,6 @@
 package com.baomidou.mybatisplus.generator.config.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
@@ -100,4 +101,19 @@ public class TableFieldTest {
         Assertions.assertTrue(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
         Assertions.assertFalse(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.INTEGER).isLogicDeleteFiled());
     }
+
+    @Test
+    void fillTest() {
+        ConfigBuilder configBuilder;
+        StrategyConfig strategyConfig;
+        strategyConfig = new StrategyConfig.Builder()
+            .entityBuilder()
+            .addTableFills(
+                new TableFill("create_time", FieldFill.INSERT), new TableFill("update_time", FieldFill.UPDATE)).build();
+        configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, new GlobalConfig());
+        Assertions.assertNotNull(new TableField(configBuilder, "create_time").getFill());
+        Assertions.assertNotNull(new TableField(configBuilder, "update_time").getFill());
+        Assertions.assertNull(new TableField(configBuilder, "name").getFill());
+    }
+
 }
