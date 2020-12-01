@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.fill.Column;
+import com.baomidou.mybatisplus.generator.fill.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -110,7 +112,8 @@ public class TableFieldTest {
             .entityBuilder()
             .addTableFills(
                 new TableFill("create_time", FieldFill.INSERT), new TableFill("update_time", FieldFill.UPDATE),
-                new PropertyFill("createBy", FieldFill.INSERT), new PropertyFill("updateBy", FieldFill.INSERT)
+                new Property("createBy", FieldFill.INSERT), new Property("updateBy", FieldFill.INSERT),
+                new Column("create_user")
             ).build();
         configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, new GlobalConfig());
         Assertions.assertNotNull(new TableField(configBuilder, "create_time").getFill());
@@ -122,5 +125,6 @@ public class TableFieldTest {
         Assertions.assertNull(new TableField(configBuilder, "update_by").getFill());
         Assertions.assertNotNull(new TableField(configBuilder, "createBy").setPropertyName("createBy", DbColumnType.STRING).getFill());
         Assertions.assertNotNull(new TableField(configBuilder, "updateBy").setPropertyName("createBy", DbColumnType.STRING).getFill());
+        Assertions.assertNotNull(new TableField(configBuilder, "create_user").setPropertyName("createUser", DbColumnType.STRING).getFill());
     }
 }

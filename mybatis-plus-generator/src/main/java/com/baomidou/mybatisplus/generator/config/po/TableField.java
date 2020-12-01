@@ -20,6 +20,8 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.fill.Column;
+import com.baomidou.mybatisplus.generator.fill.Property;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -337,8 +339,8 @@ public class TableField {
         if (StringUtils.isBlank(fill)) {
             this.strategyConfig.entity().getTableFillList().stream()
                 //忽略大写字段问题
-                .filter(tf -> tf instanceof TableFill && tf.getName().equalsIgnoreCase(name)
-                    || tf instanceof PropertyFill && tf.getName().equals(propertyName))
+                .filter(tf -> tf instanceof Column && tf.getName().equalsIgnoreCase(name)
+                    || tf instanceof Property && tf.getName().equals(propertyName))
                 .findFirst().ifPresent(tf -> this.fill = tf.getFieldFill().name());
         }
         return fill;

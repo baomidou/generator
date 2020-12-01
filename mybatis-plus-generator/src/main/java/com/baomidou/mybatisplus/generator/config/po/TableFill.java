@@ -16,80 +16,39 @@
 package com.baomidou.mybatisplus.generator.config.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.generator.IFill;
+import com.baomidou.mybatisplus.generator.fill.Column;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * 字段填充
  *
  * @author hubin
+ * @see Column
  * @since 2017-06-26
+ * @deprecated 3.5.0
  */
-public class TableFill implements IFill {
+@Deprecated
+public class TableFill extends Column {
 
-    /**
-     * 字段名称
-     */
-    private String fieldName;
-    /**
-     * 填充策略
-     */
-    private FieldFill fieldFill;
-
-    /**
-     * 默认填充策略
-     *
-     * @param fieldName 字段名称
-     * @since 3.5.0
-     */
     public TableFill(@NotNull String fieldName) {
-        this.fieldName = fieldName;
-        this.fieldFill = FieldFill.DEFAULT;
+        super(fieldName);
     }
 
     public TableFill(@NotNull String fieldName, @NotNull FieldFill fieldFill) {
-        this.fieldName = fieldName;
-        this.fieldFill = fieldFill;
+        super(fieldName, fieldFill);
     }
 
     public String getFieldName() {
-        return fieldName;
-    }
-
-    /**
-     * @param fieldName 字段名
-     * @see #TableFill(String, FieldFill)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
+        return super.getName();
     }
 
     @Override
-    public String getName() {
-        return this.fieldName;
+    public @NotNull String getName() {
+        return super.getName();
     }
 
-    public FieldFill getFieldFill() {
-        return fieldFill;
+    public @NotNull FieldFill getFieldFill() {
+        return super.getFieldFill();
     }
 
-    /**
-     * @param fieldFill 填充策略
-     * @see #TableFill(String, FieldFill)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public void setFieldFill(FieldFill fieldFill) {
-        this.fieldFill = fieldFill;
-    }
-
-    @Override
-    public String toString() {
-        return "TableFill{" +
-            "fieldName='" + fieldName + '\'' +
-            ", fieldFill=" + fieldFill +
-            '}';
-    }
 }

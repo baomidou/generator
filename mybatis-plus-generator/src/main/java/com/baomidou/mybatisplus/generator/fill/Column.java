@@ -13,23 +13,41 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.baomidou.mybatisplus.generator;
+package com.baomidou.mybatisplus.generator.fill;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.generator.IFill;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 填充接口
+ * 字段填充
  *
  * @author nieqiurong
- * @since 3.5.0 2020/11/30.
+ * @since 3.5.0 2020/12/1.
  */
-public interface IFill {
+public class Column implements IFill {
 
-    @NotNull
-    String getName();
+    private final String columnName;
 
-    @NotNull
-    FieldFill getFieldFill();
+    private final FieldFill fieldFill;
 
+    public Column(@NotNull String columnName, @NotNull FieldFill fieldFill) {
+        this.columnName = columnName;
+        this.fieldFill = fieldFill;
+    }
+
+    public Column(String columnName) {
+        this.columnName = columnName;
+        this.fieldFill = FieldFill.DEFAULT;
+    }
+
+    @Override
+    public @NotNull String getName() {
+        return this.columnName;
+    }
+
+    @Override
+    public @NotNull FieldFill getFieldFill() {
+        return this.fieldFill;
+    }
 }

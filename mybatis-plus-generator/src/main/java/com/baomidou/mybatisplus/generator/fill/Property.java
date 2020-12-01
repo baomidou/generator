@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.baomidou.mybatisplus.generator.config.po;
+package com.baomidou.mybatisplus.generator.fill;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.IFill;
@@ -25,29 +25,29 @@ import org.jetbrains.annotations.NotNull;
  * @author nieqiurong
  * @since 3.5.0 2020/11/30.
  */
-public class PropertyFill implements IFill {
+public class Property implements IFill {
 
     private final String propertyName;
 
     private final FieldFill fieldFill;
 
-    public PropertyFill(@NotNull String propertyName, @NotNull FieldFill fieldFill) {
+    public Property(@NotNull String propertyName, @NotNull FieldFill fieldFill) {
         this.propertyName = propertyName;
         this.fieldFill = fieldFill;
     }
 
-    public PropertyFill(@NotNull String propertyName) {
+    public Property(@NotNull String propertyName) {
         this.propertyName = propertyName;
         this.fieldFill = FieldFill.DEFAULT;
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return this.propertyName;
     }
 
     @Override
-    public FieldFill getFieldFill() {
+    public @NotNull FieldFill getFieldFill() {
         return this.fieldFill;
     }
 }
