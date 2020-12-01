@@ -87,21 +87,21 @@ public class TableFieldTest {
         StrategyConfig strategyConfig;
         strategyConfig = new StrategyConfig.Builder().entityBuilder().logicDeleteColumnName("delete").build();
         configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, new GlobalConfig());
-        Assertions.assertTrue(new TableField(configBuilder, "DELETE").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
-        Assertions.assertTrue(new TableField(configBuilder, "delete").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertTrue(new TableField(configBuilder, "DELETE").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteField());
+        Assertions.assertTrue(new TableField(configBuilder, "delete").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteField());
 
         strategyConfig = new StrategyConfig.Builder().entityBuilder().logicDeletePropertyName("delete").build();
         configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, new GlobalConfig());
-        Assertions.assertTrue(new TableField(configBuilder, "IS_DELETE").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
-        Assertions.assertTrue(new TableField(configBuilder, "is_delete").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
-        Assertions.assertFalse(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
+        Assertions.assertTrue(new TableField(configBuilder, "IS_DELETE").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteField());
+        Assertions.assertTrue(new TableField(configBuilder, "is_delete").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteField());
+        Assertions.assertFalse(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.BOOLEAN).isLogicDeleteField());
 
         strategyConfig = new StrategyConfig.Builder().entityBuilder().booleanColumnRemoveIsPrefix(true).logicDeletePropertyName("delete").build();
         configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, new GlobalConfig());
-        Assertions.assertTrue(new TableField(configBuilder, "IS_DELETE").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
-        Assertions.assertTrue(new TableField(configBuilder, "is_delete").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
-        Assertions.assertTrue(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.BOOLEAN).isLogicDeleteFiled());
-        Assertions.assertFalse(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.INTEGER).isLogicDeleteFiled());
+        Assertions.assertTrue(new TableField(configBuilder, "IS_DELETE").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteField());
+        Assertions.assertTrue(new TableField(configBuilder, "is_delete").setPropertyName("delete", DbColumnType.BOOLEAN).isLogicDeleteField());
+        Assertions.assertTrue(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.BOOLEAN).isLogicDeleteField());
+        Assertions.assertFalse(new TableField(configBuilder, "is_delete").setPropertyName("isDelete", DbColumnType.INTEGER).isLogicDeleteField());
     }
 
     @Test

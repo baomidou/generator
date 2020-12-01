@@ -207,7 +207,7 @@ public class TableField {
      * @return 是否为逻辑删除字段
      * @since 3.5.0
      */
-    public boolean isLogicDeleteFiled() {
+    public boolean isLogicDeleteField() {
         String propertyName = this.strategyConfig.entity().getLogicDeletePropertyName();
         String columnName = this.strategyConfig.entity().getLogicDeleteColumnName();
         return StringUtils.isNotBlank(propertyName) && this.propertyName.equals(propertyName)

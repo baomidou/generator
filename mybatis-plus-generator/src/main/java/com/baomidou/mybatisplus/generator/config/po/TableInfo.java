@@ -189,7 +189,7 @@ public class TableInfo {
     /**
      * 逻辑删除
      *
-     * @see TableField#isLogicDeleteFiled()
+     * @see TableField#isLogicDeleteField()
      * @deprecated 3.5.0
      */
     @Deprecated
@@ -312,7 +312,7 @@ public class TableInfo {
             if (field.isVersionField()) {
                 this.importPackages.add(Version.class.getCanonicalName());
             }
-            if (field.isLogicDeleteFiled()) {
+            if (field.isLogicDeleteField()) {
                 this.importPackages.add(TableLogic.class.getCanonicalName());
             }
         });
