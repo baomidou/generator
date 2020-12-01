@@ -72,7 +72,7 @@ public abstract class AbstractTemplateEngine {
             objectMap.put("cfg", injectionConfig.getMap());
             List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
             for (FileOutConfig foc : focList) {
-                File outputFile = new File(foc.outputFile(tableInfo));
+                File outputFile = foc.outputFile(tableInfo);
                 if (isCreate(FileType.OTHER, outputFile)) {
                     outputFile(outputFile, FileType.OTHER, objectMap, foc.getTemplatePath());
                 }

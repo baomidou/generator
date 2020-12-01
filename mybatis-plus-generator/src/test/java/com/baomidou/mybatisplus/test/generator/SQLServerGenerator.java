@@ -15,6 +15,7 @@
  */
 package com.baomidou.mybatisplus.test.generator;
 
+import java.io.File;
 import java.util.Collections;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -120,9 +121,9 @@ public class SQLServerGenerator extends GeneratorTest {
         InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));
         cfg.addFileOutConfig(new FileOutConfig("/templates/entity.java" + ((1 == result) ? ".ftl" : ".vm")) {
             @Override
-            public String outputFile(TableInfo tableInfo) {
+            public File outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
-                return "D://my_" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+                return new File("D://my_" + tableInfo.getEntityName() + StringPool.DOT_JAVA);
             }
         });
         mpg.setCfg(cfg);

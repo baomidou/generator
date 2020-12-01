@@ -18,6 +18,8 @@ package com.baomidou.mybatisplus.generator.config;
 import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 
+import java.io.File;
+
 /**
  * 输出文件配置
  *
@@ -50,8 +52,7 @@ public abstract class FileOutConfig {
     /**
      * 输出文件
      */
-    //TODO 这里有空换成File
-    public abstract String outputFile(TableInfo tableInfo);
+    public abstract File outputFile(TableInfo tableInfo);
 
     /**
      * @param templatePath 模块路径

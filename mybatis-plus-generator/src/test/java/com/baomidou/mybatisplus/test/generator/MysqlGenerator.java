@@ -29,6 +29,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.mysql.cj.jdbc.Driver;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -141,8 +142,8 @@ public class MysqlGenerator extends GeneratorTest {
                 "/templates/mapper.xml" + ((1 == result) ? ".ftl" : ".vm")) {
                 // 自定义输出文件目录
                 @Override
-                public String outputFile(TableInfo tableInfo) {
-                    return "../com/xml/" + tableInfo.getEntityName() + ".xml";
+                public File outputFile(TableInfo tableInfo) {
+                    return new File("../com/xml/" + tableInfo.getEntityName() + ".xml");
                 }
             })
         ).setTemplate(
