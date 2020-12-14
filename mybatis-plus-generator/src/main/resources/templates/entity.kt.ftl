@@ -69,7 +69,7 @@ class ${entity} : Serializable {
     @Version
 </#if>
 <#-- 逻辑删除注解 -->
-<#if field.logicDeleteFiled>
+<#if field.logicDeleteField>
     @TableLogic
 </#if>
     <#if field.propertyType == "Integer">

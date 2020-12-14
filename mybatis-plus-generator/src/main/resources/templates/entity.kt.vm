@@ -68,7 +68,7 @@ class ${entity} : Serializable {
     @Version
 #end
 ## 逻辑删除注解
-#if(field.logicDeleteFiled)
+#if(field.logicDeleteField)
     @TableLogic
 #end
     #if(${field.propertyType} == "Integer")

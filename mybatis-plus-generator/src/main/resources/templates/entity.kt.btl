@@ -77,7 +77,7 @@ class ${entity} : Serializable {
     <%
     /*逻辑删除注解*/
     %>
-    <% if(field.logicDeleteFiled){ %>
+    <% if(field.logicDeleteField){ %>
     @TableLogic
     <% } %>
     <% if(field.propertyType == 'Integer'){ %>

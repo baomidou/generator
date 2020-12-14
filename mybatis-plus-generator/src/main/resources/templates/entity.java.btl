@@ -98,7 +98,7 @@ public class ${entity} implements Serializable {
     <%
     /*逻辑删除注解*/
     %>
-    <% if(field.logicDeleteFiled){ %>
+    <% if(field.logicDeleteField){ %>
     @TableLogic
     <% } %>
     private ${field.propertyType} ${field.propertyName};
