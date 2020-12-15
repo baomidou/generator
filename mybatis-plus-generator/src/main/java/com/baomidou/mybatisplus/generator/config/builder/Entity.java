@@ -189,14 +189,6 @@ public class Entity implements ITemplate {
     }
 
     public Set<String> getSuperEntityColumns() {
-        if (StringUtils.isNotBlank(this.superClass)) {
-            try {
-                Class<?> superEntity = ClassUtils.toClassConfident(this.superClass);
-                convertSuperEntityColumns(superEntity);
-            } catch (Exception e) {
-                //当父类实体存在类加载器的时候,识别父类实体字段，不存在的情况就只有通过指定superEntityColumns属性了。
-            }
-        }
         return this.superEntityColumns;
     }
 
@@ -583,8 +575,19 @@ public class Entity implements ITemplate {
             return convertFileName((entityName) -> String.format(format, entityName));
         }
 
-        public Entity get(){
+        public Entity get() {
+            String superClass = this.entity.superClass;
+            tryLoadClass(superClass).ifPresent(this.entity::convertSuperEntityColumns);
             return this.entity;
+        }
+
+        private Optional<Class<?>> tryLoadClass(String className) {
+            try {
+                return Optional.of(ClassUtils.toClassConfident(className));
+            } catch (Exception e) {
+                //当父类实体存在类加载器的时候,识别父类实体字段，不存在的情况就只有通过指定superEntityColumns属性了。
+            }
+            return Optional.empty();
         }
     }
 }
