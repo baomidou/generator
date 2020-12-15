@@ -1,17 +1,17 @@
 /*
  * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.baomidou.mybatisplus.generator.config.converts;
 
@@ -26,8 +26,8 @@ import static com.baomidou.mybatisplus.generator.config.rules.DbColumnType.*;
 
 /**
  * MYSQL 数据库字段类型转换
- *
- * @author hubin, hanchunlin
+ * bit类型数据转换 bit(1) -> Boolean类型  bit(2->64)  -> Byte类型
+ * @author hubin, hanchunlin, xiaoliang
  * @since 2017-01-20
  */
 public class MySqlTypeConvert implements ITypeConvert {
@@ -61,11 +61,12 @@ public class MySqlTypeConvert implements ITypeConvert {
      * @return 返回对应的列类型
      */
     public static IColumnType toDateType(GlobalConfig config, String type) {
+        String dateType = type.replaceAll("\\(\\d+\\)", "");
         switch (config.getDateType()) {
             case ONLY_DATE:
                 return DbColumnType.DATE;
             case SQL_PACK:
-                switch (type) {
+                switch (dateType) {
                     case "date":
                     case "year":
                         return DbColumnType.DATE_SQL;
@@ -75,7 +76,7 @@ public class MySqlTypeConvert implements ITypeConvert {
                         return DbColumnType.TIMESTAMP;
                 }
             case TIME_PACK:
-                switch (type) {
+                switch (dateType) {
                     case "date":
                         return DbColumnType.LOCAL_DATE;
                     case "time":
