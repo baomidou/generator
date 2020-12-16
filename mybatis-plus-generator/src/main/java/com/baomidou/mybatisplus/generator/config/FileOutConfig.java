@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -44,7 +45,7 @@ public abstract class FileOutConfig {
         // to do nothing
     }
 
-    public FileOutConfig(String templatePath) {
+    public FileOutConfig(@NotNull String templatePath) {
         Assert.notEmpty(templatePath, "模板路径不能为空!");
         this.templatePath = templatePath;
     }
@@ -71,6 +72,7 @@ public abstract class FileOutConfig {
      *
      * @return 模板路径信息
      */
+    @NotNull
     public String getTemplatePath() {
         return templatePath;
     }

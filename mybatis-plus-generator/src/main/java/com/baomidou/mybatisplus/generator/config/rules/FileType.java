@@ -20,7 +20,9 @@ package com.baomidou.mybatisplus.generator.config.rules;
  *
  * @author hubin
  * @since 2018-08-07
+ * @deprecated 3.5.0
  */
+@Deprecated
 public enum FileType {
     ENTITY,
     MAPPER,

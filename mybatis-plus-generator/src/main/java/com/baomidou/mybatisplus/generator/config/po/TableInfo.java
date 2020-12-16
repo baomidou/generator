@@ -94,10 +94,9 @@ public class TableInfo {
     }
 
     /**
-     * @return this
      * @since 3.5.0
      */
-    protected TableInfo setConvert() {
+    protected void setConvert() {
         if (strategyConfig.startsWithTablePrefix(name) || strategyConfig.entity().isTableFieldAnnotationEnable()) {
             // 包含前缀
             this.convert = true;
@@ -115,7 +114,6 @@ public class TableInfo {
                 this.convert = true;
             }
         }
-        return this;
     }
 
     public String getEntityPath() {
@@ -365,26 +363,56 @@ public class TableInfo {
         return this;
     }
 
+    /**
+     * @param mapperName mapper文件名称
+     * @return this
+     * @deprecated 3.5.0
+     */
+    @Deprecated
     public TableInfo setMapperName(String mapperName) {
         this.mapperName = mapperName;
         return this;
     }
 
+    /**
+     * @param xmlName xml文件名称
+     * @return this
+     * @deprecated 3.5.0
+     */
+    @Deprecated
     public TableInfo setXmlName(String xmlName) {
         this.xmlName = xmlName;
         return this;
     }
 
+    /**
+     * @param serviceName service文件名称
+     * @return this
+     * @deprecated 3.5.0
+     */
+    @Deprecated
     public TableInfo setServiceName(String serviceName) {
         this.serviceName = serviceName;
         return this;
     }
 
+    /**
+     * @param serviceImplName serviceImpl文件名称
+     * @return this
+     * @deprecated 3.5.0
+     */
+    @Deprecated
     public TableInfo setServiceImplName(String serviceImplName) {
         this.serviceImplName = serviceImplName;
         return this;
     }
 
+    /**
+     * @param controllerName controller文件名称
+     * @return this
+     * @deprecated 3.5.0
+     */
+    @Deprecated
     public TableInfo setControllerName(String controllerName) {
         this.controllerName = controllerName;
         return this;
