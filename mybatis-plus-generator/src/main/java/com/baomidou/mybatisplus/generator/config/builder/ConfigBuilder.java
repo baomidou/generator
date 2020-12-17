@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,8 +95,8 @@ public class ConfigBuilder {
      * @param template         模板配置
      * @param globalConfig     全局配置
      */
-    public ConfigBuilder(PackageConfig packageConfig, DataSourceConfig dataSourceConfig, StrategyConfig strategyConfig,
-                         TemplateConfig template, GlobalConfig globalConfig) {
+    public ConfigBuilder(@Nullable PackageConfig packageConfig, @NotNull DataSourceConfig dataSourceConfig, @Nullable StrategyConfig strategyConfig,
+                         @Nullable TemplateConfig template, @Nullable GlobalConfig globalConfig) {
         this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(() -> new StrategyConfig.Builder().build());
         //TODO 先把验证插在这里，后续改成build构建的话在build的时候验证
         this.strategyConfig.validate();
@@ -111,6 +112,7 @@ public class ConfigBuilder {
     /**
      * 获取所有的数据库表信息
      */
+    @NotNull
     private List<TableInfo> getTablesInfo() {
         boolean isInclude = strategyConfig.getInclude().size() > 0;
         boolean isExclude = strategyConfig.getExclude().size() > 0;
@@ -178,7 +180,7 @@ public class ConfigBuilder {
      *
      * @param tableInfo 表信息
      */
-    private void convertTableFields(TableInfo tableInfo) {
+    private void convertTableFields(@NotNull TableInfo tableInfo) {
         List<TableField> fieldList = new ArrayList<>();
         List<TableField> commonFieldList = new ArrayList<>();
         DbType dbType = this.dataSourceConfig.getDbType();
@@ -243,7 +245,8 @@ public class ConfigBuilder {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public String formatComment(String comment) {
+    @NotNull
+    public String formatComment(@Nullable String comment) {
         return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
     }
 
@@ -255,7 +258,7 @@ public class ConfigBuilder {
      * @deprecated 3.5.0 {@link #getTableInfoList()} 返回引用，如果有需要请直接操作
      */
     @Deprecated
-    public ConfigBuilder setTableInfoList(List<TableInfo> tableInfoList) {
+    public ConfigBuilder setTableInfoList(@NotNull List<TableInfo> tableInfoList) {
         this.tableInfoList.clear(); //保持语义
         this.tableInfoList.addAll(tableInfoList);
         return this;
@@ -268,7 +271,7 @@ public class ConfigBuilder {
      * @return 是否正则
      * @since 3.5.0
      */
-    public static boolean matcherRegTable(String tableName) {
+    public static boolean matcherRegTable(@NotNull String tableName) {
         return REGX.matcher(tableName).find();
     }
 
@@ -284,17 +287,20 @@ public class ConfigBuilder {
         return packageConfig.getPackageInfo();
     }
 
-    public ConfigBuilder setStrategyConfig(StrategyConfig strategyConfig) {
+    @NotNull
+    public ConfigBuilder setStrategyConfig(@NotNull StrategyConfig strategyConfig) {
         this.strategyConfig = strategyConfig;
         return this;
     }
 
-    public ConfigBuilder setGlobalConfig(GlobalConfig globalConfig) {
+    @NotNull
+    public ConfigBuilder setGlobalConfig(@NotNull GlobalConfig globalConfig) {
         this.globalConfig = globalConfig;
         return this;
     }
 
-    public ConfigBuilder setInjectionConfig(InjectionConfig injectionConfig) {
+    @NotNull
+    public ConfigBuilder setInjectionConfig(@NotNull InjectionConfig injectionConfig) {
         this.injectionConfig = injectionConfig;
         return this;
     }
@@ -324,6 +330,7 @@ public class ConfigBuilder {
         return globalConfig;
     }
 
+    @Nullable
     public InjectionConfig getInjectionConfig() {
         return injectionConfig;
     }

@@ -16,6 +16,7 @@
 package com.baomidou.mybatisplus.generator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +76,7 @@ public class InjectionConfig {
      *
      * @param tableInfo
      */
-    public void initTableMap(TableInfo tableInfo) {
+    public void initTableMap(@NotNull TableInfo tableInfo) {
         // 子类重写注入表对应补充信息
     }
 
@@ -125,6 +126,7 @@ public class InjectionConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @NotNull
     public InjectionConfig setFileOutConfigList(@NotNull List<FileOutConfig> fileOutConfigList) {
         this.fileOutConfigList.clear(); //保持方法语义
         return addFileOutConfig(fileOutConfigList);
@@ -137,6 +139,7 @@ public class InjectionConfig {
      * @return this
      * @since 3.5.0
      */
+    @NotNull
     public InjectionConfig addFileOutConfig(@NotNull List<FileOutConfig> fileOutConfigList) {
         this.fileOutConfigList.addAll(fileOutConfigList);
         return this;
@@ -145,33 +148,38 @@ public class InjectionConfig {
     /**
      * 添加自定义输出文件
      *
-     * @param fileOutConfig 自定义输出文件
+     * @param fileOutConfigs 自定义输出文件
      * @return this
      * @since 3.5.0
      */
-    public InjectionConfig addFileOutConfig(FileOutConfig fileOutConfig) {
-        this.fileOutConfigList.add(fileOutConfig);
-        return this;
+    @NotNull
+    public InjectionConfig addFileOutConfig(@NotNull FileOutConfig... fileOutConfigs) {
+        return addFileOutConfig(Arrays.asList(fileOutConfigs));
     }
 
-    public InjectionConfig setConfig(ConfigBuilder config) {
+    @NotNull
+    public InjectionConfig setConfig(@NotNull ConfigBuilder config) {
         this.config = config;
         return this;
     }
 
-    public InjectionConfig setFileCreate(IFileCreate fileCreate) {
+    @NotNull
+    public InjectionConfig setFileCreate(@NotNull IFileCreate fileCreate) {
         this.fileCreate = fileCreate;
         return this;
     }
 
+    @NotNull
     public ConfigBuilder getConfig() {
         return config;
     }
 
+    @NotNull
     public Map<String, Object> getMap() {
         return map;
     }
 
+    @NotNull
     public List<FileOutConfig> getFileOutConfigList() {
         return fileOutConfigList;
     }

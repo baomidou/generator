@@ -56,7 +56,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
     }
 
     @Override
-    public VelocityTemplateEngine init(ConfigBuilder configBuilder) {
+    public @NotNull VelocityTemplateEngine init(@NotNull ConfigBuilder configBuilder) {
         if (null == velocityEngine) {
             Properties p = new Properties();
             p.setProperty(ConstVal.VM_LOAD_PATH_KEY, ConstVal.VM_LOAD_PATH_VALUE);
@@ -83,8 +83,8 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
 
 
     @Override
-    public String templateFilePath(String filePath) {
-        if (null == filePath || filePath.contains(DOT_VM)) {
+    public @NotNull String templateFilePath(@NotNull String filePath) {
+        if (filePath.contains(DOT_VM)) {
             return filePath;
         }
         return filePath + DOT_VM;

@@ -38,7 +38,7 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine {
     private Configuration configuration;
 
     @Override
-    public FreemarkerTemplateEngine init(ConfigBuilder configBuilder) {
+    public @NotNull FreemarkerTemplateEngine init(@NotNull ConfigBuilder configBuilder) {
         configuration = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
         configuration.setDefaultEncoding(ConstVal.UTF8);
         configuration.setClassForTemplateLoading(FreemarkerTemplateEngine.class, StringPool.SLASH);
@@ -57,7 +57,7 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine {
 
 
     @Override
-    public String templateFilePath(String filePath) {
+    public @NotNull String templateFilePath(@NotNull String filePath) {
         return filePath + ".ftl";
     }
 }

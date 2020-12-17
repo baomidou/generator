@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.util.FileUtils;
 import com.baomidou.mybatisplus.generator.util.RuntimeUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +56,8 @@ public abstract class AbstractTemplateEngine {
     /**
      * 模板引擎初始化
      */
-    public abstract AbstractTemplateEngine init(ConfigBuilder configBuilder);
+    @NotNull
+    public abstract AbstractTemplateEngine init(@NotNull ConfigBuilder configBuilder);
 
     /**
      * 自定义内容输出
@@ -65,7 +67,7 @@ public abstract class AbstractTemplateEngine {
      * @throws Exception ex
      * @since 3.5.0
      */
-    protected void outputCustomFile(TableInfo tableInfo, Map<String, Object> objectMap) throws Exception {
+    protected void outputCustomFile(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) throws Exception {
         InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
         if (null != injectionConfig) {
             injectionConfig.initTableMap(tableInfo);
@@ -203,10 +205,14 @@ public abstract class AbstractTemplateEngine {
      * @return 模板路径
      * @since 3.5.0
      */
+    @NotNull
     protected Optional<String> getTemplateFilePath(@NotNull Function<TemplateConfig, String> function) {
         TemplateConfig template = getConfigBuilder().getTemplate();
-        String templateFilePath = templateFilePath(function.apply(template));
-        return StringUtils.isBlank(templateFilePath) ? Optional.empty() : Optional.of(templateFilePath);
+        String filePath = function.apply(template);
+        if (StringUtils.isNotBlank(filePath)) {
+            return Optional.of(templateFilePath(filePath));
+        }
+        return Optional.empty();
     }
 
     /**
@@ -215,7 +221,8 @@ public abstract class AbstractTemplateEngine {
      * @param key key {@link ConstVal}_xxxPath
      * @return 路径信息
      */
-    protected String getPathInfo(String key) {
+    @Nullable
+    protected String getPathInfo(@NotNull String key) {
         Map<String, String> pathInfo = getConfigBuilder().getPathInfo();
         return pathInfo.get(key);
     }
@@ -223,6 +230,7 @@ public abstract class AbstractTemplateEngine {
     /**
      * 输出 java xml 文件
      */
+    @NotNull
     public AbstractTemplateEngine batchOutput() {
         try {
             List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
@@ -329,7 +337,8 @@ public abstract class AbstractTemplateEngine {
      * @param tableInfo 表信息对象
      * @return ignore
      */
-    public Map<String, Object> getObjectMap(TableInfo tableInfo) {
+    @NotNull
+    public Map<String, Object> getObjectMap(@NotNull TableInfo tableInfo) {
         Map<String, Object> objectMap = new HashMap<>();
         ConfigBuilder config = getConfigBuilder();
         GlobalConfig globalConfig = config.getGlobalConfig();
@@ -379,7 +388,8 @@ public abstract class AbstractTemplateEngine {
      * @param filePath 文件路径
      * @return ignore
      */
-    public abstract String templateFilePath(String filePath);
+    @NotNull
+    public abstract String templateFilePath(@NotNull String filePath);
 
 
     /**
@@ -402,7 +412,7 @@ public abstract class AbstractTemplateEngine {
      * @return 是否创建文件
      * @since 3.5.0
      */
-    protected boolean isCreate(FileType fileType, File file) {
+    protected boolean isCreate(@NotNull FileType fileType, @NotNull File file) {
         ConfigBuilder cb = getConfigBuilder();
         // 自定义判断
         InjectionConfig ic = cb.getInjectionConfig();
@@ -420,12 +430,13 @@ public abstract class AbstractTemplateEngine {
         return getConfigBuilder().getGlobalConfig().isKotlin() ? ConstVal.KT_SUFFIX : ConstVal.JAVA_SUFFIX;
     }
 
-
+    @NotNull
     public ConfigBuilder getConfigBuilder() {
         return configBuilder;
     }
 
-    public AbstractTemplateEngine setConfigBuilder(ConfigBuilder configBuilder) {
+    @NotNull
+    public AbstractTemplateEngine setConfigBuilder(@NotNull ConfigBuilder configBuilder) {
         this.configBuilder = configBuilder;
         return this;
     }

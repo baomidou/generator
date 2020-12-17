@@ -54,7 +54,7 @@ public class BeetlTemplateEngine extends AbstractTemplateEngine {
     private GroupTemplate groupTemplate;
 
     @Override
-    public AbstractTemplateEngine init(ConfigBuilder configBuilder) {
+    public @NotNull AbstractTemplateEngine init(@NotNull ConfigBuilder configBuilder) {
         try {
             Configuration cfg = Configuration.defaultConfiguration();
             groupTemplate = new GroupTemplate(new ClasspathResourceLoader("/"), cfg);
@@ -76,7 +76,7 @@ public class BeetlTemplateEngine extends AbstractTemplateEngine {
     }
 
     @Override
-    public String templateFilePath(String filePath) {
+    public @NotNull String templateFilePath(@NotNull String filePath) {
         return filePath + ".btl";
     }
 }
