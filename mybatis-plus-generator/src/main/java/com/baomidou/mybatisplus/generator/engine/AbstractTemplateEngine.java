@@ -293,6 +293,7 @@ public abstract class AbstractTemplateEngine {
      */
     public void writer(@NotNull Map<String, Object> objectMap, @NotNull String templatePath, @NotNull File outputFile) throws Exception {
         this.writer(objectMap, templatePath, outputFile.getPath());
+        logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
     }
 
     /**

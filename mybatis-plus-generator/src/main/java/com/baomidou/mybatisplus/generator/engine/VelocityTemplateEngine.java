@@ -27,8 +27,6 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -42,11 +40,11 @@ import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
  */
 public class VelocityTemplateEngine extends AbstractTemplateEngine {
 
-    private static final Logger logger = LoggerFactory.getLogger(VelocityTemplateEngine.class);
     private static final String DOT_VM = ".vm";
     private VelocityEngine velocityEngine;
 
-    static {
+    {
+        // TODO 改为构造初始化检查了,一般项目也只会初始化一次.
         try {
             Class.forName("org.apache.velocity.util.DuckType");
         } catch (ClassNotFoundException e) {
@@ -78,7 +76,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
              BufferedWriter writer = new BufferedWriter(ow)) {
             template.merge(new VelocityContext(objectMap), writer);
         }
-        logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
     }
 
 
