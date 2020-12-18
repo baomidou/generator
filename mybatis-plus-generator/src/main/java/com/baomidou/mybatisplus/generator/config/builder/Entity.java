@@ -577,7 +577,9 @@ public class Entity implements ITemplate {
 
         public Entity get() {
             String superClass = this.entity.superClass;
-            tryLoadClass(superClass).ifPresent(this.entity::convertSuperEntityColumns);
+            if (StringUtils.isNotBlank(superClass)) {
+                tryLoadClass(superClass).ifPresent(this.entity::convertSuperEntityColumns);
+            }
             return this.entity;
         }
 

@@ -18,7 +18,6 @@ package com.baomidou.mybatisplus.generator.config;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -105,6 +104,12 @@ public class StrategyConfig {
 
     private Entity entity;
 
+    private Mapper mapper;
+
+    private Service service;
+
+    private Controller controller;
+
     /**
      * 实体配置构建者
      *
@@ -143,7 +148,10 @@ public class StrategyConfig {
      * @since 3.5.0
      */
     public Controller controller() {
-        return controllerBuilder.get();
+        if (controller == null) {
+            this.controller = controllerBuilder.get();
+        }
+        return controller;
     }
 
     /**
@@ -164,7 +172,10 @@ public class StrategyConfig {
      * @since 3.5.0
      */
     public Mapper mapper() {
-        return mapperBuilder.get();
+        if (mapper == null) {
+            this.mapper = mapperBuilder.get();
+        }
+        return mapper;
     }
 
 
@@ -186,7 +197,10 @@ public class StrategyConfig {
      * @since 3.5.0
      */
     public Service service() {
-        return serviceBuilder.get();
+        if (service == null) {
+            this.service = serviceBuilder.get();
+        }
+        return service;
     }
 
     /**

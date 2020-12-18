@@ -57,21 +57,18 @@ public interface INameConvert {
 
         private final StrategyConfig strategyConfig;
 
-        private final Entity entity;
-
         public DefaultNameConvert(StrategyConfig strategyConfig) {
             this.strategyConfig = strategyConfig;
-            this.entity = strategyConfig.entity();
         }
 
         @Override
         public String entityNameConvert(TableInfo tableInfo) {
-            return NamingStrategy.capitalFirst(processName(tableInfo.getName(), entity.getNaming(), strategyConfig.getTablePrefix()));
+            return NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix()));
         }
 
         @Override
         public String propertyNameConvert(TableField field) {
-            return processName(field.getName(), entity.getNaming(), strategyConfig.getTablePrefix());
+            return processName(field.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix());
         }
 
         private String processName(String name, NamingStrategy strategy, Set<String> prefix) {
