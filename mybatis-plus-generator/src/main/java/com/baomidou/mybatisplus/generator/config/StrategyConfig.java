@@ -31,6 +31,7 @@ import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * 策略配置项
@@ -116,6 +117,7 @@ public class StrategyConfig {
      * @return 实体配置构建者
      * @since 3.5.0
      */
+    @NotNull
     public Entity.Builder entityBuilder() {
         return entityBuilder;
     }
@@ -124,6 +126,7 @@ public class StrategyConfig {
      * @return 实体配置
      * @since 3.5.0
      */
+    @NotNull
     public Entity entity() {
         if (entity == null) {
             this.entity = entityBuilder.get();
@@ -137,6 +140,7 @@ public class StrategyConfig {
      * @return 控制器配置构建者
      * @since 3.5.0
      */
+    @NotNull
     public Controller.Builder controllerBuilder() {
         return controllerBuilder;
     }
@@ -147,6 +151,7 @@ public class StrategyConfig {
      * @return 控制器配置
      * @since 3.5.0
      */
+    @NotNull
     public Controller controller() {
         if (controller == null) {
             this.controller = controllerBuilder.get();
@@ -160,6 +165,7 @@ public class StrategyConfig {
      * @return Mapper配置构建者
      * @since 3.5.0
      */
+    @NotNull
     public Mapper.Builder mapperBuilder() {
         return mapperBuilder;
     }
@@ -171,6 +177,7 @@ public class StrategyConfig {
      * @return Mapper配置
      * @since 3.5.0
      */
+    @NotNull
     public Mapper mapper() {
         if (mapper == null) {
             this.mapper = mapperBuilder.get();
@@ -185,6 +192,7 @@ public class StrategyConfig {
      * @return Service配置构建者
      * @since 3.5.0
      */
+    @NotNull
     public Service.Builder serviceBuilder() {
         return serviceBuilder;
     }
@@ -196,6 +204,7 @@ public class StrategyConfig {
      * @return Service配置
      * @since 3.5.0
      */
+    @NotNull
     public Service service() {
         if (service == null) {
             this.service = serviceBuilder.get();
@@ -210,6 +219,7 @@ public class StrategyConfig {
      * @see Entity#getNameConvert()
      * @deprecated 3.5.0
      */
+    @NotNull
     public INameConvert getNameConvert() {
         return entity().getNameConvert();
     }
@@ -223,7 +233,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setNameConvert(INameConvert nameConvert) {
+    public StrategyConfig setNameConvert(@NotNull INameConvert nameConvert) {
         this.entityBuilder.nameConvert(nameConvert);
         return this;
     }
@@ -236,6 +246,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @NotNull
     public NamingStrategy getNaming() {
         return entity().getNaming();
     }
@@ -249,7 +260,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setNaming(NamingStrategy naming) {
+    public StrategyConfig setNaming(@NotNull NamingStrategy naming) {
         this.entityBuilder.naming(naming);
         return this;
     }
@@ -259,7 +270,7 @@ public class StrategyConfig {
      *
      * @param word 待判断字符串
      */
-    public boolean isCapitalModeNaming(String word) {
+    public boolean isCapitalModeNaming(@NotNull String word) {
         return isCapitalMode && StringUtils.isCapitalMode(word);
     }
 
@@ -270,7 +281,7 @@ public class StrategyConfig {
      * @deprecated 3.3.2 {@link #startsWithTablePrefix(String)}
      */
     @Deprecated
-    public boolean containsTablePrefix(String tableName) {
+    public boolean containsTablePrefix(@NotNull String tableName) {
         return this.tablePrefix.stream().anyMatch(tableName::contains);
     }
 
@@ -280,7 +291,7 @@ public class StrategyConfig {
      * @param tableName 表名称
      * @since 3.3.2
      */
-    public boolean startsWithTablePrefix(String tableName) {
+    public boolean startsWithTablePrefix(@NotNull String tableName) {
         return this.tablePrefix.stream().anyMatch(tableName::startsWith);
     }
 
@@ -292,6 +303,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @NotNull
     public NamingStrategy getColumnNaming() {
         return entity().getColumnNaming();
     }
@@ -305,7 +317,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setColumnNaming(NamingStrategy columnNaming) {
+    public StrategyConfig setColumnNaming(@NotNull NamingStrategy columnNaming) {
         this.entityBuilder.columnNaming(columnNaming);
         return this;
     }
@@ -330,7 +342,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public boolean includeSuperEntityColumns(String fieldName) {
+    public boolean includeSuperEntityColumns(@NotNull String fieldName) {
         // 公共字段判断忽略大小写【 部分数据库大小写不敏感 】
         return entityBuilder.get().matchSuperEntityColumns(fieldName);
     }
@@ -396,7 +408,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setSuperEntityClass(String superEntityClass) {
+    public StrategyConfig setSuperEntityClass(@NotNull String superEntityClass) {
         this.entityBuilder.superClass(superEntityClass);
         return this;
     }
@@ -409,6 +421,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @Nullable
     public String getSuperEntityClass() {
         return entityBuilder.get().getSuperClass();
     }
@@ -447,7 +460,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0 {@link #setSuperEntityClass(Class)} {@link #setColumnNaming(NamingStrategy)}
      */
     @Deprecated
-    public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz, NamingStrategy columnNaming) {
+    public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz, @NotNull NamingStrategy columnNaming) {
         this.entityBuilder.columnNaming(columnNaming);
         this.entityBuilder.superClass(clazz);
         return this;
@@ -476,7 +489,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setSuperServiceClass(String superServiceClass) {
+    public StrategyConfig setSuperServiceClass(@NotNull String superServiceClass) {
         this.serviceBuilder.superServiceClass(superServiceClass);
         return this;
     }
@@ -489,6 +502,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @Nullable
     public String getSuperServiceClass() {
         return service().getSuperServiceClass();
     }
@@ -516,7 +530,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setSuperServiceImplClass(String superServiceImplClass) {
+    public StrategyConfig setSuperServiceImplClass(@NotNull String superServiceImplClass) {
         this.serviceBuilder.superServiceImplClass(superServiceImplClass);
         return this;
     }
@@ -529,6 +543,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @Nullable
     public String getSuperServiceImplClass() {
         return service().getSuperServiceImplClass();
     }
@@ -556,7 +571,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setSuperControllerClass(String superControllerClass) {
+    public StrategyConfig setSuperControllerClass(@NotNull String superControllerClass) {
         this.controllerBuilder.superClass(superControllerClass);
         return this;
     }
@@ -569,6 +584,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @Nullable
     public String getSuperControllerClass() {
         return controller().getSuperClass();
     }
@@ -645,6 +661,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @NotNull
     public List<IFill> getTableFillList() {
         return entityBuilder.get().getTableFillList();
     }
@@ -692,6 +709,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @NotNull
     public Set<String> getSuperEntityColumns() {
         return entity().getSuperEntityColumns();
     }
@@ -856,6 +874,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @Nullable
     public String getVersionFieldName() {
         return entity().getVersionFieldName();
     }
@@ -869,7 +888,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setVersionFieldName(String versionFieldName) {
+    public StrategyConfig setVersionFieldName(@NotNull String versionFieldName) {
         this.entityBuilder.versionFieldName(versionFieldName);
         return this;
     }
@@ -882,6 +901,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @Nullable
     public String getLogicDeleteFieldName() {
         return entity().getLogicDeleteFieldName();
     }
@@ -895,7 +915,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setLogicDeleteFieldName(String logicDeleteFieldName) {
+    public StrategyConfig setLogicDeleteFieldName(@NotNull String logicDeleteFieldName) {
         this.entityBuilder.logicDeleteFieldName(logicDeleteFieldName);
         return this;
     }
@@ -908,6 +928,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
+    @Nullable
     public String getSuperMapperClass() {
         return mapper().getSuperClass();
     }
@@ -921,7 +942,7 @@ public class StrategyConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public StrategyConfig setSuperMapperClass(String superMapperClass) {
+    public StrategyConfig setSuperMapperClass(@NotNull String superMapperClass) {
         this.mapperBuilder.superClass(superMapperClass);
         return this;
     }
@@ -949,7 +970,7 @@ public class StrategyConfig {
      * @return 是否匹配
      * @since 3.5.0
      */
-    public boolean matchIncludeTable(String tableName) {
+    public boolean matchIncludeTable(@NotNull String tableName) {
         return matchTable(tableName, this.getInclude());
     }
 
@@ -1065,18 +1086,22 @@ public class StrategyConfig {
         return skipView;
     }
 
+    @Nullable
     public Set<String> getTablePrefix() {
         return tablePrefix;
     }
 
+    @NotNull
     public Set<String> getFieldPrefix() {
         return fieldPrefix;
     }
 
+    @NotNull
     public Set<String> getInclude() {
         return include;
     }
 
+    @NotNull
     public Set<String> getExclude() {
         return exclude;
     }
@@ -1085,10 +1110,12 @@ public class StrategyConfig {
         return enableSqlFilter;
     }
 
+    @Nullable
     public LikeTable getLikeTable() {
         return likeTable;
     }
 
+    @Nullable
     public LikeTable getNotLikeTable() {
         return notLikeTable;
     }
@@ -1123,12 +1150,12 @@ public class StrategyConfig {
             return this;
         }
 
-        public Builder likeTable(LikeTable likeTable){
+        public Builder likeTable(@NotNull LikeTable likeTable){
             this.strategyConfig.likeTable = likeTable;
             return this;
         }
 
-        public Builder notLikeTable(LikeTable notLikeTable) {
+        public Builder notLikeTable(@NotNull LikeTable notLikeTable) {
             this.strategyConfig.notLikeTable = notLikeTable;
             return this;
         }
@@ -1182,6 +1209,7 @@ public class StrategyConfig {
         }
 
         @Override
+        @NotNull
         public StrategyConfig build() {
             this.strategyConfig.validate();
             return strategyConfig;

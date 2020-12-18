@@ -23,6 +23,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,10 +74,12 @@ public class Controller implements ITemplate {
         return hyphenStyle;
     }
 
+    @Nullable
     public String getSuperClass() {
         return superClass;
     }
 
+    @NotNull
     public ConverterFileName getConverterFileName() {
         return converterFileName;
     }
@@ -97,7 +100,7 @@ public class Controller implements ITemplate {
 
         private final Controller controller = new Controller();
 
-        public Builder(StrategyConfig strategyConfig) {
+        public Builder(@NotNull StrategyConfig strategyConfig) {
             super(strategyConfig);
         }
 
@@ -117,7 +120,7 @@ public class Controller implements ITemplate {
          * @param superClass 父类控制器类名
          * @return this
          */
-        public Builder superClass(String superClass) {
+        public Builder superClass(@NotNull String superClass) {
             this.controller.superClass = superClass;
             return this;
         }
@@ -162,10 +165,11 @@ public class Controller implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder formatFileName(String format) {
+        public Builder formatFileName(@NotNull String format) {
             return convertFileName((entityName) -> String.format(format, entityName));
         }
 
+        @NotNull
         public Controller get() {
             return this.controller;
         }

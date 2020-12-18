@@ -77,7 +77,7 @@ public class Mapper implements ITemplate {
      */
     private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.XML);
 
-
+    @NotNull
     public String getSuperClass() {
         return superClass;
     }
@@ -128,7 +128,7 @@ public class Mapper implements ITemplate {
          * @param superClass 类名
          * @return this
          */
-        public Builder superClass(String superClass) {
+        public Builder superClass(@NotNull String superClass) {
             this.mapper.superClass = superClass;
             return this;
         }
@@ -211,7 +211,7 @@ public class Mapper implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder formatMapperFileName(String format) {
+        public Builder formatMapperFileName(@NotNull String format) {
             return convertMapperFileName((entityName) -> String.format(format, entityName));
         }
 
@@ -222,10 +222,11 @@ public class Mapper implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder formatXmlFileName(String format) {
+        public Builder formatXmlFileName(@NotNull String format) {
             return convertXmlFileName((entityName) -> String.format(format, entityName));
         }
 
+        @NotNull
         public Mapper get() {
             return this.mapper;
         }

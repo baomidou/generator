@@ -29,6 +29,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -192,6 +193,7 @@ public class Entity implements ITemplate {
         return this.superEntityColumns;
     }
 
+    @NotNull
     public NamingStrategy getColumnNaming() {
         // 未指定以 naming 策略为准
         return Optional.ofNullable(columnNaming).orElse(naming);
@@ -233,10 +235,12 @@ public class Entity implements ITemplate {
         return getLogicDeleteColumnName();
     }
 
+    @NotNull
     public INameConvert getNameConvert() {
         return nameConvert;
     }
 
+    @Nullable
     public String getSuperClass() {
         return superClass;
     }
@@ -265,26 +269,32 @@ public class Entity implements ITemplate {
         return tableFieldAnnotationEnable;
     }
 
+    @Nullable
     public String getVersionColumnName() {
         return versionColumnName;
     }
 
+    @Nullable
     public String getVersionPropertyName() {
         return versionPropertyName;
     }
 
+    @Nullable
     public String getLogicDeleteColumnName() {
         return logicDeleteColumnName;
     }
 
+    @Nullable
     public String getLogicDeletePropertyName() {
         return logicDeletePropertyName;
     }
 
+    @NotNull
     public List<IFill> getTableFillList() {
         return tableFillList;
     }
 
+    @NotNull
     public NamingStrategy getNaming() {
         return naming;
     }
@@ -293,10 +303,12 @@ public class Entity implements ITemplate {
         return activeRecord;
     }
 
+    @Nullable
     public IdType getIdType() {
         return idType;
     }
 
+    @NotNull
     public ConverterFileName getConverterFileName() {
         return converterFileName;
     }

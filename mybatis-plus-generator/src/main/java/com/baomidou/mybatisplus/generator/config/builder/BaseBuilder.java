@@ -16,6 +16,7 @@
 package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 配置构建
@@ -27,26 +28,31 @@ public class BaseBuilder {
 
     private final StrategyConfig strategyConfig;
 
-    public BaseBuilder(StrategyConfig strategyConfig) {
+    public BaseBuilder(@NotNull StrategyConfig strategyConfig) {
         this.strategyConfig = strategyConfig;
     }
 
+    @NotNull
     public Entity.Builder entityBuilder() {
         return strategyConfig.entityBuilder();
     }
 
+    @NotNull
     public Controller.Builder controllerBuilder() {
         return strategyConfig.controllerBuilder();
     }
 
+    @NotNull
     public Mapper.Builder mapperBuilder() {
         return strategyConfig.mapperBuilder();
     }
 
+    @NotNull
     public Service.Builder serviceBuilder() {
         return strategyConfig.serviceBuilder();
     }
 
+    @NotNull
     public StrategyConfig build() {
         return this.strategyConfig;
     }

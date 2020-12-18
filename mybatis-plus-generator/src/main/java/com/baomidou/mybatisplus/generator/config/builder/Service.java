@@ -46,10 +46,12 @@ public class Service implements ITemplate {
      */
     private String superServiceImplClass = ConstVal.SUPER_SERVICE_IMPL_CLASS;
 
+    @NotNull
     public String getSuperServiceClass() {
         return superServiceClass;
     }
 
+    @NotNull
     public String getSuperServiceImplClass() {
         return superServiceImplClass;
     }
@@ -68,11 +70,12 @@ public class Service implements ITemplate {
      */
     private ConverterFileName converterServiceImplFileName = (entityName -> entityName + ConstVal.SERVICE_IMPL);
 
-
+    @NotNull
     public ConverterFileName getConverterServiceFileName() {
         return converterServiceFileName;
     }
 
+    @NotNull
     public ConverterFileName getConverterServiceImplFileName() {
         return converterServiceImplFileName;
     }
@@ -92,7 +95,7 @@ public class Service implements ITemplate {
 
         private final Service service = new Service();
 
-        public Builder(StrategyConfig strategyConfig) {
+        public Builder(@NotNull StrategyConfig strategyConfig) {
             super(strategyConfig);
         }
 
@@ -112,7 +115,7 @@ public class Service implements ITemplate {
          * @param superServiceClass 类名
          * @return this
          */
-        public Builder superServiceClass(String superServiceClass) {
+        public Builder superServiceClass(@NotNull String superServiceClass) {
             this.service.superServiceClass = superServiceClass;
             return this;
         }
@@ -133,7 +136,7 @@ public class Service implements ITemplate {
          * @param superServiceImplClass 类名
          * @return this
          */
-        public Builder superServiceImplClass(String superServiceImplClass) {
+        public Builder superServiceImplClass(@NotNull String superServiceImplClass) {
             this.service.superServiceImplClass = superServiceImplClass;
             return this;
         }
@@ -169,7 +172,7 @@ public class Service implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder formatServiceFileName(String format) {
+        public Builder formatServiceFileName(@NotNull String format) {
             return convertServiceFileName((entityName) -> String.format(format, entityName));
         }
 
@@ -180,10 +183,11 @@ public class Service implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder formatServiceImplFileName(String format) {
+        public Builder formatServiceImplFileName(@NotNull String format) {
             return convertServiceImplFileName((entityName) -> String.format(format, entityName));
         }
 
+        @NotNull
         public Service get() {
             return this.service;
         }
