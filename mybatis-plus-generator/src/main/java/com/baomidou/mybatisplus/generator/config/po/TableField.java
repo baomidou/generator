@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config.po;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.fill.Column;
@@ -64,6 +65,8 @@ public class TableField {
 
     private final StrategyConfig strategyConfig;
 
+    private final Entity entity;
+
     /**
      * 构造方法
      *
@@ -75,6 +78,7 @@ public class TableField {
         this.name = name;
         this.columnName = name;
         this.strategyConfig = configBuilder.getStrategyConfig();
+        this.entity = configBuilder.getStrategyConfig().entity();
     }
 
     /**
@@ -94,7 +98,7 @@ public class TableField {
      */
     @Deprecated
     protected TableField setConvert() {
-        if (strategyConfig.entity().isTableFieldAnnotationEnable() || isKeyWords()) {
+        if (entity.isTableFieldAnnotationEnable() || isKeyWords()) {
             this.convert = true;
             return this;
         }
@@ -102,7 +106,7 @@ public class TableField {
             this.convert = !name.equalsIgnoreCase(propertyName);
         } else {
             // 转换字段
-            if (NamingStrategy.underline_to_camel == strategyConfig.entity().getColumnNaming()) {
+            if (NamingStrategy.underline_to_camel == entity.getColumnNaming()) {
                 // 包含大写处理
                 if (StringUtils.containsUpperCase(name)) {
                     this.convert = true;
@@ -124,7 +128,7 @@ public class TableField {
      */
     public TableField setPropertyName(@NotNull String propertyName, @NotNull IColumnType columnType) {
         this.columnType = columnType;
-        if (strategyConfig.entity().isBooleanColumnRemoveIsPrefix()
+        if (entity.isBooleanColumnRemoveIsPrefix()
             && "boolean".equalsIgnoreCase(this.getPropertyType()) && propertyName.startsWith("is")) {
             this.convert = true;
             this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
@@ -195,8 +199,8 @@ public class TableField {
      * @since 3.5.0
      */
     public boolean isVersionField() {
-        String propertyName = this.strategyConfig.entity().getVersionPropertyName();
-        String columnName = this.strategyConfig.entity().getVersionColumnName();
+        String propertyName = entity.getVersionPropertyName();
+        String columnName = entity.getVersionColumnName();
         return StringUtils.isNotBlank(propertyName) && this.propertyName.equals(propertyName)
             || StringUtils.isNotBlank(columnName) && this.name.equalsIgnoreCase(columnName);
     }
@@ -208,8 +212,8 @@ public class TableField {
      * @since 3.5.0
      */
     public boolean isLogicDeleteField() {
-        String propertyName = this.strategyConfig.entity().getLogicDeletePropertyName();
-        String columnName = this.strategyConfig.entity().getLogicDeleteColumnName();
+        String propertyName = entity.getLogicDeletePropertyName();
+        String columnName = entity.getLogicDeleteColumnName();
         return StringUtils.isNotBlank(propertyName) && this.propertyName.equals(propertyName)
             || StringUtils.isNotBlank(columnName) && this.name.equalsIgnoreCase(columnName);
     }
@@ -337,7 +341,7 @@ public class TableField {
 
     public String getFill() {
         if (StringUtils.isBlank(fill)) {
-            this.strategyConfig.entity().getTableFillList().stream()
+            entity.getTableFillList().stream()
                 //忽略大写字段问题
                 .filter(tf -> tf instanceof Column && tf.getName().equalsIgnoreCase(name)
                     || tf instanceof Property && tf.getName().equals(propertyName))

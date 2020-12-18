@@ -196,6 +196,7 @@ public class ConfigBuilder {
                     }
                 });
             }
+            Entity entity = strategyConfig.entity();
             dbQuery.query(tableFieldsSql, result -> {
                 String columnName = result.getStringResult(dbQuery.fieldName());
                 TableField field = new TableField(this, columnName);
@@ -217,10 +218,10 @@ public class ConfigBuilder {
                     .setType(result.getStringResult(dbQuery.fieldType()))
                     .setComment(result.getFiledComment())
                     .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
-                String propertyName = strategyConfig.entity().getNameConvert().propertyNameConvert(field);
+                String propertyName = entity.getNameConvert().propertyNameConvert(field);
                 IColumnType columnType = dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field);
                 field.setPropertyName(propertyName, columnType);
-                if (strategyConfig.entity().matchSuperEntityColumns(columnName)) {
+                if (entity.matchSuperEntityColumns(columnName)) {
                     // 跳过公共字段
                     commonFieldList.add(field);
                 } else {

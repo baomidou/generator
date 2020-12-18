@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -102,6 +103,8 @@ public class StrategyConfig {
 
     private final Service.Builder serviceBuilder = new Service.Builder(this);
 
+    private Entity entity;
+
     /**
      * 实体配置构建者
      *
@@ -117,7 +120,10 @@ public class StrategyConfig {
      * @since 3.5.0
      */
     public Entity entity() {
-        return entityBuilder.get();
+        if (entity == null) {
+            this.entity = entityBuilder.get();
+        }
+        return entity;
     }
 
     /**

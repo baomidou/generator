@@ -36,6 +36,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.jetbrains.annotations.NotNull;
@@ -69,6 +70,8 @@ public class TableInfo {
     private final List<TableField> commonFields = new ArrayList<>();
     private String fieldNames;
 
+    private final Entity entity;
+
     /**
      * 构造方法
      *
@@ -79,6 +82,7 @@ public class TableInfo {
     public TableInfo(@NotNull ConfigBuilder configBuilder, @NotNull String name) {
         this.strategyConfig = configBuilder.getStrategyConfig();
         this.globalConfig = configBuilder.getGlobalConfig();
+        this.entity = configBuilder.getStrategyConfig().entity();
         this.name = name;
     }
 
@@ -97,7 +101,7 @@ public class TableInfo {
      * @since 3.5.0
      */
     protected void setConvert() {
-        if (strategyConfig.startsWithTablePrefix(name) || strategyConfig.entity().isTableFieldAnnotationEnable()) {
+        if (strategyConfig.startsWithTablePrefix(name) || entity.isTableFieldAnnotationEnable()) {
             // 包含前缀
             this.convert = true;
         } else if (strategyConfig.isCapitalModeNaming(name)) {
@@ -105,7 +109,7 @@ public class TableInfo {
             this.convert = !entityName.equalsIgnoreCase(name);
         } else {
             // 转换字段
-            if (NamingStrategy.underline_to_camel == strategyConfig.entity().getColumnNaming()) {
+            if (NamingStrategy.underline_to_camel == entity.getColumnNaming()) {
                 // 包含大写处理
                 if (StringUtils.containsUpperCase(name)) {
                     this.convert = true;
@@ -259,13 +263,13 @@ public class TableInfo {
      */
     public void importPackage() {
         boolean importSerializable = true;
-        String superEntity = strategyConfig.entity().getSuperClass();
+        String superEntity = entity.getSuperClass();
         if (StringUtils.isNotBlank(superEntity)) {
             // 自定义父类
             importSerializable = false;
             this.importPackages.add(superEntity);
         } else {
-            if (globalConfig.isActiveRecord() || strategyConfig.entity().isActiveRecord()) {
+            if (globalConfig.isActiveRecord() || entity.isActiveRecord()) {
                 // 无父类开启 AR 模式
                 this.importPackages.add(Model.class.getCanonicalName());
                 importSerializable = false;
@@ -277,7 +281,7 @@ public class TableInfo {
         if (this.isConvert()) {
             this.importPackages.add(TableName.class.getCanonicalName());
         }
-        IdType idType = Optional.ofNullable(strategyConfig.entity().getIdType()).orElseGet(globalConfig::getIdType);
+        IdType idType = Optional.ofNullable(entity.getIdType()).orElseGet(globalConfig::getIdType);
         if (null != idType && this.isHavePrimaryKey()) {
             // 指定需要 IdType 场景
             this.importPackages.add(IdType.class.getCanonicalName());
@@ -322,8 +326,8 @@ public class TableInfo {
      * @since 3.5.0
      */
     public void processTable() {
-        String entityName = strategyConfig.entity().getNameConvert().entityNameConvert(this);
-        this.setEntityName(this.getFileName(entityName, globalConfig.getEntityName(), () -> strategyConfig.entity().getConverterFileName().convert(entityName)));
+        String entityName = entity.getNameConvert().entityNameConvert(this);
+        this.setEntityName(this.getFileName(entityName, globalConfig.getEntityName(), () -> entity.getConverterFileName().convert(entityName)));
         this.mapperName = this.getFileName(entityName, globalConfig.getMapperName(), () -> strategyConfig.mapper().getConverterMapperFileName().convert(entityName));
         this.xmlName = this.getFileName(entityName, globalConfig.getXmlName(), () -> strategyConfig.mapper().getConverterXmlFileName().convert(entityName));
         this.serviceName = this.getFileName(entityName, globalConfig.getServiceName(), () -> strategyConfig.service().getConverterServiceFileName().convert(entityName));
