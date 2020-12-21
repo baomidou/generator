@@ -15,6 +15,22 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -28,12 +44,6 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 实体属性配置
@@ -42,6 +52,8 @@ import java.util.stream.Collectors;
  * @since 3.5.0
  */
 public class Entity implements ITemplate {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(Entity.class);
 
     private Entity() {
 
@@ -591,6 +603,10 @@ public class Entity implements ITemplate {
             String superClass = this.entity.superClass;
             if (StringUtils.isNotBlank(superClass)) {
                 tryLoadClass(superClass).ifPresent(this.entity::convertSuperEntityColumns);
+            } else {
+                if (!this.entity.superEntityColumns.isEmpty()) {
+                    LOGGER.warn("Forgot to set entity supper class ?");
+                }
             }
             return this.entity;
         }
