@@ -37,12 +37,12 @@ public abstract class BaseKeyWordsHandler implements IKeyWordsHandler {
     }
 
     @Override
-    public List<String> getKeyWords() {
+    public @NotNull List<String> getKeyWords() {
         return keyWords;
     }
 
     @Override
-    public boolean isKeyWords(String columnName) {
+    public boolean isKeyWords(@NotNull String columnName) {
         return getKeyWords().contains(columnName.toUpperCase(Locale.ENGLISH));
     }
 }

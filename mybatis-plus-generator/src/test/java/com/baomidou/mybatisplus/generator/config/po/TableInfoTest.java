@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -78,12 +79,12 @@ public class TableInfoTest {
         Assertions.assertEquals("UserAction", tableInfo.getControllerName());
         strategyConfig = new StrategyConfig().setNameConvert(new INameConvert() {
             @Override
-            public String entityNameConvert(TableInfo tableInfo) {
+            public @NotNull String entityNameConvert(@NotNull TableInfo tableInfo) {
                 return "E" + tableInfo.getName();
             }
 
             @Override
-            public String propertyNameConvert(TableField field) {
+            public @NotNull String propertyNameConvert(@NotNull TableField field) {
                 return field.getName();
             }
         });

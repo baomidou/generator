@@ -16,6 +16,7 @@
 package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -238,7 +239,7 @@ public class TemplateConfig {
      * @return this
      * @since 3.3.2
      */
-    public TemplateConfig disable(TemplateType... templateTypes) {
+    public TemplateConfig disable(@NotNull TemplateType... templateTypes) {
         if (templateTypes != null && templateTypes.length > 0) {
             for (TemplateType templateType : templateTypes) {
                 switch (templateType) {
@@ -346,7 +347,7 @@ public class TemplateConfig {
          * @param entityTemplate 实体模板
          * @return this
          */
-        public Builder entity(String entityTemplate) {
+        public Builder entity(@NotNull String entityTemplate) {
             this.templateConfig.disableEntity = false;
             this.templateConfig.setEntity(entityTemplate);
             return this;
@@ -368,7 +369,7 @@ public class TemplateConfig {
          * @param serviceImplTemplate service实现类模板路径
          * @return this
          */
-        public Builder service(String serviceTemplate, String serviceImplTemplate) {
+        public Builder service(@NotNull String serviceTemplate, @NotNull String serviceImplTemplate) {
             this.templateConfig.setService(serviceTemplate).setServiceImpl(serviceImplTemplate);
             return this;
         }
@@ -388,7 +389,7 @@ public class TemplateConfig {
          * @param mapperTemplate mapper模板路径
          * @return this
          */
-        public Builder mapper(String mapperTemplate) {
+        public Builder mapper(@NotNull String mapperTemplate) {
             this.templateConfig.setMapper(mapperTemplate);
             return this;
         }
@@ -409,7 +410,7 @@ public class TemplateConfig {
          * @param mapperXmlTemplate xml模板路径
          * @return this
          */
-        public Builder mapperXml(String mapperXmlTemplate) {
+        public Builder mapperXml(@NotNull String mapperXmlTemplate) {
             this.templateConfig.setXml(mapperXmlTemplate);
             return this;
         }
@@ -429,7 +430,7 @@ public class TemplateConfig {
          * @param controllerTemplate 控制器模板路径
          * @return this
          */
-        public Builder controller(String controllerTemplate) {
+        public Builder controller(@NotNull String controllerTemplate) {
             this.templateConfig.setController(controllerTemplate);
             return this;
         }

@@ -53,7 +53,7 @@ public abstract class FileOutConfig {
     /**
      * 输出文件
      */
-    public abstract File outputFile(TableInfo tableInfo);
+    public abstract File outputFile(@NotNull TableInfo tableInfo);
 
     /**
      * @param templatePath 模块路径
@@ -62,7 +62,7 @@ public abstract class FileOutConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public FileOutConfig setTemplatePath(String templatePath) {
+    public FileOutConfig setTemplatePath(@NotNull String templatePath) {
         this.templatePath = templatePath;
         return this;
     }

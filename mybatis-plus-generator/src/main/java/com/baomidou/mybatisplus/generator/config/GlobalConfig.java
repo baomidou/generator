@@ -178,7 +178,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setIdType(IdType idType) {
+    public GlobalConfig setIdType(@NotNull IdType idType) {
         this.idType = idType;
         return this;
     }
@@ -255,7 +255,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setEntityName(String entityName) {
+    public GlobalConfig setEntityName(@NotNull String entityName) {
         this.entityName = entityName;
         return this;
     }
@@ -267,7 +267,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setMapperName(String mapperName) {
+    public GlobalConfig setMapperName(@NotNull String mapperName) {
         this.mapperName = mapperName;
         return this;
     }
@@ -279,7 +279,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setXmlName(String xmlName) {
+    public GlobalConfig setXmlName(@NotNull String xmlName) {
         this.xmlName = xmlName;
         return this;
     }
@@ -291,7 +291,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setServiceName(String serviceName) {
+    public GlobalConfig setServiceName(@NotNull String serviceName) {
         this.serviceName = serviceName;
         return this;
     }
@@ -303,7 +303,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setServiceImplName(String serviceImplName) {
+    public GlobalConfig setServiceImplName(@NotNull String serviceImplName) {
         this.serviceImplName = serviceImplName;
         return this;
     }
@@ -315,7 +315,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setControllerName(String controllerName) {
+    public GlobalConfig setControllerName(@NotNull String controllerName) {
         this.controllerName = controllerName;
         return this;
     }
@@ -327,7 +327,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setDateType(DateType dateType) {
+    public GlobalConfig setDateType(@NotNull DateType dateType) {
         this.dateType = dateType;
         return this;
     }
@@ -339,7 +339,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setOutputDir(String outputDir) {
+    public GlobalConfig setOutputDir(@NotNull String outputDir) {
         this.outputDir = outputDir;
         return this;
     }
@@ -375,7 +375,7 @@ public class GlobalConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public GlobalConfig setAuthor(String author) {
+    public GlobalConfig setAuthor(@NotNull String author) {
         this.author = author;
         return this;
     }
@@ -501,7 +501,7 @@ public class GlobalConfig {
          * @deprecated 3.5.0
          */
         @Deprecated
-        public Builder idType(IdType idType) {
+        public Builder idType(@NotNull IdType idType) {
             this.globalConfig.idType = idType;
             return this;
         }
@@ -558,12 +558,12 @@ public class GlobalConfig {
             return this;
         }
 
-        public Builder outputDir(String outputDir) {
+        public Builder outputDir(@NotNull String outputDir) {
             this.globalConfig.outputDir = outputDir;
             return this;
         }
 
-        public Builder author(String author) {
+        public Builder author(@NotNull String author) {
             this.globalConfig.author = author;
             return this;
         }
@@ -579,42 +579,42 @@ public class GlobalConfig {
         }
 
         @Deprecated
-        public Builder entityName(String entityName) {
+        public Builder entityName(@NotNull String entityName) {
             this.globalConfig.entityName = entityName;
             return this;
         }
 
         @Deprecated
-        public Builder xmlName(String xmlName) {
+        public Builder xmlName(@NotNull String xmlName) {
             this.globalConfig.xmlName = xmlName;
             return this;
         }
 
         @Deprecated
-        public Builder serviceName(String serviceName) {
+        public Builder serviceName(@NotNull String serviceName) {
             this.globalConfig.serviceName = serviceName;
             return this;
         }
 
         @Deprecated
-        public Builder serviceImplName(String serviceImplName) {
+        public Builder serviceImplName(@NotNull String serviceImplName) {
             this.globalConfig.serviceImplName = serviceImplName;
             return this;
         }
 
         @Deprecated
-        public Builder controllerName(String controllerName) {
+        public Builder controllerName(@NotNull String controllerName) {
             this.globalConfig.controllerName = controllerName;
             return this;
         }
 
         @Deprecated
-        public Builder mapperName(String mapperName) {
+        public Builder mapperName(@NotNull String mapperName) {
             this.globalConfig.mapperName = mapperName;
             return this;
         }
 
-        public Builder dateType(DateType dateType) {
+        public Builder dateType(@NotNull DateType dateType) {
             this.globalConfig.dateType = dateType;
             return this;
         }

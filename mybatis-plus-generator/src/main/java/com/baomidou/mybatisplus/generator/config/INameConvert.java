@@ -15,10 +15,10 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
-import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -36,7 +36,8 @@ public interface INameConvert {
      * @param tableInfo 表信息对象
      * @return
      */
-    String entityNameConvert(TableInfo tableInfo);
+    @NotNull
+    String entityNameConvert(@NotNull TableInfo tableInfo);
 
     /**
      * 执行属性名称转换
@@ -44,7 +45,8 @@ public interface INameConvert {
      * @param field 表字段对象，如果属性表字段命名不一致注意 convert 属性的设置
      * @return
      */
-    String propertyNameConvert(TableField field);
+    @NotNull
+    String propertyNameConvert(@NotNull TableField field);
 
 
     /**
@@ -62,12 +64,12 @@ public interface INameConvert {
         }
 
         @Override
-        public String entityNameConvert(TableInfo tableInfo) {
+        public @NotNull String entityNameConvert(@NotNull TableInfo tableInfo) {
             return NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix()));
         }
 
         @Override
-        public String propertyNameConvert(TableField field) {
+        public @NotNull String propertyNameConvert(@NotNull TableField field) {
             return processName(field.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix());
         }
 

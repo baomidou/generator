@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.core.toolkit.ExceptionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
@@ -30,6 +29,7 @@ import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.sql.DataSource;
 
@@ -111,7 +111,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setDbQuery(IDbQuery dbQuery) {
+    public DataSourceConfig setDbQuery(@NotNull IDbQuery dbQuery) {
         this.dbQuery = dbQuery;
         return this;
     }
@@ -125,7 +125,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setDbType(DbType dbType) {
+    public DataSourceConfig setDbType(@NotNull DbType dbType) {
         this.dbType = dbType;
         return this;
     }
@@ -139,7 +139,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setSchemaName(String schemaName) {
+    public DataSourceConfig setSchemaName(@NotNull String schemaName) {
         this.schemaName = schemaName;
         return this;
     }
@@ -153,7 +153,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setTypeConvert(ITypeConvert typeConvert) {
+    public DataSourceConfig setTypeConvert(@NotNull ITypeConvert typeConvert) {
         this.typeConvert = typeConvert;
         return this;
     }
@@ -167,7 +167,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setKeyWordsHandler(IKeyWordsHandler keyWordsHandler) {
+    public DataSourceConfig setKeyWordsHandler(@NotNull IKeyWordsHandler keyWordsHandler) {
         this.keyWordsHandler = keyWordsHandler;
         return this;
     }
@@ -181,7 +181,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setUrl(String url) {
+    public DataSourceConfig setUrl(@NotNull String url) {
         this.url = url;
         return this;
     }
@@ -195,7 +195,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setDriverName(String driverName) {
+    public DataSourceConfig setDriverName(@NotNull String driverName) {
         this.driverName = driverName;
         return this;
     }
@@ -209,7 +209,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setUsername(String username) {
+    public DataSourceConfig setUsername(@NotNull String username) {
         this.username = username;
         return this;
     }
@@ -223,11 +223,12 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setPassword(String password) {
+    public DataSourceConfig setPassword(@NotNull String password) {
         this.password = password;
         return this;
     }
 
+    @NotNull
     public IDbQuery getDbQuery() {
         if (null == dbQuery) {
             DbType dbType = getDbType();
@@ -244,12 +245,10 @@ public class DataSourceConfig {
      *
      * @return 类型枚举值
      */
+    @NotNull
     public DbType getDbType() {
         if (null == this.dbType) {
             this.dbType = this.getDbType(this.url.toLowerCase());
-            if (null == this.dbType) {
-                throw ExceptionUtils.mpe("Unknown type of database!");
-            }
         }
 
         return this.dbType;
@@ -261,7 +260,8 @@ public class DataSourceConfig {
      * @param str url
      * @return 类型枚举值，如果没找到，则返回 null
      */
-    private DbType getDbType(String str) {
+    @NotNull
+    private DbType getDbType(@NotNull String str) {
         if (str.contains(":mysql:") || str.contains(":cobar:")) {
             return DbType.MYSQL;
         } else if (str.contains(":oracle:")) {
@@ -295,6 +295,7 @@ public class DataSourceConfig {
         }
     }
 
+    @NotNull
     public ITypeConvert getTypeConvert() {
         if (null == typeConvert) {
             DbType dbType = getDbType();
@@ -314,6 +315,7 @@ public class DataSourceConfig {
      * @return Connection
      * @see DecoratorDbQuery#getConnection()
      */
+    @NotNull
     public Connection getConn() {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -347,6 +349,7 @@ public class DataSourceConfig {
      * @return 默认schema
      * @since 3.5.0
      */
+    @Nullable
     protected String getDefaultSchema() {
         DbType dbType = getDbType();
         String schema = null;
@@ -366,26 +369,32 @@ public class DataSourceConfig {
         return schema;
     }
 
+    @Nullable
     public String getSchemaName() {
         return schemaName;
     }
 
+    @Nullable
     public IKeyWordsHandler getKeyWordsHandler() {
         return keyWordsHandler;
     }
 
+    @NotNull
     public String getUrl() {
         return url;
     }
 
+    @Nullable
     public String getDriverName() {
         return driverName;
     }
 
+    @NotNull
     public String getUsername() {
         return username;
     }
 
+    @Nullable
     public String getPassword() {
         return password;
     }
@@ -408,12 +417,12 @@ public class DataSourceConfig {
          * @param username 数据库账号
          * @param password 数据库密码
          */
-        public Builder(String url, String username, String password) {
+        public Builder(@NotNull String url, @NotNull String username, @NotNull String password) {
             this.dataSourceConfig.url = url;
             this.dataSourceConfig.username = username;
             this.dataSourceConfig.password = password;
         }
-    
+
         /**
          * 构造初始化方法
          *
@@ -438,7 +447,7 @@ public class DataSourceConfig {
          * @param dbQuery 数据库查询实现
          * @return this
          */
-        public Builder dbQuery(IDbQuery dbQuery) {
+        public Builder dbQuery(@NotNull IDbQuery dbQuery) {
             this.dataSourceConfig.dbQuery = dbQuery;
             return this;
         }
@@ -449,7 +458,7 @@ public class DataSourceConfig {
          * @param dbType 数据库类型
          * @return this
          */
-        public Builder dbType(DbType dbType) {
+        public Builder dbType(@NotNull DbType dbType) {
             this.dataSourceConfig.dbType = dbType;
             return this;
         }
@@ -460,7 +469,7 @@ public class DataSourceConfig {
          * @param schemaName 数据库schema
          * @return this
          */
-        public Builder schema(String schemaName) {
+        public Builder schema(@NotNull String schemaName) {
             this.dataSourceConfig.schemaName = schemaName;
             return this;
         }
@@ -471,7 +480,7 @@ public class DataSourceConfig {
          * @param driverName 驱动名
          * @return this
          */
-        public Builder driver(String driverName) {
+        public Builder driver(@NotNull String driverName) {
             this.dataSourceConfig.driverName = driverName;
             return this;
         }
@@ -492,7 +501,7 @@ public class DataSourceConfig {
          * @param typeConvert 类型转换器
          * @return this
          */
-        public Builder typeConvert(ITypeConvert typeConvert) {
+        public Builder typeConvert(@NotNull ITypeConvert typeConvert) {
             this.dataSourceConfig.typeConvert = typeConvert;
             return this;
         }
@@ -503,7 +512,7 @@ public class DataSourceConfig {
          * @param keyWordsHandler 关键字处理器
          * @return this
          */
-        public Builder keyWordsHandler(IKeyWordsHandler keyWordsHandler) {
+        public Builder keyWordsHandler(@NotNull IKeyWordsHandler keyWordsHandler) {
             this.dataSourceConfig.keyWordsHandler = keyWordsHandler;
             return this;
         }

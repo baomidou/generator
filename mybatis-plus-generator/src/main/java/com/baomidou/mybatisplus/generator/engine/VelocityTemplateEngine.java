@@ -81,9 +81,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
 
     @Override
     public @NotNull String templateFilePath(@NotNull String filePath) {
-        if (filePath.contains(DOT_VM)) {
-            return filePath;
-        }
-        return filePath + DOT_VM;
+        return filePath.endsWith(DOT_VM) ? filePath : filePath + DOT_VM;
     }
 }

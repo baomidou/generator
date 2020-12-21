@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DMQuery;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Scanner;
@@ -102,7 +103,7 @@ public class DMGenerator {
         // 自定义输出配置
         cfg.addFileOutConfig(new FileOutConfig(templatePath) {
             @Override
-            public File outputFile(TableInfo tableInfo) {
+            public File outputFile(@NotNull TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                 return new File("D://mpg/mapper/" + pc.getModuleName()
                     + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML);

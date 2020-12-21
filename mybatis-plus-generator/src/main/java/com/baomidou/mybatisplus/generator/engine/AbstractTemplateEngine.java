@@ -182,8 +182,8 @@ public abstract class AbstractTemplateEngine {
      * @param templatePath 模板路径
      * @since 3.5.0
      */
-    protected void outputFile(@NotNull File file, @NotNull FileType fileType, @NotNull Map<String, Object> objectMap, String templatePath) {
-        if (StringUtils.isNotBlank(templatePath) && isCreate(fileType, file)) {
+    protected void outputFile(@NotNull File file, @NotNull FileType fileType, @NotNull Map<String, Object> objectMap, @NotNull String templatePath) {
+        if (isCreate(fileType, file)) {
             try {
                 // 全局判断【默认】
                 boolean exist = file.exists();
@@ -278,7 +278,7 @@ public abstract class AbstractTemplateEngine {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public void writer(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {
+    public void writer(@NotNull Map<String, Object> objectMap, @NotNull String templatePath, @NotNull String outputFile) throws Exception {
 
     }
 
@@ -380,7 +380,8 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("date", globalConfig.getCommentDate());
         objectMap.put("table", tableInfo);
         objectMap.put("entity", tableInfo.getEntityName());
-        return Objects.isNull(config.getInjectionConfig()) ? objectMap : config.getInjectionConfig().prepareObjectMap(objectMap);
+        Optional.ofNullable(config.getInjectionConfig()).ifPresent((injectionConfig) -> injectionConfig.prepareObjectMap(objectMap));
+        return objectMap;
     }
 
     /**

@@ -29,6 +29,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.po.TableInfoTest;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -154,12 +155,12 @@ class StrategyConfigTest {
         strategyConfig = new StrategyConfig();
         strategyConfig.setNameConvert(new INameConvert() {
             @Override
-            public String entityNameConvert(TableInfo tableInfo) {
+            public @NotNull String entityNameConvert(@NotNull TableInfo tableInfo) {
                 return "aaaa";
             }
 
             @Override
-            public String propertyNameConvert(TableField field) {
+            public @NotNull String propertyNameConvert(@NotNull TableField field) {
                 return "bbbb";
             }
         });
@@ -188,12 +189,12 @@ class StrategyConfigTest {
         strategyConfig = new StrategyConfig();
         strategyConfig.setNameConvert(new INameConvert() {
             @Override
-            public String entityNameConvert(TableInfo tableInfo) {
+            public @NotNull String entityNameConvert(@NotNull TableInfo tableInfo) {
                 return "aaaa";
             }
 
             @Override
-            public String propertyNameConvert(TableField field) {
+            public @NotNull String propertyNameConvert(@NotNull TableField field) {
                 return "bbbb";
             }
         });

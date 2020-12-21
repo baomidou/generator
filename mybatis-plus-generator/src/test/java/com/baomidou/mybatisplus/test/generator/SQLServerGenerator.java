@@ -32,6 +32,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * SQLServerGenerator
@@ -121,7 +122,7 @@ public class SQLServerGenerator extends GeneratorTest {
         InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));
         cfg.addFileOutConfig(new FileOutConfig("/templates/entity.java" + ((1 == result) ? ".ftl" : ".vm")) {
             @Override
-            public File outputFile(TableInfo tableInfo) {
+            public File outputFile(@NotNull TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return new File("D://my_" + tableInfo.getEntityName() + StringPool.DOT_JAVA);
             }

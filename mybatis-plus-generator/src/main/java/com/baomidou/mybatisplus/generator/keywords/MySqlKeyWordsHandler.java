@@ -663,7 +663,7 @@ public class MySqlKeyWordsHandler extends BaseKeyWordsHandler {
     }
 
     @Override
-    public String formatStyle() {
+    public @NotNull String formatStyle() {
         return "`%s`";
     }
 

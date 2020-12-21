@@ -1086,7 +1086,7 @@ public class StrategyConfig {
         return skipView;
     }
 
-    @Nullable
+    @NotNull
     public Set<String> getTablePrefix() {
         return tablePrefix;
     }

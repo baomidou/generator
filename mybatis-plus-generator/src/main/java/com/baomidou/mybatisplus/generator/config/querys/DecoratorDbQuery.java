@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.IDbQuery;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -67,19 +69,19 @@ public class DecoratorDbQuery extends AbstractDbQuery {
         }
         if (strategyConfig.isEnableSqlFilter()) {
             StringBuilder sql = new StringBuilder(tablesSql);
-            boolean isInclude = strategyConfig.getInclude().size() > 0;
-            boolean isExclude = strategyConfig.getExclude().size() > 0;
-            if (strategyConfig.getLikeTable() != null) {
-                sql.append(" AND ").append(dbQuery.tableName()).append(" LIKE '").append(strategyConfig.getLikeTable().getValue()).append("'");
-            } else if (strategyConfig.getNotLikeTable() != null) {
-                sql.append(" AND ").append(dbQuery.tableName()).append(" NOT LIKE '").append(strategyConfig.getNotLikeTable().getValue()).append("'");
+            LikeTable table;
+            Set<String> tables;
+            if ((table = strategyConfig.getLikeTable()) != null) {
+                sql.append(" AND ").append(dbQuery.tableName()).append(" LIKE '").append(table.getValue()).append("'");
+            } else if ((table = strategyConfig.getNotLikeTable()) != null) {
+                sql.append(" AND ").append(dbQuery.tableName()).append(" NOT LIKE '").append(table.getValue()).append("'");
             }
-            if (isInclude) {
+            if (!(tables = strategyConfig.getInclude()).isEmpty()) {
                 sql.append(" AND ").append(dbQuery.tableName()).append(" IN (")
-                    .append(strategyConfig.getInclude().stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
-            } else if (isExclude) {
+                    .append(tables.stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
+            } else if (!(tables = strategyConfig.getExclude()).isEmpty()) {
                 sql.append(" AND ").append(dbQuery.tableName()).append(" NOT IN (")
-                    .append(strategyConfig.getExclude().stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
+                    .append(tables.stream().map(tb -> "'" + tb + "'").collect(Collectors.joining(","))).append(")");
             }
             return sql.toString();
         }
@@ -252,7 +254,7 @@ public class DecoratorDbQuery extends AbstractDbQuery {
             if (DbType.DB2 == dbType || DbType.SQLITE == dbType) {
                 return StringUtils.isNotBlank(key) && "1".equals(key);
             } else {
-                return StringUtils.isNotBlank(key) && "PRI".equals(key.toUpperCase());
+                return StringUtils.isNotBlank(key) && "PRI".equalsIgnoreCase(key);
             }
         }
     }

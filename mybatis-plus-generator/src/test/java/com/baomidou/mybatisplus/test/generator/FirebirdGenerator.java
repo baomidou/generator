@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -113,7 +114,7 @@ public class FirebirdGenerator extends GeneratorTest {
         InjectionConfig cfg = new InjectionConfig();
         cfg.addFileOutConfig(new FileOutConfig("/templates/mapper.xml.ftl") {
             @Override
-            public File outputFile(TableInfo tableInfo) {
+            public File outputFile(@NotNull TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return new File(projectPath + "/src/main/resources/mapper/"
                     + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML);

@@ -79,6 +79,7 @@ public class PackageConfig {
     /**
      * 父包名
      */
+    @NotNull
     public String getParent() {
         if (StringUtils.isNotBlank(moduleName)) {
             return parent + StringPool.DOT + moduleName;
@@ -93,6 +94,7 @@ public class PackageConfig {
      * @return 连接后的包名
      * @since 3.5.0
      */
+    @NotNull
     public String joinPackage(String subPackage) {
         String parent = getParent();
         return StringUtils.isBlank(parent) ? subPackage : (parent + StringPool.DOT + subPackage);
@@ -105,6 +107,7 @@ public class PackageConfig {
      * @since 3.5.0
      */
     //TODO xml需要自定义,可能不需要包定义
+    @NotNull
     public Map<String, String> getPackageInfo() {
         if (packageInfo.isEmpty()) {
             packageInfo.put(ConstVal.MODULE_NAME, this.getModuleName());

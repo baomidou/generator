@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Collections;
@@ -124,7 +125,7 @@ public class OscarGenerator extends GeneratorTest {
         InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));
         cfg.addFileOutConfig(new FileOutConfig("/templates/dto.java" + ((1 == result) ? ".ftl" : ".vm")) {
             @Override
-            public File outputFile(TableInfo tableInfo) {
+            public File outputFile(@NotNull TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return new File("D://test/my_" + tableInfo.getEntityName() + StringPool.DOT_JAVA);
             }

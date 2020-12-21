@@ -15,6 +15,8 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -24,37 +26,40 @@ import java.util.List;
  * @since 3.3.2
  */
 public interface IKeyWordsHandler {
-    
+
     /**
      * 获取关键字
      *
      * @return 关键字集合
      */
+    @NotNull
     List<String> getKeyWords();
-    
+
     /**
      * 格式化关键字格式
      *
      * @return 格式
      */
+    @NotNull
     String formatStyle();
-    
+
     /**
      * 是否为关键字
      *
      * @param columnName 字段名称
      * @return 是否为关键字
      */
-    boolean isKeyWords(String columnName);
-    
+    boolean isKeyWords(@NotNull String columnName);
+
     /**
      * 格式化字段
      *
      * @param columnName 字段名称
      * @return 格式化字段
      */
-    default String formatColumn(String columnName) {
+    @NotNull
+    default String formatColumn(@NotNull String columnName) {
         return String.format(formatStyle(), columnName);
     }
-    
+
 }
