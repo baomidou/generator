@@ -33,48 +33,40 @@ public class H2Query extends AbstractDbQuery {
         return "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE 1=1 ";
     }
 
-
     @Override
     public String tableFieldsSql() {
         return "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '%s' ";
     }
-
 
     @Override
     public String tableName() {
         return "TABLE_NAME";
     }
 
-
     @Override
     public String tableComment() {
         return "REMARKS";
     }
-
 
     @Override
     public String fieldName() {
         return "COLUMN_NAME";
     }
 
-
     @Override
     public String fieldType() {
         return "TYPE_NAME";
     }
-
 
     @Override
     public String fieldComment() {
         return "REMARKS";
     }
 
-
     @Override
     public String fieldKey() {
         return "PRIMARY_KEY";
     }
-
 
     @Override
     public boolean isKeyIdentity(ResultSet results) throws SQLException {
