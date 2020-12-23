@@ -363,10 +363,22 @@ public class Entity implements ITemplate {
             return this;
         }
 
+        /**
+         * 自定义继承的Entity类全称
+         *
+         * @param clazz 类
+         * @return this
+         */
         public Builder superClass(@NotNull Class<?> clazz) {
             return superClass(clazz.getName());
         }
 
+        /**
+         * 自定义继承的Entity类全称，带包名
+         *
+         * @param superEntityClass 类全称
+         * @return this
+         */
         public Builder superClass(String superEntityClass) {
             this.entity.superClass = superEntityClass;
             return this;
@@ -506,11 +518,23 @@ public class Entity implements ITemplate {
             return this;
         }
 
+        /**
+         * 数据库表映射到实体的命名策略
+         *
+         * @param namingStrategy 数据库表映射到实体的命名策略
+         * @return this
+         */
         public Builder naming(NamingStrategy namingStrategy) {
             this.entity.naming = namingStrategy;
             return this;
         }
 
+        /**
+         * 数据库表字段映射到实体的命名策略
+         *
+         * @param namingStrategy 数据库表字段映射到实体的命名策略
+         * @return this
+         */
         public Builder columnNaming(NamingStrategy namingStrategy) {
             this.entity.columnNaming = namingStrategy;
             return this;
