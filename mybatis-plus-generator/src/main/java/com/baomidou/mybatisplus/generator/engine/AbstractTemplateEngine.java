@@ -340,12 +340,10 @@ public abstract class AbstractTemplateEngine {
      */
     @NotNull
     public Map<String, Object> getObjectMap(@NotNull TableInfo tableInfo) {
-        Map<String, Object> objectMap = new HashMap<>();
         ConfigBuilder config = getConfigBuilder();
         GlobalConfig globalConfig = config.getGlobalConfig();
         Map<String, Object> controllerData = config.getStrategyConfig().controller().renderData(tableInfo);
-        objectMap.put("controller", controllerData);
-        objectMap.putAll(controllerData);
+        Map<String, Object> objectMap = new HashMap<>(controllerData);
         Map<String, Object> mapperData = config.getStrategyConfig().mapper().renderData(tableInfo);
         //　兼容过渡代码
         if (globalConfig.isEnableCache()) {
@@ -357,10 +355,8 @@ public abstract class AbstractTemplateEngine {
         if (globalConfig.isBaseColumnList()) {
             mapperData.put("baseColumnList", true);
         }
-        objectMap.put("mapper", mapperData);
         objectMap.putAll(mapperData);
         Map<String, Object> serviceData = config.getStrategyConfig().service().renderData(tableInfo);
-        objectMap.put("service", serviceData);
         objectMap.putAll(serviceData);
         Map<String, Object> entityData = config.getStrategyConfig().entity().renderData(tableInfo);
         //　兼容过渡代码
@@ -370,7 +366,6 @@ public abstract class AbstractTemplateEngine {
         if (globalConfig.isActiveRecord()) {
             entityData.put("activeRecord", true);
         }
-        objectMap.put("entity", entityData);
         objectMap.putAll(entityData);
         objectMap.put("config", config);
         objectMap.put("package", config.getPackageConfig().getPackageInfo());
