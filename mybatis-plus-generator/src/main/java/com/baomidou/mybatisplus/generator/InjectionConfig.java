@@ -87,6 +87,7 @@ public class InjectionConfig {
      */
     @NotNull
     public Map<String, Object> prepareObjectMap(@NotNull Map<String, Object> objectMap) {
+        objectMap.putAll(getMap());
         return objectMap;
     }
 
