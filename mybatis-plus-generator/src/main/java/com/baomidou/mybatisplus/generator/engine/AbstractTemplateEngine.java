@@ -62,22 +62,17 @@ public abstract class AbstractTemplateEngine {
     /**
      * 自定义内容输出
      *
-     * @param tableInfo 表信息
-     * @param objectMap 渲染数据
-     * @throws Exception ex
+     * @param injectionConfig 注入配置
+     * @param tableInfo       表信息
+     * @param objectMap       渲染数据
      * @since 3.5.0
      */
-    protected void outputCustomFile(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) throws Exception {
-        InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
-        if (null != injectionConfig) {
-            injectionConfig.initTableMap(tableInfo);
-            objectMap.put("cfg", injectionConfig.getMap());
-            List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
-            for (FileOutConfig foc : focList) {
-                File outputFile = foc.outputFile(tableInfo);
-                if (isCreate(FileType.OTHER, outputFile)) {
-                    outputFile(outputFile, FileType.OTHER, objectMap, foc.getTemplatePath());
-                }
+    protected void outputCustomFile(@NotNull InjectionConfig injectionConfig, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+        List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
+        for (FileOutConfig foc : focList) {
+            File outputFile = foc.outputFile(tableInfo);
+            if (isCreate(FileType.OTHER, outputFile)) {
+                outputFile(outputFile, FileType.OTHER, objectMap, foc.getTemplatePath());
             }
         }
     }
@@ -233,11 +228,16 @@ public abstract class AbstractTemplateEngine {
     @NotNull
     public AbstractTemplateEngine batchOutput() {
         try {
+            InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
             List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
-            for (TableInfo tableInfo : tableInfoList) {
+            tableInfoList.forEach(tableInfo -> {
                 Map<String, Object> objectMap = getObjectMap(tableInfo);
+                if (injectionConfig != null) {
+                    injectionConfig.initTableMap(tableInfo);
+                    objectMap.put("cfg", injectionConfig.getMap());
+                    outputCustomFile(injectionConfig, tableInfo, objectMap);
+                }
                 // 自定义内容
-                outputCustomFile(tableInfo, objectMap);
                 // Mp.java
                 outputEntity(tableInfo, objectMap);
                 // mapper and xml
@@ -246,7 +246,7 @@ public abstract class AbstractTemplateEngine {
                 outputService(tableInfo, objectMap);
                 // MpController.java
                 outputController(tableInfo, objectMap);
-            }
+            });
         } catch (Exception e) {
             throw new RuntimeException("无法创建文件，请检查配置信息！", e);
         }

@@ -85,10 +85,8 @@ public class InjectionConfig {
      * com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine
      * 方法： getObjectMap 结果处理
      */
-    @NotNull
-    public Map<String, Object> prepareObjectMap(@NotNull Map<String, Object> objectMap) {
-        objectMap.putAll(getMap());
-        return objectMap;
+    public void prepareObjectMap(@NotNull Map<String, Object> objectMap) {
+
     }
 
     /**
