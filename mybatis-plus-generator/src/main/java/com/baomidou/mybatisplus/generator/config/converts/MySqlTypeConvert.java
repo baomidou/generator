@@ -42,6 +42,7 @@ public class MySqlTypeConvert implements ITypeConvert {
             .test(containsAny("char", "text", "json", "enum").then(STRING))
             .test(contains("bigint").then(LONG))
             .test(containsAny("tinyint(1)", "bit").then(BOOLEAN))
+            .test(contains("bit").then(BYTE))
             .test(contains("int").then(INTEGER))
             .test(contains("decimal").then(BIG_DECIMAL))
             .test(contains("clob").then(CLOB))
