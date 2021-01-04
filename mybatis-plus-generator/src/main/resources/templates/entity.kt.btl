@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty
 @TableName("${table.name}")
 <% } %>
 <% if(swagger2){ %>
-@ApiModel(value="${entity}对象", description="${table.comment!''}")
+@ApiModel(value = "${entity}对象", description = "${table.comment!''}")
 <% } %>
 <% if(isNotEmpty(superEntityClass)){ %>
 class ${entity} : ${superEntityClass}<% if(activeRecord){ %><${entity}><%}%>{
