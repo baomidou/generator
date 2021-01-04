@@ -139,7 +139,7 @@ public class ConfigBuilder {
                 String tableName = result.getStringResult(dbQuery.tableName());
                 if (StringUtils.isNotBlank(tableName)) {
                     TableInfo tableInfo = new TableInfo(this, tableName);
-                    String tableComment = result.getTableComment();
+                    String tableComment = this.formatSwaggerComment(result.getTableComment());
                     // 跳过视图
                     if (!(strategyConfig.isSkipView() && "VIEW".equals(tableComment))) {
                         tableInfo.setComment(tableComment);
@@ -231,7 +231,7 @@ public class ConfigBuilder {
                 }
                 field.setColumnName(newColumnName)
                     .setType(result.getStringResult(dbQuery.fieldType()))
-                    .setComment(result.getFiledComment())
+                    .setComment(this.formatSwaggerComment(result.getFiledComment()))
                     .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
                 String propertyName = entity.getNameConvert().propertyNameConvert(field);
                 IColumnType columnType = dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field);
@@ -354,5 +354,10 @@ public class ConfigBuilder {
     @NotNull
     public PackageConfig getPackageConfig() {
         return packageConfig;
+    }
+
+    @NotNull
+    private String formatSwaggerComment(@NotNull String comment) {
+        return this.globalConfig.isSwagger2() ? comment.replace("\"", "\\\"") : comment;
     }
 }
