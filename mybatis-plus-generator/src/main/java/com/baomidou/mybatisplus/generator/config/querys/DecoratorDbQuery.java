@@ -52,8 +52,8 @@ public class DecoratorDbQuery extends AbstractDbQuery {
     private final String schema;
     private final Logger logger;
 
-    public DecoratorDbQuery(IDbQuery dbQuery, DataSourceConfig dataSourceConfig, StrategyConfig strategyConfig) {
-        this.dbQuery = dbQuery;
+    public DecoratorDbQuery(DataSourceConfig dataSourceConfig, StrategyConfig strategyConfig) {
+        this.dbQuery = dataSourceConfig.getDbQuery();
         this.connection = dataSourceConfig.getConn();
         this.dbType = dataSourceConfig.getDbType();
         this.strategyConfig = strategyConfig;
