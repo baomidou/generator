@@ -23,6 +23,7 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.IDbQuery;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +53,7 @@ public class DecoratorDbQuery extends AbstractDbQuery {
     private final String schema;
     private final Logger logger;
 
-    public DecoratorDbQuery(DataSourceConfig dataSourceConfig, StrategyConfig strategyConfig) {
+    public DecoratorDbQuery(@NotNull DataSourceConfig dataSourceConfig, @NotNull StrategyConfig strategyConfig) {
         this.dbQuery = dataSourceConfig.getDbQuery();
         this.connection = dataSourceConfig.getConn();
         this.dbType = dataSourceConfig.getDbType();
