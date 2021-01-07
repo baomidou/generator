@@ -20,7 +20,6 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
@@ -28,7 +27,6 @@ import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
-import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -191,20 +189,10 @@ public abstract class IDatabaseQuery {
                             LOGGER.warn("当前表[{}]的主键为自增主键，会导致全局主键的ID类型设置失效!", tableName);
                         }
                     }
-                    String newColumnName = columnName;
-                    IKeyWordsHandler keyWordsHandler = dataSourceConfig.getKeyWordsHandler();
-                    if (keyWordsHandler != null && keyWordsHandler.isKeyWords(columnName)) {
-                        LOGGER.warn("当前表[{}]存在字段[{}]为数据库关键字或保留字!", tableName, columnName);
-                        field.setKeyWords(true);
-                        newColumnName = keyWordsHandler.formatColumn(columnName);
-                    }
-                    field.setColumnName(newColumnName)
+                    field.setColumnName(columnName)
                         .setType(result.getStringResult(dbQuery.fieldType()))
                         .setComment(this.formatSwaggerComment(result.getFiledComment()))
                         .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
-                    String propertyName = entity.getNameConvert().propertyNameConvert(field);
-                    IColumnType columnType = dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field);
-                    field.setPropertyName(propertyName, columnType);
                     if (entity.matchSuperEntityColumns(columnName)) {
                         // 跳过公共字段
                         commonFieldList.add(field);

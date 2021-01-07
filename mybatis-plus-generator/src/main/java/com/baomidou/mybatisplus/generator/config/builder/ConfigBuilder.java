@@ -213,4 +213,8 @@ public class ConfigBuilder {
         return packageConfig;
     }
 
+    @NotNull
+    public DataSourceConfig getDataSourceConfig() {
+        return dataSourceConfig;
+    }
 }

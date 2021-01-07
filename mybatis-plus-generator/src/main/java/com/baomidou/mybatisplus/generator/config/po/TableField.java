@@ -16,6 +16,9 @@
 package com.baomidou.mybatisplus.generator.config.po;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
@@ -67,6 +70,10 @@ public class TableField {
 
     private final Entity entity;
 
+    private final DataSourceConfig dataSourceConfig;
+
+    private final GlobalConfig globalConfig;
+
     /**
      * 构造方法
      *
@@ -79,6 +86,8 @@ public class TableField {
         this.columnName = name;
         this.strategyConfig = configBuilder.getStrategyConfig();
         this.entity = configBuilder.getStrategyConfig().entity();
+        this.dataSourceConfig = configBuilder.getDataSourceConfig();
+        this.globalConfig = configBuilder.getGlobalConfig();
     }
 
     /**
@@ -126,6 +135,7 @@ public class TableField {
      * @return this
      * @since 3.5.0
      */
+    //TODO 待调整.
     public TableField setPropertyName(@NotNull String propertyName, @NotNull IColumnType columnType) {
         this.columnType = columnType;
         if (entity.isBooleanColumnRemoveIsPrefix()
@@ -292,6 +302,7 @@ public class TableField {
         return this;
     }
 
+    @Deprecated
     public TableField setKeyWords(boolean keyWords) {
         this.keyWords = keyWords;
         return this;
@@ -299,6 +310,11 @@ public class TableField {
 
     public TableField setColumnName(String columnName) {
         this.columnName = columnName;
+        IKeyWordsHandler keyWordsHandler = dataSourceConfig.getKeyWordsHandler();
+        if (keyWordsHandler != null && keyWordsHandler.isKeyWords(columnName)) {
+            this.keyWords = true;
+            this.columnName = keyWordsHandler.formatColumn(columnName);
+        }
         return this;
     }
 
@@ -328,6 +344,10 @@ public class TableField {
     }
 
     public String getPropertyName() {
+        if (StringUtils.isBlank(propertyName)) {
+            this.setPropertyName(entity.getNameConvert().propertyNameConvert(this),
+                dataSourceConfig.getTypeConvert().processTypeConvert(this.globalConfig, this));
+        }
         return propertyName;
     }
 
