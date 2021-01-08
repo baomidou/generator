@@ -160,8 +160,6 @@ public abstract class IDatabaseQuery {
         }
 
         private void convertTableFields(@NotNull TableInfo tableInfo) {
-            List<TableField> fieldList = new ArrayList<>();
-            List<TableField> commonFieldList = new ArrayList<>();
             DbType dbType = this.dataSourceConfig.getDbType();
             String tableName = tableInfo.getName();
             try {

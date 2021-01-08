@@ -136,23 +136,11 @@ public class TableInfo {
     }
 
     /**
-     * @see #addFields(List)
-     * @see #addFields(TableField...)
      * @deprecated 3.5.0
      */
     @Deprecated
     public TableInfo setFields(@NotNull List<TableField> fields) {
         this.fields.clear();    //保持语义
-        return addFields(fields);
-    }
-
-    /**
-     * @param fields 字段集合
-     * @return this
-     * @since 3.5.0
-     */
-    @Deprecated
-    public TableInfo addFields(@NotNull List<TableField> fields) {
         this.fields.addAll(fields);
         return this;
     }
@@ -161,26 +149,14 @@ public class TableInfo {
      * 添加字段
      *
      * @param field 字段
-     * @return this
      * @since 3.5.0
      */
-    public TableInfo addField(@NotNull TableField field) {
+    public void addField(@NotNull TableField field) {
         if (entity.matchSuperEntityColumns(field.getColumnName())) {
             this.commonFields.add(field);
         } else {
             this.fields.add(field);
         }
-        return this;
-    }
-
-    /**
-     * @param fields 字段集合
-     * @return this
-     * @since 3.5.0
-     */
-    public TableInfo addFields(@NotNull TableField... fields) {
-        this.fields.addAll(Arrays.asList(fields));
-        return this;
     }
 
     /**
@@ -240,37 +216,11 @@ public class TableInfo {
     /**
      * @param commonFields 公共字段
      * @return this
-     * @see #addCommonFields(TableField...)
-     * @see #addCommonFields(List)
      * @deprecated 3.5.0
      */
     @Deprecated
     public TableInfo setCommonFields(@NotNull List<TableField> commonFields) {
         this.commonFields.clear(); //保持语义
-        return addCommonFields(commonFields);
-    }
-
-    /**
-     * 添加公共字段
-     *
-     * @param commonFields 公共字段
-     * @return this
-     * @since 3.5.0
-     */
-    @Deprecated
-    public TableInfo addCommonFields(@NotNull TableField... commonFields) {
-        return addCommonFields(Arrays.asList(commonFields));
-    }
-
-    /**
-     * 添加公共字段
-     *
-     * @param commonFields 公共字段
-     * @return this
-     * @since 3.5.0
-     */
-    @Deprecated
-    public TableInfo addCommonFields(@NotNull List<TableField> commonFields) {
         this.commonFields.addAll(commonFields);
         return this;
     }
