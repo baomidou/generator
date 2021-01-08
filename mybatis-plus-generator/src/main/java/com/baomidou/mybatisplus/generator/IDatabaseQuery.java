@@ -49,9 +49,9 @@ public abstract class IDatabaseQuery {
 
     protected final DataSourceConfig dataSourceConfig;
 
-    public IDatabaseQuery(@NotNull ConfigBuilder configBuilder, @NotNull DataSourceConfig dataSourceConfig) {
+    public IDatabaseQuery(@NotNull ConfigBuilder configBuilder) {
         this.configBuilder = configBuilder;
-        this.dataSourceConfig = dataSourceConfig;
+        this.dataSourceConfig = configBuilder.getDataSourceConfig();
     }
 
     @NotNull
@@ -88,8 +88,8 @@ public abstract class IDatabaseQuery {
 
         private final DecoratorDbQuery dbQuery;
 
-        public DefaultDatabaseQuery(@NotNull ConfigBuilder configBuilder, @NotNull DataSourceConfig dataSourceConfig) {
-            super(configBuilder, dataSourceConfig);
+        public DefaultDatabaseQuery(@NotNull ConfigBuilder configBuilder) {
+            super(configBuilder);
             this.strategyConfig = configBuilder.getStrategyConfig();
             this.dbQuery = new DecoratorDbQuery(dataSourceConfig, strategyConfig);
             this.globalConfig = configBuilder.getGlobalConfig();
@@ -111,7 +111,7 @@ public abstract class IDatabaseQuery {
                     String tableName = result.getStringResult(dbQuery.tableName());
                     if (StringUtils.isNotBlank(tableName)) {
                         TableInfo tableInfo = new TableInfo(this.configBuilder, tableName);
-                        String tableComment = this.formatSwaggerComment(result.getTableComment());
+                        String tableComment = result.getTableComment();
                         // 跳过视图
                         if (!(strategyConfig.isSkipView() && "VIEW".equals(tableComment))) {
                             tableInfo.setComment(tableComment);
@@ -191,7 +191,7 @@ public abstract class IDatabaseQuery {
                     }
                     field.setColumnName(columnName)
                         .setType(result.getStringResult(dbQuery.fieldType()))
-                        .setComment(this.formatSwaggerComment(result.getFiledComment()))
+                        .setComment(result.getFiledComment())
                         .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
                     if (entity.matchSuperEntityColumns(columnName)) {
                         // 跳过公共字段
@@ -207,12 +207,6 @@ public abstract class IDatabaseQuery {
             tableInfo.addCommonFields(commonFieldList);
             tableInfo.processTable();
         }
-
-        @NotNull
-        private String formatSwaggerComment(@NotNull String comment) {
-            return this.globalConfig.isSwagger2() ? comment.replace("\"", "\\\"") : comment;
-        }
-
     }
 
 }

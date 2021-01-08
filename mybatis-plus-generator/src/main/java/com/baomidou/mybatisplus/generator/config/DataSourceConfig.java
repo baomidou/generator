@@ -209,7 +209,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setUsername(@NotNull String username) {
+    public DataSourceConfig setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -223,7 +223,7 @@ public class DataSourceConfig {
      * @deprecated 3.5.0
      */
     @Deprecated
-    public DataSourceConfig setPassword(@NotNull String password) {
+    public DataSourceConfig setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -389,7 +389,7 @@ public class DataSourceConfig {
         return driverName;
     }
 
-    @NotNull
+    @Nullable
     public String getUsername() {
         return username;
     }
@@ -417,7 +417,7 @@ public class DataSourceConfig {
          * @param username 数据库账号
          * @param password 数据库密码
          */
-        public Builder(@NotNull String url, @NotNull String username, @NotNull String password) {
+        public Builder(@NotNull String url, String username, String password) {
             this.dataSourceConfig.url = url;
             this.dataSourceConfig.username = username;
             this.dataSourceConfig.password = password;

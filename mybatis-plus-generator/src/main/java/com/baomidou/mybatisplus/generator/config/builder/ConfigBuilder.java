@@ -180,7 +180,7 @@ public class ConfigBuilder {
     public List<TableInfo> getTableInfoList() {
         if (tableInfoList.isEmpty()) {
             // TODO 暂时不开放自定义
-            List<TableInfo> tableInfos = new IDatabaseQuery.DefaultDatabaseQuery(this, this.dataSourceConfig).queryTables();
+            List<TableInfo> tableInfos = new IDatabaseQuery.DefaultDatabaseQuery(this).queryTables();
             if (!tableInfos.isEmpty()) {
                 this.tableInfoList.addAll(tableInfos);
             }
