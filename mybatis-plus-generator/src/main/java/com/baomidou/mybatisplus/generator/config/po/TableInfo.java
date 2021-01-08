@@ -151,8 +151,25 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
+    @Deprecated
     public TableInfo addFields(@NotNull List<TableField> fields) {
         this.fields.addAll(fields);
+        return this;
+    }
+
+    /**
+     * 添加字段
+     *
+     * @param field 字段
+     * @return this
+     * @since 3.5.0
+     */
+    public TableInfo addField(@NotNull TableField field) {
+        if (entity.matchSuperEntityColumns(field.getColumnName())) {
+            this.commonFields.add(field);
+        } else {
+            this.fields.add(field);
+        }
         return this;
     }
 
@@ -240,6 +257,7 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
+    @Deprecated
     public TableInfo addCommonFields(@NotNull TableField... commonFields) {
         return addCommonFields(Arrays.asList(commonFields));
     }
@@ -251,6 +269,7 @@ public class TableInfo {
      * @return this
      * @since 3.5.0
      */
+    @Deprecated
     public TableInfo addCommonFields(@NotNull List<TableField> commonFields) {
         this.commonFields.addAll(commonFields);
         return this;

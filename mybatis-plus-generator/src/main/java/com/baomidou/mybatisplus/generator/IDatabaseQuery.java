@@ -193,18 +193,11 @@ public abstract class IDatabaseQuery {
                         .setType(result.getStringResult(dbQuery.fieldType()))
                         .setComment(result.getFiledComment())
                         .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
-                    if (entity.matchSuperEntityColumns(columnName)) {
-                        // 跳过公共字段
-                        commonFieldList.add(field);
-                    } else {
-                        fieldList.add(field);
-                    }
+                    tableInfo.addField(field);
                 });
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            tableInfo.addFields(fieldList);
-            tableInfo.addCommonFields(commonFieldList);
             tableInfo.processTable();
         }
     }
