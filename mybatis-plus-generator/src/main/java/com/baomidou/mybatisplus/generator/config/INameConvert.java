@@ -70,7 +70,7 @@ public interface INameConvert {
 
         @Override
         public @NotNull String propertyNameConvert(@NotNull TableField field) {
-            return processName(field.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix());
+            return processName(field.getName(), strategyConfig.entity().getColumnNaming(), strategyConfig.getTablePrefix());
         }
 
         private String processName(String name, NamingStrategy strategy, Set<String> prefix) {
