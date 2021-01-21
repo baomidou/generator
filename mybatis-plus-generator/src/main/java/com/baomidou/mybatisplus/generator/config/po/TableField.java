@@ -346,10 +346,6 @@ public class TableField {
     }
 
     public String getPropertyName() {
-        if (StringUtils.isBlank(propertyName)) {
-            this.setPropertyName(entity.getNameConvert().propertyNameConvert(this),
-                dataSourceConfig.getTypeConvert().processTypeConvert(this.globalConfig, this));
-        }
         return propertyName;
     }
 

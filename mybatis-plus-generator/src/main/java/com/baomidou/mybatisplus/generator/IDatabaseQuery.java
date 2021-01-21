@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -191,6 +192,9 @@ public abstract class IDatabaseQuery {
                         .setType(result.getStringResult(dbQuery.fieldType()))
                         .setComment(result.getFiledComment())
                         .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
+                    String propertyName = entity.getNameConvert().propertyNameConvert(field);
+                    IColumnType columnType = dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field);
+                    field.setPropertyName(propertyName, columnType);
                     tableInfo.addField(field);
                 });
             } catch (SQLException e) {
