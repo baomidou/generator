@@ -35,6 +35,7 @@ public interface ConstVal {
     String MAPPER = "Mapper";
     String XML = "Xml";
     String CONTROLLER = "Controller";
+    String PARENT = "Parent";
 
     String ENTITY_PATH = "entity_path";
     String SERVICE_PATH = "service_path";

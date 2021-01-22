@@ -117,6 +117,7 @@ public class PackageConfig {
             packageInfo.put(ConstVal.SERVICE, this.joinPackage(this.getService()));
             packageInfo.put(ConstVal.SERVICE_IMPL, this.joinPackage(this.getServiceImpl()));
             packageInfo.put(ConstVal.CONTROLLER, this.joinPackage(this.getController()));
+            packageInfo.put(ConstVal.PARENT, this.getParent());
         }
         return Collections.unmodifiableMap(this.packageInfo);
     }
