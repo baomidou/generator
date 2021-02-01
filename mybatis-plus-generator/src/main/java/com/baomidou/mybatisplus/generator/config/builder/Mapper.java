@@ -15,18 +15,19 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.decorators.LoggingCache;
+import org.jetbrains.annotations.NotNull;
+
 import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
-import org.apache.ibatis.cache.Cache;
-import org.apache.ibatis.cache.decorators.LoggingCache;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 控制器属性配置
@@ -63,6 +64,7 @@ public class Mapper implements ITemplate {
      *
      * @since 3.5.0
      */
+    @Deprecated
     private boolean enableXmlCache;
 
     /**
