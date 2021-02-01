@@ -21,6 +21,8 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
+import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.decorators.LoggingCache;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -77,6 +79,13 @@ public class Mapper implements ITemplate {
      */
     private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.XML);
 
+    /**
+     * 设置缓存实现类
+     *
+     * @since 3.5.0
+     */
+    private Class<? extends Cache> cache;
+
     @NotNull
     public String getSuperClass() {
         return superClass;
@@ -102,14 +111,24 @@ public class Mapper implements ITemplate {
         return converterXmlFileName;
     }
 
+    public Class<? extends Cache> getCache() {
+        return this.cache == null ? LoggingCache.class : this.cache;
+    }
+
     @Override
     @NotNull
     public Map<String, Object> renderData(@NotNull TableInfo tableInfo) {
         Map<String, Object> data = new HashMap<>();
-        data.put("enableCache", this.enableXmlCache);
+        boolean enableCache = this.enableXmlCache || this.cache != null;
+        data.put("enableCache", enableCache);
         data.put("baseResultMap", this.baseResultMap);
         data.put("baseColumnList", this.baseColumnList);
         data.put("superMapperClassPackage", this.superClass);
+        if(enableCache){
+            Class<? extends Cache> cacheClass = this.getCache();
+            data.put("cache", cacheClass);
+            data.put("cacheClassName", cacheClass.getName());
+        }
         data.put("superMapperClass", ClassUtils.getSimpleName(this.superClass));
         return data;
     }
@@ -169,11 +188,27 @@ public class Mapper implements ITemplate {
         }
 
         /**
+         * 设置缓存实现类
+         *
+         * @param cache 缓存实现
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder cache(@NotNull Class<? extends Cache> cache) {
+            this.mapper.cache = cache;
+            this.mapper.enableXmlCache = true;
+            return this;
+        }
+
+        /**
          * 是否在xml中添加二级缓存配置
          *
          * @param enableXmlCache 是否开启
          * @return this
+         * @see #cache(Class)
+         * @deprecated 3.5.0
          */
+        @Deprecated
         public Builder enableXmlCache(boolean enableXmlCache) {
             this.mapper.enableXmlCache = enableXmlCache;
             return this;
