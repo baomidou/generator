@@ -46,14 +46,14 @@ public class Mapper implements ITemplate {
     private String superClass = ConstVal.SUPER_MAPPER_CLASS;
 
     /**
-     * 开启 BaseResultMap
+     * 是否开启BaseResultMap
      *
      * @since 3.5.0
      */
     private boolean baseResultMap;
 
     /**
-     * 开启 baseColumnList
+     * 是否开启baseColumnList
      *
      * @since 3.5.0
      */
