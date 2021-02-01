@@ -180,7 +180,7 @@ new TemplateConfig.Builder().all().build();	//激活所有默认模板
 | convertXmlFileName    | 转换xml文件名称             |            |
 
 ```java
-ew StrategyConfig.Builder()
+new StrategyConfig.Builder()
     .enableSqlFilter(true)// 启用sql过滤
     .capitalMode(true)// 是否大写命名
     .entityBuilder()// 实体配置构建者
