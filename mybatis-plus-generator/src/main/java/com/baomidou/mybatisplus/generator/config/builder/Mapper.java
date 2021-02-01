@@ -172,6 +172,7 @@ public class Mapper implements ITemplate {
          * @return this
          * @since 3.5.0
          */
+        @Deprecated
         public Builder baseResultMap(boolean baseResultMap){
             this.mapper.baseResultMap = baseResultMap;
             return this;
@@ -184,8 +185,31 @@ public class Mapper implements ITemplate {
          * @return this
          * @since 3.5.0
          */
+        @Deprecated
         public Builder baseColumnList(boolean baseColumnList) {
             this.mapper.baseColumnList = baseColumnList;
+            return this;
+        }
+
+        /**
+         * 开启baseResultMap
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableBaseResultMap(){
+            this.mapper.baseResultMap = true;
+            return this;
+        }
+
+        /**
+         * 开启baseColumnList
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableBaseColumnList() {
+            this.mapper.baseColumnList = true;
             return this;
         }
 

@@ -171,9 +171,9 @@ new TemplateConfig.Builder().all().build();	//激活所有默认模板
 | 方法                  | 说明                        | 示例       |
 | --------------------- | --------------------------- | ---------- |
 | superClass            | 设置父类                    |            |
-| baseResultMap         | 是否开启BaseResultMap生成   | 默认:false |
-| baseColumnList        | 是否开启BaseColumnList      | 默认:false |
-| enableXmlCache        | 是否在xml中添加二级缓存配置 | 默认:false |
+| enableBaseResultMap         | 启用BaseResultMap生成   |  |
+| enableBaseColumnList        | 启用BaseColumnList      |  |
+| cache        | 设置缓存实现类 |  |
 | formatMapperFileName  | 格式化mapper文件名称        |            |
 | formatXmlFileName     | 格式化xml实现类文件名称     |            |
 | convertMapperFileName | 转换mapper类文件名称        |            |
