@@ -1,3 +1,12 @@
+### 安装
+``` xml
+<dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-generator</artifactId>
+    <version>Latest Version</version>
+</dependency>
+```
+
 ### 暂时会以快照版本的方式迭代,等后续稳定之后发行3.5.0正式版本.(2021年2月1日)
 
 #### 3.5.0版本不兼容项
