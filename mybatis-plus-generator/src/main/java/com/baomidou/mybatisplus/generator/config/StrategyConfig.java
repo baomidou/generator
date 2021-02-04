@@ -20,6 +20,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.IFill;
 import com.baomidou.mybatisplus.generator.config.builder.BaseBuilder;
@@ -30,9 +33,6 @@ import com.baomidou.mybatisplus.generator.config.builder.Service;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 /**
  * 策略配置项
  *
@@ -40,14 +40,15 @@ import org.jetbrains.annotations.Nullable;
  * @since 2016/8/30
  */
 public class StrategyConfig {
+
     /**
      * 是否大写命名
      */
-    private boolean isCapitalMode = false;
+    private boolean isCapitalMode;
     /**
      * 是否跳过视图
      */
-    private boolean skipView = false;
+    private boolean skipView;
     /**
      * 表前缀
      */
@@ -1135,22 +1136,58 @@ public class StrategyConfig {
             strategyConfig = super.build();
         }
 
-        public Builder capitalMode(boolean capitalMode){
+        @Deprecated
+        public Builder capitalMode(boolean capitalMode) {
             this.strategyConfig.isCapitalMode = capitalMode;
             return this;
         }
 
-        public Builder skipView(boolean skipView){
+        /**
+         * 开启大写命名
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableCapitalMode() {
+            this.strategyConfig.isCapitalMode = true;
+            return this;
+        }
+
+        @Deprecated
+        public Builder skipView(boolean skipView) {
             this.strategyConfig.skipView = skipView;
             return this;
         }
 
-        public Builder enableSqlFilter(boolean enableSqlFilter){
+        /**
+         * 开启跳过视图
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableSkipView() {
+            this.strategyConfig.skipView = true;
+            return this;
+        }
+
+        @Deprecated
+        public Builder enableSqlFilter(boolean enableSqlFilter) {
             this.strategyConfig.enableSqlFilter = enableSqlFilter;
             return this;
         }
 
-        public Builder likeTable(@NotNull LikeTable likeTable){
+        /**
+         * 禁用sql过滤
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder disableSqlFilter() {
+            this.strategyConfig.enableSqlFilter = false;
+            return this;
+        }
+
+        public Builder likeTable(@NotNull LikeTable likeTable) {
             this.strategyConfig.likeTable = likeTable;
             return this;
         }

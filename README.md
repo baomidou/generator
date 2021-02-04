@@ -115,9 +115,9 @@ new TemplateConfig.Builder().all().build();	//激活所有默认模板
 
 | 方法                      | 说明                     | 示例                                                         |
 | ------------------------- | ------------------------ | ------------------------------------------------------------ |
-| capitalMode               | 是否大写命名             | 默认:false                                                   |
-| skipView                  | 是否跳过视图             | 默认:false                                                   |
-| enableSqlFilter           | 启用sql过滤              | 默认:true,语法不能支持使用sql过滤表的话，可以考虑关闭此开关. |
+| enableCapitalMode         | 开启大写命名             |                                                    |
+| enableSkipView            | 开启跳过视图             |                                                   |
+| disableSqlFilter          | 禁用sql过滤              | 语法不能支持使用sql过滤表的话，可以考虑关闭此开关. |
 | likeTable                 | 模糊表匹配(sql过滤)      |                                                              |
 | notLikeTable              | 模糊表排除(sql过滤)      |                                                              |
 | addFieldPrefix(string...) | 增加表字段前缀           |                                                              |
