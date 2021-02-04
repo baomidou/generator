@@ -125,13 +125,13 @@ new TemplateConfig.Builder().all().build();	//激活所有默认模板
 | 方法                             | 说明                             | 示例                          |
 | -------------------------------- | -------------------------------- | ----------------------------- |
 | nameConvert                      | 名称转换实现                     |                               |
-| superClass                       | 父类                             | 默认:false                    |
-| serialVersionUID                 | 是否生成serialVersionUID         | 默认:false                    |
-| columnConstant                   | 是否生成字段常量                 | 默认:false                    |
-| chainModel                       | 是否为链式模型                   | 默认:false                    |
-| lombok                           | 是否为lombok模型                 | 默认:false                    |
-| booleanColumnRemoveIsPrefix      | Boolean类型字段是否移除is前缀    | 默认:false                    |
-| tableFieldAnnotationEnable       | 是否强制生成字段注解             | 默认:false                    |
+| superClass                       | 父类                             |                    |
+| enableSerialVersionUID           | 开启生成serialVersionUID         |                     |
+| enableColumnConstant             | 开启生成字段常量                 |                     |
+| enableChainModel                 | 开启链式模型                   |                    |
+| enableLombok                     | 开启lombok模型                 |                     |
+| enableRemoveIsPrefix             | 开启Boolean类型字段移除is前缀    |                     |
+| enableTableFieldAnnotationEnable | 开启生成实体时生成字段注解            |                     |
 | versionColumnName(string)        | 乐观锁字段名(数据库)             |                               |
 | versionPropertyName(string)      | 乐观锁属性名(实体)               |                               |
 | logicDeleteColumnName(string)    | 逻辑删除字段名(数据库)           |                               |
@@ -140,7 +140,7 @@ new TemplateConfig.Builder().all().build();	//激活所有默认模板
 | columnNaming                     | 数据库表字段映射到实体的命名策略 |                               |
 | addSuperEntityColumns(string...) | 添加父类公共字段                 |                               |
 | addTableFills(IFill...)          | 添加属性填充字段                 |                               |
-| activeRecord                     | 是否开启ActiveRecord模型         | 默认:false                    |
+| enableActiveRecord               | 开启ActiveRecord模型         |                     |
 | idType                           | 全局主键类型                     |                               |
 | convertFileName                  | 转换文件名称                     |                               |
 | formatFileName                   | 格式化文件名称                   |                               |
@@ -184,7 +184,7 @@ new StrategyConfig.Builder()
     .enableSqlFilter(true)// 启用sql过滤
     .capitalMode(true)// 是否大写命名
     .entityBuilder()// 实体配置构建者
-        .lombok(false)// 是否为lombok模型
+        .enableLombok()// 开启lombok模型
         .versionColumnName("version") //乐观锁数据库表字段
         .naming(NamingStrategy.underline_to_camel)// 数据库表映射到实体的命名策略
         .addTableFills(new Column("create_time", FieldFill.INSERT))	//基于数据库字段填充

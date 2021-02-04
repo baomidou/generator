@@ -390,8 +390,20 @@ public class Entity implements ITemplate {
          * @param serialVersionUID 是否生成
          * @return this
          */
+        @Deprecated
         public Builder serialVersionUID(boolean serialVersionUID) {
             this.entity.serialVersionUID = serialVersionUID;
+            return this;
+        }
+
+        /**
+         * 开启生成serialVersionUID
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableSerialVersionUID() {
+            this.entity.serialVersionUID = true;
             return this;
         }
 
@@ -401,8 +413,20 @@ public class Entity implements ITemplate {
          * @param columnConstant 是否生成字段常量
          * @return this
          */
+        @Deprecated
         public Builder columnConstant(boolean columnConstant) {
             this.entity.columnConstant = columnConstant;
+            return this;
+        }
+
+        /**
+         * 开启生成字段常量
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableColumnConstant() {
+            this.entity.columnConstant = true;
             return this;
         }
 
@@ -412,8 +436,20 @@ public class Entity implements ITemplate {
          * @param chain 是否为链式模型
          * @return this
          */
+        @Deprecated
         public Builder chainModel(boolean chain) {
             this.entity.chain = chain;
+            return this;
+        }
+
+        /**
+         * 开启链式模型
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableChainModel() {
+            this.entity.chain = true;
             return this;
         }
 
@@ -423,8 +459,20 @@ public class Entity implements ITemplate {
          * @param lombok 是否为lombok模型
          * @return this
          */
+        @Deprecated
         public Builder lombok(boolean lombok) {
             this.entity.lombok = lombok;
+            return this;
+        }
+
+        /**
+         * 开启lombok模型
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableLombok() {
+            this.entity.lombok = true;
             return this;
         }
 
@@ -434,8 +482,20 @@ public class Entity implements ITemplate {
          * @param booleanColumnRemoveIsPrefix 是否移除
          * @return this
          */
+        @Deprecated
         public Builder booleanColumnRemoveIsPrefix(boolean booleanColumnRemoveIsPrefix) {
             this.entity.booleanColumnRemoveIsPrefix = booleanColumnRemoveIsPrefix;
+            return this;
+        }
+
+        /**
+         * 开启Boolean类型字段移除is前缀
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableRemoveIsPrefix() {
+            this.entity.booleanColumnRemoveIsPrefix = true;
             return this;
         }
 
@@ -445,8 +505,20 @@ public class Entity implements ITemplate {
          * @param tableFieldAnnotationEnable 是否生成
          * @return this
          */
+        @Deprecated
         public Builder tableFieldAnnotationEnable(boolean tableFieldAnnotationEnable) {
             this.entity.tableFieldAnnotationEnable = tableFieldAnnotationEnable;
+            return this;
+        }
+
+        /**
+         * 开启生成实体时生成字段注解
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableTableFieldAnnotation() {
+            this.entity.tableFieldAnnotationEnable = true;
             return this;
         }
 
@@ -577,14 +649,26 @@ public class Entity implements ITemplate {
         }
 
         /**
-         * 开启 ActiveRecord 模式
+         * 是否开启 ActiveRecord 模式
          *
          * @param activeRecord 是否开启
          * @return this
          * @since 3.5.0
          */
+        @Deprecated
         public Builder activeRecord(boolean activeRecord) {
             this.entity.activeRecord = activeRecord;
+            return this;
+        }
+
+        /**
+         * 开启 ActiveRecord 模式
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableActiveRecord() {
+            this.entity.activeRecord = true;
             return this;
         }
 
