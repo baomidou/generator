@@ -15,6 +15,12 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -22,11 +28,6 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 控制器属性配置
@@ -45,14 +46,14 @@ public class Controller implements ITemplate {
      *      <code>@Controller</code> -> <code>@RestController</code>
      * </pre>
      */
-    private boolean restStyle = false;
+    private boolean restStyle;
     /**
      * 驼峰转连字符
      * <pre>
      *      <code>@RequestMapping("/managerUserActionHistory")</code> -> <code>@RequestMapping("/manager-user-action-history")</code>
      * </pre>
      */
-    private boolean hyphenStyle = false;
+    private boolean hyphenStyle;
 
     /**
      * 自定义继承的Controller类全称，带包名
@@ -130,8 +131,20 @@ public class Controller implements ITemplate {
          *
          * @return this
          */
+        @Deprecated
         public Builder hyphenStyle(boolean hyphenStyle) {
             this.controller.hyphenStyle = hyphenStyle;
+            return this;
+        }
+
+        /**
+         * 开启驼峰转连字符
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableHyphenStyle() {
+            this.controller.hyphenStyle = true;
             return this;
         }
 
@@ -141,8 +154,20 @@ public class Controller implements ITemplate {
          * @param restStyle 是否生成@RestController控制器
          * @return this
          */
+        @Deprecated
         public Builder restStyle(boolean restStyle) {
             this.controller.restStyle = restStyle;
+            return this;
+        }
+
+        /**
+         * 开启生成@RestController控制器
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableRestStyle() {
+            this.controller.restStyle = true;
             return this;
         }
 

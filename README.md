@@ -158,9 +158,9 @@ new TemplateConfig.Builder().all().build();	//激活所有默认模板
 
 | 方法                             | 说明                             | 示例                          |
 | -------------------------------- | -------------------------------- | ----------------------------- |
-| superClass                       | 父类                             | 默认:false                    |
-| hyphenStyle                      | 是否驼峰转连字符                 | 默认:false                    |
-| restStyle                        | 是否生成@RestController控制器    | 默认:false                    |                            |
+| superClass                       | 父类                             |                     |
+| enableHyphenStyle                | 开启驼峰转连字符                 |                    |
+| enableRestStyle                  | 开启生成@RestController控制器    |                     |                            |
 | convertFileName                  | 转换文件名称                     |                               |
 | formatFileName                   | 格式化文件名称                   |                               |
 
