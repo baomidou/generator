@@ -343,6 +343,11 @@ public class TemplateConfig {
 
         /**
          * 设置实体模板路径
+         * 示例: xx表示模板引擎后缀(默认情况下velocity为vm)
+         * 1./templates/entity 自动根据 {@link GlobalConfig#isKotlin()}拼接模板后缀,如果是kotlin的话,则加载/templates/entity.kt
+         * 2./templates/entity%s.xx 自动格式化实体模板.如果是kotlin的话,则加载/templates/entity.kt.xx
+         * 3./templates/entity.java or /templates/entity.java
+         * 4./templates/entity.java.xx or /templates/entity.java.xx
          *
          * @param entityTemplate 实体模板
          * @return this
