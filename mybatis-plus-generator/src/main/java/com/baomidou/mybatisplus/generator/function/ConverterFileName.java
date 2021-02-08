@@ -16,6 +16,8 @@
 package com.baomidou.mybatisplus.generator.function;
 
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 转换输出文件名称
  *
@@ -25,5 +27,6 @@ package com.baomidou.mybatisplus.generator.function;
 @FunctionalInterface
 public interface ConverterFileName {
 
+    @NotNull
     String convert(String entityName);
 }

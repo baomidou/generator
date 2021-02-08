@@ -31,26 +31,14 @@ public class TemplateConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TemplateConfig.class);
 
-    /**
-     * 由于需要支持kotlin与java两种模板,当不需要支持其中一种的话,可以使用方式一进行设置.
-     * example:
-     * 1.setEntity("/templates/entity.java") or setEntity("/templates/entity.kt")
-     * 2.setEntity("/templates/entity")
-     * 3.setEntity("/templates/entity%s")
-     * 设置实体模板路径
-     */
     private String entity;
 
     private boolean disableEntity;
 
     /**
-     * 设置实体模板路径
-     *
-     * @see #entity
-     * @deprecated 3.5.0
+     * 设置实体模板路径(kotlin模板)
      */
-    @Deprecated
-    private String entityKt = ConstVal.TEMPLATE_ENTITY_KT;
+    private String entityKt;
 
     private String service;
 
@@ -71,7 +59,8 @@ public class TemplateConfig {
     @Deprecated
     public TemplateConfig() {
         this.controller = ConstVal.TEMPLATE_CONTROLLER;
-        this.entity = ConstVal.TEMPLATE_ENTITY;
+        this.entity = ConstVal.TEMPLATE_ENTITY_JAVA;
+        this.entityKt = ConstVal.TEMPLATE_ENTITY_KT;
         this.xml = ConstVal.TEMPLATE_XML;
         this.service = ConstVal.TEMPLATE_SERVICE;
         this.serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
@@ -188,7 +177,9 @@ public class TemplateConfig {
      */
     @Deprecated
     public TemplateConfig setEntityKt(String entityKt) {
-        return setEntity(entityKt);
+        logger(entityKt, TemplateType.ENTITY);
+        this.entityKt = entityKt;
+        return this;
     }
 
     /**
@@ -197,7 +188,7 @@ public class TemplateConfig {
      */
     @Deprecated
     public String getEntityKt() {
-        return getEntity(true);
+        return this.entityKt;
     }
 
     /**
@@ -208,26 +199,10 @@ public class TemplateConfig {
      */
     public String getEntity(boolean kotlin) {
         if (!this.disableEntity) {
-            if (StringUtils.isBlank(this.entity)) {
-                // 默认情况
-                return kotlin ? ConstVal.TEMPLATE_ENTITY_KT : ConstVal.TEMPLATE_ENTITY_JAVA;
+            if (kotlin) {
+                return StringUtils.isBlank(this.entityKt) ? ConstVal.TEMPLATE_ENTITY_KT : this.entityKt;
             }
-            if (this.entity.contains("%s")) {
-                return kotlin ? String.format(this.entity, ".kt") : String.format(this.entity, ".java");
-            }
-            String[] split = this.entity.split("\\.");
-            int length = split.length;
-            switch (length) {
-                case 1:
-                    //支持无后缀情况,自动加后缀
-                    return kotlin ? this.entity + ".kt" : this.entity + ".java";
-                case 2:
-                    return split[0] + (kotlin ? ".kt" : ".java");
-                case 3:
-                    return split[0] + (kotlin ? ".kt" : ".java") + "." + split[2];
-                default:
-                    return this.entity;
-            }
+            return StringUtils.isBlank(this.entity) ? ConstVal.TEMPLATE_ENTITY_JAVA : this.entity;
         }
         return null;
     }
@@ -238,7 +213,9 @@ public class TemplateConfig {
      * @param templateTypes 模板类型
      * @return this
      * @since 3.3.2
+     * @deprecated 3.5.0
      */
+    @Deprecated
     public TemplateConfig disable(@NotNull TemplateType... templateTypes) {
         if (templateTypes != null && templateTypes.length > 0) {
             for (TemplateType templateType : templateTypes) {
@@ -323,7 +300,8 @@ public class TemplateConfig {
          */
         public Builder all() {
             this.templateConfig.controller = ConstVal.TEMPLATE_CONTROLLER;
-            this.templateConfig.entity = ConstVal.TEMPLATE_ENTITY;
+            this.templateConfig.entityKt = ConstVal.TEMPLATE_ENTITY_KT;
+            this.templateConfig.entity = ConstVal.TEMPLATE_ENTITY_JAVA;
             this.templateConfig.xml = ConstVal.TEMPLATE_XML;
             this.templateConfig.service = ConstVal.TEMPLATE_SERVICE;
             this.templateConfig.serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
@@ -333,21 +311,25 @@ public class TemplateConfig {
         }
 
         /**
-         * 使用默认实体模板
+         * 使用默认实体模板(JAVA)
          *
          * @return this
          */
         public Builder entity() {
-            return entity(ConstVal.TEMPLATE_ENTITY);
+            return entity(ConstVal.TEMPLATE_ENTITY_JAVA);
         }
 
         /**
-         * 设置实体模板路径
-         * 示例: xx表示模板引擎后缀(默认情况下velocity为vm)
-         * 1./templates/entity 自动根据 {@link GlobalConfig#isKotlin()}拼接模板后缀,如果是kotlin的话,则加载/templates/entity.kt
-         * 2./templates/entity%s.xx 自动格式化实体模板.如果是kotlin的话,则加载/templates/entity.kt.xx
-         * 3./templates/entity.java or /templates/entity.java
-         * 4./templates/entity.java.xx or /templates/entity.java.xx
+         * 使用默认实体模板(kotlin)
+         *
+         * @return this
+         */
+        public Builder entityKt() {
+            return entity(ConstVal.TEMPLATE_ENTITY_KT);
+        }
+
+        /**
+         * 设置实体模板路径(JAVA)
          *
          * @param entityTemplate 实体模板
          * @return this
@@ -355,6 +337,18 @@ public class TemplateConfig {
         public Builder entity(@NotNull String entityTemplate) {
             this.templateConfig.disableEntity = false;
             this.templateConfig.setEntity(entityTemplate);
+            return this;
+        }
+
+        /**
+         * 设置实体模板路径(kotlin)
+         *
+         * @param entityKtTemplate 实体模板
+         * @return this
+         */
+        public Builder entityKt(@NotNull String entityKtTemplate) {
+            this.templateConfig.disableEntity = false;
+            this.templateConfig.setEntityKt(entityKtTemplate);
             return this;
         }
 
