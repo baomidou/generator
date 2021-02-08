@@ -92,14 +92,8 @@ public class DataSourceConfig {
      */
     private Connection connection;
 
-    /**
-     * 后续不再公开次构造方法
-     *
-     * @see Builder#Builder(String, String, String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig() {
+    private DataSourceConfig() {
+        // 不推荐使用
     }
 
     /**
@@ -408,7 +402,11 @@ public class DataSourceConfig {
      */
     public static class Builder {
 
-        private final DataSourceConfig dataSourceConfig = new DataSourceConfig();
+        private final DataSourceConfig dataSourceConfig;
+
+        private Builder() {
+            this.dataSourceConfig = new DataSourceConfig();
+        }
 
         /**
          * 构造初始化方法
@@ -418,6 +416,7 @@ public class DataSourceConfig {
          * @param password 数据库密码
          */
         public Builder(@NotNull String url, String username, String password) {
+            this();
             this.dataSourceConfig.url = url;
             this.dataSourceConfig.username = username;
             this.dataSourceConfig.password = password;
@@ -429,6 +428,7 @@ public class DataSourceConfig {
          * @param dataSource 外部数据源实例
          */
         public Builder(@NotNull DataSource dataSource) {
+            this();
             this.dataSourceConfig.dataSource = dataSource;
             try {
                 Connection conn = dataSource.getConnection();

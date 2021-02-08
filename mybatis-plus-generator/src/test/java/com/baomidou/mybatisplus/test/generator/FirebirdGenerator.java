@@ -92,11 +92,8 @@ public class FirebirdGenerator extends GeneratorTest {
         mpg.setGlobalConfig(gc);
 
         // TODO 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl(url);
+        DataSourceConfig dsc = new DataSourceConfig.Builder(url, username, password).build();
         dsc.setDriverName(driverName);
-        dsc.setUsername(username);
-        dsc.setPassword(password);
         mpg.setDataSource(dsc);
 
         // TODO 包配置

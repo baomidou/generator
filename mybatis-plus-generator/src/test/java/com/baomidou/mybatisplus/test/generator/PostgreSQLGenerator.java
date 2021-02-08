@@ -67,7 +67,8 @@ public class PostgreSQLGenerator extends GeneratorTest {
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:postgresql://localhost:5432/mybatis-plus",
+            "postgres", "123456").build();
         dsc.setSchemaName("public");// 指定 SCHEMA
         dsc.setDbType(DbType.POSTGRE_SQL);
         dsc.setTypeConvert(new OracleTypeConvert() {
@@ -81,9 +82,6 @@ public class PostgreSQLGenerator extends GeneratorTest {
         // 自定义数据库信息查询
         dsc.setDbQuery(new MyPostgreSqlQuery());
         dsc.setDriverName("org.postgresql.Driver");
-        dsc.setUsername("postgres");
-        dsc.setPassword("521");
-        dsc.setUrl("jdbc:postgresql://localhost:5432/mybatis-plus");
         mpg.setDataSource(dsc);
 
         // 策略配置

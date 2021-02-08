@@ -19,7 +19,10 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.FileOutConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
@@ -32,7 +35,7 @@ import com.mysql.cj.jdbc.Driver;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.*;
+import java.util.Collections;
 
 /**
  * 代码生成器演示
@@ -67,7 +70,8 @@ public class MysqlGenerator extends GeneratorTest {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator().setGlobalConfig(globalConfig).setDataSource(
             // 数据源配置
-            new DataSourceConfig()
+            new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8",
+                "root", "123456").build()
                 .setDbType(DbType.MYSQL) // 数据库类型
                 .setTypeConvert(new MySqlTypeConvert() {
                     // 自定义数据库表字段类型转换【可选】
@@ -94,9 +98,6 @@ public class MysqlGenerator extends GeneratorTest {
                     }
                 })
                 .setDriverName(Driver.class.getName())
-                .setUsername("root")
-                .setPassword("1q2w3e4r")
-                .setUrl("jdbc:mysql://127.0.0.1:3306/mybatis-plus?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8")
         ).setStrategy(
             // 策略配置
             GeneratorBuilder.strategyConfig()

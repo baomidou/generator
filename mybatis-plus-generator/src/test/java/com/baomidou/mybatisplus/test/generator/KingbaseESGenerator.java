@@ -67,7 +67,8 @@ public class KingbaseESGenerator extends GeneratorTest {
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:kingbase8://localhost:54321/mybatis-plus",
+            "SYSTEM", "123456").build();
         dsc.setSchemaName("PUBLIC");// 指定 SCHEMA
         dsc.setDbType(DbType.KINGBASE_ES);
         dsc.setTypeConvert(new OracleTypeConvert() {
@@ -81,9 +82,6 @@ public class KingbaseESGenerator extends GeneratorTest {
         // 自定义数据库信息查询
         dsc.setDbQuery(new MyKingbaseESQuery());
         dsc.setDriverName("com.kingbase8.Driver");
-        dsc.setUsername("SYSTEM");
-        dsc.setPassword("123456");
-        dsc.setUrl("jdbc:kingbase8://localhost:54321/mybatis-plus");
         mpg.setDataSource(dsc);
 
         // 策略配置

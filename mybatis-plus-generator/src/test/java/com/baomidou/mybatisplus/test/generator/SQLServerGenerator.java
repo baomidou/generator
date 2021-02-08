@@ -68,7 +68,8 @@ public class SQLServerGenerator extends GeneratorTest {
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:sqlserver://192.168.1.105:1433;databaseName=mybatis-plus",
+            "sa", "nieqiuqiu").build();
         dsc.setDbType(DbType.SQL_SERVER);
         dsc.setTypeConvert(new SqlServerTypeConvert() {
             // 自定义数据库表字段类型转换【可选】
@@ -79,9 +80,6 @@ public class SQLServerGenerator extends GeneratorTest {
             }
         });
         dsc.setDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dsc.setUsername("sa");
-        dsc.setPassword("nieqiuqiu");
-        dsc.setUrl("jdbc:sqlserver://192.168.1.105:1433;databaseName=mybatis-plus");
         mpg.setDataSource(dsc);
 
         // 策略配置

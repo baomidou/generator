@@ -35,11 +35,8 @@ public class DB2Generator {
     public static void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {
         GlobalConfig config = new GlobalConfig();
         String dbUrl = "jdbc:db2://192.168.0.227:50000/TRADECTR";
-        DataSourceConfig dataSourceConfig = new DataSourceConfig();
+        DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(dbUrl, "tc", "business").build();
         dataSourceConfig.setDbType(DbType.DB2)
-            .setUrl(dbUrl)
-            .setUsername("tc")
-            .setPassword("business")
             .setDriverName("com.ibm.db2.jcc.DB2Driver");
         StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig

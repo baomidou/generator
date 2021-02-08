@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
  */
 public class GeneratorBuilder {
 
+
     /**
      * 包相关的配置项
      *

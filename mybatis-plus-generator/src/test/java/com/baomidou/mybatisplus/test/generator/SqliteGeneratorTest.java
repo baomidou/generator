@@ -55,9 +55,9 @@ public class SqliteGeneratorTest {
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:sqlite:" + resourceDirectory.toAbsolutePath() + "/sqlite/example.db",
+            null, null).build();
         dsc.setDriverName("org.sqlite.JDBC");
-        dsc.setUrl("jdbc:sqlite:" + resourceDirectory.toAbsolutePath() + "/sqlite/example.db");    //测试用
         dsc.setDbType(DbType.SQLITE);
         mpg.setDataSource(dsc);
 

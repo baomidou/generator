@@ -67,11 +67,9 @@ public class DMGenerator {
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:dm://192.168.2.226:5236");
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:dm://192.168.2.226:5236",
+            "sa", "nieqiuqiu").build();
         dsc.setDriverName("dm.jdbc.driver.DmDriver");
-        dsc.setUsername("username");
-        dsc.setPassword("password");
         dsc.setDbType(DbType.DM);
         dsc.setDbQuery(new DMQuery());
         mpg.setDataSource(dsc);

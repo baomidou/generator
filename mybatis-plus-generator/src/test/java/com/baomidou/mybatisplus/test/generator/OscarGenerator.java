@@ -67,7 +67,8 @@ public class OscarGenerator extends GeneratorTest {
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:oscar://localhost:2003/mybatis-plus",
+            "MYBATIS_PLUS", "123456").build();
         dsc.setDbType(DbType.OSCAR);
         dsc.setTypeConvert(new OracleTypeConvert() {
             // 自定义数据库表字段类型转换【可选】
@@ -80,9 +81,6 @@ public class OscarGenerator extends GeneratorTest {
         // 自定义数据库信息查询
         dsc.setDbQuery(new MyKingbaseESQuery());
         dsc.setDriverName("com.oscar.Driver");
-        dsc.setUsername("MYBATIS_PLUS");
-        dsc.setPassword("123456");
-        dsc.setUrl("jdbc:oscar://localhost:2003/mybatis-plus");
         mpg.setDataSource(dsc);
 
         // 策略配置

@@ -2,8 +2,6 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import org.h2.Driver;
 import org.junit.jupiter.api.Assertions;
@@ -17,8 +15,8 @@ import java.util.Map;
  */
 public class ConfigBuilderTest {
 
-    private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig()
-        .setUrl("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE").setDriverName(Driver.class.getName()).setUsername("sa").setPassword("");
+    private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig.Builder("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+        "sa", "").driver(Driver.class).build();
 
     @Test
     void matcherRegTableTest(){
