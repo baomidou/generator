@@ -336,7 +336,7 @@ public class TemplateConfig {
          */
         public Builder entity(@NotNull String entityTemplate) {
             this.templateConfig.disableEntity = false;
-            this.templateConfig.setEntity(entityTemplate);
+            this.templateConfig.entity = entityTemplate;
             return this;
         }
 
@@ -348,7 +348,7 @@ public class TemplateConfig {
          */
         public Builder entityKt(@NotNull String entityKtTemplate) {
             this.templateConfig.disableEntity = false;
-            this.templateConfig.setEntityKt(entityKtTemplate);
+            this.templateConfig.entityKt = entityKtTemplate;
             return this;
         }
 
@@ -369,7 +369,8 @@ public class TemplateConfig {
          * @return this
          */
         public Builder service(@NotNull String serviceTemplate, @NotNull String serviceImplTemplate) {
-            this.templateConfig.setService(serviceTemplate).setServiceImpl(serviceImplTemplate);
+            this.templateConfig.service = serviceTemplate;
+            this.templateConfig.serviceImpl = serviceImplTemplate;
             return this;
         }
 
@@ -389,7 +390,7 @@ public class TemplateConfig {
          * @return this
          */
         public Builder mapper(@NotNull String mapperTemplate) {
-            this.templateConfig.setMapper(mapperTemplate);
+            this.templateConfig.mapper = mapperTemplate;
             return this;
         }
 
@@ -410,7 +411,7 @@ public class TemplateConfig {
          * @return this
          */
         public Builder mapperXml(@NotNull String mapperXmlTemplate) {
-            this.templateConfig.setXml(mapperXmlTemplate);
+            this.templateConfig.xml = mapperXmlTemplate;
             return this;
         }
 
@@ -430,7 +431,7 @@ public class TemplateConfig {
          * @return this
          */
         public Builder controller(@NotNull String controllerTemplate) {
-            this.templateConfig.setController(controllerTemplate);
+            this.templateConfig.controller = controllerTemplate;
             return this;
         }
 
