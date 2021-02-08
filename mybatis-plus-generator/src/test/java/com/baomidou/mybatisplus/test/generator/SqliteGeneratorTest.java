@@ -62,7 +62,7 @@ public class SqliteGeneratorTest {
         mpg.setDataSource(dsc);
 
         // 包配置
-        PackageConfig pc = new PackageConfig();
+        PackageConfig pc = GeneratorBuilder.packageConfig();
 //        pc.setModuleName(scanner("模块名"));
         pc.setModuleName("test");
         mpg.setPackageInfo(pc);

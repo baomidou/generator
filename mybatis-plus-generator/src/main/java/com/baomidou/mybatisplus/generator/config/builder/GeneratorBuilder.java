@@ -26,11 +26,21 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
  */
 public class GeneratorBuilder {
 
-   public static PackageConfig packageConfig() {
-       return new PackageConfig.Builder().build();
-   }
+    /**
+     * 包相关的配置项
+     *
+     * @return PackageConfig
+     */
+    public static PackageConfig packageConfig() {
+        return new PackageConfig.Builder().build();
+    }
 
-   public static StrategyConfig strategyConfig() {
-       return new StrategyConfig.Builder().build();
-   }
+    /**
+     * 策略配置项
+     *
+     * @return StrategyConfig
+     */
+    public static StrategyConfig strategyConfig() {
+        return new StrategyConfig.Builder().build();
+    }
 }

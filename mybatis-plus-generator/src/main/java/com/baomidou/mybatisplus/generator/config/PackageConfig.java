@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 跟包相关的配置项
+ * 包相关的配置项
  *
  * @author YangHu, tangguo, hubin
  * @since 2016-08-30
@@ -122,13 +122,8 @@ public class PackageConfig {
         return Collections.unmodifiableMap(this.packageInfo);
     }
 
-    /**
-     * 后续不再公开此构造方法
-     *
-     * @see Builder
-     * @deprecated 3.5.0
-     */
-    public PackageConfig() {
+    private PackageConfig() {
+        // 不推荐使用
     }
 
     /**
@@ -290,12 +285,14 @@ public class PackageConfig {
      */
     public static class Builder {
 
-        private final PackageConfig packageConfig = new PackageConfig();
+        private final PackageConfig packageConfig;
 
         public Builder() {
+            this.packageConfig = new PackageConfig();
         }
 
         public Builder(@NotNull String parent, @NotNull String moduleName) {
+            this();
             this.packageConfig.parent = parent;
             this.packageConfig.moduleName = moduleName;
         }

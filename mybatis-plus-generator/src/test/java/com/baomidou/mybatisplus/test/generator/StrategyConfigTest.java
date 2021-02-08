@@ -137,7 +137,7 @@ class StrategyConfigTest {
     @Test
     void entityNameConvertTest() {
         StrategyConfig strategyConfig;
-        TableInfo tableInfo = new TableInfo(new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "t_user");
+        TableInfo tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "t_user");
         tableInfo.setName("t_user");
 
         strategyConfig = GeneratorBuilder.strategyConfig();
@@ -173,7 +173,7 @@ class StrategyConfigTest {
         ConfigBuilder configBuilder;
         StrategyConfig strategyConfig;
         strategyConfig = GeneratorBuilder.strategyConfig();
-        configBuilder = new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, strategyConfig, null, null);
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, strategyConfig, null, null);
         TableField tableField = new TableField(configBuilder,"c_user_name");
         Assertions.assertEquals("c_user_name", strategyConfig.getNameConvert().propertyNameConvert(tableField));
         strategyConfig.setTablePrefix("t_", "c_");

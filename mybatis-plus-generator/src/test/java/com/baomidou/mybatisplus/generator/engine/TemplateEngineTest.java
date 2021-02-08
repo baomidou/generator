@@ -25,7 +25,7 @@ public class TemplateEngineTest {
     private void compatibleAssert(ConfigBuilder configBuilder) {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
         velocityTemplateEngine.setConfigBuilder(configBuilder);
-        TableInfo tableInfo = new TableInfo(new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user");
+        TableInfo tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user");
         tableInfo.processTable();
         Map<String, Object> objectMap = velocityTemplateEngine.getObjectMap(tableInfo);
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("enableCache"));
@@ -38,17 +38,17 @@ public class TemplateEngineTest {
     @Test
     void compatibleTest() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE", "sa", "").build();
-        compatibleAssert(new ConfigBuilder(new PackageConfig(), dataSourceConfig,
+        compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER")).build(),
             new TemplateConfig.Builder().build(),
             new GlobalConfig().setActiveRecord(true).setBaseColumnList(true).setEnableCache(true).setBaseResultMap(true).setIdType(IdType.INPUT)));
 
-        compatibleAssert(new ConfigBuilder(new PackageConfig(), dataSourceConfig,
+        compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER")).build(),
             new TemplateConfig.Builder().build(),
             new GlobalConfig.Builder().activeRecord(true).baseColumnList(true).enableCache(true).baseResultMap(true).idType(IdType.INPUT).build()));
 
-        compatibleAssert(new ConfigBuilder(new PackageConfig(), dataSourceConfig,
+        compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER"))
                 .entityBuilder().activeRecord(true).idType(IdType.INPUT)
                 .mapperBuilder().baseResultMap(true).baseColumnList(true).enableXmlCache(true)
@@ -56,7 +56,7 @@ public class TemplateEngineTest {
             new TemplateConfig.Builder().build(),
             new GlobalConfig.Builder().build()));
 
-        compatibleAssert(new ConfigBuilder(new PackageConfig(), dataSourceConfig,
+        compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER"))
                 .entityBuilder().activeRecord(true)
                 .mapperBuilder().baseResultMap(true).baseColumnList(true).enableXmlCache(true)

@@ -104,7 +104,7 @@ class CodeGeneratorWithTemplateTest {
             //配置自定义属性注入
             .setCfg(injectionConfig)
             .setPackageInfo(
-                new PackageConfig()
+                GeneratorBuilder.packageConfig()
                     .setParent(packageName)
                     .setController("controller")
                     .setEntity("entity")

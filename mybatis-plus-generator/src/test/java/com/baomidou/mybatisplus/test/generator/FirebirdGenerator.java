@@ -100,7 +100,7 @@ public class FirebirdGenerator extends GeneratorTest {
         mpg.setDataSource(dsc);
 
         // TODO 包配置
-        PackageConfig pc = new PackageConfig();
+        PackageConfig pc = GeneratorBuilder.packageConfig();
         //pc.setModuleName(scanner("模块名"));
         pc.setParent(basePackage);
         pc.setEntity("entity");

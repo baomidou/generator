@@ -77,7 +77,7 @@ public class DMGenerator {
         mpg.setDataSource(dsc);
 
         // 包配置
-        PackageConfig pc = new PackageConfig();
+        PackageConfig pc = GeneratorBuilder.packageConfig();
         pc.setModuleName(scanner("模块名"));
         pc.setParent("com.baomidou.mytest");
         mpg.setPackageInfo(pc);

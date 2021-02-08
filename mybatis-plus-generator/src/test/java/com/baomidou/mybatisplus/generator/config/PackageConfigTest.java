@@ -1,5 +1,6 @@
 package com.baomidou.mybatisplus.generator.config;
 
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +13,10 @@ public class PackageConfigTest {
 
     @Test
     void joinPackageTest() {
-        Assertions.assertEquals("com.baomidou.demo", new PackageConfig().joinPackage("demo"));
-        Assertions.assertEquals("com.baomidou.mp.demo", new PackageConfig().setModuleName("mp").joinPackage("demo"));
-        Assertions.assertEquals("com.baomihua.demo", new PackageConfig().setParent("com.baomihua").joinPackage("demo"));
-        Assertions.assertEquals("com.baomihua.mp.demo", new PackageConfig().setParent("com.baomihua").setModuleName("mp").joinPackage("demo"));
+        Assertions.assertEquals("com.baomidou.demo", GeneratorBuilder.packageConfig().joinPackage("demo"));
+        Assertions.assertEquals("com.baomidou.mp.demo", GeneratorBuilder.packageConfig().setModuleName("mp").joinPackage("demo"));
+        Assertions.assertEquals("com.baomihua.demo", GeneratorBuilder.packageConfig().setParent("com.baomihua").joinPackage("demo"));
+        Assertions.assertEquals("com.baomihua.mp.demo", GeneratorBuilder.packageConfig().setParent("com.baomihua").setModuleName("mp").joinPackage("demo"));
     }
 
     private void buildAssert(PackageConfig packageConfig){
@@ -32,7 +33,7 @@ public class PackageConfigTest {
 
     @Test
     void buildTest(){
-        buildAssert(new PackageConfig().setParent("com.baomihua")
+        buildAssert(GeneratorBuilder.packageConfig().setParent("com.baomihua")
             .setModuleName("demo").setController("action").setEntity("entity").setMapper("dao").setService("iservice").setServiceImpl("serviceIm").setPathInfo(Collections.singletonMap("aaaa","bbbb")));
         buildAssert(new PackageConfig.Builder().parent("com.baomihua")
             .moduleName("demo").controller("action").entity("entity").mapper("dao").service("iservice").serviceImpl("serviceIm").pathInfo(Collections.singletonMap("aaaa","bbbb")).build());

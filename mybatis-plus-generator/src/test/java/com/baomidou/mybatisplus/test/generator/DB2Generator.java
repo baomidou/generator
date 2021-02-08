@@ -64,7 +64,7 @@ public class DB2Generator {
             .setDataSource(dataSourceConfig)
             .setStrategy(strategyConfig)
             .setPackageInfo(
-                new PackageConfig()
+                GeneratorBuilder.packageConfig()
                     .setParent(packageName)
                     .setController("controller")
                     .setMapper("dao")

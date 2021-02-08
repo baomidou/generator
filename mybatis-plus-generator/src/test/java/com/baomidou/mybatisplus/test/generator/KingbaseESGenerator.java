@@ -117,7 +117,7 @@ public class KingbaseESGenerator extends GeneratorTest {
         mpg.setStrategy(strategy);
 
         // 包配置
-        PackageConfig pc = new PackageConfig();
+        PackageConfig pc = GeneratorBuilder.packageConfig();
         pc.setModuleName("test");
         pc.setParent("com.baomidou");// 自定义包路径
         pc.setController("controller");// 这里是控制器包名，默认 web

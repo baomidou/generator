@@ -121,7 +121,7 @@ class CodeGeneratorTest {
             .setDataSource(dataSourceConfig)
             .setStrategy(strategyConfig)
             .setPackageInfo(
-                new PackageConfig()
+                GeneratorBuilder.packageConfig()
                     .setParent(packageName)
                     .setController("controller")
                     .setEntity("entity")

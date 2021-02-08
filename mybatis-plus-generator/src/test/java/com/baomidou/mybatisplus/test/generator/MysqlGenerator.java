@@ -134,7 +134,7 @@ public class MysqlGenerator extends GeneratorTest {
             // .setControllerMappingHyphenStyle(true)
         ).setPackageInfo(
             // 包配置
-            new PackageConfig()
+            GeneratorBuilder.packageConfig()
                 .setModuleName("test")
                 .setParent("com.baomidou")// 自定义包路径
                 .setController("controller")// 这里是控制器包名，默认 web
