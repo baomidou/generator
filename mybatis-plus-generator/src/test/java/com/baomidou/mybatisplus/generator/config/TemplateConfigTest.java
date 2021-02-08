@@ -77,6 +77,10 @@ public class TemplateConfigTest {
         Assertions.assertEquals("/tm/entity.kt", new TemplateConfig.Builder().entity("/tm/entity%s").build().getEntity(true));
         Assertions.assertEquals("/tm/entity.java", new TemplateConfig().setEntity("/tm/entity%s").getEntity(false));
         Assertions.assertEquals("/tm/entity.java", new TemplateConfig.Builder().entity("/tm/entity%s").build().getEntity(false));
+        Assertions.assertEquals("myEntity.java.vm", new TemplateConfig.Builder().entity("myEntity.java.vm").build().getEntity(false));
+        Assertions.assertEquals("myEntity.kt.vm", new TemplateConfig.Builder().entity("myEntity.java.vm").build().getEntity(true));
+        Assertions.assertEquals("/tm/entity.java.vm", new TemplateConfig().setEntity("/tm/entity%s.vm").getEntity(false));
+        Assertions.assertEquals("/tm/entity.kt.vm", new TemplateConfig().setEntity("/tm/entity%s.vm").getEntity(true));
     }
 
     @Test

@@ -20,9 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 /**
  * 模板路径配置项
@@ -33,8 +30,6 @@ import java.util.regex.Pattern;
 public class TemplateConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TemplateConfig.class);
-
-    private static final Pattern FILE_TYPE = Pattern.compile("\\.[^.\\\\/:*?\"<>|\\r\\n]+$");
 
     /**
      * 由于需要支持kotlin与java两种模板,当不需要支持其中一种的话,可以使用方式一进行设置.
@@ -212,21 +207,26 @@ public class TemplateConfig {
      * @return 模板路径
      */
     public String getEntity(boolean kotlin) {
-        if (!disableEntity) {
-            if (StringUtils.isBlank(entity)) {
+        if (!this.disableEntity) {
+            if (StringUtils.isBlank(this.entity)) {
                 // 默认情况
                 return kotlin ? ConstVal.TEMPLATE_ENTITY_KT : ConstVal.TEMPLATE_ENTITY_JAVA;
             }
-            // 用户自定义情况,尝试替换文件后缀进行加载
-            Matcher matcher = FILE_TYPE.matcher(entity);
-            if (matcher.find()) {
-                return matcher.replaceAll(kotlin ? ".kt" : ".java");
+            if (this.entity.contains("%s")) {
+                return kotlin ? String.format(this.entity, ".kt") : String.format(this.entity, ".java");
             }
-            if (entity.endsWith("%s")) {
-                return kotlin ? String.format(entity, ".kt") : String.format(entity, ".java");
-            } else {
-                //支持无后缀情况,自动加后缀
-                return kotlin ? entity + ".kt" : entity + ".java";
+            String[] split = this.entity.split("\\.");
+            int length = split.length;
+            switch (length) {
+                case 1:
+                    //支持无后缀情况,自动加后缀
+                    return kotlin ? this.entity + ".kt" : this.entity + ".java";
+                case 2:
+                    return split[0] + (kotlin ? ".kt" : ".java");
+                case 3:
+                    return split[0] + (kotlin ? ".kt" : ".java") + "." + split[2];
+                default:
+                    return this.entity;
             }
         }
         return null;
