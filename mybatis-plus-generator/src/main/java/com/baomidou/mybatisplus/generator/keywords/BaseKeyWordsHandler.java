@@ -15,8 +15,11 @@
  */
 package com.baomidou.mybatisplus.generator.keywords;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,14 +33,18 @@ import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
  */
 public abstract class BaseKeyWordsHandler implements IKeyWordsHandler {
 
-    public List<String> keyWords;
+    public Set<String> keyWords;
 
     public BaseKeyWordsHandler(@NotNull List<String> keyWords) {
+        this.keyWords = new HashSet<>(keyWords);
+    }
+
+    public BaseKeyWordsHandler(@NotNull Set<String> keyWords) {
         this.keyWords = keyWords;
     }
 
     @Override
-    public @NotNull List<String> getKeyWords() {
+    public @NotNull Collection<String> getKeyWords() {
         return keyWords;
     }
 

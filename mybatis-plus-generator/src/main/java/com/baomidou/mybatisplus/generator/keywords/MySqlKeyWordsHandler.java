@@ -17,7 +17,9 @@ package com.baomidou.mybatisplus.generator.keywords;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -655,12 +657,17 @@ public class MySqlKeyWordsHandler extends BaseKeyWordsHandler {
         "ZEROFILL"));
 
     public MySqlKeyWordsHandler() {
-        super(KEY_WORDS);
+        super(new HashSet<>(KEY_WORDS));
     }
 
     public MySqlKeyWordsHandler(@NotNull List<String> keyWords) {
+        super(new HashSet<>(keyWords));
+    }
+
+    public MySqlKeyWordsHandler(@NotNull Set<String> keyWords) {
         super(keyWords);
     }
+
 
     @Override
     public @NotNull String formatStyle() {

@@ -17,7 +17,9 @@ package com.baomidou.mybatisplus.generator.keywords;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -134,10 +136,14 @@ public class PostgreSqlKeyWordsHandler extends BaseKeyWordsHandler {
     ));
 
     public PostgreSqlKeyWordsHandler() {
-        super(KEY_WORDS);
+        super(new HashSet<>(KEY_WORDS));
     }
 
     public PostgreSqlKeyWordsHandler(@NotNull List<String> keyWords) {
+        super(new HashSet<>(keyWords));
+    }
+
+    public PostgreSqlKeyWordsHandler(@NotNull Set<String> keyWords) {
         super(keyWords);
     }
 

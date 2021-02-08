@@ -45,7 +45,7 @@ public class GeneratorBuilder {
      * @return GlobalConfig.Builder
      */
     public static GlobalConfig.Builder globalConfigBuilder() {
-        return GeneratorBuilder.globalConfigBuilder();
+        return new GlobalConfig.Builder();
     }
 
 

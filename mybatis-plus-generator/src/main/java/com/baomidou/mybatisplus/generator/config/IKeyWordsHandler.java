@@ -17,7 +17,9 @@ package com.baomidou.mybatisplus.generator.config;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 关键字处理接口
@@ -33,7 +35,7 @@ public interface IKeyWordsHandler {
      * @return 关键字集合
      */
     @NotNull
-    List<String> getKeyWords();
+    Collection<String> getKeyWords();
 
     /**
      * 格式化关键字格式

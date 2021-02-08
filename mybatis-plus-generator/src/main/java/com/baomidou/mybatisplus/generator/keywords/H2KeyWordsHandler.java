@@ -17,7 +17,9 @@ package com.baomidou.mybatisplus.generator.keywords;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -114,10 +116,14 @@ public class H2KeyWordsHandler extends BaseKeyWordsHandler {
     ));
 
     public H2KeyWordsHandler() {
-        super(KEY_WORDS);
+        super(new HashSet<>(KEY_WORDS));
     }
 
     public H2KeyWordsHandler(@NotNull List<String> keyWords) {
+        super(new HashSet<>(keyWords));
+    }
+
+    public H2KeyWordsHandler(@NotNull Set<String> keyWords) {
         super(keyWords);
     }
 
