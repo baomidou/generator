@@ -10,12 +10,14 @@ public class NamingStrategyTest {
 
     @Test
     void removePrefixTest() {
-        Assertions.assertEquals(NamingStrategy.removePrefix("test_ab", "t_", "test"), "_ab");
-        Assertions.assertEquals(NamingStrategy.removePrefix("test_ab", new HashSet<>(Arrays.asList("t_", "test"))), "_ab");
+        Assertions.assertEquals(NamingStrategy.removePrefix("test_ab", new HashSet() {{
+            add("t_");
+            add("test");
+        }}), "_ab");
     }
 
     @Test
-    void underlineToCamelTest(){
+    void underlineToCamelTest() {
         Assertions.assertEquals(NamingStrategy.underlineToCamel("Aid"), "aid");
         Assertions.assertEquals(NamingStrategy.underlineToCamel("AId"), "aId");
         Assertions.assertEquals(NamingStrategy.underlineToCamel("test_id"), "testId");

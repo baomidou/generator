@@ -15,13 +15,12 @@
  */
 package com.baomidou.mybatisplus.generator.config.rules;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
+
+import java.util.Arrays;
+import java.util.Set;
 
 /**
  * 从数据库表到文件的命名策略
@@ -70,56 +69,17 @@ public enum NamingStrategy {
     /**
      * 去掉指定的前缀
      *
-     * @param name   ignore
-     * @param prefix ignore
-     * @return ignore
-     * @see #removePrefix(String, Set)
-     * @deprecated 3.4.1
+     * @param name   表名
+     * @param prefix 前缀
+     * @return 转换后的字符串
      */
-    @Deprecated
-    public static String removePrefix(String name, String... prefix) {
-        Set<String> set = new HashSet<>(Arrays.asList(prefix));
-        return removePrefix(name, set);
-    }
-
     public static String removePrefix(String name, Set<String> prefix) {
         if (StringUtils.isBlank(name)) {
             return StringPool.EMPTY;
         }
         // 判断是否有匹配的前缀，然后截取前缀
-        // 删除前缀 TODO 前缀统一配置小写格式????
-        return prefix.stream().filter(pf -> name.toLowerCase().startsWith(pf))
+        return prefix.stream().filter(pf -> name.toLowerCase().startsWith(pf.toLowerCase()))
             .findFirst().map(pf -> name.substring(pf.length())).orElse(name);
-    }
-
-    /**
-     * 判断是否包含prefix
-     *
-     * @param name   ignore
-     * @param prefix ignore
-     * @return ignore
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public static boolean isPrefixContained(String name, String... prefix) {
-        if (null == prefix || StringUtils.isBlank(name)) {
-            return false;
-        }
-        return Arrays.stream(prefix).anyMatch(pf -> name.toLowerCase().matches(StringPool.HAT + pf.toLowerCase() + ".*"));
-    }
-
-    /**
-     * 去掉下划线前缀且将后半部分转成驼峰格式
-     *
-     * @param name        ignore
-     * @param tablePrefix ignore
-     * @return ignore
-     * @see #removePrefix(String, Set)
-     * @deprecated 3.4.1
-     */
-    @Deprecated
-    public static String removePrefixAndCamel(String name, String[] tablePrefix) {
-        return underlineToCamel(removePrefix(name, tablePrefix));
     }
 
     public static String removePrefixAndCamel(String name, Set<String> tablePrefix) {
@@ -139,5 +99,4 @@ public enum NamingStrategy {
         }
         return StringPool.EMPTY;
     }
-
 }
