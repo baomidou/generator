@@ -97,7 +97,7 @@ public class ConfigBuilder {
         //TODO 先把验证插在这里，后续改成build构建的话在build的时候验证
         this.strategyConfig.validate();
         this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(() -> GeneratorBuilder.globalConfig());
-        this.template = Optional.ofNullable(template).orElseGet(() -> new TemplateConfig.Builder().all().build());
+        this.template = Optional.ofNullable(template).orElseGet(() -> GeneratorBuilder.templateConfig());
         this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(() -> GeneratorBuilder.packageConfig());
         this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.template, this.packageConfig).getPathInfo());
     }

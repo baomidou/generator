@@ -151,7 +151,7 @@ public class MysqlGenerator extends GeneratorTest {
             })
         ).setTemplate(
             // 关闭默认 xml 生成，调整生成 至 根目录
-            new TemplateConfig().setXml(null)
+            GeneratorBuilder.templateConfig().setXml(null)
             // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy
             // 至您项目 src/main/resources/template 目录下，模板名称也可自定义如下配置：
             // .setController("...");

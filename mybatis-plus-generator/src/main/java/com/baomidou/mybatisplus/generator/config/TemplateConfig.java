@@ -16,6 +16,7 @@
 package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,13 +52,9 @@ public class TemplateConfig {
     private String controller;
 
     /**
-     * 后续不再公开此方法.
-     *
-     * @see Builder#all()
-     * @deprecated 3.5.0
+     * 不对外爆露
      */
-    @Deprecated
-    public TemplateConfig() {
+    private TemplateConfig() {
         this.controller = ConstVal.TEMPLATE_CONTROLLER;
         this.entity = ConstVal.TEMPLATE_ENTITY_JAVA;
         this.entityKt = ConstVal.TEMPLATE_ENTITY_KT;
@@ -213,9 +210,7 @@ public class TemplateConfig {
      * @param templateTypes 模板类型
      * @return this
      * @since 3.3.2
-     * @deprecated 3.5.0
      */
-    @Deprecated
     public TemplateConfig disable(@NotNull TemplateType... templateTypes) {
         if (templateTypes != null && templateTypes.length > 0) {
             for (TemplateType templateType : templateTypes) {
@@ -283,49 +278,33 @@ public class TemplateConfig {
      */
     public static class Builder {
 
-        private final TemplateConfig templateConfig = new TemplateConfig();
+        private final TemplateConfig templateConfig;
 
         /**
          * 默认生成一个空的
          */
         public Builder() {
-            // 后续去除构造之后去除此方法调用
-            templateConfig.disable(TemplateType.values());
+            this.templateConfig = new TemplateConfig();
         }
 
         /**
-         * 激活所有默认配置模板
+         * 禁用所有模板
          *
-         * @return 默认配置模板
+         * @return this
          */
-        public Builder all() {
-            this.templateConfig.controller = ConstVal.TEMPLATE_CONTROLLER;
-            this.templateConfig.entityKt = ConstVal.TEMPLATE_ENTITY_KT;
-            this.templateConfig.entity = ConstVal.TEMPLATE_ENTITY_JAVA;
-            this.templateConfig.xml = ConstVal.TEMPLATE_XML;
-            this.templateConfig.service = ConstVal.TEMPLATE_SERVICE;
-            this.templateConfig.serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
-            this.templateConfig.mapper = ConstVal.TEMPLATE_MAPPER;
-            this.templateConfig.disableEntity = false;
+        public Builder disable() {
+            this.templateConfig.disable();
             return this;
         }
 
         /**
-         * 使用默认实体模板(JAVA)
+         * 禁用模板
          *
          * @return this
          */
-        public Builder entity() {
-            return entity(ConstVal.TEMPLATE_ENTITY_JAVA);
-        }
-
-        /**
-         * 使用默认实体模板(kotlin)
-         *
-         * @return this
-         */
-        public Builder entityKt() {
-            return entityKt(ConstVal.TEMPLATE_ENTITY_KT);
+        public Builder disable(@NotNull TemplateType... templateTypes) {
+            this.templateConfig.disable(templateTypes);
+            return this;
         }
 
         /**
@@ -353,15 +332,6 @@ public class TemplateConfig {
         }
 
         /**
-         * 使用默认service模板
-         *
-         * @return this
-         */
-        public Builder service() {
-            return service(ConstVal.TEMPLATE_SERVICE, ConstVal.TEMPLATE_SERVICE_IMPL);
-        }
-
-        /**
          * 设置service模板路径
          *
          * @param serviceTemplate     service接口模板路径
@@ -375,15 +345,6 @@ public class TemplateConfig {
         }
 
         /**
-         * 使用默认mapper模板
-         *
-         * @return this
-         */
-        public Builder mapper() {
-            return mapper(ConstVal.TEMPLATE_MAPPER);
-        }
-
-        /**
          * 设置mapper模板路径
          *
          * @param mapperTemplate mapper模板路径
@@ -392,16 +353,6 @@ public class TemplateConfig {
         public Builder mapper(@NotNull String mapperTemplate) {
             this.templateConfig.mapper = mapperTemplate;
             return this;
-        }
-
-
-        /**
-         * 使用默认mapperXml模板
-         *
-         * @return this
-         */
-        public Builder mapperXml() {
-            return mapperXml(ConstVal.TEMPLATE_XML);
         }
 
         /**
@@ -413,15 +364,6 @@ public class TemplateConfig {
         public Builder mapperXml(@NotNull String mapperXmlTemplate) {
             this.templateConfig.xml = mapperXmlTemplate;
             return this;
-        }
-
-        /**
-         * 使用默认控制器模板
-         *
-         * @return this
-         */
-        public Builder controller() {
-            return controller(ConstVal.TEMPLATE_CONTROLLER);
         }
 
         /**
@@ -443,7 +385,5 @@ public class TemplateConfig {
         public TemplateConfig build() {
             return this.templateConfig;
         }
-
     }
-
 }

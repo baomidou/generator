@@ -37,7 +37,7 @@ public class ConfigBuilderTest {
     void pathInfoTest() {
         ConfigBuilder configBuilder;
         Map<String, String> pathInfo;
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), DATA_SOURCE_CONFIG, GeneratorBuilder.strategyConfig(), new TemplateConfig(), null);
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), DATA_SOURCE_CONFIG, GeneratorBuilder.strategyConfig(), GeneratorBuilder.templateConfig(), null);
         pathInfo = configBuilder.getPathInfo();
         Assertions.assertFalse(pathInfo.isEmpty());
         Assertions.assertEquals(6, pathInfo.size());
@@ -49,7 +49,7 @@ public class ConfigBuilderTest {
         Assertions.assertTrue(pathInfo.containsKey(ConstVal.MAPPER_PATH));
 
         configBuilder = new ConfigBuilder(
-            GeneratorBuilder.packageConfig().setPathInfo(Collections.singletonMap(ConstVal.ENTITY_PATH, "/tmp/code/entity")), DATA_SOURCE_CONFIG, GeneratorBuilder.strategyConfig(), new TemplateConfig(), null);
+            GeneratorBuilder.packageConfig().setPathInfo(Collections.singletonMap(ConstVal.ENTITY_PATH, "/tmp/code/entity")), DATA_SOURCE_CONFIG, GeneratorBuilder.strategyConfig(), GeneratorBuilder.templateConfig(), null);
         pathInfo = configBuilder.getPathInfo();
         Assertions.assertFalse(pathInfo.isEmpty());
         Assertions.assertEquals(1, pathInfo.size());

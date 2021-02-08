@@ -86,7 +86,7 @@ public class SqliteGeneratorTest {
         mpg.setCfg(cfg);
 
         // 配置模板
-        TemplateConfig templateConfig = new TemplateConfig();
+        TemplateConfig templateConfig = GeneratorBuilder.templateConfig();
 
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);

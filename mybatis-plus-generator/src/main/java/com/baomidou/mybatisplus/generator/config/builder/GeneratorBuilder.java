@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config.builder;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 
 /**
  * 生成器 Builder
@@ -65,4 +66,14 @@ public class GeneratorBuilder {
     public static StrategyConfig strategyConfig() {
         return new StrategyConfig.Builder().build();
     }
+
+    /**
+     * 策略配置项
+     *
+     * @return TemplateConfig
+     */
+    public static TemplateConfig templateConfig() {
+        return new TemplateConfig.Builder().build();
+    }
+
 }

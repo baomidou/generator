@@ -119,7 +119,7 @@ public class FirebirdGenerator extends GeneratorTest {
             }
         });
         mpg.setCfg(cfg);
-        mpg.setTemplate(new TemplateConfig().setXml(null));
+        mpg.setTemplate(GeneratorBuilder.templateConfig().setXml(null));
 
         // 策略配置
         StrategyConfig strategy = GeneratorBuilder.strategyConfig();

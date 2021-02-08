@@ -134,7 +134,7 @@ public class KingbaseESGenerator extends GeneratorTest {
 
         // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy
         // 至您项目 src/main/resources/template 目录下，模板名称也可自定义如下配置：
-        // TemplateConfig tc = new TemplateConfig();
+        // TemplateConfig tc = GeneratorBuilder.templateConfig();
         // tc.setController("...");
         // tc.setEntity("...");
         // tc.setMapper("...");

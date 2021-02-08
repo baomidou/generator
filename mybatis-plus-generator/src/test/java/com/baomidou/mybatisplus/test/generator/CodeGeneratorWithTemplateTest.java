@@ -90,7 +90,7 @@ class CodeGeneratorWithTemplateTest {
             config.setServiceName("%sService");
         }
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        TemplateConfig templateConfig = new TemplateConfig()
+        TemplateConfig templateConfig = GeneratorBuilder.templateConfig()
             .setEntity("templates/entity2.java");
         InjectionConfig injectionConfig = new InjectionConfig(Collections.singletonMap("abc", config.getAuthor() + "-mp"));
         new AutoGenerator().setGlobalConfig(config)
