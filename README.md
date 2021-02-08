@@ -68,7 +68,7 @@ new DataSourceConfig
 | commentDate | 注释日期 | 默认值: yyyy-MM-dd |
 
 ```java
-new GlobalConfig.Builder()
+GeneratorBuilder.globalConfigBuilder()
    .fileOverride(true).openDir(true).kotlin(false).swagger2(true)
    .outputDir("/opt/baomidou")
    .author("baomidou").dateType(DateType.TIME_PACK).commentDate("yyyy-MM-dd")

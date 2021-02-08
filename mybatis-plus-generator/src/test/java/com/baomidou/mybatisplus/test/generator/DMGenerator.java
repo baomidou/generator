@@ -59,7 +59,7 @@ public class DMGenerator {
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
-        GlobalConfig gc = new GlobalConfig();
+        GlobalConfig gc = GeneratorBuilder.globalConfig();
         gc.setOutputDir("D://mpg");
         gc.setAuthor("halower");
         gc.setOpen(false);

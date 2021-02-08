@@ -45,7 +45,7 @@ public class SqliteGeneratorTest {
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
-        GlobalConfig gc = new GlobalConfig();
+        GlobalConfig gc = GeneratorBuilder.globalConfig();
         Path resourceDirectory = Paths.get("mybatis-plus-generator/src", "test", "resources");
         Path sqliteGenertorPath = Paths.get("mybatis-plus-generator/sqliteGeneratorCode");
 //            String projectPath = System.getProperty("user.dir") + "/sqliteGenertorCode";

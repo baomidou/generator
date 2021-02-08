@@ -15,6 +15,7 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 
@@ -25,6 +26,26 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
  * @since 3.5.0
  */
 public class GeneratorBuilder {
+
+
+    /**
+     * 全局配置
+     *
+     * @return GlobalConfig
+     */
+    public static GlobalConfig globalConfig() {
+        return new GlobalConfig.Builder().build();
+    }
+
+
+    /**
+     * 全局配置 Builder
+     *
+     * @return GlobalConfig.Builder
+     */
+    public static GlobalConfig.Builder globalConfigBuilder() {
+        return GeneratorBuilder.globalConfigBuilder();
+    }
 
 
     /**

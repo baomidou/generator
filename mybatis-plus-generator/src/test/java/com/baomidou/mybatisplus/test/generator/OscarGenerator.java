@@ -45,7 +45,7 @@ public class OscarGenerator extends GeneratorTest {
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
-        GlobalConfig gc = new GlobalConfig();
+        GlobalConfig gc = GeneratorBuilder.globalConfig();
         gc.setOutputDir("D://");
         gc.setFileOverride(true);
         gc.setActiveRecord(true);// 开启 activeRecord 模式

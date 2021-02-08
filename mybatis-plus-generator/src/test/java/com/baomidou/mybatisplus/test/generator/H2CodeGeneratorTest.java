@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.h2.Driver;
 import org.junit.jupiter.api.BeforeAll;
@@ -48,7 +49,7 @@ class H2CodeGeneratorTest {
      * 全局配置
      */
     private GlobalConfig globalConfig() {
-        return new GlobalConfig.Builder()
+        return GeneratorBuilder.globalConfigBuilder()
             .outputDir(System.getProperty("os.name").toLowerCase().contains("windows") ? "D://tmp" : "/tmp")// 输出目录
             .author("test")// 作者
             .openDir(false)// 是否打开输出目录

@@ -2,6 +2,7 @@ package com.baomidou.mybatisplus.generator.config.converts;
 
 import static com.baomidou.mybatisplus.generator.config.rules.DbColumnType.*;
 
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class SqlServerTypeConvertTest {
     @Test
     void processTypeConvertTest() {
         // 常用格式
-        GlobalConfig globalConfig = new GlobalConfig();
+        GlobalConfig globalConfig = GeneratorBuilder.globalConfig();
         SqlServerTypeConvert convert = SqlServerTypeConvert.INSTANCE;
         Assertions.assertEquals(STRING, convert.processTypeConvert(globalConfig, "char"));
         Assertions.assertEquals(STRING, convert.processTypeConvert(globalConfig, "xml"));
@@ -33,19 +34,19 @@ public class SqlServerTypeConvertTest {
         Assertions.assertEquals(FLOAT, convert.processTypeConvert(globalConfig, "real"));
 
         // 日期格式
-        globalConfig = new GlobalConfig().setDateType(DateType.SQL_PACK);
+        globalConfig = GeneratorBuilder.globalConfig().setDateType(DateType.SQL_PACK);
         Assertions.assertEquals(DATE_SQL, convert.processTypeConvert(globalConfig, "date"));
         Assertions.assertEquals(TIME, convert.processTypeConvert(globalConfig, "time"));
         Assertions.assertEquals(TIMESTAMP, convert.processTypeConvert(globalConfig, "timestamp"));
         Assertions.assertEquals(TIMESTAMP, convert.processTypeConvert(globalConfig, "datetime"));
 
-        globalConfig = new GlobalConfig().setDateType(DateType.TIME_PACK);
+        globalConfig = GeneratorBuilder.globalConfig().setDateType(DateType.TIME_PACK);
         Assertions.assertEquals(LOCAL_DATE, convert.processTypeConvert(globalConfig, "date"));
         Assertions.assertEquals(LOCAL_TIME, convert.processTypeConvert(globalConfig, "time"));
         Assertions.assertEquals(LOCAL_DATE_TIME, convert.processTypeConvert(globalConfig, "timestamp"));
         Assertions.assertEquals(LOCAL_DATE_TIME, convert.processTypeConvert(globalConfig, "datetime"));
 
-        globalConfig = new GlobalConfig().setDateType(DateType.ONLY_DATE);
+        globalConfig = GeneratorBuilder.globalConfig().setDateType(DateType.ONLY_DATE);
         Assertions.assertEquals(DATE, convert.processTypeConvert(globalConfig, "date"));
         Assertions.assertEquals(DATE, convert.processTypeConvert(globalConfig, "time"));
         Assertions.assertEquals(DATE, convert.processTypeConvert(globalConfig, "timestamp"));

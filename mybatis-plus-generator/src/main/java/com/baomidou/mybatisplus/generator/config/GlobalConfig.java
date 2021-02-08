@@ -118,14 +118,8 @@ public class GlobalConfig {
      */
     private Supplier<String> commentDate = () -> new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-    /**
-     * 后续不再公开此构造方法
-     *
-     * @see Builder
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public GlobalConfig() {
+    private GlobalConfig() {
+        // 不推荐使用
     }
 
     /**
@@ -476,7 +470,11 @@ public class GlobalConfig {
      */
     public static class Builder {
 
-        private final GlobalConfig globalConfig = new GlobalConfig();
+        private final GlobalConfig globalConfig;
+
+        public Builder() {
+            this.globalConfig = new GlobalConfig();
+        }
 
         /**
          * 开启 ActiveRecord 模式

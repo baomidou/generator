@@ -64,7 +64,7 @@ public class FirebirdGenerator extends GeneratorTest {
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
-        GlobalConfig gc = new GlobalConfig();
+        GlobalConfig gc = GeneratorBuilder.globalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(baseProjectPath + "/src/main/java");
         // TODO 设置用户名

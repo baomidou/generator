@@ -51,7 +51,7 @@ public class MysqlGenerator extends GeneratorTest {
     public static void main(String[] args) {
         int result = scanner();
         // 全局配置
-        GlobalConfig globalConfig = new GlobalConfig()
+        GlobalConfig globalConfig = GeneratorBuilder.globalConfig()
             .setOutputDir("../")//输出目录
             .setFileOverride(true)// 是否覆盖文件
             .setActiveRecord(true)// 开启 activeRecord 模式

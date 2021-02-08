@@ -59,7 +59,7 @@ public class TableInfoTest {
         TableInfo tableInfo;
         StrategyConfig strategyConfig;
         strategyConfig = GeneratorBuilder.strategyConfig();
-        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig()), "user").setName("user");
+        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig()), "user").setName("user");
         tableInfo.processTable();
         Assertions.assertFalse(tableInfo.isConvert());
         Assertions.assertEquals("UserMapper", tableInfo.getMapperName());
@@ -70,7 +70,7 @@ public class TableInfoTest {
 
         GlobalConfig globalConfig;
         strategyConfig = GeneratorBuilder.strategyConfig();
-        globalConfig = new GlobalConfig().setEntityName("%sEntity")
+        globalConfig = GeneratorBuilder.globalConfig().setEntityName("%sEntity")
             .setXmlName("%sXml").setMapperName("%sDao").setControllerName("%sAction").setServiceName("%sService").setServiceImplName("%sServiceImp");
         tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, globalConfig), "user");
         tableInfo.processTable();
@@ -123,14 +123,14 @@ public class TableInfoTest {
         Assertions.assertFalse(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains("con.baomihua.demo.SuperEntity"));
 
-        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, new GlobalConfig().setActiveRecord(true)), "user");
+        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, GeneratorBuilder.globalConfig().setActiveRecord(true)), "user");
         tableInfo.importPackage();
         Assertions.assertEquals(1, tableInfo.getImportPackages().size());
         Assertions.assertFalse(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Model.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig());
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig());
         tableInfo = new TableInfo(configBuilder, "user");
         tableInfo.addField(new TableField(configBuilder, "u_id").setName("u_id").setPropertyName("uid", DbColumnType.LONG).setKeyFlag(true));
         tableInfo.importPackage();
@@ -139,7 +139,7 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig());
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig());
         tableInfo = new TableInfo(configBuilder, "user");
         tableInfo.addField(new TableField(configBuilder, "u_id").setPropertyName("uid", DbColumnType.LONG).setKeyFlag(true).setKeyIdentityFlag(true));
         tableInfo.importPackage();
@@ -149,7 +149,7 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig().setLogicDeleteFieldName("delete_flag");
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig());
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig());
         tableInfo = new TableInfo(configBuilder, "user");
         tableInfo.addField(new TableField(configBuilder, "u_id").setName("u_id").setPropertyName("uid", DbColumnType.LONG).setKeyFlag(true));
         tableInfo.addField(new TableField(configBuilder, "delete_flag").setName("delete_flag").setPropertyName("deleteFlag", DbColumnType.BOOLEAN));
@@ -161,7 +161,7 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig().setIdType(IdType.ASSIGN_ID));
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig().setIdType(IdType.ASSIGN_ID));
         tableInfo = new TableInfo(configBuilder, "user");
         tableInfo.addField(new TableField(configBuilder, "name").setPropertyName("name", DbColumnType.STRING));
         tableInfo.importPackage();
@@ -169,7 +169,7 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig().setIdType(IdType.ASSIGN_ID));
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig().setIdType(IdType.ASSIGN_ID));
         tableInfo = new TableInfo(configBuilder, "user").setHavePrimaryKey(true);
         tableInfo.addField(new TableField(configBuilder, "u_id").setName("u_id").setPropertyName("uid", DbColumnType.LONG).setKeyFlag(true));
         tableInfo.importPackage();
@@ -179,7 +179,7 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig().entityBuilder().addTableFills(new TableFill("createTime", FieldFill.DEFAULT)).build();
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig());
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig());
         tableInfo = new TableInfo(configBuilder, "user").setHavePrimaryKey(true);
         tableInfo.addField(new TableField(configBuilder, "u_id").setName("u_id").setPropertyName("uid", DbColumnType.LONG).setKeyFlag(true));
         tableInfo.addField(new TableField(configBuilder, "create_time").setName("create_time").setPropertyName("createTime", DbColumnType.DATE).setFill(FieldFill.DEFAULT.name()));
@@ -192,7 +192,7 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(FieldFill.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig().setVersionFieldName("version");
-        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, new GlobalConfig());
+        configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig());
         tableInfo = new TableInfo(configBuilder, "user").setHavePrimaryKey(true);
         tableInfo.addField(new TableField(configBuilder, "u_id").setPropertyName("uid", DbColumnType.LONG).setKeyFlag(true));
         tableInfo.addField(new TableField(configBuilder, "version").setPropertyName("version", DbColumnType.LONG));

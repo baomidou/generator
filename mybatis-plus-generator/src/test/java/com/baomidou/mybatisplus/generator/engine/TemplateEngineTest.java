@@ -41,12 +41,12 @@ public class TemplateEngineTest {
         compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER")).build(),
             new TemplateConfig.Builder().build(),
-            new GlobalConfig().setActiveRecord(true).setBaseColumnList(true).setEnableCache(true).setBaseResultMap(true).setIdType(IdType.INPUT)));
+            GeneratorBuilder.globalConfig().setActiveRecord(true).setBaseColumnList(true).setEnableCache(true).setBaseResultMap(true).setIdType(IdType.INPUT)));
 
         compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER")).build(),
             new TemplateConfig.Builder().build(),
-            new GlobalConfig.Builder().activeRecord(true).baseColumnList(true).enableCache(true).baseResultMap(true).idType(IdType.INPUT).build()));
+            GeneratorBuilder.globalConfigBuilder().activeRecord(true).baseColumnList(true).enableCache(true).baseResultMap(true).idType(IdType.INPUT).build()));
 
         compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER"))
@@ -54,7 +54,7 @@ public class TemplateEngineTest {
                 .mapperBuilder().baseResultMap(true).baseColumnList(true).enableXmlCache(true)
                 .build(),
             new TemplateConfig.Builder().build(),
-            new GlobalConfig.Builder().build()));
+            GeneratorBuilder.globalConfig()));
 
         compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER"))
@@ -62,7 +62,7 @@ public class TemplateEngineTest {
                 .mapperBuilder().baseResultMap(true).baseColumnList(true).enableXmlCache(true)
                 .build(),
             new TemplateConfig.Builder().build(),
-            new GlobalConfig.Builder().activeRecord(false).baseColumnList(false).enableCache(false).baseResultMap(false).idType(IdType.INPUT).build()));
+            GeneratorBuilder.globalConfigBuilder().activeRecord(false).baseColumnList(false).enableCache(false).baseResultMap(false).idType(IdType.INPUT).build()));
     }
 
 }

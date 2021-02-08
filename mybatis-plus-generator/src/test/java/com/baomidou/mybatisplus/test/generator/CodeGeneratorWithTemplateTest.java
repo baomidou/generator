@@ -66,7 +66,7 @@ class CodeGeneratorWithTemplateTest {
     }
 
     private void generateByTables(String packageName, String... tableNames) {
-        GlobalConfig config = new GlobalConfig();
+        GlobalConfig config = GeneratorBuilder.globalConfig();
         String dbUrl = "jdbc:mysql://localhost:3306/mybatis-plus";
         DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(dbUrl, "root", "").build();
         dataSourceConfig.setDbType(DbType.MYSQL)
