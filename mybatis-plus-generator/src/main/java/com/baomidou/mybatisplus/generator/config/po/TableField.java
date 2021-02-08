@@ -26,6 +26,8 @@ import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
+import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
+import org.apache.ibatis.type.JdbcType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -65,6 +67,13 @@ public class TableField {
      * 自定义查询字段列表
      */
     private Map<String, Object> customMap;
+
+    /**
+     * 字段元数据信息
+     *
+     * @since 3.5.0
+     */
+    private MetaInfo metaInfo;
 
     private final StrategyConfig strategyConfig;
 
@@ -378,5 +387,79 @@ public class TableField {
 
     public Map<String, Object> getCustomMap() {
         return customMap;
+    }
+
+    public MetaInfo getMetaInfo() {
+        return metaInfo;
+    }
+
+    public void setMetaInfo(MetaInfo metaInfo) {
+        this.metaInfo = metaInfo;
+    }
+
+    /**
+     * @author nieqiurong 2021/2/8
+     * @since 3.5.0
+     */
+    public static class MetaInfo {
+
+        private int length;
+
+        private boolean nullable;
+
+        private String remarks;
+
+        private String defaultValue;
+
+        private int scale;
+
+        private JdbcType jdbcType;
+
+        public MetaInfo(DatabaseMetaDataWrapper.ColumnsInfo columnsInfo) {
+            if (columnsInfo != null) {
+                this.length = columnsInfo.getLength();
+                this.nullable = columnsInfo.isNullable();
+                this.remarks = columnsInfo.getRemarks();
+                this.defaultValue = columnsInfo.getDefaultValue();
+                this.scale = columnsInfo.getScale();
+                this.jdbcType = columnsInfo.getJdbcType();
+            }
+        }
+
+        public int getLength() {
+            return length;
+        }
+
+        public boolean isNullable() {
+            return nullable;
+        }
+
+        public String getRemarks() {
+            return remarks;
+        }
+
+        public String getDefaultValue() {
+            return defaultValue;
+        }
+
+        public int getScale() {
+            return scale;
+        }
+
+        public JdbcType getJdbcType() {
+            return jdbcType;
+        }
+
+        @Override
+        public String toString() {
+            return "MetaInfo{" +
+                "length=" + length +
+                ", nullable=" + nullable +
+                ", remarks='" + remarks + '\'' +
+                ", defaultValue='" + defaultValue + '\'' +
+                ", scale=" + scale +
+                ", jdbcType=" + jdbcType +
+                '}';
+        }
     }
 }

@@ -28,12 +28,14 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
+import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -164,6 +166,14 @@ public abstract class IDatabaseQuery {
             DbType dbType = this.dataSourceConfig.getDbType();
             String tableName = tableInfo.getName();
             try {
+                final Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsMetaInfoMap = new HashMap<>();
+                if (dataSourceConfig.enableQueryMetaInfo) {
+                    Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsInfo =
+                        new DatabaseMetaDataWrapper(dbQuery.getConnection()).getColumnsInfo(null, dataSourceConfig.getSchemaName(), tableName);
+                    if (columnsInfo != null && !columnsInfo.isEmpty()) {
+                        columnsMetaInfoMap.putAll(columnsInfo);
+                    }
+                }
                 String tableFieldsSql = dbQuery.tableFieldsSql(tableName);
                 Set<String> h2PkColumns = new HashSet<>();
                 if (DbType.H2 == dbType) {
@@ -195,6 +205,7 @@ public abstract class IDatabaseQuery {
                     String propertyName = entity.getNameConvert().propertyNameConvert(field);
                     IColumnType columnType = dataSourceConfig.getTypeConvert().processTypeConvert(globalConfig, field);
                     field.setPropertyName(propertyName, columnType);
+                    field.setMetaInfo(new TableField.MetaInfo(columnsMetaInfoMap.get(columnName.toLowerCase())));
                     tableInfo.addField(field);
                 });
             } catch (SQLException e) {

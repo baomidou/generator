@@ -97,6 +97,13 @@ public class DataSourceConfig {
     }
 
     /**
+     * 启用元数据信息查询
+     *
+     * @since 3.5.0
+     */
+    public boolean enableQueryMetaInfo;
+
+    /**
      * 设置表数据查询实现类
      *
      * @param dbQuery 表数据查询
@@ -393,6 +400,9 @@ public class DataSourceConfig {
         return password;
     }
 
+    public boolean isEnableQueryMetaInfo() {
+        return enableQueryMetaInfo;
+    }
 
     /**
      * 数据库配置构建者
@@ -514,6 +524,16 @@ public class DataSourceConfig {
          */
         public Builder keyWordsHandler(@NotNull IKeyWordsHandler keyWordsHandler) {
             this.dataSourceConfig.keyWordsHandler = keyWordsHandler;
+            return this;
+        }
+
+        /**
+         * 激活元数据查询(试验功能)
+         *
+         * @return this
+         */
+        public Builder enableQueryMetaInfo() {
+            this.dataSourceConfig.enableQueryMetaInfo = true;
             return this;
         }
 
