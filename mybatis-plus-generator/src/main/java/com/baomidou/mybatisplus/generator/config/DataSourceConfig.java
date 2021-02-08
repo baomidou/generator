@@ -15,32 +15,29 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Optional;
-
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Optional;
 
 /**
  * 数据库配置
  *
- * @author YangHu, hcl
+ * @author YangHu, hcl, hubin
  * @since 2016/8/30
  */
 public class DataSourceConfig {
-
     /**
      * 数据库信息查询
      */
@@ -102,132 +99,6 @@ public class DataSourceConfig {
      * @since 3.5.0
      */
     public boolean enableQueryMetaInfo;
-
-    /**
-     * 设置表数据查询实现类
-     *
-     * @param dbQuery 表数据查询
-     * @return this
-     * @see Builder#dbQuery(IDbQuery)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setDbQuery(@NotNull IDbQuery dbQuery) {
-        this.dbQuery = dbQuery;
-        return this;
-    }
-
-    /**
-     * 设置数据库类型
-     *
-     * @param dbType 数据库类型
-     * @return this
-     * @see Builder#dbType(DbType)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setDbType(@NotNull DbType dbType) {
-        this.dbType = dbType;
-        return this;
-    }
-
-    /**
-     * 设置数据库schema
-     *
-     * @param schemaName 指定schema
-     * @return this
-     * @see Builder#schema(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setSchemaName(@NotNull String schemaName) {
-        this.schemaName = schemaName;
-        return this;
-    }
-
-    /**
-     * 设置数据库字段转换实现
-     *
-     * @param typeConvert 数据库字段转换实现
-     * @return this
-     * @see Builder#typeConvert(ITypeConvert)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setTypeConvert(@NotNull ITypeConvert typeConvert) {
-        this.typeConvert = typeConvert;
-        return this;
-    }
-
-    /**
-     * 设置关键字处理器
-     *
-     * @param keyWordsHandler 关键字处理器
-     * @return this
-     * @see Builder#keyWordsHandler(IKeyWordsHandler)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setKeyWordsHandler(@NotNull IKeyWordsHandler keyWordsHandler) {
-        this.keyWordsHandler = keyWordsHandler;
-        return this;
-    }
-
-    /**
-     * 设置数据库连接地址
-     *
-     * @param url 数据库连接地址
-     * @return this
-     * @see Builder#Builder(java.lang.String, java.lang.String, java.lang.String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setUrl(@NotNull String url) {
-        this.url = url;
-        return this;
-    }
-
-    /**
-     * 设置驱动名称
-     *
-     * @param driverName 驱动名
-     * @return this
-     * @see Builder#driver(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setDriverName(@NotNull String driverName) {
-        this.driverName = driverName;
-        return this;
-    }
-
-    /**
-     * 设置数据库账号
-     *
-     * @param username 数据库账号
-     * @return this
-     * @see Builder#Builder(java.lang.String, java.lang.String, java.lang.String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    /**
-     * 设置数据库密码
-     *
-     * @param password 数据库密码
-     * @return this
-     * @see Builder#Builder(java.lang.String, java.lang.String, java.lang.String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public DataSourceConfig setPassword(String password) {
-        this.password = password;
-        return this;
-    }
 
     @NotNull
     public IDbQuery getDbQuery() {
