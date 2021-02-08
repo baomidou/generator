@@ -325,7 +325,7 @@ public class TemplateConfig {
          * @return this
          */
         public Builder entityKt() {
-            return entity(ConstVal.TEMPLATE_ENTITY_KT);
+            return entityKt(ConstVal.TEMPLATE_ENTITY_KT);
         }
 
         /**
