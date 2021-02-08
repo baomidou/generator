@@ -113,11 +113,11 @@ public class SQLServerGenerator extends GeneratorTest {
         mpg.strategy(strategy);
 
         // 包配置
-        PackageConfig pc = GeneratorBuilder.packageConfig();
-        pc.setModuleName("test");
-        pc.setParent("com.baomidou");// 自定义包路径
-        pc.setController("controller");// 这里是控制器包名，默认 web
-        mpg.packageInfo(pc);
+        mpg.packageInfo(GeneratorBuilder.packageConfigBuilder().moduleName("test")
+            // 自定义包路径
+            .parent("com.baomidou")
+            // 这里是控制器包名，默认 web
+            .controller("controller").build());
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
         InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));

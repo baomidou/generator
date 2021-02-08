@@ -62,10 +62,11 @@ public class SqliteGeneratorTest {
         mpg.global(gc);
 
         // 包配置
-        PackageConfig pc = GeneratorBuilder.packageConfig();
-//        pc.setModuleName(scanner("模块名"));
-        pc.setModuleName("test");
-        mpg.packageInfo(pc);
+        mpg.packageInfo(GeneratorBuilder.packageConfigBuilder().moduleName("test")
+            // 自定义包路径
+            .parent("com.baomidou")
+            // 这里是控制器包名，默认 web
+            .controller("controller").build());
 
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig();
@@ -79,8 +80,8 @@ public class SqliteGeneratorTest {
             @Override
             public File outputFile(@NotNull TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return new File(sqliteGenertorPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                    + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML);
+                return new File(sqliteGenertorPath + "/src/main/resources/mapper/test/" +
+                    tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML);
             }
         });
         mpg.injection(cfg);

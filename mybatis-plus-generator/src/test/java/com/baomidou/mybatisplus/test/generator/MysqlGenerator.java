@@ -134,12 +134,11 @@ public class MysqlGenerator extends GeneratorTest {
             // .setEntityBooleanColumnRemoveIsPrefix(true)
             // .setRestControllerStyle(true)
             // .setControllerMappingHyphenStyle(true)
-        ).packageInfo(
-            // 包配置
-            GeneratorBuilder.packageConfig()
-                .setModuleName("test")
-                .setParent("com.baomidou")// 自定义包路径
-                .setController("controller")// 这里是控制器包名，默认 web
+        ).packageInfo(GeneratorBuilder.packageConfigBuilder().moduleName("test")
+                    // 自定义包路径
+                    .parent("com.baomidou")
+                    // 这里是控制器包名，默认 web
+                    .controller("controller").build()
         ).injection(
             // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
             new InjectionConfig(Collections.singletonMap("abc", globalConfig.getAuthor() + "-mp")).addFileOutConfig(new FileOutConfig(

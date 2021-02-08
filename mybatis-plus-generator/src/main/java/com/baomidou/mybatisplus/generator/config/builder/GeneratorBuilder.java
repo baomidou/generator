@@ -59,6 +59,15 @@ public class GeneratorBuilder {
     }
 
     /**
+     * 包相关的配置项 Builder
+     *
+     * @return PackageConfig.Builder
+     */
+    public static PackageConfig.Builder packageConfigBuilder() {
+        return new PackageConfig.Builder();
+    }
+
+    /**
      * 策略配置项
      *
      * @return StrategyConfig

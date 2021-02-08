@@ -31,7 +31,6 @@ import java.util.Map;
  * @since 2016-08-30
  */
 public class PackageConfig {
-
     /**
      * 父包名。如果为空，将下面子包名必须写全部， 否则就只需写子包名
      */
@@ -87,12 +86,11 @@ public class PackageConfig {
         return parent;
     }
 
-
     /**
      * 连接父子包名
      *
+     * @param subPackage 子包名
      * @return 连接后的包名
-     * @since 3.5.0
      */
     @NotNull
     public String joinPackage(String subPackage) {
@@ -124,114 +122,6 @@ public class PackageConfig {
 
     private PackageConfig() {
         // 不推荐使用
-    }
-
-    /**
-     * @param parent 父包名
-     * @return this
-     * @see Builder#parent(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setParent(String parent) {
-        this.parent = parent;
-        return this;
-    }
-
-    /**
-     * @param moduleName 模块名
-     * @return this
-     * @see Builder#moduleName(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setModuleName(String moduleName) {
-        this.moduleName = moduleName;
-        return this;
-    }
-
-    /**
-     * @param entity 实体名
-     * @return this
-     * @see Builder#entity(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setEntity(String entity) {
-        this.entity = entity;
-        return this;
-    }
-
-    /**
-     * @param service service接口包名
-     * @return this
-     * @see Builder#service(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setService(String service) {
-        this.service = service;
-        return this;
-    }
-
-    /**
-     * @param serviceImpl service实现类包名
-     * @return this
-     * @see Builder#serviceImpl(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setServiceImpl(String serviceImpl) {
-        this.serviceImpl = serviceImpl;
-        return this;
-    }
-
-    /**
-     * @param mapper mapper包名
-     * @return this
-     * @see Builder#mapper(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setMapper(String mapper) {
-        this.mapper = mapper;
-        return this;
-    }
-
-    /**
-     * @param xml xml包名
-     * @return this
-     * @see Builder#xml(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setXml(String xml) {
-        this.xml = xml;
-        return this;
-    }
-
-    /**
-     * @param controller 控制器包名
-     * @return this
-     * @see Builder#controller(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setController(String controller) {
-        this.controller = controller;
-        return this;
-    }
-
-    /**
-     * @param pathInfo 路径信息
-     * @return this
-     * @see Builder#pathInfo(Map)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public PackageConfig setPathInfo(Map<String, String> pathInfo) {
-        this.pathInfo = pathInfo;
-        return this;
     }
 
     /**
@@ -394,6 +284,17 @@ public class PackageConfig {
         public Builder pathInfo(@NotNull Map<String, String> pathInfo) {
             this.packageConfig.pathInfo = pathInfo;
             return this;
+        }
+
+        /**
+         * 连接父子包名
+         *
+         * @param subPackage 子包名
+         * @return 连接后的包名
+         */
+        @NotNull
+        public String joinPackage(@NotNull String subPackage) {
+            return this.packageConfig.joinPackage(subPackage);
         }
 
         /**

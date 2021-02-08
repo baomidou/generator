@@ -96,13 +96,11 @@ public class FirebirdGenerator extends GeneratorTest {
         mpg.global(gc);
 
         // TODO 包配置
-        PackageConfig pc = GeneratorBuilder.packageConfig();
-        //pc.setModuleName(scanner("模块名"));
-        pc.setParent(basePackage);
-        pc.setEntity("entity");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
-        mpg.packageInfo(pc);
+        mpg.packageInfo(GeneratorBuilder.packageConfigBuilder().moduleName("test")
+            // 自定义包路径
+            .parent("com.baomidou")
+            // 这里是控制器包名，默认 web
+            .controller("controller").build());
 
         // 自定义需要填充的字段
         List<TableFill> tableFillList = new ArrayList<>();

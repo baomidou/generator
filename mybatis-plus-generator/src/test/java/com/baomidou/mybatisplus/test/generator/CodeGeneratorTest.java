@@ -120,10 +120,11 @@ class CodeGeneratorTest {
         new AutoGenerator(dataSourceConfig).global(config)
             .strategy(strategyConfig)
             .packageInfo(
-                GeneratorBuilder.packageConfig()
-                    .setParent(packageName)
-                    .setController("controller")
-                    .setEntity("entity")
+                GeneratorBuilder.packageConfigBuilder().moduleName("test")
+                    // 自定义包路径
+                    .parent("com.baomidou")
+                    // 这里是控制器包名，默认 web
+                    .controller("controller").build()
             ).execute();
     }
 }

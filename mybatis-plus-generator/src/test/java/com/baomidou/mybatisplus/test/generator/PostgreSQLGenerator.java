@@ -20,7 +20,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.FileOutConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
@@ -114,11 +117,11 @@ public class PostgreSQLGenerator extends GeneratorTest {
         mpg.strategy(strategy);
 
         // 包配置
-        PackageConfig pc = GeneratorBuilder.packageConfig();
-        pc.setModuleName("test");
-        pc.setParent("com.baomidou");// 自定义包路径
-        pc.setController("controller");// 这里是控制器包名，默认 web
-        mpg.packageInfo(pc);
+        mpg.packageInfo(GeneratorBuilder.packageConfigBuilder().moduleName("test")
+            // 自定义包路径
+            .parent("com.baomidou")
+            // 这里是控制器包名，默认 web
+            .controller("controller").build());
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
         InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));

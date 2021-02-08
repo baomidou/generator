@@ -13,10 +13,10 @@ public class PackageConfigTest {
 
     @Test
     void joinPackageTest() {
-        Assertions.assertEquals("com.baomidou.demo", GeneratorBuilder.packageConfig().joinPackage("demo"));
-        Assertions.assertEquals("com.baomidou.mp.demo", GeneratorBuilder.packageConfig().setModuleName("mp").joinPackage("demo"));
-        Assertions.assertEquals("com.baomihua.demo", GeneratorBuilder.packageConfig().setParent("com.baomihua").joinPackage("demo"));
-        Assertions.assertEquals("com.baomihua.mp.demo", GeneratorBuilder.packageConfig().setParent("com.baomihua").setModuleName("mp").joinPackage("demo"));
+        Assertions.assertEquals("com.baomidou.demo", GeneratorBuilder.packageConfigBuilder().joinPackage("demo"));
+        Assertions.assertEquals("com.baomidou.mp.demo", GeneratorBuilder.packageConfigBuilder().moduleName("mp").joinPackage("demo"));
+        Assertions.assertEquals("com.baomihua.demo", GeneratorBuilder.packageConfigBuilder().parent("com.baomihua").joinPackage("demo"));
+        Assertions.assertEquals("com.baomihua.mp.demo", GeneratorBuilder.packageConfigBuilder().parent("com.baomihua").moduleName("mp").joinPackage("demo"));
     }
 
     private void buildAssert(PackageConfig packageConfig){
@@ -33,10 +33,9 @@ public class PackageConfigTest {
 
     @Test
     void buildTest(){
-        buildAssert(GeneratorBuilder.packageConfig().setParent("com.baomihua")
-            .setModuleName("demo").setController("action").setEntity("entity").setMapper("dao").setService("iservice").setServiceImpl("serviceIm").setPathInfo(Collections.singletonMap("aaaa","bbbb")));
-        buildAssert(new PackageConfig.Builder().parent("com.baomihua")
-            .moduleName("demo").controller("action").entity("entity").mapper("dao").service("iservice").serviceImpl("serviceIm").pathInfo(Collections.singletonMap("aaaa","bbbb")).build());
+        buildAssert(GeneratorBuilder.packageConfigBuilder().parent("com.baomihua")
+            .moduleName("demo").controller("action").entity("entity")
+            .mapper("dao").service("iservice").serviceImpl("serviceIm")
+            .pathInfo(Collections.singletonMap("aaaa","bbbb")).build());
     }
-
 }
