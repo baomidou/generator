@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -89,8 +89,9 @@ public class ConfigBuilder {
      * @param template         模板配置
      * @param globalConfig     全局配置
      */
-    public ConfigBuilder(@Nullable PackageConfig packageConfig, @NotNull DataSourceConfig dataSourceConfig, @Nullable StrategyConfig strategyConfig,
-                         @Nullable TemplateConfig template, @Nullable GlobalConfig globalConfig) {
+    public ConfigBuilder(@Nullable PackageConfig packageConfig, @NotNull DataSourceConfig dataSourceConfig,
+                         @Nullable StrategyConfig strategyConfig, @Nullable TemplateConfig template,
+                         @Nullable GlobalConfig globalConfig) {
         this.dataSourceConfig = dataSourceConfig;
         this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(() -> new StrategyConfig.Builder().build());
         //TODO 先把验证插在这里，后续改成build构建的话在build的时候验证

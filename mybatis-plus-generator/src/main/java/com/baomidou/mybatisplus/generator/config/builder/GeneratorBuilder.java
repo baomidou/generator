@@ -13,4 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.baomidou.mybatisplus.generator.config.converts;
+package com.baomidou.mybatisplus.generator.config.builder;
+
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+
+/**
+ * 生成器 Builder
+ *
+ * @author hubin 2021/02/08
+ * @since 3.5.0
+ */
+public class GeneratorBuilder {
+
+   public static PackageConfig packageConfig() {
+       return new PackageConfig.Builder().build();
+   }
+
+   public static StrategyConfig strategyConfig() {
+       return new StrategyConfig.Builder().build();
+   }
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
@@ -124,7 +125,7 @@ public class FirebirdGenerator extends GeneratorTest {
         mpg.setTemplate(new TemplateConfig().setXml(null));
 
         // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
+        StrategyConfig strategy = GeneratorBuilder.strategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);

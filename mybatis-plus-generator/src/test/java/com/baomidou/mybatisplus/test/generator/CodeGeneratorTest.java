@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.mysql.cj.jdbc.Driver;
 import org.junit.jupiter.api.Disabled;
@@ -98,7 +99,7 @@ class CodeGeneratorTest {
             .setUsername("root")
             .setPassword("")
             .setDriverName(Driver.class.getName());
-        StrategyConfig strategyConfig = new StrategyConfig();
+        StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig
             .setCapitalMode(true)
             .setEntityLombokModel(false)

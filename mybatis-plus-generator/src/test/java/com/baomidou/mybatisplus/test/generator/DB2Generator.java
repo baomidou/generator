@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 public class DB2Generator {
@@ -40,7 +41,7 @@ public class DB2Generator {
             .setUsername("tc")
             .setPassword("business")
             .setDriverName("com.ibm.db2.jcc.DB2Driver");
-        StrategyConfig strategyConfig = new StrategyConfig();
+        StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig
             .setCapitalMode(true)
             .setEntityLombokModel(false)

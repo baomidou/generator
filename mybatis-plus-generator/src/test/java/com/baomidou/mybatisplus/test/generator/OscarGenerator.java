@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
@@ -85,7 +86,7 @@ public class OscarGenerator extends GeneratorTest {
         mpg.setDataSource(dsc);
 
         // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
+        StrategyConfig strategy = GeneratorBuilder.strategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名
         // strategy.setDbColumnUnderline(true);// 全局下划线命名
         strategy.setTablePrefix("BMD_", "MP_");// 表前缀

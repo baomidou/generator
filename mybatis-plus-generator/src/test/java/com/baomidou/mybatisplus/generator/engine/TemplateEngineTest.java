@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.po.TableInfoTest;
@@ -24,7 +25,7 @@ public class TemplateEngineTest {
     private void compatibleAssert(ConfigBuilder configBuilder) {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
         velocityTemplateEngine.setConfigBuilder(configBuilder);
-        TableInfo tableInfo = new TableInfo(new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, new StrategyConfig(), null, null), "user");
+        TableInfo tableInfo = new TableInfo(new ConfigBuilder(new PackageConfig.Builder().build(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user");
         tableInfo.processTable();
         Map<String, Object> objectMap = velocityTemplateEngine.getObjectMap(tableInfo);
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("enableCache"));

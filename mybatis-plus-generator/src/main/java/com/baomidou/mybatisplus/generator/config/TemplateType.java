@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -22,7 +22,7 @@ package com.baomidou.mybatisplus.generator.config;
  * @since 3.3.2
  */
 public enum TemplateType {
-    
+
     ENTITY, SERVICE, CONTROLLER, MAPPER, XML
-    
+
 }

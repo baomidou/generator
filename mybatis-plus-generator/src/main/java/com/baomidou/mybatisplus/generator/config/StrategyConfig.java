@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -20,16 +20,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.baomidou.mybatisplus.generator.config.builder.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.IFill;
-import com.baomidou.mybatisplus.generator.config.builder.BaseBuilder;
-import com.baomidou.mybatisplus.generator.config.builder.Controller;
-import com.baomidou.mybatisplus.generator.config.builder.Entity;
-import com.baomidou.mybatisplus.generator.config.builder.Mapper;
-import com.baomidou.mybatisplus.generator.config.builder.Service;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
@@ -86,14 +82,8 @@ public class StrategyConfig {
      */
     private LikeTable notLikeTable;
 
-    /**
-     * 后续不再公开此构造方法
-     *
-     * @see Builder
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public StrategyConfig() {
+    private StrategyConfig() {
+        // 不推荐使用
     }
 
     private final Entity.Builder entityBuilder = new Entity.Builder(this);
@@ -224,20 +214,20 @@ public class StrategyConfig {
     public INameConvert getNameConvert() {
         return entity().getNameConvert();
     }
-
-    /**
-     * 名称转换实现
-     *
-     * @param nameConvert 名称转换实现
-     * @return this
-     * @see Entity.Builder#nameConvert(INameConvert)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public StrategyConfig setNameConvert(@NotNull INameConvert nameConvert) {
-        this.entityBuilder.nameConvert(nameConvert);
-        return this;
-    }
+//
+//    /**
+//     * 名称转换实现
+//     *
+//     * @param nameConvert 名称转换实现
+//     * @return this
+//     * @see Entity.Builder#nameConvert(INameConvert)
+//     * @deprecated 3.5.0
+//     */
+//    @Deprecated
+//    public StrategyConfig setNameConvert(@NotNull INameConvert nameConvert) {
+//        this.entityBuilder.nameConvert(nameConvert);
+//        return this;
+//    }
 
     /**
      * 获取数据库表映射到实体的命名策略

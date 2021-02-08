@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
@@ -98,7 +99,7 @@ public class MysqlGenerator extends GeneratorTest {
                 .setUrl("jdbc:mysql://127.0.0.1:3306/mybatis-plus?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8")
         ).setStrategy(
             // 策略配置
-            new StrategyConfig()
+            GeneratorBuilder.strategyConfig()
                 // .setCapitalMode(true)// 全局大写命名
                 // .setDbColumnUnderline(true)//全局下划线命名
                 .setTablePrefix("bmd_", "mp_")// 此处可以修改为您的表前缀

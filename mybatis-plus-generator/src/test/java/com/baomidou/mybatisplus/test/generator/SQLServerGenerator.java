@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
+ * Copyright (c) 2011-2021, baomidou (jobob@qq.com).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.converts.SqlServerTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
@@ -84,7 +85,7 @@ public class SQLServerGenerator extends GeneratorTest {
         mpg.setDataSource(dsc);
 
         // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
+        StrategyConfig strategy = GeneratorBuilder.strategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名
         // strategy.setDbColumnUnderline(true);//全局下划线命名
         strategy.setTablePrefix("bmd_", "mp_");// 此处可以修改为您的表前缀
