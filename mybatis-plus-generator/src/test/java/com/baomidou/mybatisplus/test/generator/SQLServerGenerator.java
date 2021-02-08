@@ -32,6 +32,7 @@ import com.baomidou.mybatisplus.generator.config.converts.SqlServerTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +46,23 @@ public class SQLServerGenerator extends GeneratorTest {
 
     public static void main(String[] args) {
         int result = scanner();
-        AutoGenerator mpg = new AutoGenerator();
+
+
+
+        // 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:sqlserver://192.168.1.105:1433;databaseName=mybatis-plus",
+            "sa", "nieqiuqiu").build();
+        dsc.setDbType(DbType.SQL_SERVER);
+        dsc.setTypeConvert(new SqlServerTypeConvert() {
+            // 自定义数据库表字段类型转换【可选】
+            @Override
+            public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
+                System.out.println("转换类型：" + fieldType);
+                return super.processTypeConvert(globalConfig, fieldType);
+            }
+        });
+        dsc.setDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        AutoGenerator mpg = new AutoGenerator(dsc);
 
         // 全局配置
         GlobalConfig gc = GeneratorBuilder.globalConfig();
@@ -65,22 +82,7 @@ public class SQLServerGenerator extends GeneratorTest {
         // gc.setServiceName("MP%sService");
         // gc.setServiceImplName("%sServiceDiy");
         // gc.setControllerName("%sAction");
-        mpg.setGlobalConfig(gc);
-
-        // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:sqlserver://192.168.1.105:1433;databaseName=mybatis-plus",
-            "sa", "nieqiuqiu").build();
-        dsc.setDbType(DbType.SQL_SERVER);
-        dsc.setTypeConvert(new SqlServerTypeConvert() {
-            // 自定义数据库表字段类型转换【可选】
-            @Override
-            public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
-                System.out.println("转换类型：" + fieldType);
-                return super.processTypeConvert(globalConfig, fieldType);
-            }
-        });
-        dsc.setDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        mpg.setDataSource(dsc);
+        mpg.global(gc);
 
         // 策略配置
         StrategyConfig strategy = GeneratorBuilder.strategyConfig();
@@ -108,14 +110,14 @@ public class SQLServerGenerator extends GeneratorTest {
         // 【实体】是否为构建者模型（默认 false）
         // public User setName(String name) {this.name = name; return this;}
         // strategy.setEntityBuliderModel(true);
-        mpg.setStrategy(strategy);
+        mpg.strategy(strategy);
 
         // 包配置
         PackageConfig pc = GeneratorBuilder.packageConfig();
         pc.setModuleName("test");
         pc.setParent("com.baomidou");// 自定义包路径
         pc.setController("controller");// 这里是控制器包名，默认 web
-        mpg.setPackageInfo(pc);
+        mpg.packageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
         InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));
@@ -126,7 +128,7 @@ public class SQLServerGenerator extends GeneratorTest {
                 return new File("D://my_" + tableInfo.getEntityName() + StringPool.DOT_JAVA);
             }
         });
-        mpg.setCfg(cfg);
+        mpg.injection(cfg);
 
         // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy
         // 至您项目 src/main/resources/template 目录下，模板名称也可自定义如下配置：
@@ -137,14 +139,15 @@ public class SQLServerGenerator extends GeneratorTest {
         // tc.setXml("...");
         // tc.setService("...");
         // tc.setServiceImpl("...");
-        // mpg.setTemplate(tc);
+        // mpg.template(tc);
         // 执行生成
+        AbstractTemplateEngine templateEngine = null;
         if (1 == result) {
-            mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+            templateEngine = new FreemarkerTemplateEngine();
         }
-        mpg.execute();
+        mpg.execute(templateEngine);
         // 打印注入设置
-        System.err.println(mpg.getCfg().getMap().get("abc"));
+        System.err.println(mpg.getInjectionConfig().getMap().get("abc"));
     }
 
 }

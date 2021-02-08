@@ -93,14 +93,13 @@ class CodeGeneratorWithTemplateTest {
         TemplateConfig templateConfig = GeneratorBuilder.templateConfig()
             .setEntity("templates/entity2.java");
         InjectionConfig injectionConfig = new InjectionConfig(Collections.singletonMap("abc", config.getAuthor() + "-mp"));
-        new AutoGenerator().setGlobalConfig(config)
-            .setDataSource(dataSourceConfig)
-            .setStrategy(strategyConfig)
+        new AutoGenerator(dataSourceConfig).global(config)
+            .strategy(strategyConfig)
             //配置自定义模板
-            .setTemplate(templateConfig)
+            .template(templateConfig)
             //配置自定义属性注入
-            .setCfg(injectionConfig)
-            .setPackageInfo(
+            .injection(injectionConfig)
+            .packageInfo(
                 GeneratorBuilder.packageConfig()
                     .setParent(packageName)
                     .setController("controller")

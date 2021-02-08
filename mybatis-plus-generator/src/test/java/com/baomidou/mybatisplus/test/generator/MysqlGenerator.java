@@ -30,6 +30,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.mysql.cj.jdbc.Driver;
 import org.jetbrains.annotations.NotNull;
@@ -68,8 +69,7 @@ public class MysqlGenerator extends GeneratorTest {
         // .setServiceImplName("%sServiceDiy")
         // .setControllerName("%sAction")
         // 代码生成器
-        AutoGenerator mpg = new AutoGenerator().setGlobalConfig(globalConfig).setDataSource(
-            // 数据源配置
+        AutoGenerator mpg = new AutoGenerator(// 数据源配置
             new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8",
                 "root", "123456").build()
                 .setDbType(DbType.MYSQL) // 数据库类型
@@ -97,8 +97,9 @@ public class MysqlGenerator extends GeneratorTest {
                         return new String[]{"NULL", "PRIVILEGES"};
                     }
                 })
-                .setDriverName(Driver.class.getName())
-        ).setStrategy(
+                .setDriverName(Driver.class.getName()))
+        .global(globalConfig)
+        .strategy(
             // 策略配置
             GeneratorBuilder.strategyConfig()
                 // .setCapitalMode(true)// 全局大写命名
@@ -133,13 +134,13 @@ public class MysqlGenerator extends GeneratorTest {
             // .setEntityBooleanColumnRemoveIsPrefix(true)
             // .setRestControllerStyle(true)
             // .setControllerMappingHyphenStyle(true)
-        ).setPackageInfo(
+        ).packageInfo(
             // 包配置
             GeneratorBuilder.packageConfig()
                 .setModuleName("test")
                 .setParent("com.baomidou")// 自定义包路径
                 .setController("controller")// 这里是控制器包名，默认 web
-        ).setCfg(
+        ).injection(
             // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
             new InjectionConfig(Collections.singletonMap("abc", globalConfig.getAuthor() + "-mp")).addFileOutConfig(new FileOutConfig(
                 "/templates/mapper.xml" + ((1 == result) ? ".ftl" : ".vm")) {
@@ -149,7 +150,7 @@ public class MysqlGenerator extends GeneratorTest {
                     return new File("../com/xml/" + tableInfo.getEntityName() + ".xml");
                 }
             })
-        ).setTemplate(
+        ).template(
             // 关闭默认 xml 生成，调整生成 至 根目录
             GeneratorBuilder.templateConfig().setXml(null)
             // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy
@@ -162,13 +163,14 @@ public class MysqlGenerator extends GeneratorTest {
             // .setServiceImpl("...");
         );
         // 执行生成
+        AbstractTemplateEngine templateEngine = null;
         if (1 == result) {
-            mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+            templateEngine = new FreemarkerTemplateEngine();
         }
-        mpg.execute();
+        mpg.execute(templateEngine);
 
         // 打印注入设置，这里演示模板里面怎么获取注入内容【可无】
-        System.err.println(mpg.getCfg().getMap().get("abc"));
+        System.err.println(mpg.getInjectionConfig().getMap().get("abc"));
     }
 
 }

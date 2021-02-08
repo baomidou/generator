@@ -41,31 +41,31 @@ public class SqliteGeneratorTest {
     }
 
     public static void main(String[] args) {
-        // 代码生成器
-        AutoGenerator mpg = new AutoGenerator();
-
-        // 全局配置
-        GlobalConfig gc = GeneratorBuilder.globalConfig();
         Path resourceDirectory = Paths.get("mybatis-plus-generator/src", "test", "resources");
-        Path sqliteGenertorPath = Paths.get("mybatis-plus-generator/sqliteGeneratorCode");
-//            String projectPath = System.getProperty("user.dir") + "/sqliteGenertorCode";
-        gc.setOutputDir(sqliteGenertorPath + "/src/main/java");
-        gc.setAuthor("chen_wj");
-        gc.setOpen(false);
-        mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:sqlite:" + resourceDirectory.toAbsolutePath() + "/sqlite/example.db",
             null, null).build();
         dsc.setDriverName("org.sqlite.JDBC");
         dsc.setDbType(DbType.SQLITE);
-        mpg.setDataSource(dsc);
+
+        // 代码生成器
+        AutoGenerator mpg = new AutoGenerator(dsc);
+
+        // 全局配置
+        GlobalConfig gc = GeneratorBuilder.globalConfig();
+        Path sqliteGenertorPath = Paths.get("mybatis-plus-generator/sqliteGeneratorCode");
+//            String projectPath = System.getProperty("user.dir") + "/sqliteGenertorCode";
+        gc.setOutputDir(sqliteGenertorPath + "/src/main/java");
+        gc.setAuthor("chen_wj");
+        gc.setOpen(false);
+        mpg.global(gc);
 
         // 包配置
         PackageConfig pc = GeneratorBuilder.packageConfig();
 //        pc.setModuleName(scanner("模块名"));
         pc.setModuleName("test");
-        mpg.setPackageInfo(pc);
+        mpg.packageInfo(pc);
 
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig();
@@ -83,13 +83,13 @@ public class SqliteGeneratorTest {
                     + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML);
             }
         });
-        mpg.setCfg(cfg);
+        mpg.injection(cfg);
 
         // 配置模板
         TemplateConfig templateConfig = GeneratorBuilder.templateConfig();
 
         templateConfig.setXml(null);
-        mpg.setTemplate(templateConfig);
+        mpg.template(templateConfig);
 
         // 策略配置
         StrategyConfig strategy = GeneratorBuilder.strategyConfig();
@@ -100,9 +100,7 @@ public class SqliteGeneratorTest {
 //        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setInclude(new String[]{"httpstatus", "User"});
         strategy.setControllerMappingHyphenStyle(true);
-        mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
+        mpg.strategy(strategy);
+        mpg.execute(new FreemarkerTemplateEngine());
     }
-
 }

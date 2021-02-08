@@ -60,8 +60,12 @@ public class FirebirdGenerator extends GeneratorTest {
 
 
     public static void main(String[] args) {
+
+        // TODO 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig.Builder(url, username, password).build();
+        dsc.setDriverName(driverName);
         // 代码生成器
-        AutoGenerator mpg = new AutoGenerator();
+        AutoGenerator mpg = new AutoGenerator(dsc);
 
         // 全局配置
         GlobalConfig gc = GeneratorBuilder.globalConfig();
@@ -89,12 +93,7 @@ public class FirebirdGenerator extends GeneratorTest {
         //日期用date类型
         gc.setDateType(DateType.ONLY_DATE);
 
-        mpg.setGlobalConfig(gc);
-
-        // TODO 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig.Builder(url, username, password).build();
-        dsc.setDriverName(driverName);
-        mpg.setDataSource(dsc);
+        mpg.global(gc);
 
         // TODO 包配置
         PackageConfig pc = GeneratorBuilder.packageConfig();
@@ -103,7 +102,7 @@ public class FirebirdGenerator extends GeneratorTest {
         pc.setEntity("entity");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
-        mpg.setPackageInfo(pc);
+        mpg.packageInfo(pc);
 
         // 自定义需要填充的字段
         List<TableFill> tableFillList = new ArrayList<>();
@@ -118,8 +117,8 @@ public class FirebirdGenerator extends GeneratorTest {
                     + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML);
             }
         });
-        mpg.setCfg(cfg);
-        mpg.setTemplate(GeneratorBuilder.templateConfig().setXml(null));
+        mpg.injection(cfg);
+        mpg.template(GeneratorBuilder.templateConfig().setXml(null));
 
         // 策略配置
         StrategyConfig strategy = GeneratorBuilder.strategyConfig();
@@ -133,10 +132,8 @@ public class FirebirdGenerator extends GeneratorTest {
         //strategy.setSuperEntityColumns("id");
         // 驼峰转连字符
         strategy.setControllerMappingHyphenStyle(true);
-        mpg.setStrategy(strategy);
+        mpg.strategy(strategy);
         // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
+        mpg.execute(new FreemarkerTemplateEngine());
     }
-
 }

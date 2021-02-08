@@ -15,21 +15,16 @@
  */
 package com.baomidou.mybatisplus.generator;
 
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * 生成文件
@@ -69,19 +64,9 @@ public class AutoGenerator {
      * 全局 相关配置
      */
     private GlobalConfig globalConfig;
-    /**
-     * 模板引擎
-     */
-    private AbstractTemplateEngine templateEngine;
 
-    /**
-     * 后续不公开此构造方法
-     *
-     * @see #AutoGenerator(DataSourceConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator() {
+    private AutoGenerator() {
+        // 不推荐使用
     }
 
     /**
@@ -93,58 +78,6 @@ public class AutoGenerator {
     public AutoGenerator(@NotNull DataSourceConfig dataSourceConfig) {
         //这个是必须参数,其他都是可选的,后续去除默认构造更改成final
         this.dataSource = dataSourceConfig;
-    }
-
-    /**
-     * 数据库配置
-     *
-     * @param dataSource 数据库配置
-     * @return this
-     * @see #AutoGenerator(DataSourceConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setDataSource(DataSourceConfig dataSource) {
-        this.dataSource = dataSource;
-        return this;
-    }
-
-    /**
-     * 指定模板引擎
-     *
-     * @param templateEngine 模板引擎
-     * @return this
-     * @see #engine(AbstractTemplateEngine)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setTemplateEngine(AbstractTemplateEngine templateEngine) {
-        return engine(templateEngine);
-    }
-
-    /**
-     * 指定模板引擎
-     *
-     * @param templateEngine 模板引擎
-     * @return this
-     * @since 3.5.0
-     */
-    public AutoGenerator engine(@NotNull AbstractTemplateEngine templateEngine) {
-        this.templateEngine = templateEngine;
-        return this;
-    }
-
-    /**
-     * 注入配置
-     *
-     * @param injectionConfig 注入配置
-     * @return this
-     * @see #injection(InjectionConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setInjectionConfig(InjectionConfig injectionConfig) {
-        return injection(injectionConfig);
     }
 
     /**
@@ -172,19 +105,6 @@ public class AutoGenerator {
     }
 
     /**
-     * 生成策略
-     *
-     * @param strategy 策略配置
-     * @return this
-     * @see #strategy(StrategyConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setStrategy(StrategyConfig strategy) {
-        return strategy(strategy);
-    }
-
-    /**
      * 指定包配置信息
      *
      * @param packageConfig 包配置
@@ -197,32 +117,6 @@ public class AutoGenerator {
     }
 
     /**
-     * 指定包配置信息
-     *
-     * @param packageInfo 包配置
-     * @return this
-     * @see #packageInfo(PackageConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setPackageInfo(PackageConfig packageInfo) {
-        return packageInfo(packageInfo);
-    }
-
-    /**
-     * 指定模板配置
-     *
-     * @param template 模板配置
-     * @return this
-     * @see #template(TemplateConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setTemplate(TemplateConfig template) {
-        return template(template);
-    }
-
-    /**
      * 指定模板配置
      *
      * @param templateConfig 模板配置
@@ -232,19 +126,6 @@ public class AutoGenerator {
     public AutoGenerator template(@NotNull TemplateConfig templateConfig) {
         this.template = templateConfig;
         return this;
-    }
-
-    /**
-     * 指定全局配置
-     *
-     * @param globalConfig 全局配置
-     * @return this
-     * @see #global(GlobalConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setGlobalConfig(GlobalConfig globalConfig) {
-        return global(globalConfig);
     }
 
     /**
@@ -272,22 +153,18 @@ public class AutoGenerator {
     }
 
     /**
-     * 设置配置汇总
-     *
-     * @param config 配置汇总
-     * @return this
-     * @see #config(ConfigBuilder)
-     * @deprecated 3.5.0
+     * 生成代码
      */
-    @Deprecated
-    public AutoGenerator setConfig(ConfigBuilder config) {
-        return config(config);
+    public void execute() {
+        this.execute(null);
     }
 
     /**
      * 生成代码
+     *
+     * @param templateEngine 模板引擎
      */
-    public void execute() {
+    public void execute(AbstractTemplateEngine templateEngine) {
         logger.debug("==========================准备生成文件...==========================");
         // 初始化配置
         if (null == config) {
@@ -335,28 +212,6 @@ public class AutoGenerator {
         return config;
     }
 
-    /**
-     * @return this
-     * @see #getInjectionConfig()
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public InjectionConfig getCfg() {
-        return injectionConfig;
-    }
-
-    /**
-     * @param injectionConfig injectionConfig
-     * @return this
-     * @see #injection(InjectionConfig)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AutoGenerator setCfg(InjectionConfig injectionConfig) {
-        this.injectionConfig = injectionConfig;
-        return this;
-    }
-
     public ConfigBuilder getConfig() {
         return config;
     }
@@ -383,9 +238,5 @@ public class AutoGenerator {
 
     public GlobalConfig getGlobalConfig() {
         return globalConfig;
-    }
-
-    public AbstractTemplateEngine getTemplateEngine() {
-        return templateEngine;
     }
 }

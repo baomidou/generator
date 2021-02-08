@@ -117,10 +117,9 @@ class CodeGeneratorTest {
         if (!serviceClassNameStartWithI) {
             config.setServiceName("%sService");
         }
-        new AutoGenerator().setGlobalConfig(config)
-            .setDataSource(dataSourceConfig)
-            .setStrategy(strategyConfig)
-            .setPackageInfo(
+        new AutoGenerator(dataSourceConfig).global(config)
+            .strategy(strategyConfig)
+            .packageInfo(
                 GeneratorBuilder.packageConfig()
                     .setParent(packageName)
                     .setController("controller")

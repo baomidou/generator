@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,8 +42,23 @@ import java.util.Collections;
 public class OscarGenerator extends GeneratorTest {
 
     public static void main(String[] args) {
+        // 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:oscar://localhost:2003/mybatis-plus",
+            "MYBATIS_PLUS", "123456").build();
+        dsc.setDbType(DbType.OSCAR);
+        dsc.setTypeConvert(new OracleTypeConvert() {
+            // 自定义数据库表字段类型转换【可选】
+            @Override
+            public IColumnType processTypeConvert(GlobalConfig config, String fieldType) {
+                System.out.println("转换类型：" + fieldType);
+                return super.processTypeConvert(config, fieldType);
+            }
+        });
+        // 自定义数据库信息查询
+        dsc.setDbQuery(new MyKingbaseESQuery());
+        dsc.setDriverName("com.oscar.Driver");
         int result = scanner();
-        AutoGenerator mpg = new AutoGenerator();
+        AutoGenerator mpg = new AutoGenerator(dsc);
 
         // 全局配置
         GlobalConfig gc = GeneratorBuilder.globalConfig();
@@ -64,24 +80,8 @@ public class OscarGenerator extends GeneratorTest {
         // gc.setServiceName("MP%sService");
         // gc.setServiceImplName("%sServiceDiy");
         // gc.setControllerName("%sAction");
-        mpg.setGlobalConfig(gc);
+        mpg.global(gc);
 
-        // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:oscar://localhost:2003/mybatis-plus",
-            "MYBATIS_PLUS", "123456").build();
-        dsc.setDbType(DbType.OSCAR);
-        dsc.setTypeConvert(new OracleTypeConvert() {
-            // 自定义数据库表字段类型转换【可选】
-            @Override
-            public IColumnType processTypeConvert(GlobalConfig config, String fieldType) {
-                System.out.println("转换类型：" + fieldType);
-                return super.processTypeConvert(config, fieldType);
-            }
-        });
-        // 自定义数据库信息查询
-        dsc.setDbQuery(new MyKingbaseESQuery());
-        dsc.setDriverName("com.oscar.Driver");
-        mpg.setDataSource(dsc);
 
         // 策略配置
         StrategyConfig strategy = GeneratorBuilder.strategyConfig();
@@ -111,14 +111,14 @@ public class OscarGenerator extends GeneratorTest {
         // 【实体】是否为构建者模型（默认 false）
         // public User setName(String name) {this.name = name; return this;}
         // strategy.setEntityBuliderModel(true);
-        mpg.setStrategy(strategy);
+        mpg.strategy(strategy);
 
         // 包配置
         PackageConfig pc = GeneratorBuilder.packageConfig();
         pc.setModuleName("test");
         pc.setParent("com.baomidou");// 自定义包路径
         pc.setController("controller");// 这里是控制器包名，默认 web
-        mpg.setPackageInfo(pc);
+        mpg.packageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
         InjectionConfig cfg = new InjectionConfig(Collections.singletonMap("abc", gc.getAuthor() + "-mp"));
@@ -129,7 +129,7 @@ public class OscarGenerator extends GeneratorTest {
                 return new File("D://test/my_" + tableInfo.getEntityName() + StringPool.DOT_JAVA);
             }
         });
-        mpg.setCfg(cfg);
+        mpg.injection(cfg);
 
         // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy
         // 至您项目 src/main/resources/template 目录下，模板名称也可自定义如下配置：
@@ -140,15 +140,16 @@ public class OscarGenerator extends GeneratorTest {
         // tc.setXml("...");
         // tc.setService("...");
         // tc.setServiceImpl("...");
-        // mpg.setTemplate(tc);
+        // mpg.template(tc);
 
         // 执行生成
+        AbstractTemplateEngine templateEngine = null;
         if (1 == result) {
-            mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+            templateEngine = new FreemarkerTemplateEngine();
         }
-        mpg.execute();
+        mpg.execute(templateEngine);
         // 打印注入设置
-        System.err.println(mpg.getCfg().getMap().get("abc"));
+        System.err.println(mpg.getInjectionConfig().getMap().get("abc"));
     }
 
 }

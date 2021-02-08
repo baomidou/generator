@@ -55,16 +55,6 @@ public class DMGenerator {
     }
 
     public static void main(String[] args) {
-        // 代码生成器
-        AutoGenerator mpg = new AutoGenerator();
-
-        // 全局配置
-        GlobalConfig gc = GeneratorBuilder.globalConfig();
-        gc.setOutputDir("D://mpg");
-        gc.setAuthor("halower");
-        gc.setOpen(false);
-        // gc.setSwagger2(true); 实体属性 Swagger2 注解
-        mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig.Builder("jdbc:dm://192.168.2.226:5236",
@@ -72,13 +62,22 @@ public class DMGenerator {
         dsc.setDriverName("dm.jdbc.driver.DmDriver");
         dsc.setDbType(DbType.DM);
         dsc.setDbQuery(new DMQuery());
-        mpg.setDataSource(dsc);
+        // 代码生成器
+        AutoGenerator mpg = new AutoGenerator(dsc);
+
+        // 全局配置
+        GlobalConfig gc = GeneratorBuilder.globalConfig();
+        gc.setOutputDir("D://mpg");
+        gc.setAuthor("halower");
+        gc.setOpen(false);
+        // gc.setSwagger2(true); 实体属性 Swagger2 注解
+        mpg.global(gc);
 
         // 包配置
         PackageConfig pc = GeneratorBuilder.packageConfig();
         pc.setModuleName(scanner("模块名"));
         pc.setParent("com.baomidou.mytest");
-        mpg.setPackageInfo(pc);
+        mpg.packageInfo(pc);
 
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig();
@@ -108,7 +107,7 @@ public class DMGenerator {
                     + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML);
             }
         });
-        mpg.setCfg(cfg);
+        mpg.injection(cfg);
 
         // 配置模板
         TemplateConfig templateConfig = GeneratorBuilder.templateConfig();
@@ -120,7 +119,7 @@ public class DMGenerator {
         // templateConfig.setController();
 
         templateConfig.setXml(null);
-        mpg.setTemplate(templateConfig);
+        mpg.template(templateConfig);
 
         // 策略配置
         StrategyConfig strategy = GeneratorBuilder.strategyConfig();
@@ -134,8 +133,7 @@ public class DMGenerator {
         strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
-        mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
+        mpg.strategy(strategy);
+        mpg.execute(new FreemarkerTemplateEngine());
     }
 }
