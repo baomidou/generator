@@ -16,15 +16,16 @@
 package com.baomidou.mybatisplus.test.generator;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.generator.IFill;
 import com.baomidou.mybatisplus.generator.config.INameConvert;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
-import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.po.TableInfoTest;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.test.generator.entity.BaseEntity;
 import com.baomidou.mybatisplus.test.generator.entity.SuperEntity;
 import lombok.Data;
@@ -53,7 +54,7 @@ class StrategyConfigTest {
     void baseEntity() {
         StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(BaseEntity.class);
-        Set<String> columns = strategyConfig.getSuperEntityColumns();
+        Set<String> columns = strategyConfig.entity().getSuperEntityColumns();
         columns.forEach(System.out::println);
         assertThat(columns).containsAll(Arrays.asList("deleted", "createTime", "id"));
         Assertions.assertEquals(columns.size(), 3);
@@ -63,27 +64,27 @@ class StrategyConfigTest {
     void baseEntityNaming() {
         StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(BaseEntity.class).columnNaming(NamingStrategy.underline_to_camel);
-        Set<String> columns = strategyConfig.getSuperEntityColumns();
+        Set<String> columns = strategyConfig.entity().getSuperEntityColumns();
         columns.forEach(System.out::println);
         assertThat(columns).containsAll(Arrays.asList("deleted", "create_time", "id"));
         Assertions.assertEquals(columns.size(), 3);
 
         strategyConfig = GeneratorBuilder.strategyConfig();
-        strategyConfig.setSuperEntityColumns("aa", "bb").entityBuilder().superClass(BaseEntity.class).columnNaming(NamingStrategy.underline_to_camel);
-        Assertions.assertEquals(strategyConfig.getSuperEntityColumns().size(), 5);
-        assertThat(strategyConfig.getSuperEntityColumns()).containsAll(Arrays.asList("aa", "bb", "deleted", "create_time", "id"));
+        strategyConfig.entityBuilder().addSuperEntityColumns("aa", "bb").entityBuilder().superClass(BaseEntity.class).columnNaming(NamingStrategy.underline_to_camel);
+        Assertions.assertEquals(strategyConfig.entity().getSuperEntityColumns().size(), 5);
+        assertThat(strategyConfig.entity().getSuperEntityColumns()).containsAll(Arrays.asList("aa", "bb", "deleted", "create_time", "id"));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(BaseEntity.class).columnNaming(NamingStrategy.underline_to_camel).addSuperEntityColumns("aa", "bb");
-        Assertions.assertEquals(strategyConfig.getSuperEntityColumns().size(), 5);
-        assertThat(strategyConfig.getSuperEntityColumns()).containsAll(Arrays.asList("aa", "bb", "deleted", "create_time", "id"));
+        Assertions.assertEquals(strategyConfig.entity().getSuperEntityColumns().size(), 5);
+        assertThat(strategyConfig.entity().getSuperEntityColumns()).containsAll(Arrays.asList("aa", "bb", "deleted", "create_time", "id"));
     }
 
     @Test
     void superEntity() {
         StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(SuperEntity.class);
-        Set<String> columns = strategyConfig.getSuperEntityColumns();
+        Set<String> columns = strategyConfig.entity().getSuperEntityColumns();
         columns.forEach(System.out::println);
         assertThat(columns).containsAll(Arrays.asList("deleted", "id"));
         Assertions.assertEquals(columns.size(), 2);
@@ -95,19 +96,19 @@ class StrategyConfigTest {
 
         strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(SuperBean.class).columnNaming(NamingStrategy.no_change);
-        assertThat(strategyConfig.getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "testName"));
+        assertThat(strategyConfig.entity().getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "testName"));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(SuperBean.class).columnNaming(NamingStrategy.no_change);
-        assertThat(strategyConfig.getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "testName"));
+        assertThat(strategyConfig.entity().getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "testName"));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(SuperBean.class).columnNaming(NamingStrategy.underline_to_camel);
-        assertThat(strategyConfig.getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "test_name"));
+        assertThat(strategyConfig.entity().getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "test_name"));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig.entityBuilder().superClass(SuperBean.class).columnNaming(NamingStrategy.underline_to_camel);
-        assertThat(strategyConfig.getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "test_name"));
+        assertThat(strategyConfig.entity().getSuperEntityColumns()).containsAll(Arrays.asList("test_id", "aa_name", "ok", "test_name"));
 
     }
 
@@ -121,15 +122,15 @@ class StrategyConfigTest {
 
     @Test
     void addTableFillsTest() {
-        TableFill tableFill = new TableFill("test", FieldFill.INSERT);
-        List<TableFill> tableFillList = new ArrayList<>();
-        tableFillList.add(tableFill);
+        Column column = new Column("test", FieldFill.INSERT);
+        List<IFill> columnList = new ArrayList<>();
+        columnList.add(column);
         StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
-        strategyConfig.setTableFillList(tableFillList);
-        Assertions.assertFalse(strategyConfig.getTableFillList().isEmpty());
+        strategyConfig.entityBuilder().addTableFills(columnList);
+        Assertions.assertFalse(strategyConfig.entity().getTableFillList().isEmpty());
         strategyConfig = GeneratorBuilder.strategyConfig();
-        strategyConfig.entityBuilder().addTableFills(tableFill);
-        Assertions.assertFalse(strategyConfig.getTableFillList().isEmpty());
+        strategyConfig.entityBuilder().addTableFills(columnList);
+        Assertions.assertFalse(strategyConfig.entity().getTableFillList().isEmpty());
     }
 
     @Test
@@ -139,17 +140,17 @@ class StrategyConfigTest {
             null, null), "t_user");
 
         StrategyConfig.Builder strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
-        Assertions.assertEquals("T_user", strategyConfigBuilder.build().getNameConvert().entityNameConvert(tableInfo));
+        Assertions.assertEquals("T_user", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
         strategyConfigBuilder.addTablePrefix("t_", "a_");
-        Assertions.assertEquals("User", strategyConfigBuilder.build().getNameConvert().entityNameConvert(tableInfo));
+        Assertions.assertEquals("User", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
-        Assertions.assertEquals("TUser", strategyConfigBuilder.build().getNameConvert().entityNameConvert(tableInfo));
+        Assertions.assertEquals("TUser", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
 
         strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
         strategyConfigBuilder.addTablePrefix("t_", "a_");
-        Assertions.assertEquals("User", strategyConfigBuilder.build().getNameConvert().entityNameConvert(tableInfo));
+        Assertions.assertEquals("User", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         strategyConfigBuilder.entityBuilder().nameConvert(new INameConvert() {
@@ -163,7 +164,7 @@ class StrategyConfigTest {
                 return "bbbb";
             }
         });
-        Assertions.assertEquals("aaaa", strategyConfigBuilder.build().getNameConvert().entityNameConvert(tableInfo));
+        Assertions.assertEquals("aaaa", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
     }
 
     @Test
@@ -172,17 +173,17 @@ class StrategyConfigTest {
         StrategyConfig.Builder strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, strategyConfigBuilder.build(), null, null);
         TableField tableField = new TableField(configBuilder,"c_user_name");
-        Assertions.assertEquals("c_user_name", strategyConfigBuilder.build().getNameConvert().propertyNameConvert(tableField));
+        Assertions.assertEquals("c_user_name", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
         strategyConfigBuilder.addTablePrefix("t_", "c_");
-        Assertions.assertEquals("user_name", strategyConfigBuilder.build().getNameConvert().propertyNameConvert(tableField));
+        Assertions.assertEquals("user_name", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
-        Assertions.assertEquals("cUserName", strategyConfigBuilder.build().getNameConvert().propertyNameConvert(tableField));
+        Assertions.assertEquals("cUserName", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
 
         strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
         strategyConfigBuilder.addTablePrefix("t_", "c_");
-        Assertions.assertEquals("userName", strategyConfigBuilder.build().getNameConvert().propertyNameConvert(tableField));
+        Assertions.assertEquals("userName", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         strategyConfigBuilder.entityBuilder().nameConvert(new INameConvert() {
@@ -196,7 +197,7 @@ class StrategyConfigTest {
                 return "bbbb";
             }
         });
-        Assertions.assertEquals("bbbb", strategyConfigBuilder.build().getNameConvert().propertyNameConvert(tableField));
+        Assertions.assertEquals("bbbb", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
     }
 
     @Test
@@ -226,42 +227,36 @@ class StrategyConfigTest {
     @Test
     void isCapitalModeNamingTest() {
         Assertions.assertFalse(GeneratorBuilder.strategyConfig().isCapitalModeNaming("T_USER"));
-        Assertions.assertFalse(GeneratorBuilder.strategyConfig().setCapitalMode(true).isCapitalModeNaming("user"));
-        Assertions.assertFalse(GeneratorBuilder.strategyConfig().setCapitalMode(true).isCapitalModeNaming("user_name"));
-        Assertions.assertTrue(GeneratorBuilder.strategyConfig().setCapitalMode(true).isCapitalModeNaming("USER_NAME"));
-        Assertions.assertTrue(GeneratorBuilder.strategyConfig().setCapitalMode(true).isCapitalModeNaming("T_USER"));
-        Assertions.assertTrue(GeneratorBuilder.strategyConfig().setCapitalMode(true).isCapitalModeNaming("NAME"));
+        Assertions.assertFalse(GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().build().isCapitalModeNaming("user"));
+        Assertions.assertFalse(GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().build().isCapitalModeNaming("user_name"));
+        Assertions.assertTrue(GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().build().isCapitalModeNaming("USER_NAME"));
+        Assertions.assertTrue(GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().build().isCapitalModeNaming("T_USER"));
+        Assertions.assertTrue(GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().build().isCapitalModeNaming("NAME"));
     }
 
     private void buildAssert(StrategyConfig strategyConfig) {
         Assertions.assertTrue(strategyConfig.isSkipView());
-        Assertions.assertTrue(strategyConfig.isChainModel());
         Assertions.assertTrue(strategyConfig.entity().isChain());
-        Assertions.assertTrue(strategyConfig.isEntityLombokModel());
         Assertions.assertTrue(strategyConfig.entity().isLombok());
-        Assertions.assertTrue(strategyConfig.isEntitySerialVersionUID());
         Assertions.assertTrue(strategyConfig.entity().isSerialVersionUID());
-        Assertions.assertTrue(strategyConfig.isControllerMappingHyphenStyle());
         Assertions.assertTrue(strategyConfig.controller().isHyphenStyle());
-        Assertions.assertTrue(strategyConfig.isRestControllerStyle());
         Assertions.assertTrue(strategyConfig.controller().isRestStyle());
-        Assertions.assertEquals("com.baomidou.mp.SuperController", strategyConfig.getSuperControllerClass());
         Assertions.assertEquals("com.baomidou.mp.SuperController", strategyConfig.controllerBuilder().get().getSuperClass());
-        Assertions.assertEquals("com.baomidou.mp.SuperMapper", strategyConfig.getSuperMapperClass());
         Assertions.assertEquals("com.baomidou.mp.SuperMapper", strategyConfig.mapper().getSuperClass());
     }
 
     @Test
     void builderTest() {
         StrategyConfig strategyConfig;
-        strategyConfig = GeneratorBuilder.strategyConfig().setCapitalMode(true).setChainModel(true).setSkipView(true).setEntityLombokModel(true)
-            .setEntitySerialVersionUID(true).setControllerMappingHyphenStyle(true).setRestControllerStyle(true)
-            .setSuperControllerClass("com.baomidou.mp.SuperController").setSuperMapperClass("com.baomidou.mp.SuperMapper")
-        ;
+        strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().enableSkipView()
+            .entityBuilder().enableLombok().enableSerialVersionUID()
+            .controllerBuilder().enableHyphenStyle().enableRestStyle().superClass("com.baomidou.mp.SuperController")
+            .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
+
         buildAssert(strategyConfig);
-        strategyConfig = new StrategyConfig.Builder().skipView(true)
-            .entityBuilder().chainModel(true).lombok(true).serialVersionUID(true)
-            .controllerBuilder().superClass("com.baomidou.mp.SuperController").hyphenStyle(true).restStyle(true)
+        strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableSkipView()
+            .entityBuilder().enableChainModel().enableLombok().enableSerialVersionUID()
+            .controllerBuilder().superClass("com.baomidou.mp.SuperController").enableHyphenStyle().enableRestStyle()
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
         buildAssert(strategyConfig);
     }

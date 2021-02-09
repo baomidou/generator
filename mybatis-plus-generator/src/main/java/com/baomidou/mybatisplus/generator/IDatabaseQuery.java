@@ -193,7 +193,7 @@ public abstract class IDatabaseQuery {
                     if (isId) {
                         field.primaryKey(dbQuery.isKeyIdentity(result.getResultSet()));
                         tableInfo.setHavePrimaryKey(true);
-                        if (field.isKeyIdentityFlag() && (entity.getIdType() != null || globalConfig.getIdType() != null)) {
+                        if (field.isKeyIdentityFlag() && entity.getIdType() != null) {
                             LOGGER.warn("当前表[{}]的主键为自增主键，会导致全局主键的ID类型设置失效!", tableName);
                         }
                     }

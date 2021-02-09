@@ -127,17 +127,6 @@ public class Controller implements ITemplate {
         }
 
         /**
-         * 是否驼峰转连字符
-         *
-         * @return this
-         */
-        @Deprecated
-        public Builder hyphenStyle(boolean hyphenStyle) {
-            this.controller.hyphenStyle = hyphenStyle;
-            return this;
-        }
-
-        /**
          * 开启驼峰转连字符
          *
          * @return this
@@ -145,18 +134,6 @@ public class Controller implements ITemplate {
          */
         public Builder enableHyphenStyle() {
             this.controller.hyphenStyle = true;
-            return this;
-        }
-
-        /**
-         * 生成@RestController控制器
-         *
-         * @param restStyle 是否生成@RestController控制器
-         * @return this
-         */
-        @Deprecated
-        public Builder restStyle(boolean restStyle) {
-            this.controller.restStyle = restStyle;
             return this;
         }
 

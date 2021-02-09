@@ -40,15 +40,15 @@ public abstract class SimpleAutoGenerator {
         this.start();
 
         // 初始化配置数据源
-        new AutoGenerator(this.configBuilder(this.dataSourceConfigBuilder()))
+        new AutoGenerator(this.configBuilder(dataSourceConfigBuilder()))
                 // 全局配置
-                .global(this.configBuilder(this.globalConfigBuilder()))
+                .global(this.configBuilder(globalConfigBuilder()))
                 // 模板配置
-                .template(this.configBuilder(this.templateConfigBuilder()))
+                .template(this.configBuilder(templateConfigBuilder()))
                 // 包配置
-                .packageInfo(this.configBuilder(this.packageConfigBuilder()))
+                .packageInfo(this.configBuilder(packageConfigBuilder()))
                 // 策略配置
-                .strategy(this.configBuilder(this.strategyConfigBuilder()))
+                .strategy(this.configBuilder(strategyConfigBuilder()))
                 // 执行
                 .execute(this.templateEngine());
     }
@@ -76,14 +76,14 @@ public abstract class SimpleAutoGenerator {
         String outputDir = new File(System.getProperty("user.dir")) + File.separator + "build" + File.separator + "code";
         System.out.println("\n输出文件目录：" + outputDir);
         return new GlobalConfig.Builder().fileOverride(true).swagger2(true).outputDir(outputDir)
-                .author(scannerNext("\n请输入作者名称")).dateType(DateType.ONLY_DATE);
+                .author(scannerNext("\n请输入作者名称：")).dateType(DateType.ONLY_DATE);
     }
 
     /**
      * 生成文件包名配置 Builder
      */
     public IConfigBuilder<PackageConfig> packageConfigBuilder() {
-        return null;
+        return new PackageConfig.Builder().parent(scannerNext("\n请输入项目包名：")).moduleName(scannerNext("\n请输入项目模块名："));
     }
 
     /**
@@ -99,7 +99,7 @@ public abstract class SimpleAutoGenerator {
     public IConfigBuilder<StrategyConfig> strategyConfigBuilder() {
         return new StrategyConfig.Builder().addInclude(scannerNext("\n请输入表名多个英文逗号分隔：").split(","))
                 .entityBuilder().naming(NamingStrategy.underline_to_camel)
-                .controllerBuilder().restStyle(true).hyphenStyle(true);
+                .controllerBuilder().enableRestStyle().enableHyphenStyle();
     }
 
     /**

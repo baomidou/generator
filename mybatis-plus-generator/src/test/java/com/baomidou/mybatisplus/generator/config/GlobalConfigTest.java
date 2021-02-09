@@ -24,14 +24,8 @@ public class GlobalConfigTest {
 
     @Test
     void builderTest() {
-        GlobalConfig globalConfig;
-        globalConfig = GeneratorBuilder.globalConfig().setAuthor("mp")
-            .setDateType(DateType.SQL_PACK).setOpen(true).setOutputDir("/temp/code")
-            .setActiveRecord(true).setBaseColumnList(true).setBaseResultMap(true).setKotlin(true).setSwagger2(true);
-        buildAssert(globalConfig);
-        globalConfig = GeneratorBuilder.globalConfigBuilder().author("mp")
-            .dateType(DateType.SQL_PACK).openDir(true).outputDir("/temp/code").activeRecord(true).baseColumnList(true)
-            .baseColumnList(true).kotlin(true).swagger2(true).build();
+        GlobalConfig globalConfig = GeneratorBuilder.globalConfigBuilder().author("mp")
+            .dateType(DateType.SQL_PACK).openDir(true).outputDir("/temp/code").build();
         buildAssert(globalConfig);
     }
 

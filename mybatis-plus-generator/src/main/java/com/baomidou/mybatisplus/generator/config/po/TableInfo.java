@@ -15,22 +15,7 @@
  */
 package com.baomidou.mybatisplus.generator.config.po;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
@@ -40,6 +25,10 @@ import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -238,7 +227,7 @@ public class TableInfo {
             importSerializable = false;
             this.importPackages.add(superEntity);
         } else {
-            if (globalConfig.isActiveRecord() || entity.isActiveRecord()) {
+            if (entity.isActiveRecord()) {
                 // 无父类开启 AR 模式
                 this.importPackages.add(Model.class.getCanonicalName());
                 importSerializable = false;
@@ -250,7 +239,7 @@ public class TableInfo {
         if (this.isConvert()) {
             this.importPackages.add(TableName.class.getCanonicalName());
         }
-        IdType idType = Optional.ofNullable(entity.getIdType()).orElseGet(globalConfig::getIdType);
+        IdType idType = entity.getIdType();
         if (null != idType && this.isHavePrimaryKey()) {
             // 指定需要 IdType 场景
             this.importPackages.add(IdType.class.getCanonicalName());
@@ -296,28 +285,13 @@ public class TableInfo {
      */
     public void processTable() {
         String entityName = entity.getNameConvert().entityNameConvert(this);
-        this.setEntityName(this.getFileName(entityName, globalConfig.getEntityName(), () -> entity.getConverterFileName().convert(entityName)));
-        this.mapperName = this.getFileName(entityName, globalConfig.getMapperName(), () -> strategyConfig.mapper().getConverterMapperFileName().convert(entityName));
-        this.xmlName = this.getFileName(entityName, globalConfig.getXmlName(), () -> strategyConfig.mapper().getConverterXmlFileName().convert(entityName));
-        this.serviceName = this.getFileName(entityName, globalConfig.getServiceName(), () -> strategyConfig.service().getConverterServiceFileName().convert(entityName));
-        this.serviceImplName = this.getFileName(entityName, globalConfig.getServiceImplName(), () -> strategyConfig.service().getConverterServiceImplFileName().convert(entityName));
-        this.controllerName = this.getFileName(entityName, globalConfig.getControllerName(), () -> strategyConfig.controller().getConverterFileName().convert(entityName));
+        this.setEntityName(entity.getConverterFileName().convert(entityName));
+        this.mapperName = strategyConfig.mapper().getConverterMapperFileName().convert(entityName);
+        this.xmlName = strategyConfig.mapper().getConverterXmlFileName().convert(entityName);
+        this.serviceName = strategyConfig.service().getConverterServiceFileName().convert(entityName);
+        this.serviceImplName = strategyConfig.service().getConverterServiceImplFileName().convert(entityName);
+        this.controllerName = strategyConfig.controller().getConverterFileName().convert(entityName);
         this.importPackage();
-    }
-
-
-    /**
-     * 获取文件名称(含格式化处理)
-     *
-     * @param entityName   实体名
-     * @param value        文件名(支持格式化处理)
-     * @param defaultValue 默认文件名
-     * @return 文件名称
-     * @since 3.5.0
-     */
-    @Deprecated
-    public String getFileName(String entityName, String value, Supplier<String> defaultValue) {
-        return StringUtils.isNotBlank(value) ? String.format(value, entityName) : defaultValue.get();
     }
 
     public TableInfo setComment(String comment) {

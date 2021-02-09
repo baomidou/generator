@@ -2,8 +2,6 @@ package com.baomidou.mybatisplus.generator.engine;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
@@ -20,7 +18,6 @@ import java.util.Map;
  * @author nieqiurong 2020/10/11.
  */
 public class TemplateEngineTest {
-
 
     private void compatibleAssert(ConfigBuilder configBuilder) {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
@@ -39,30 +36,11 @@ public class TemplateEngineTest {
     void compatibleTest() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE", "sa", "").build();
         compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
-            new StrategyConfig.Builder().likeTable(new LikeTable("USER")).build(),
-            new TemplateConfig.Builder().build(),
-            GeneratorBuilder.globalConfig().setActiveRecord(true).setBaseColumnList(true).setEnableCache(true).setBaseResultMap(true).setIdType(IdType.INPUT)));
-
-        compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
-            new StrategyConfig.Builder().likeTable(new LikeTable("USER")).build(),
-            new TemplateConfig.Builder().build(),
-            GeneratorBuilder.globalConfigBuilder().activeRecord(true).baseColumnList(true).enableCache(true).baseResultMap(true).idType(IdType.INPUT).build()));
-
-        compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
             new StrategyConfig.Builder().likeTable(new LikeTable("USER"))
-                .entityBuilder().activeRecord(true).idType(IdType.INPUT)
-                .mapperBuilder().baseResultMap(true).baseColumnList(true).enableXmlCache(true)
+                .entityBuilder().enableActiveRecord().idType(IdType.INPUT)
+                .mapperBuilder().enableBaseResultMap().enableBaseColumnList()
                 .build(),
             new TemplateConfig.Builder().build(),
             GeneratorBuilder.globalConfig()));
-
-        compatibleAssert(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig,
-            new StrategyConfig.Builder().likeTable(new LikeTable("USER"))
-                .entityBuilder().activeRecord(true)
-                .mapperBuilder().baseResultMap(true).baseColumnList(true).enableXmlCache(true)
-                .build(),
-            new TemplateConfig.Builder().build(),
-            GeneratorBuilder.globalConfigBuilder().activeRecord(false).baseColumnList(false).enableCache(false).baseResultMap(false).idType(IdType.INPUT).build()));
     }
-
 }

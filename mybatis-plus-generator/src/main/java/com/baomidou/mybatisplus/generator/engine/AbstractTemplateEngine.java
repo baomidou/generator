@@ -33,7 +33,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 
@@ -345,27 +348,10 @@ public abstract class AbstractTemplateEngine {
         Map<String, Object> controllerData = config.getStrategyConfig().controller().renderData(tableInfo);
         Map<String, Object> objectMap = new HashMap<>(controllerData);
         Map<String, Object> mapperData = config.getStrategyConfig().mapper().renderData(tableInfo);
-        //　兼容过渡代码
-        if (globalConfig.isEnableCache()) {
-            mapperData.put("enableCache", true);
-        }
-        if (globalConfig.isBaseResultMap()) {
-            mapperData.put("baseResultMap", true);
-        }
-        if (globalConfig.isBaseColumnList()) {
-            mapperData.put("baseColumnList", true);
-        }
         objectMap.putAll(mapperData);
         Map<String, Object> serviceData = config.getStrategyConfig().service().renderData(tableInfo);
         objectMap.putAll(serviceData);
         Map<String, Object> entityData = config.getStrategyConfig().entity().renderData(tableInfo);
-        //　兼容过渡代码
-        if (globalConfig.getIdType() != null) {
-            entityData.put("idType", globalConfig.getIdType().toString());
-        }
-        if (globalConfig.isActiveRecord()) {
-            entityData.put("activeRecord", true);
-        }
         objectMap.putAll(entityData);
         objectMap.put("config", config);
         objectMap.put("package", config.getPackageConfig().getPackageInfo());

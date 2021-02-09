@@ -223,30 +223,6 @@ public class Entity implements ITemplate {
         return superEntityColumns.stream().anyMatch(e -> e.equalsIgnoreCase(fieldName));
     }
 
-    /**
-     * 获取乐观锁字段名称
-     *
-     * @return 乐观锁字段名称
-     * @see #getVersionColumnName()
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public String getVersionFieldName() {
-        return getVersionColumnName();
-    }
-
-    /**
-     * 获取逻辑删除字段名称
-     *
-     * @return 逻辑删除字段
-     * @see #getLogicDeleteColumnName()
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public String getLogicDeleteFieldName() {
-        return getLogicDeleteColumnName();
-    }
-
     @NotNull
     public INameConvert getNameConvert() {
         return nameConvert;
@@ -385,18 +361,6 @@ public class Entity implements ITemplate {
         }
 
         /**
-         * 实体是否生成serialVersionUID
-         *
-         * @param serialVersionUID 是否生成
-         * @return this
-         */
-        @Deprecated
-        public Builder serialVersionUID(boolean serialVersionUID) {
-            this.entity.serialVersionUID = serialVersionUID;
-            return this;
-        }
-
-        /**
          * 开启生成serialVersionUID
          *
          * @return this
@@ -404,18 +368,6 @@ public class Entity implements ITemplate {
          */
         public Builder enableSerialVersionUID() {
             this.entity.serialVersionUID = true;
-            return this;
-        }
-
-        /**
-         * 是否生成字段常量
-         *
-         * @param columnConstant 是否生成字段常量
-         * @return this
-         */
-        @Deprecated
-        public Builder columnConstant(boolean columnConstant) {
-            this.entity.columnConstant = columnConstant;
             return this;
         }
 
@@ -431,18 +383,6 @@ public class Entity implements ITemplate {
         }
 
         /**
-         * 实体是否为链式模型
-         *
-         * @param chain 是否为链式模型
-         * @return this
-         */
-        @Deprecated
-        public Builder chainModel(boolean chain) {
-            this.entity.chain = chain;
-            return this;
-        }
-
-        /**
          * 开启链式模型
          *
          * @return this
@@ -450,18 +390,6 @@ public class Entity implements ITemplate {
          */
         public Builder enableChainModel() {
             this.entity.chain = true;
-            return this;
-        }
-
-        /**
-         * 是否为lombok模型
-         *
-         * @param lombok 是否为lombok模型
-         * @return this
-         */
-        @Deprecated
-        public Builder lombok(boolean lombok) {
-            this.entity.lombok = lombok;
             return this;
         }
 
@@ -477,18 +405,6 @@ public class Entity implements ITemplate {
         }
 
         /**
-         * Boolean类型字段是否移除is前缀
-         *
-         * @param booleanColumnRemoveIsPrefix 是否移除
-         * @return this
-         */
-        @Deprecated
-        public Builder booleanColumnRemoveIsPrefix(boolean booleanColumnRemoveIsPrefix) {
-            this.entity.booleanColumnRemoveIsPrefix = booleanColumnRemoveIsPrefix;
-            return this;
-        }
-
-        /**
          * 开启Boolean类型字段移除is前缀
          *
          * @return this
@@ -496,18 +412,6 @@ public class Entity implements ITemplate {
          */
         public Builder enableRemoveIsPrefix() {
             this.entity.booleanColumnRemoveIsPrefix = true;
-            return this;
-        }
-
-        /**
-         * 生成实体时，是否生成字段注解
-         *
-         * @param tableFieldAnnotationEnable 是否生成
-         * @return this
-         */
-        @Deprecated
-        public Builder tableFieldAnnotationEnable(boolean tableFieldAnnotationEnable) {
-            this.entity.tableFieldAnnotationEnable = tableFieldAnnotationEnable;
             return this;
         }
 
@@ -520,18 +424,6 @@ public class Entity implements ITemplate {
         public Builder enableTableFieldAnnotation() {
             this.entity.tableFieldAnnotationEnable = true;
             return this;
-        }
-
-        /**
-         * 乐观锁属性名称
-         *
-         * @param versionFieldName 乐观锁属性名称
-         * @return this
-         * @see #versionColumnName(String)
-         */
-        @Deprecated
-        public Builder versionFieldName(String versionFieldName) {
-            return versionColumnName(versionFieldName);
         }
 
         /**
@@ -554,18 +446,6 @@ public class Entity implements ITemplate {
         public Builder versionPropertyName(String versionPropertyName) {
             this.entity.versionPropertyName = versionPropertyName;
             return this;
-        }
-
-        /**
-         * 逻辑删除属性名称
-         *
-         * @param logicDeleteFieldName 逻辑删除属性名称
-         * @return this
-         * @deprecated 3.5.0
-         */
-        @Deprecated
-        public Builder logicDeleteFieldName(String logicDeleteFieldName) {
-            return logicDeleteColumnName(logicDeleteFieldName);
         }
 
         /**
@@ -645,19 +525,6 @@ public class Entity implements ITemplate {
          */
         public Builder addTableFills(@NotNull List<IFill> tableFillList) {
             this.entity.tableFillList.addAll(tableFillList);
-            return this;
-        }
-
-        /**
-         * 是否开启 ActiveRecord 模式
-         *
-         * @param activeRecord 是否开启
-         * @return this
-         * @since 3.5.0
-         */
-        @Deprecated
-        public Builder activeRecord(boolean activeRecord) {
-            this.entity.activeRecord = activeRecord;
             return this;
         }
 

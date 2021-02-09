@@ -34,19 +34,19 @@ public class SqlServerTypeConvertTest {
         Assertions.assertEquals(FLOAT, convert.processTypeConvert(globalConfig, "real"));
 
         // 日期格式
-        globalConfig = GeneratorBuilder.globalConfig().setDateType(DateType.SQL_PACK);
+        globalConfig = GeneratorBuilder.globalConfigBuilder().dateType(DateType.SQL_PACK).build();
         Assertions.assertEquals(DATE_SQL, convert.processTypeConvert(globalConfig, "date"));
         Assertions.assertEquals(TIME, convert.processTypeConvert(globalConfig, "time"));
         Assertions.assertEquals(TIMESTAMP, convert.processTypeConvert(globalConfig, "timestamp"));
         Assertions.assertEquals(TIMESTAMP, convert.processTypeConvert(globalConfig, "datetime"));
 
-        globalConfig = GeneratorBuilder.globalConfig().setDateType(DateType.TIME_PACK);
+        globalConfig = GeneratorBuilder.globalConfigBuilder().dateType(DateType.TIME_PACK).build();
         Assertions.assertEquals(LOCAL_DATE, convert.processTypeConvert(globalConfig, "date"));
         Assertions.assertEquals(LOCAL_TIME, convert.processTypeConvert(globalConfig, "time"));
         Assertions.assertEquals(LOCAL_DATE_TIME, convert.processTypeConvert(globalConfig, "timestamp"));
         Assertions.assertEquals(LOCAL_DATE_TIME, convert.processTypeConvert(globalConfig, "datetime"));
 
-        globalConfig = GeneratorBuilder.globalConfig().setDateType(DateType.ONLY_DATE);
+        globalConfig = GeneratorBuilder.globalConfigBuilder().dateType(DateType.ONLY_DATE).build();
         Assertions.assertEquals(DATE, convert.processTypeConvert(globalConfig, "date"));
         Assertions.assertEquals(DATE, convert.processTypeConvert(globalConfig, "time"));
         Assertions.assertEquals(DATE, convert.processTypeConvert(globalConfig, "timestamp"));

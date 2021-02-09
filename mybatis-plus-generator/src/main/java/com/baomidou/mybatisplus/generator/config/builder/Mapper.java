@@ -60,14 +60,6 @@ public class Mapper implements ITemplate {
     private boolean baseColumnList;
 
     /**
-     * 是否在xml中添加二级缓存配置
-     *
-     * @since 3.5.0
-     */
-    @Deprecated
-    private boolean enableXmlCache;
-
-    /**
      * 转换输出Mapper文件名称
      *
      * @since 3.5.0
@@ -101,10 +93,6 @@ public class Mapper implements ITemplate {
         return baseColumnList;
     }
 
-    public boolean isEnableXmlCache() {
-        return enableXmlCache;
-    }
-
     public ConverterFileName getConverterMapperFileName() {
         return converterMapperFileName;
     }
@@ -121,7 +109,7 @@ public class Mapper implements ITemplate {
     @NotNull
     public Map<String, Object> renderData(@NotNull TableInfo tableInfo) {
         Map<String, Object> data = new HashMap<>();
-        boolean enableCache = this.enableXmlCache || this.cache != null;
+        boolean enableCache = this.cache != null;
         data.put("enableCache", enableCache);
         data.put("baseResultMap", this.baseResultMap);
         data.put("baseColumnList", this.baseColumnList);
@@ -168,32 +156,6 @@ public class Mapper implements ITemplate {
         /**
          * 开启baseResultMap
          *
-         * @param baseResultMap 是否开启baseResultMap
-         * @return this
-         * @since 3.5.0
-         */
-        @Deprecated
-        public Builder baseResultMap(boolean baseResultMap){
-            this.mapper.baseResultMap = baseResultMap;
-            return this;
-        }
-
-        /**
-         * 开启baseColumnList
-         *
-         * @param baseColumnList 是否开启baseColumnList
-         * @return this
-         * @since 3.5.0
-         */
-        @Deprecated
-        public Builder baseColumnList(boolean baseColumnList) {
-            this.mapper.baseColumnList = baseColumnList;
-            return this;
-        }
-
-        /**
-         * 开启baseResultMap
-         *
          * @return this
          * @since 3.5.0
          */
@@ -222,21 +184,6 @@ public class Mapper implements ITemplate {
          */
         public Builder cache(@NotNull Class<? extends Cache> cache) {
             this.mapper.cache = cache;
-            this.mapper.enableXmlCache = true;
-            return this;
-        }
-
-        /**
-         * 是否在xml中添加二级缓存配置
-         *
-         * @param enableXmlCache 是否开启
-         * @return this
-         * @see #cache(Class)
-         * @deprecated 3.5.0
-         */
-        @Deprecated
-        public Builder enableXmlCache(boolean enableXmlCache) {
-            this.mapper.enableXmlCache = enableXmlCache;
             return this;
         }
 
