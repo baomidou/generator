@@ -15,6 +15,7 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
+import com.baomidou.mybatisplus.generator.config.IConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import org.jetbrains.annotations.NotNull;
 

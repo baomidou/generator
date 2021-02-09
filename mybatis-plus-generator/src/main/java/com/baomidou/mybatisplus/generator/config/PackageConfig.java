@@ -18,7 +18,6 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;

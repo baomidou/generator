@@ -17,7 +17,6 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;

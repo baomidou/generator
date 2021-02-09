@@ -2,7 +2,7 @@ package com.baomidou.mybatisplus.test.generator;
 
 import com.baomidou.mybatisplus.generator.SimpleAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.IConfigBuilder;
 
 /**
  * H2 代码生成

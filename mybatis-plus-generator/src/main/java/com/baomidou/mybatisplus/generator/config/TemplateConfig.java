@@ -16,7 +16,6 @@
 package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

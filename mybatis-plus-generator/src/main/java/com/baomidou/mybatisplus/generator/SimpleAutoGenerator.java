@@ -1,7 +1,7 @@
 package com.baomidou.mybatisplus.generator;
 
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.IConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;

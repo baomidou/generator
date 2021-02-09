@@ -15,7 +15,6 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
-import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import org.jetbrains.annotations.NotNull;
 
