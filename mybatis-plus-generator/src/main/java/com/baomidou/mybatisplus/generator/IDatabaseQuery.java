@@ -167,12 +167,11 @@ public abstract class IDatabaseQuery {
             String tableName = tableInfo.getName();
             try {
                 final Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsMetaInfoMap = new HashMap<>();
-                if (dataSourceConfig.enableQueryMetaInfo) {
-                    Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsInfo =
-                        new DatabaseMetaDataWrapper(dbQuery.getConnection()).getColumnsInfo(null, dataSourceConfig.getSchemaName(), tableName);
-                    if (columnsInfo != null && !columnsInfo.isEmpty()) {
-                        columnsMetaInfoMap.putAll(columnsInfo);
-                    }
+                //TODO 增加元数据信息获取,后面查询表字段要改成这个.
+                Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsInfo =
+                    new DatabaseMetaDataWrapper(dbQuery.getConnection()).getColumnsInfo(null, dataSourceConfig.getSchemaName(), tableName);
+                if (columnsInfo != null && !columnsInfo.isEmpty()) {
+                    columnsMetaInfoMap.putAll(columnsInfo);
                 }
                 String tableFieldsSql = dbQuery.tableFieldsSql(tableName);
                 Set<String> h2PkColumns = new HashSet<>();
