@@ -27,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -43,10 +42,6 @@ public class DataSourceConfig {
      * 数据库信息查询
      */
     private IDbQuery dbQuery;
-    /**
-     * 数据库类型
-     */
-    private DbType dbType;
     /**
      * schemaName
      */
@@ -65,10 +60,6 @@ public class DataSourceConfig {
      * 驱动连接的URL
      */
     private String url;
-    /**
-     * 驱动名称
-     */
-    private String driverName;
     /**
      * 数据库连接用户名
      */
@@ -113,11 +104,7 @@ public class DataSourceConfig {
      */
     @NotNull
     public DbType getDbType() {
-        if (null == this.dbType) {
-            this.dbType = this.getDbType(this.url.toLowerCase());
-        }
-
-        return this.dbType;
+        return this.getDbType(this.url.toLowerCase());
     }
 
     /**
@@ -191,9 +178,6 @@ public class DataSourceConfig {
                     if (dataSource != null) {
                         connection = dataSource.getConnection();
                     } else {
-                        if (StringUtils.isNotBlank(driverName)) {
-                            Class.forName(driverName);
-                        }
                         this.connection = DriverManager.getConnection(url, username, password);
                     }
                 }
@@ -203,7 +187,7 @@ public class DataSourceConfig {
                 schemaName = schema;
                 connection.setSchema(schemaName);
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return connection;
@@ -251,11 +235,6 @@ public class DataSourceConfig {
     }
 
     @Nullable
-    public String getDriverName() {
-        return driverName;
-    }
-
-    @Nullable
     public String getUsername() {
         return username;
     }
@@ -289,6 +268,9 @@ public class DataSourceConfig {
          */
         public Builder(@NotNull String url, String username, String password) {
             this();
+            if (StringUtils.isBlank(url)) {
+                throw new RuntimeException("无法创建文件，请正确输入 url 配置信息！");
+            }
             this.dataSourceConfig.url = url;
             this.dataSourceConfig.username = username;
             this.dataSourceConfig.password = password;
@@ -325,17 +307,6 @@ public class DataSourceConfig {
         }
 
         /**
-         * 设置数据库类型
-         *
-         * @param dbType 数据库类型
-         * @return this
-         */
-        public Builder dbType(@NotNull DbType dbType) {
-            this.dataSourceConfig.dbType = dbType;
-            return this;
-        }
-
-        /**
          * 设置数据库schema
          *
          * @param schemaName 数据库schema
@@ -344,27 +315,6 @@ public class DataSourceConfig {
         public Builder schema(@NotNull String schemaName) {
             this.dataSourceConfig.schemaName = schemaName;
             return this;
-        }
-
-        /**
-         * 设置数据库驱动
-         *
-         * @param driverName 驱动名
-         * @return this
-         */
-        public Builder driver(@NotNull String driverName) {
-            this.dataSourceConfig.driverName = driverName;
-            return this;
-        }
-
-        /**
-         * 设置数据库驱动
-         *
-         * @param driver 驱动类
-         * @return this
-         */
-        public Builder driver(@NotNull Class<? extends Driver> driver) {
-            return driver(driver.getName());
         }
 
         /**

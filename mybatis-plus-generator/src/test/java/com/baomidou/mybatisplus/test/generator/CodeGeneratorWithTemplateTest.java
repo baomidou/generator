@@ -70,8 +70,7 @@ class CodeGeneratorWithTemplateTest {
         String dbUrl = "jdbc:mysql://localhost:3306/mybatis-plus";
         DataSourceConfig dataSourceConfig = new DataSourceConfig
             .Builder(dbUrl, "root", "")
-            .dbType(DbType.MYSQL)
-            .driver(Driver.class).build();
+            .build();
         StrategyConfig strategyConfig = GeneratorBuilder.strategyConfig();
         strategyConfig
             .setCapitalMode(true)

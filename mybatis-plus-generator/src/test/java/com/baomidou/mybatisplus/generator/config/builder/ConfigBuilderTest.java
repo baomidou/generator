@@ -16,7 +16,7 @@ import java.util.Map;
 public class ConfigBuilderTest {
 
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig.Builder("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
-        "sa", "").driver(Driver.class).build();
+        "sa", "").build();
 
     @Test
     void matcherRegTableTest(){

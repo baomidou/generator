@@ -43,7 +43,7 @@ class H2CodeGeneratorTest {
      */
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig
         .Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE","sa","")
-        .driver(Driver.class).build();
+        .build();
 
     /**
      * 全局配置

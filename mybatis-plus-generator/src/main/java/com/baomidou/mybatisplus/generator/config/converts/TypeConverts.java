@@ -95,5 +95,4 @@ public class TypeConverts {
             return false;
         });
     }
-
 }
