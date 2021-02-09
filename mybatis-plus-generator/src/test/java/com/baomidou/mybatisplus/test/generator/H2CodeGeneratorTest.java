@@ -1,25 +1,23 @@
 package com.baomidou.mybatisplus.test.generator;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
-import org.apache.ibatis.jdbc.ScriptRunner;
-import org.h2.Driver;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
+import org.apache.ibatis.jdbc.ScriptRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * H2代码生成
@@ -86,62 +84,6 @@ class H2CodeGeneratorTest {
         new AutoGenerator(DATA_SOURCE_CONFIG)
             .global(globalConfig())
             .strategy(strategyConfig().setNotLikeTable(new LikeTable("USERS")))
-            .execute();
-    }
-
-    @Test
-    void testInclude() {
-        new AutoGenerator(DATA_SOURCE_CONFIG)
-            .global(globalConfig())
-            .strategy(strategyConfig().setInclude("USERS"))
-            .execute();
-    }
-
-    @Test
-    void testExclude() {
-        new AutoGenerator(DATA_SOURCE_CONFIG)
-            .global(globalConfig())
-            .strategy(strategyConfig().setExclude("USERS"))
-            .execute();
-    }
-
-    @Test
-    void testLikeAndInclude(){
-        new AutoGenerator(DATA_SOURCE_CONFIG)
-            .global(globalConfig())
-            .strategy(strategyConfig().setLikeTable(new LikeTable("TABLE")).setInclude("TABLE_PRIVILEGES","TABLE_TYPES"))
-            .execute();
-    }
-
-    @Test
-    void testLikeAndExclude(){
-        new AutoGenerator(DATA_SOURCE_CONFIG)
-            .global(globalConfig())
-            .strategy(strategyConfig().setLikeTable(new LikeTable("TABLE")).setExclude("TABLE_PRIVILEGES","TABLE_TYPES"))
-            .execute();
-    }
-
-    @Test
-    void testNotLikeAndInclude(){
-        new AutoGenerator(DATA_SOURCE_CONFIG)
-            .global(globalConfig())
-            .strategy(strategyConfig().setNotLikeTable(new LikeTable("TABLE")).setInclude("USERS"))
-            .execute();
-    }
-
-    @Test
-    void testNotLikeAndExclude(){
-        new AutoGenerator(DATA_SOURCE_CONFIG)
-            .global(globalConfig())
-            .strategy(strategyConfig().setNotLikeTable(new LikeTable("TABLE")).setExclude("USERS"))
-            .execute();
-    }
-
-    @Test
-    void testSimple(){
-        new AutoGenerator(DATA_SOURCE_CONFIG)
-            .global(globalConfig())
-            .strategy(strategyConfig().setInclude("t_simple"))
             .execute();
     }
 }

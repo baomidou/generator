@@ -314,19 +314,6 @@ public class StrategyConfig {
     }
 
     /**
-     * @param tablePrefix 表前缀
-     * @return this
-     * @see Builder#addTablePrefix(String...)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public StrategyConfig setTablePrefix(@NotNull String... tablePrefix) {
-        this.tablePrefix.clear();   //保持语义
-        this.tablePrefix.addAll(Arrays.asList(tablePrefix));
-        return this;
-    }
-
-    /**
      * @param fieldName 字段名
      * @return 是否匹配
      * @see Entity.Builder#matchSuperEntityColumns(String)
@@ -348,32 +335,6 @@ public class StrategyConfig {
     public StrategyConfig setSuperEntityColumns(@NotNull String... superEntityColumns) {
         this.entityBuilder.get().getSuperEntityColumns().clear();    //保持语义
         this.entityBuilder.get().getSuperEntityColumns().addAll(Arrays.asList(superEntityColumns));
-        return this;
-    }
-
-    /**
-     * @param include 包含表
-     * @return this
-     * @see Builder#addInclude(String...)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public StrategyConfig setInclude(@NotNull String... include) {
-        this.include.clear();   //保持语义
-        this.include.addAll(Arrays.asList(include));
-        return this;
-    }
-
-    /**
-     * @param exclude 排除表
-     * @return this
-     * @see Builder#addExclude(String...)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public StrategyConfig setExclude(@NotNull String... exclude) {
-        this.exclude.clear();   //保持语义
-        this.exclude.addAll(Arrays.asList(exclude));
         return this;
     }
 
@@ -415,46 +376,6 @@ public class StrategyConfig {
     @Nullable
     public String getSuperEntityClass() {
         return entityBuilder.get().getSuperClass();
-    }
-
-    /**
-     * <p>
-     * 设置实体父类，该设置自动识别公共字段<br/>
-     * 属性 superEntityColumns 改配置无需再次配置
-     * </p>
-     * <p>
-     * 注意！！字段策略要在设置实体父类之前有效
-     * </p>
-     *
-     * @param clazz 实体父类 Class
-     * @return this
-     * @see Entity.Builder#superClass(Class)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz) {
-        this.entityBuilder.superClass(clazz);
-        return this;
-    }
-
-    /**
-     * <p>
-     * 设置实体父类，该设置自动识别公共字段<br/>
-     * 属性 superEntityColumns 改配置无需再次配置
-     * </p>
-     *
-     * @param clazz        实体父类 Class
-     * @param columnNaming 字段命名策略
-     * @return this
-     * @see Entity.Builder#columnNaming(NamingStrategy)
-     * @see Entity.Builder#superClass(Class)
-     * @deprecated 3.5.0 {@link #setSuperEntityClass(Class)} {@link #setColumnNaming(NamingStrategy)}
-     */
-    @Deprecated
-    public StrategyConfig setSuperEntityClass(@NotNull Class<?> clazz, @NotNull NamingStrategy columnNaming) {
-        this.entityBuilder.columnNaming(columnNaming);
-        this.entityBuilder.superClass(clazz);
-        return this;
     }
 
     /**

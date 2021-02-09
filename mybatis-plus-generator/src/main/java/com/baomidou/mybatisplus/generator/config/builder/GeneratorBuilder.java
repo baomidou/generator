@@ -68,6 +68,15 @@ public class GeneratorBuilder {
     }
 
     /**
+     * 策略配置项 Builder
+     *
+     * @return StrategyConfig.Builder
+     */
+    public static StrategyConfig.Builder strategyConfigBuilder() {
+        return new StrategyConfig.Builder();
+    }
+
+    /**
      * 策略配置项
      *
      * @return StrategyConfig
@@ -77,7 +86,7 @@ public class GeneratorBuilder {
     }
 
     /**
-     * 策略配置项
+     * 模板路径配置项
      *
      * @return TemplateConfig
      */

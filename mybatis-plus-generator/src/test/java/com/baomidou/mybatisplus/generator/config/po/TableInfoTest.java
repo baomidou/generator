@@ -59,7 +59,7 @@ public class TableInfoTest {
         TableInfo tableInfo;
         StrategyConfig strategyConfig;
         strategyConfig = GeneratorBuilder.strategyConfig();
-        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig()), "user").setName("user");
+        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig()), "user");
         tableInfo.processTable();
         Assertions.assertFalse(tableInfo.isConvert());
         Assertions.assertEquals("UserMapper", tableInfo.getMapperName());
@@ -93,7 +93,7 @@ public class TableInfoTest {
                 return field.getName();
             }
         });
-        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, null), "user").setName("user");
+        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, null), "user");
         tableInfo.processTable();
         Assertions.assertTrue(tableInfo.isConvert());
         Assertions.assertEquals("Euser", tableInfo.getEntityName());
@@ -206,20 +206,20 @@ public class TableInfoTest {
     @Test
     void setEntityNameTest() {
         ConfigBuilder configBuilder;
-        Assertions.assertTrue(new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user").setName("user").setEntityName("UserEntity").isConvert());
-        Assertions.assertFalse(new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user").setName("user").setEntityName("User").isConvert());
+        Assertions.assertTrue(new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user").setEntityName("UserEntity").isConvert());
+        Assertions.assertFalse(new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user").setEntityName("User").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig().setCapitalMode(true), null, null);
-        Assertions.assertFalse(new TableInfo(configBuilder, "USER").setName("USER").setEntityName("User").isConvert());
+        Assertions.assertFalse(new TableInfo(configBuilder, "USER").setEntityName("User").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig().setCapitalMode(true), null, null);
-        Assertions.assertTrue(new TableInfo(configBuilder, "USER").setName("USER").setEntityName("UserEntity").isConvert());
+        Assertions.assertTrue(new TableInfo(configBuilder, "USER").setEntityName("UserEntity").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig().setNaming(NamingStrategy.no_change), null, null);
-        Assertions.assertTrue(new TableInfo(configBuilder, "test_user").setName("test_user").setEntityName("TestUser").isConvert());
+        Assertions.assertTrue(new TableInfo(configBuilder, "test_user").setEntityName("TestUser").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig().setNaming(NamingStrategy.no_change), null, null);
-        Assertions.assertFalse(new TableInfo(configBuilder, "user").setName("user").setEntityName("User").isConvert());
+        Assertions.assertFalse(new TableInfo(configBuilder, "user").setEntityName("User").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig().setNaming(NamingStrategy.underline_to_camel), null, null);
-        Assertions.assertFalse(new TableInfo(configBuilder, "test_user").setName("test_user").setEntityName("TestUser").isConvert());
+        Assertions.assertFalse(new TableInfo(configBuilder, "test_user").setEntityName("TestUser").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig().setNaming(NamingStrategy.underline_to_camel), null, null);
-        Assertions.assertTrue(new TableInfo(configBuilder, "TEST_USER").setName("TEST_USER").setEntityName("TestUser").isConvert());
+        Assertions.assertTrue(new TableInfo(configBuilder, "TEST_USER").setEntityName("TestUser").isConvert());
     }
 
     @Test

@@ -320,17 +320,6 @@ public class TableInfo {
         return StringUtils.isNotBlank(value) ? String.format(value, entityName) : defaultValue.get();
     }
 
-    /**
-     * @param name 表名
-     * @return this
-     * @see #TableInfo(ConfigBuilder, String)
-     */
-    @Deprecated
-    public TableInfo setName(String name) {
-        this.name = name;
-        return this;
-    }
-
     public TableInfo setComment(String comment) {
         //TODO 暂时挪动到这
         this.comment = this.globalConfig.isSwagger2()
