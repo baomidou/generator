@@ -86,6 +86,15 @@ public class GeneratorBuilder {
     }
 
     /**
+     * 模板路径配置项 Builder
+     *
+     * @return TemplateConfig.Builder
+     */
+    public static TemplateConfig.Builder templateConfigBuilder() {
+        return new TemplateConfig.Builder();
+    }
+
+    /**
      * 模板路径配置项
      *
      * @return TemplateConfig

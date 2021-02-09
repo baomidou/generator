@@ -21,7 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * 模板路径配置项
  *
@@ -65,96 +64,6 @@ public class TemplateConfig {
     }
 
     /**
-     * 设置实体模板
-     *
-     * @param entity 实体模板
-     * @return this
-     * @see Builder#entity(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TemplateConfig setEntity(String entity) {
-        logger(entity, TemplateType.ENTITY);
-        this.entity = entity;
-        return this;
-    }
-
-    /**
-     * 设置service接口模板
-     *
-     * @param service service接口模板
-     * @return this
-     * @see Builder#service(String, String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TemplateConfig setService(String service) {
-        logger(service, TemplateType.SERVICE);
-        this.service = service;
-        return this;
-    }
-
-    /**
-     * 设置service实现类模板
-     *
-     * @param serviceImpl service实现类模板
-     * @return this
-     * @see Builder#service(String, String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TemplateConfig setServiceImpl(String serviceImpl) {
-        logger(serviceImpl, TemplateType.SERVICE);
-        this.serviceImpl = serviceImpl;
-        return this;
-    }
-
-    /**
-     * 设置mapper模板
-     *
-     * @param mapper mapper模板
-     * @return this
-     * @see Builder#mapper(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TemplateConfig setMapper(String mapper) {
-        logger(mapper, TemplateType.ENTITY);
-        this.mapper = mapper;
-        return this;
-    }
-
-    /**
-     * 设置mapperXml模板
-     *
-     * @param xml mapperXml模板
-     * @return this
-     * @see Builder#mapperXml(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TemplateConfig setXml(String xml) {
-        logger(xml, TemplateType.XML);
-        this.xml = xml;
-        return this;
-    }
-
-    /**
-     * 设置控制器模板
-     *
-     * @param controller 控制器模板
-     * @return this
-     * @see Builder#controller(String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TemplateConfig setController(String controller) {
-        logger(controller, TemplateType.CONTROLLER);
-        this.controller = controller;
-        return this;
-    }
-
-    /**
      * 当模板赋值为空时进行日志提示打印
      *
      * @param value        模板值
@@ -164,28 +73,6 @@ public class TemplateConfig {
         if (StringUtils.isBlank(value)) {
             LOGGER.warn("推荐使用disable(TemplateType.{})方法进行默认模板禁用.", templateType.name());
         }
-    }
-
-    /**
-     * 设置实体模板路径
-     *
-     * @param entityKt 模板路径
-     * @deprecated 3.5.0 {@link #setEntity(String)}
-     */
-    @Deprecated
-    public TemplateConfig setEntityKt(String entityKt) {
-        logger(entityKt, TemplateType.ENTITY);
-        this.entityKt = entityKt;
-        return this;
-    }
-
-    /**
-     * @return 获取实体模板路径
-     * @deprecated 3.5.0 {@link #getEntity(boolean)}
-     */
-    @Deprecated
-    public String getEntityKt() {
-        return this.entityKt;
     }
 
     /**
