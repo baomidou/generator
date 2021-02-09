@@ -75,8 +75,6 @@ public class TableField {
      */
     private MetaInfo metaInfo;
 
-    private final StrategyConfig strategyConfig;
-
     private final Entity entity;
 
     private final DataSourceConfig dataSourceConfig;
@@ -93,47 +91,9 @@ public class TableField {
     public TableField(@NotNull ConfigBuilder configBuilder, @NotNull String name) {
         this.name = name;
         this.columnName = name;
-        this.strategyConfig = configBuilder.getStrategyConfig();
         this.entity = configBuilder.getStrategyConfig().entity();
         this.dataSourceConfig = configBuilder.getDataSourceConfig();
         this.globalConfig = configBuilder.getGlobalConfig();
-    }
-
-    /**
-     * @param convert
-     * @return this
-     * @see #setConvert()
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableField setConvert(boolean convert) {
-        this.convert = convert;
-        return this;
-    }
-
-    /**
-     * @return this
-     */
-    @Deprecated
-    protected TableField setConvert() {
-        if (entity.isTableFieldAnnotationEnable() || isKeyWords()) {
-            this.convert = true;
-            return this;
-        }
-        if (strategyConfig.isCapitalModeNaming(name)) {
-            this.convert = !name.equalsIgnoreCase(propertyName);
-        } else {
-            // 转换字段
-            if (NamingStrategy.underline_to_camel == entity.getColumnNaming()) {
-                // 包含大写处理
-                if (StringUtils.containsUpperCase(name)) {
-                    this.convert = true;
-                }
-            } else if (!name.equals(propertyName)) {
-                this.convert = true;
-            }
-        }
-        return this;
     }
 
     /**
@@ -154,19 +114,6 @@ public class TableField {
             return this;
         }
         this.propertyName = propertyName;
-        //TODO 先放置在这里调用
-        this.setConvert();
-        return this;
-    }
-
-    /**
-     * @param columnType 字段类型
-     * @return this
-     * @deprecated 3.5.0 {@link #setPropertyName(String, IColumnType)}
-     */
-    @Deprecated
-    public TableField setColumnType(@NotNull IColumnType columnType) {
-        this.columnType = columnType;
         return this;
     }
 
@@ -238,32 +185,6 @@ public class TableField {
     }
 
     /**
-     * @param keyFlag 主键标识
-     * @return this
-     * @see #primaryKey(boolean)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableField setKeyFlag(boolean keyFlag) {
-        this.keyFlag = keyFlag;
-        return this;
-    }
-
-    /**
-     * 主键自增标志
-     *
-     * @param keyIdentityFlag 自增标志
-     * @return this
-     * @see #primaryKey(boolean)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableField setKeyIdentityFlag(boolean keyIdentityFlag) {
-        this.keyIdentityFlag = keyIdentityFlag;
-        return this;
-    }
-
-    /**
      * 设置主键
      *
      * @param autoIncrement 自增标识
@@ -276,31 +197,6 @@ public class TableField {
         return this;
     }
 
-    /**
-     * @param fill 填充策略
-     * @return this
-     * @see #TableField(ConfigBuilder, String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableField setFill(String fill) {
-        this.fill = fill;
-        return this;
-    }
-
-    /**
-     * 设置数据库字段名
-     *
-     * @param name 数据库字段名
-     * @see #TableField(ConfigBuilder, String)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableField setName(String name) {
-        this.name = name;
-        return this;
-    }
-
     public TableField setType(String type) {
         this.type = type;
         return this;
@@ -310,12 +206,6 @@ public class TableField {
         //TODO 暂时挪动到这
         this.comment = this.globalConfig.isSwagger2()
             && StringUtils.isNotBlank(comment) ? comment.replace("\"", "\\\"") : comment;
-        return this;
-    }
-
-    @Deprecated
-    public TableField setKeyWords(boolean keyWords) {
-        this.keyWords = keyWords;
         return this;
     }
 
