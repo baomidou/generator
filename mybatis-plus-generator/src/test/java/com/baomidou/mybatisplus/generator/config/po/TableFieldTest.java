@@ -1,8 +1,6 @@
 package com.baomidou.mybatisplus.generator.config.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
@@ -112,7 +110,7 @@ public class TableFieldTest {
         strategyConfig = new StrategyConfig.Builder()
             .entityBuilder()
             .addTableFills(
-                new TableFill("create_time", FieldFill.INSERT), new TableFill("update_time", FieldFill.UPDATE),
+                new Column("create_time", FieldFill.INSERT), new Column("update_time", FieldFill.UPDATE),
                 new Property("createBy", FieldFill.INSERT), new Property("updateBy", FieldFill.INSERT),
                 new Column("create_user")
             ).build();
