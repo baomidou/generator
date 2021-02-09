@@ -103,7 +103,7 @@ public class TableInfoTest {
         Assertions.assertEquals(1, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
 
-        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user").setConvert(true);
+        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user").setConvert();
         tableInfo.importPackage();
         Assertions.assertEquals(2, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));

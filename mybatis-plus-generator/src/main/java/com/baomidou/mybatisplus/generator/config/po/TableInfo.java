@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
  * @since 2016/8/30
  */
 public class TableInfo {
-
     private final StrategyConfig strategyConfig;
     private final GlobalConfig globalConfig;
     private final Set<String> importPackages = new HashSet<>();
@@ -76,20 +75,9 @@ public class TableInfo {
     }
 
     /**
-     * @param convert convert
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setConvert(boolean convert) {
-        this.convert = convert;
-        return this;
-    }
-
-    /**
      * @since 3.5.0
      */
-    protected void setConvert() {
+    protected TableInfo setConvert() {
         if (strategyConfig.startsWithTablePrefix(name) || entity.isTableFieldAnnotationEnable()) {
             // 包含前缀
             this.convert = true;
@@ -107,6 +95,7 @@ public class TableInfo {
                 this.convert = true;
             }
         }
+        return this;
     }
 
     public String getEntityPath() {
@@ -125,16 +114,6 @@ public class TableInfo {
     }
 
     /**
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setFields(@NotNull List<TableField> fields) {
-        this.fields.clear();    //保持语义
-        this.fields.addAll(fields);
-        return this;
-    }
-
-    /**
      * 添加字段
      *
      * @param field 字段
@@ -149,45 +128,12 @@ public class TableInfo {
     }
 
     /**
-     * @param pkg 包空间
-     * @return this
-     * @see #addImportPackages(String...)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setImportPackages(@NotNull String pkg) {
-        importPackages.clear(); //保持语义
-        return addImportPackages(pkg);
-    }
-
-    /**
      * @param pkgs 包空间
      * @return this
      * @since 3.5.0
      */
     public TableInfo addImportPackages(@NotNull String... pkgs) {
         importPackages.addAll(Arrays.asList(pkgs));
-        return this;
-    }
-
-    /**
-     * 逻辑删除
-     *
-     * @see TableField#isLogicDeleteField()
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public boolean isLogicDelete(String logicDeletePropertyName) {
-        return fields.parallelStream().anyMatch(tf -> tf.getName().equals(logicDeletePropertyName));
-    }
-
-    /**
-     * @param fieldNames fieldNames
-     * @deprecated 3.5.0 不打算公开此方法了
-     */
-    @Deprecated
-    public TableInfo setFieldNames(String fieldNames) {
-        this.fieldNames = fieldNames;
         return this;
     }
 
@@ -200,18 +146,6 @@ public class TableInfo {
             this.fieldNames = this.fields.stream().map(TableField::getColumnName).collect(Collectors.joining(", "));
         }
         return this.fieldNames;
-    }
-
-    /**
-     * @param commonFields 公共字段
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setCommonFields(@NotNull List<TableField> commonFields) {
-        this.commonFields.clear(); //保持语义
-        this.commonFields.addAll(commonFields);
-        return this;
     }
 
     /**
@@ -298,61 +232,6 @@ public class TableInfo {
         //TODO 暂时挪动到这
         this.comment = this.globalConfig.isSwagger2()
             && StringUtils.isNotBlank(comment) ? comment.replace("\"", "\\\"") : comment;
-        return this;
-    }
-
-    /**
-     * @param mapperName mapper文件名称
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setMapperName(String mapperName) {
-        this.mapperName = mapperName;
-        return this;
-    }
-
-    /**
-     * @param xmlName xml文件名称
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setXmlName(String xmlName) {
-        this.xmlName = xmlName;
-        return this;
-    }
-
-    /**
-     * @param serviceName service文件名称
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-        return this;
-    }
-
-    /**
-     * @param serviceImplName serviceImpl文件名称
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setServiceImplName(String serviceImplName) {
-        this.serviceImplName = serviceImplName;
-        return this;
-    }
-
-    /**
-     * @param controllerName controller文件名称
-     * @return this
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public TableInfo setControllerName(String controllerName) {
-        this.controllerName = controllerName;
         return this;
     }
 

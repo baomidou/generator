@@ -15,27 +15,15 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.regex.Pattern;
-
 import com.baomidou.mybatisplus.generator.IDatabaseQuery;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
+import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * 配置汇总 传递给文件生成工具
@@ -44,7 +32,6 @@ import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
  * @since 2016-08-30
  */
 public class ConfigBuilder {
-
     /**
      * 模板路径配置信息
      */
@@ -103,35 +90,6 @@ public class ConfigBuilder {
     }
 
     /**
-     * 格式化数据库注释内容
-     *
-     * @param comment 注释
-     * @return 注释
-     * @see DecoratorDbQuery.ResultSetWrapper#formatComment(java.lang.String)
-     * @since 3.4.0
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    @NotNull
-    public String formatComment(@Nullable String comment) {
-        return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
-    }
-
-    /**
-     * 不再建议调用此方法，后续不再公开此方法.
-     *
-     * @param tableInfoList tableInfoList
-     * @return configBuild
-     * @deprecated 3.5.0 {@link #getTableInfoList()} 返回引用，如果有需要请直接操作
-     */
-    @Deprecated
-    public ConfigBuilder setTableInfoList(@NotNull List<TableInfo> tableInfoList) {
-        this.tableInfoList.clear(); //保持语义
-        this.tableInfoList.addAll(tableInfoList);
-        return this;
-    }
-
-    /**
      * 判断表名是否为正则表名(这表名规范比较随意,只能尽量匹配上特殊符号)
      *
      * @param tableName 表名
@@ -140,18 +98,6 @@ public class ConfigBuilder {
      */
     public static boolean matcherRegTable(@NotNull String tableName) {
         return REGX.matcher(tableName).find();
-    }
-
-    /**
-     * 获取包配置信息
-     *
-     * @return 包配置信息
-     * @see PackageConfig#getPackageInfo()
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public Map<String, String> getPackageInfo() {
-        return packageConfig.getPackageInfo();
     }
 
     @NotNull
