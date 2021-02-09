@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
  * @author nieqiurong 2020/10/11.
  * @since 3.5.0
  */
-public class BaseBuilder {
+public class BaseBuilder implements IConfigBuilder<StrategyConfig> {
 
     private final StrategyConfig strategyConfig;
 
@@ -53,6 +53,7 @@ public class BaseBuilder {
     }
 
     @NotNull
+    @Override
     public StrategyConfig build() {
         return this.strategyConfig;
     }

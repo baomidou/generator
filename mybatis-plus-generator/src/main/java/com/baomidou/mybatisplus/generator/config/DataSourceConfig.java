@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
@@ -271,7 +272,7 @@ public class DataSourceConfig {
      * @author nieqiurong 2020/10/10.
      * @since 3.5.0
      */
-    public static class Builder {
+    public static class Builder implements IConfigBuilder<DataSourceConfig> {
 
         private final DataSourceConfig dataSourceConfig;
 
@@ -393,6 +394,7 @@ public class DataSourceConfig {
          *
          * @return 数据库配置
          */
+        @Override
         public DataSourceConfig build() {
             return this.dataSourceConfig;
         }

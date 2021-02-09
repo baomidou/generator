@@ -16,7 +16,7 @@
 package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -276,7 +276,7 @@ public class TemplateConfig {
      *
      * @author nieqiurong 3.5.0
      */
-    public static class Builder {
+    public static class Builder implements IConfigBuilder<TemplateConfig> {
 
         private final TemplateConfig templateConfig;
 
@@ -382,6 +382,7 @@ public class TemplateConfig {
          *
          * @return 模板配置对象
          */
+        @Override
         public TemplateConfig build() {
             return this.templateConfig;
         }

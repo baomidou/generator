@@ -16,10 +16,7 @@
 package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.generator.config.builder.Service;
-import com.baomidou.mybatisplus.generator.config.builder.Controller;
-import com.baomidou.mybatisplus.generator.config.builder.Entity;
-import com.baomidou.mybatisplus.generator.config.builder.Mapper;
+import com.baomidou.mybatisplus.generator.config.builder.*;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import org.jetbrains.annotations.NotNull;
 
@@ -468,7 +465,7 @@ public class GlobalConfig {
      * @author nieqiurong 2020/10/11.
      * @since 3.5.0
      */
-    public static class Builder {
+    public static class Builder implements IConfigBuilder<GlobalConfig> {
 
         private final GlobalConfig globalConfig;
 
@@ -641,6 +638,7 @@ public class GlobalConfig {
             return commentDate(() -> new SimpleDateFormat(pattern).format(new Date()));
         }
 
+        @Override
         public GlobalConfig build() {
             return this.globalConfig;
         }

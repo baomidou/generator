@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.config.builder.IConfigBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -173,7 +174,7 @@ public class PackageConfig {
      * @author nieqiurong 2020/10/13.
      * @since 3.5.0
      */
-    public static class Builder {
+    public static class Builder implements IConfigBuilder<PackageConfig> {
 
         private final PackageConfig packageConfig;
 
@@ -308,6 +309,7 @@ public class PackageConfig {
          *
          * @return 包配置对象
          */
+        @Override
         public PackageConfig build() {
             //TODO 后面考虑把那些entity包名挂到Entity上去
             return this.packageConfig;
