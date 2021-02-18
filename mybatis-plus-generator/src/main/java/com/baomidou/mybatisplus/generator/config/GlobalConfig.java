@@ -125,8 +125,11 @@ public class GlobalConfig {
             this.globalConfig = new GlobalConfig();
         }
 
-        public Builder fileOverride(boolean fileOverride) {
-            this.globalConfig.fileOverride = fileOverride;
+        /**
+         * 覆盖已有文件
+         */
+        public Builder fileOverride() {
+            this.globalConfig.fileOverride = true;
             return this;
         }
 
@@ -145,13 +148,19 @@ public class GlobalConfig {
             return this;
         }
 
-        public Builder kotlin(boolean kotlin) {
-            this.globalConfig.kotlin = kotlin;
+        /**
+         * 开启 kotlin 模式
+         */
+        public Builder enableKotlin() {
+            this.globalConfig.kotlin = true;
             return this;
         }
 
-        public Builder swagger2(boolean swagger2) {
-            this.globalConfig.swagger2 = swagger2;
+        /**
+         * 开启 swagger2 模式
+         */
+        public Builder enableSwagger2() {
+            this.globalConfig.swagger2 = true;
             return this;
         }
 

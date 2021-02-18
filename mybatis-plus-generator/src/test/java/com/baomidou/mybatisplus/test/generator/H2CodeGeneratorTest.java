@@ -37,7 +37,7 @@ class H2CodeGeneratorTest {
      * 数据源配置
      */
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig
-        .Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE","sa","")
+        .Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE", "sa", "")
         .build();
 
     /**
@@ -48,7 +48,7 @@ class H2CodeGeneratorTest {
             .outputDir(System.getProperty("os.name").toLowerCase().contains("windows") ? "D://tmp" : "/tmp")// 输出目录
             .author("test")// 作者
             .openDir(false)// 是否打开输出目录
-            .fileOverride(true)// 是否覆盖已有文件
+            .fileOverride()// 覆盖已有文件
             .build();
     }
 

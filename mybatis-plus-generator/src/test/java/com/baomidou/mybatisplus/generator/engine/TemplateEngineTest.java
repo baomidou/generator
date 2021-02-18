@@ -22,10 +22,11 @@ public class TemplateEngineTest {
     private void compatibleAssert(ConfigBuilder configBuilder) {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
         velocityTemplateEngine.setConfigBuilder(configBuilder);
-        TableInfo tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null), "user");
+        TableInfo tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig,
+            GeneratorBuilder.strategyConfig(), null, null), "user");
         tableInfo.processTable();
         Map<String, Object> objectMap = velocityTemplateEngine.getObjectMap(tableInfo);
-        Assertions.assertEquals(Boolean.TRUE, objectMap.get("enableCache"));
+        Assertions.assertEquals(Boolean.FALSE, objectMap.get("enableCache"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("baseResultMap"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("baseColumnList"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("activeRecord"));

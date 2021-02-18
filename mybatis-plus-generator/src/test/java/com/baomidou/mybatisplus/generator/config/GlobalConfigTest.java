@@ -24,8 +24,8 @@ public class GlobalConfigTest {
 
     @Test
     void builderTest() {
-        GlobalConfig globalConfig = GeneratorBuilder.globalConfigBuilder().author("mp")
-            .dateType(DateType.SQL_PACK).openDir(true).outputDir("/temp/code").build();
+        GlobalConfig globalConfig = GeneratorBuilder.globalConfigBuilder().author("mp").enableKotlin()
+            .enableSwagger2().dateType(DateType.SQL_PACK).openDir(true).outputDir("/temp/code").build();
         buildAssert(globalConfig);
     }
 

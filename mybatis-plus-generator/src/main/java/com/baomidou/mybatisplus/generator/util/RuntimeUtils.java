@@ -30,6 +30,12 @@ public class RuntimeUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuntimeUtils.class);
 
+    /**
+     * 打开指定输出文件目录
+     *
+     * @param outDir 输出文件目录
+     * @throws IOException
+     */
     public static void openDir(String outDir) throws IOException {
         String osName = System.getProperty("os.name");
         if (osName != null) {
@@ -44,5 +50,4 @@ public class RuntimeUtils {
             LOGGER.warn("读取操作系统失败");
         }
     }
-
 }
