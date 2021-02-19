@@ -71,7 +71,7 @@ public class Mapper implements ITemplate {
      *
      * @since 3.5.0
      */
-    private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.XML);
+    private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.MAPPER);
 
     /**
      * 设置缓存实现类
