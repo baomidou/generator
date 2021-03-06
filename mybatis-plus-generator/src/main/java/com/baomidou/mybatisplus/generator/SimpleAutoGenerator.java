@@ -29,7 +29,7 @@ public abstract class SimpleAutoGenerator {
      */
     public String scannerNext(String message) {
         System.out.println(message);
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     /**
