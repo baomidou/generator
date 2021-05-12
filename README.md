@@ -66,12 +66,14 @@ new DataSourceConfig
 | swagger2        | 是否生成swagger2注解 | 默认值:false |
 | dateType        | 时间策略 | DateType.ONLY_DATE 默认值: DateType.TIME_PACK |
 | commentDate | 注释日期 | 默认值: yyyy-MM-dd |
+| dynamicDataSource | 动态数据源支持，详见 https://github.com/baomidou/dynamic-datasource-spring-boot-starter | 默认值: 无， Demo: #header ds |
 
 ```java
 GeneratorBuilder.globalConfigBuilder()
    .fileOverride(true).openDir(true).kotlin(false).swagger2(true)
    .outputDir("/opt/baomidou")
    .author("baomidou").dateType(DateType.TIME_PACK).commentDate("yyyy-MM-dd")
+   .dynamicDataSource("#header ds")
    .build();
 ```
 
