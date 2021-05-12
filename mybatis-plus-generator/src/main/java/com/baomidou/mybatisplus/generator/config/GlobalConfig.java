@@ -67,6 +67,12 @@ public class GlobalConfig {
     private DateType dateType = DateType.TIME_PACK;
 
     /**
+     * 支持动态数据源的@DS 注解
+     * https://github.com/baomidou/dynamic-datasource-spring-boot-starter
+     */
+    private String dynamicDataSource;
+
+    /**
      * 获取注释日期
      *
      * @since 3.5.0
@@ -109,6 +115,14 @@ public class GlobalConfig {
     @NotNull
     public String getCommentDate() {
         return commentDate.get();
+    }
+
+    public String getDynamicDataSource() {
+        return dynamicDataSource;
+    }
+
+    public void setDynamicDataSource(String dynamicDataSource) {
+        this.dynamicDataSource = dynamicDataSource;
     }
 
     /**
@@ -191,6 +205,18 @@ public class GlobalConfig {
          */
         public Builder commentDate(@NotNull String pattern) {
             return commentDate(() -> new SimpleDateFormat(pattern).format(new Date()));
+        }
+
+        /**
+         * 设置动态数据源
+         * @see GlobalConfig#dynamicDataSource
+         *
+         * @param dynamicDataSource 动态数据源配置
+         * @return this
+         */
+        public Builder dynamicDataSource(@NotNull String dynamicDataSource) {
+            this.globalConfig.dynamicDataSource = dynamicDataSource;
+            return this;
         }
 
         @Override

@@ -1,5 +1,8 @@
 package ${package.ServiceImpl};
 
+<% if(isNotEmpty(config.globalConfig.dynamicDataSource)){ %>
+import com.baomidou.dynamic.datasource.annotation.DS;
+<% } %>
 import ${package.Entity}.${entity};
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
@@ -15,6 +18,9 @@ import org.springframework.stereotype.Service;
  * @since ${date}
  */
 @Service
+<% if(isNotEmpty(config.globalConfig.dynamicDataSource)){ %>
+@DS("${config.globalConfig.dynamicDataSource}")
+<% } %>
 <% if(kotlin){ %>
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
 
