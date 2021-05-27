@@ -142,6 +142,8 @@ public class DataSourceConfig {
             return DbType.FIREBIRD;
         } else if (str.contains(":xugu:")) {
             return DbType.XU_GU;
+        }  else if (str.contains(":clickhouse:")) {
+            return DbType.CLICK_HOUSE;
         } else {
             return DbType.OTHER;
         }

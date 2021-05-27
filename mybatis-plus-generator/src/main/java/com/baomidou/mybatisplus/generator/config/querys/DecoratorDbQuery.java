@@ -252,7 +252,7 @@ public class DecoratorDbQuery extends AbstractDbQuery {
 
         public boolean isPrimaryKey() {
             String key = this.getStringResult(dbQuery.fieldKey());
-            if (DbType.DB2 == dbType || DbType.SQLITE == dbType) {
+            if (DbType.DB2 == dbType || DbType.SQLITE == dbType || DbType.CLICK_HOUSE == dbType) {
                 return StringUtils.isNotBlank(key) && "1".equals(key);
             } else {
                 return StringUtils.isNotBlank(key) && "PRI".equalsIgnoreCase(key);
