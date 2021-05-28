@@ -57,9 +57,9 @@ public class GlobalConfig {
     private boolean kotlin = false;
 
     /**
-     * 开启 swagger2 模式
+     * 开启 swagger 模式
      */
-    private boolean swagger2 = false;
+    private boolean swagger = false;
 
     /**
      * 时间类型对应策略
@@ -97,8 +97,8 @@ public class GlobalConfig {
         return kotlin;
     }
 
-    public boolean isSwagger2() {
-        return swagger2;
+    public boolean isSwagger() {
+        return swagger;
     }
 
     @NotNull
@@ -157,10 +157,10 @@ public class GlobalConfig {
         }
 
         /**
-         * 开启 swagger2 模式
+         * 开启 swagger 模式
          */
-        public Builder enableSwagger2() {
-            this.globalConfig.swagger2 = true;
+        public Builder enableSwagger() {
+            this.globalConfig.swagger = true;
             return this;
         }
 

@@ -3,7 +3,7 @@ package ${package.Entity}
 <#list table.importPackages as pkg>
 import ${pkg}
 </#list>
-<#if swagger2>
+<#if swagger>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 <#if table.convert>
 @TableName("${schemaName}${table.name}")
 </#if>
-<#if swagger2>
+<#if swagger>
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
@@ -36,7 +36,7 @@ class ${entity} : Serializable {
 </#if>
 
 <#if field.comment!?length gt 0>
-<#if swagger2>
+<#if swagger>
         @ApiModelProperty(value = "${field.comment}")
 <#else>
     /**

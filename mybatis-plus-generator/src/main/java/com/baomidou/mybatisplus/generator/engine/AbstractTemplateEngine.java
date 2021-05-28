@@ -357,7 +357,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("package", config.getPackageConfig().getPackageInfo());
         objectMap.put("author", globalConfig.getAuthor());
         objectMap.put("kotlin", globalConfig.isKotlin());
-        objectMap.put("swagger2", globalConfig.isSwagger2());
+        objectMap.put("swagger", globalConfig.isSwagger());
         objectMap.put("date", globalConfig.getCommentDate());
         // 存在 schemaName 设置拼接 . 组合表名
         String schemaName = config.getDataSourceConfig().getSchemaName();

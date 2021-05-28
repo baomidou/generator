@@ -63,13 +63,13 @@ new DataSourceConfig
 | outputDir        | 指定输出目录 | /opt/baomidou/ 默认值: windows:D:// linux or mac : /tmp |
 | author        | 作者名 | baomidou 默认值:无 |
 | kotlin        | 是否生成kotlin | 默认值:false  |
-| swagger2        | 是否生成swagger2注解 | 默认值:false |
+| swagger        | 是否生成swagger注解 | 默认值:false |
 | dateType        | 时间策略 | DateType.ONLY_DATE 默认值: DateType.TIME_PACK |
 | commentDate | 注释日期 | 默认值: yyyy-MM-dd |
 
 ```java
 GeneratorBuilder.globalConfigBuilder()
-   .fileOverride(true).openDir(true).kotlin(false).swagger2(true)
+   .fileOverride(true).openDir(true).kotlin(false).swagger(true)
    .outputDir("/opt/baomidou")
    .author("baomidou").dateType(DateType.TIME_PACK).commentDate("yyyy-MM-dd")
    .build();

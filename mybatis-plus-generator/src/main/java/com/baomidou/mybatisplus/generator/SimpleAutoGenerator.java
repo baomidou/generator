@@ -75,7 +75,7 @@ public abstract class SimpleAutoGenerator {
     public IConfigBuilder<GlobalConfig> globalConfigBuilder() {
         String outputDir = new File(System.getProperty("user.dir")) + File.separator + "build" + File.separator + "code";
         System.out.println("\n输出文件目录：" + outputDir);
-        return new GlobalConfig.Builder().fileOverride().enableSwagger2().outputDir(outputDir)
+        return new GlobalConfig.Builder().fileOverride().enableSwagger().outputDir(outputDir)
                 .author(scannerNext("\n请输入作者名称：")).dateType(DateType.ONLY_DATE);
     }
 

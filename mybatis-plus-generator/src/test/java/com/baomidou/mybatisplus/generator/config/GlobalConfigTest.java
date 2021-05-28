@@ -15,7 +15,7 @@ public class GlobalConfigTest {
 
     private void buildAssert(GlobalConfig globalConfig) {
         Assertions.assertTrue(globalConfig.isKotlin());
-        Assertions.assertTrue(globalConfig.isSwagger2());
+        Assertions.assertTrue(globalConfig.isSwagger());
         Assertions.assertTrue(globalConfig.isOpen());
         Assertions.assertEquals(globalConfig.getAuthor(), "mp");
         Assertions.assertEquals(globalConfig.getOutputDir(), "/temp/code");
@@ -25,7 +25,7 @@ public class GlobalConfigTest {
     @Test
     void builderTest() {
         GlobalConfig globalConfig = GeneratorBuilder.globalConfigBuilder().author("mp").enableKotlin()
-            .enableSwagger2().dateType(DateType.SQL_PACK).openDir(true).outputDir("/temp/code").build();
+            .enableSwagger().dateType(DateType.SQL_PACK).openDir(true).outputDir("/temp/code").build();
         buildAssert(globalConfig);
     }
 

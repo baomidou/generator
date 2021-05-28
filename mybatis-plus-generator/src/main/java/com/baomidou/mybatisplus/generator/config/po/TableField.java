@@ -204,7 +204,7 @@ public class TableField {
 
     public TableField setComment(String comment) {
         //TODO 暂时挪动到这
-        this.comment = this.globalConfig.isSwagger2()
+        this.comment = this.globalConfig.isSwagger()
             && StringUtils.isNotBlank(comment) ? comment.replace("\"", "\\\"") : comment;
         return this;
     }

@@ -3,7 +3,7 @@ package ${package.Entity};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end
-#if(${swagger2})
+#if(${swagger})
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 #end
@@ -37,7 +37,7 @@ import lombok.experimental.Accessors;
 #if(${table.convert})
 @TableName("${schemaName}${table.name}")
 #end
-#if(${swagger2})
+#if(${swagger})
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
 #end
 #if(${superEntityClass})
@@ -58,7 +58,7 @@ public class ${entity} implements Serializable {
 #set($keyPropertyName=${field.propertyName})
 #end
 #if("$!field.comment" != "")
-  #if(${swagger2})
+  #if(${swagger})
     @ApiModelProperty(value = "${field.comment}")
   #else
     /**
