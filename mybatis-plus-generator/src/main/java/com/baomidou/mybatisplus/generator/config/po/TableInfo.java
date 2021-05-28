@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 public class TableInfo {
     private final StrategyConfig strategyConfig;
     private final GlobalConfig globalConfig;
-    private final Set<String> importPackages = new HashSet<>();
+    private final Set<String> importPackages = new TreeSet<>();
     private boolean convert;
     private String name;
     private String comment;
