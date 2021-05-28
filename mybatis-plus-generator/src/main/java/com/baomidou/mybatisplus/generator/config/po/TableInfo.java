@@ -249,6 +249,11 @@ public class TableInfo {
         return convert;
     }
 
+    public TableInfo setConvert(boolean convert) {
+        this.convert = convert;
+        return this;
+    }
+
     public String getName() {
         return name;
     }

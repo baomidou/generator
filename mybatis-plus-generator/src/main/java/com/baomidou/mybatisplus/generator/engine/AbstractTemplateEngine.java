@@ -361,7 +361,13 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("date", globalConfig.getCommentDate());
         // 存在 schemaName 设置拼接 . 组合表名
         String schemaName = config.getDataSourceConfig().getSchemaName();
-        objectMap.put("schemaName", StringUtils.isNotBlank(schemaName) ? (schemaName + ".") : "");
+        if (StringUtils.isNotBlank(schemaName)) {
+            schemaName += ".";
+            tableInfo.setConvert(true);
+        } else {
+            schemaName = "";
+        }
+        objectMap.put("schemaName", schemaName);
         objectMap.put("table", tableInfo);
         objectMap.put("entity", tableInfo.getEntityName());
         Optional.ofNullable(config.getInjectionConfig()).ifPresent((injectionConfig) -> injectionConfig.prepareObjectMap(objectMap));
