@@ -112,6 +112,8 @@ public class TableField {
             this.convert = true;
             this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
             return this;
+        } else {
+            this.convert = !propertyName.equalsIgnoreCase(this.columnName);
         }
         this.propertyName = propertyName;
         return this;

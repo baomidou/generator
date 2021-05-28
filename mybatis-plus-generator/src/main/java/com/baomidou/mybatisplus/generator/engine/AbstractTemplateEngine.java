@@ -16,14 +16,11 @@
 package com.baomidou.mybatisplus.generator.engine;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
-import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.util.FileUtils;
 import com.baomidou.mybatisplus.generator.util.RuntimeUtils;
 import org.jetbrains.annotations.NotNull;
@@ -63,24 +60,6 @@ public abstract class AbstractTemplateEngine {
     public abstract AbstractTemplateEngine init(@NotNull ConfigBuilder configBuilder);
 
     /**
-     * 自定义内容输出
-     *
-     * @param injectionConfig 注入配置
-     * @param tableInfo       表信息
-     * @param objectMap       渲染数据
-     * @since 3.5.0
-     */
-    protected void outputCustomFile(@NotNull InjectionConfig injectionConfig, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
-        List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
-        for (FileOutConfig foc : focList) {
-            File outputFile = foc.outputFile(tableInfo);
-            if (isCreate(FileType.OTHER, outputFile)) {
-                outputFile(outputFile, FileType.OTHER, objectMap, foc.getTemplatePath());
-            }
-        }
-    }
-
-    /**
      * 输出实体文件
      *
      * @param tableInfo 表信息
@@ -93,7 +72,7 @@ public abstract class AbstractTemplateEngine {
         if (StringUtils.isNotBlank(entityName) && StringUtils.isNotBlank(entityPath)) {
             getTemplateFilePath(template -> template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())).ifPresent((entity) -> {
                 String entityFile = String.format((entityPath + File.separator + "%s" + suffixJavaOrKt()), entityName);
-                outputFile(new File(entityFile), FileType.ENTITY, objectMap, entity);
+                outputFile(new File(entityFile), objectMap, entity);
             });
         }
     }
@@ -112,7 +91,7 @@ public abstract class AbstractTemplateEngine {
         if (StringUtils.isNotBlank(tableInfo.getMapperName()) && StringUtils.isNotBlank(mapperPath)) {
             getTemplateFilePath(TemplateConfig::getMapper).ifPresent(mapper -> {
                 String mapperFile = String.format((mapperPath + File.separator + tableInfo.getMapperName() + suffixJavaOrKt()), entityName);
-                outputFile(new File(mapperFile), FileType.MAPPER, objectMap, mapper);
+                outputFile(new File(mapperFile), objectMap, mapper);
             });
         }
         // MpMapper.xml
@@ -120,7 +99,7 @@ public abstract class AbstractTemplateEngine {
         if (StringUtils.isNotBlank(tableInfo.getXmlName()) && StringUtils.isNotBlank(xmlPath)) {
             getTemplateFilePath(TemplateConfig::getXml).ifPresent(xml -> {
                 String xmlFile = String.format((xmlPath + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
-                outputFile(new File(xmlFile), FileType.XML, objectMap, xml);
+                outputFile(new File(xmlFile), objectMap, xml);
             });
         }
     }
@@ -139,7 +118,7 @@ public abstract class AbstractTemplateEngine {
         if (StringUtils.isNotBlank(tableInfo.getServiceName()) && StringUtils.isNotBlank(servicePath)) {
             getTemplateFilePath(TemplateConfig::getService).ifPresent(service -> {
                 String serviceFile = String.format((servicePath + File.separator + tableInfo.getServiceName() + suffixJavaOrKt()), entityName);
-                outputFile(new File(serviceFile), FileType.SERVICE, objectMap, service);
+                outputFile(new File(serviceFile), objectMap, service);
             });
         }
         // MpServiceImpl.java
@@ -147,7 +126,7 @@ public abstract class AbstractTemplateEngine {
         if (StringUtils.isNotBlank(tableInfo.getServiceImplName()) && StringUtils.isNotBlank(serviceImplPath)) {
             getTemplateFilePath(TemplateConfig::getServiceImpl).ifPresent(serviceImpl -> {
                 String implFile = String.format((serviceImplPath + File.separator + tableInfo.getServiceImplName() + suffixJavaOrKt()), entityName);
-                outputFile(new File(implFile), FileType.SERVICE_IMPL, objectMap, serviceImpl);
+                outputFile(new File(implFile), objectMap, serviceImpl);
             });
         }
     }
@@ -166,7 +145,7 @@ public abstract class AbstractTemplateEngine {
             getTemplateFilePath(TemplateConfig::getController).ifPresent(controller -> {
                 String entityName = tableInfo.getEntityName();
                 String controllerFile = String.format((controllerPath + File.separator + tableInfo.getControllerName() + suffixJavaOrKt()), entityName);
-                outputFile(new File(controllerFile), FileType.CONTROLLER, objectMap, controller);
+                outputFile(new File(controllerFile), objectMap, controller);
             });
         }
     }
@@ -175,13 +154,12 @@ public abstract class AbstractTemplateEngine {
      * 输出文件
      *
      * @param file         文件
-     * @param fileType     文件类型
      * @param objectMap    渲染信息
      * @param templatePath 模板路径
      * @since 3.5.0
      */
-    protected void outputFile(@NotNull File file, @NotNull FileType fileType, @NotNull Map<String, Object> objectMap, @NotNull String templatePath) {
-        if (isCreate(fileType, file)) {
+    protected void outputFile(@NotNull File file, @NotNull Map<String, Object> objectMap, @NotNull String templatePath) {
+        if (isCreate(file)) {
             try {
                 // 全局判断【默认】
                 boolean exist = file.exists();
@@ -205,8 +183,8 @@ public abstract class AbstractTemplateEngine {
      */
     @NotNull
     protected Optional<String> getTemplateFilePath(@NotNull Function<TemplateConfig, String> function) {
-        TemplateConfig template = getConfigBuilder().getTemplate();
-        String filePath = function.apply(template);
+        TemplateConfig templateConfig = getConfigBuilder().getTemplateConfig();
+        String filePath = function.apply(templateConfig);
         if (StringUtils.isNotBlank(filePath)) {
             return Optional.of(templateFilePath(filePath));
         }
@@ -226,21 +204,16 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 输出 java xml 文件
+     * 批量输出 java xml 文件
      */
     @NotNull
     public AbstractTemplateEngine batchOutput() {
         try {
-            InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
-            List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
+            ConfigBuilder config = this.getConfigBuilder();
+            List<TableInfo> tableInfoList = config.getTableInfoList();
             tableInfoList.forEach(tableInfo -> {
-                Map<String, Object> objectMap = getObjectMap(tableInfo);
-                if (injectionConfig != null) {
-                    injectionConfig.initTableMap(tableInfo);
-                    objectMap.put("cfg", injectionConfig.getMap());
-                    outputCustomFile(injectionConfig, tableInfo, objectMap);
-                }
-                // 自定义内容
+                Map<String, Object> objectMap = this.getObjectMap(config, tableInfo);
+                Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> t.outputCustomFile(tableInfo, objectMap));
                 // Mp.java
                 outputEntity(tableInfo, objectMap);
                 // mapper and xml
@@ -263,7 +236,6 @@ public abstract class AbstractTemplateEngine {
      * @param templatePath 模板路径
      * @param outputFile   输出文件
      * @throws Exception ex
-     * @see #outputFile(File, FileType, Map, String)
      * @deprecated 3.5.0
      */
     @Deprecated
@@ -300,26 +272,6 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 处理输出目录
-     *
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public AbstractTemplateEngine mkdirs() {
-        getConfigBuilder().getPathInfo().forEach((key, value) -> {
-            File dir = new File(value);
-            if (!dir.exists()) {
-                boolean result = dir.mkdirs();
-                if (result) {
-                    logger.debug("创建目录： [" + value + "]");
-                }
-            }
-        });
-        return this;
-    }
-
-
-    /**
      * 打开输出目录
      */
     public void open() {
@@ -334,16 +286,15 @@ public abstract class AbstractTemplateEngine {
         }
     }
 
-
     /**
      * 渲染对象 MAP 信息
      *
+     * @param config    配置信息
      * @param tableInfo 表信息对象
      * @return ignore
      */
     @NotNull
-    public Map<String, Object> getObjectMap(@NotNull TableInfo tableInfo) {
-        ConfigBuilder config = getConfigBuilder();
+    public Map<String, Object> getObjectMap(@NotNull ConfigBuilder config, @NotNull TableInfo tableInfo) {
         GlobalConfig globalConfig = config.getGlobalConfig();
         Map<String, Object> controllerData = config.getStrategyConfig().controller().renderData(tableInfo);
         Map<String, Object> objectMap = new HashMap<>(controllerData);
@@ -370,7 +321,6 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("schemaName", schemaName);
         objectMap.put("table", tableInfo);
         objectMap.put("entity", tableInfo.getEntityName());
-        Optional.ofNullable(config.getInjectionConfig()).ifPresent((injectionConfig) -> injectionConfig.prepareObjectMap(objectMap));
         return objectMap;
     }
 
@@ -383,34 +333,25 @@ public abstract class AbstractTemplateEngine {
     @NotNull
     public abstract String templateFilePath(@NotNull String filePath);
 
-
     /**
      * 检测文件是否存在
      *
      * @return 文件是否存在
-     * @see #isCreate(FileType, File)
      * @deprecated 3.5.0
      */
     @Deprecated
-    protected boolean isCreate(FileType fileType, String filePath) {
-        return isCreate(fileType, new File(filePath));
+    protected boolean isCreate(String filePath) {
+        return isCreate(new File(filePath));
     }
 
     /**
      * 检查文件是否创建文件
      *
-     * @param fileType 文件类型
-     * @param file     文件
+     * @param file 文件
      * @return 是否创建文件
      * @since 3.5.0
      */
-    protected boolean isCreate(@NotNull FileType fileType, @NotNull File file) {
-        ConfigBuilder cb = getConfigBuilder();
-        // 自定义判断
-        InjectionConfig ic = cb.getInjectionConfig();
-        if (null != ic && null != ic.getFileCreate()) {
-            return ic.getFileCreate().isCreate(cb, fileType, file.getPath());
-        }
+    protected boolean isCreate(@NotNull File file) {
         // 全局判断【默认】
         return !file.exists() || getConfigBuilder().getGlobalConfig().isFileOverride();
     }

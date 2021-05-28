@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.config.converts;
 
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.ITypeConvert;
+import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 
 import static com.baomidou.mybatisplus.generator.config.converts.TypeConverts.contains;
@@ -69,7 +70,7 @@ public class DmTypeConvert implements ITypeConvert {
             .test(contains("image").then(BYTE_ARRAY))
             .or(STRING);
     }
-    
+
     private static IColumnType toNumberType(String typeName) {
         if (typeName.matches("number\\([0-9]\\)")) {
             return DbColumnType.INTEGER;

@@ -1,7 +1,6 @@
 package com.baomidou.mybatisplus.generator;
 
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.IConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
@@ -41,16 +40,18 @@ public abstract class SimpleAutoGenerator {
 
         // 初始化配置数据源
         new AutoGenerator(this.configBuilder(dataSourceConfigBuilder()))
-                // 全局配置
-                .global(this.configBuilder(globalConfigBuilder()))
-                // 模板配置
-                .template(this.configBuilder(templateConfigBuilder()))
-                // 包配置
-                .packageInfo(this.configBuilder(packageConfigBuilder()))
-                // 策略配置
-                .strategy(this.configBuilder(strategyConfigBuilder()))
-                // 执行
-                .execute(this.templateEngine());
+            // 全局配置
+            .global(this.configBuilder(globalConfigBuilder()))
+            // 模板配置
+            .template(this.configBuilder(templateConfigBuilder()))
+            // 包配置
+            .packageInfo(this.configBuilder(packageConfigBuilder()))
+            // 策略配置
+            .strategy(this.configBuilder(strategyConfigBuilder()))
+            // 注入配置
+            .injection(this.configBuilder(injectionConfigBuilder()))
+            // 执行
+            .execute(this.templateEngine());
     }
 
     protected <T> T configBuilder(IConfigBuilder<T> configBuilder) {
@@ -76,7 +77,7 @@ public abstract class SimpleAutoGenerator {
         String outputDir = new File(System.getProperty("user.dir")) + File.separator + "build" + File.separator + "code";
         System.out.println("\n输出文件目录：" + outputDir);
         return new GlobalConfig.Builder().fileOverride().enableSwagger().outputDir(outputDir)
-                .author(scannerNext("\n请输入作者名称：")).dateType(DateType.ONLY_DATE);
+            .author(scannerNext("\n请输入作者名称：")).dateType(DateType.ONLY_DATE);
     }
 
     /**
@@ -98,8 +99,15 @@ public abstract class SimpleAutoGenerator {
      */
     public IConfigBuilder<StrategyConfig> strategyConfigBuilder() {
         return new StrategyConfig.Builder().addInclude(scannerNext("\n请输入表名多个英文逗号分隔：").split(","))
-                .entityBuilder().naming(NamingStrategy.underline_to_camel)
-                .controllerBuilder().enableRestStyle().enableHyphenStyle();
+            .entityBuilder().naming(NamingStrategy.underline_to_camel)
+            .controllerBuilder().enableRestStyle().enableHyphenStyle();
+    }
+
+    /**
+     * 注入配置 Builder
+     */
+    public IConfigBuilder<InjectionConfig> injectionConfigBuilder() {
+        return new InjectionConfig.Builder();
     }
 
     /**

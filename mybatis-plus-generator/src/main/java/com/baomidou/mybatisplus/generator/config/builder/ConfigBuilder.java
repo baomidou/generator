@@ -16,7 +16,6 @@
 package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.IDatabaseQuery;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +34,7 @@ public class ConfigBuilder {
     /**
      * 模板路径配置信息
      */
-    private final TemplateConfig template;
+    private final TemplateConfig templateConfig;
     /**
      * 数据库表信息
      */
@@ -73,20 +72,21 @@ public class ConfigBuilder {
      * @param packageConfig    包配置
      * @param dataSourceConfig 数据源配置
      * @param strategyConfig   表配置
-     * @param template         模板配置
+     * @param templateConfig   模板配置
      * @param globalConfig     全局配置
      */
     public ConfigBuilder(@Nullable PackageConfig packageConfig, @NotNull DataSourceConfig dataSourceConfig,
-                         @Nullable StrategyConfig strategyConfig, @Nullable TemplateConfig template,
-                         @Nullable GlobalConfig globalConfig) {
+                         @Nullable StrategyConfig strategyConfig, @Nullable TemplateConfig templateConfig,
+                         @Nullable GlobalConfig globalConfig, @Nullable InjectionConfig injectionConfig) {
         this.dataSourceConfig = dataSourceConfig;
         this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(() -> GeneratorBuilder.strategyConfig());
         //TODO 先把验证插在这里，后续改成build构建的话在build的时候验证
         this.strategyConfig.validate();
         this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(() -> GeneratorBuilder.globalConfig());
-        this.template = Optional.ofNullable(template).orElseGet(() -> GeneratorBuilder.templateConfig());
+        this.templateConfig = Optional.ofNullable(templateConfig).orElseGet(() -> GeneratorBuilder.templateConfig());
         this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(() -> GeneratorBuilder.packageConfig());
-        this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.template, this.packageConfig).getPathInfo());
+        this.injectionConfig = injectionConfig;
+        this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.templateConfig, this.packageConfig).getPathInfo());
     }
 
     /**
@@ -119,8 +119,8 @@ public class ConfigBuilder {
     }
 
     @NotNull
-    public TemplateConfig getTemplate() {
-        return template;
+    public TemplateConfig getTemplateConfig() {
+        return templateConfig;
     }
 
     @NotNull

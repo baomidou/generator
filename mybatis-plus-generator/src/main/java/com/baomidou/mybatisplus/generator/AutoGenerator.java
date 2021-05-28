@@ -43,7 +43,7 @@ public class AutoGenerator {
     /**
      * 注入配置
      */
-    protected InjectionConfig injectionConfig;
+    protected InjectionConfig injection;
     /**
      * 数据源配置
      */
@@ -88,7 +88,7 @@ public class AutoGenerator {
      * @since 3.5.0
      */
     public AutoGenerator injection(@NotNull InjectionConfig injectionConfig) {
-        this.injectionConfig = injectionConfig;
+        this.injection = injectionConfig;
         return this;
     }
 
@@ -168,10 +168,7 @@ public class AutoGenerator {
         logger.debug("==========================准备生成文件...==========================");
         // 初始化配置
         if (null == config) {
-            config = new ConfigBuilder(packageInfo, dataSource, strategy, template, globalConfig);
-            if (null != injectionConfig) {
-                injectionConfig.setConfig(config);
-            }
+            config = new ConfigBuilder(packageInfo, dataSource, strategy, template, globalConfig, injection);
         }
         if (null == templateEngine) {
             // 为了兼容之前逻辑，采用 Velocity 引擎 【 默认 】
@@ -179,7 +176,7 @@ public class AutoGenerator {
         }
         templateEngine.setConfigBuilder(config);
         // 模板引擎初始化执行文件输出
-        templateEngine.init(this.pretreatmentConfigBuilder(config)).batchOutput().open();
+        templateEngine.init(config).batchOutput().open();
         logger.debug("==========================文件生成完成！！！==========================");
     }
 
@@ -194,30 +191,12 @@ public class AutoGenerator {
         return config.getTableInfoList();
     }
 
-    /**
-     * 预处理配置
-     *
-     * @param config 总配置信息
-     * @return 解析数据结果集
-     */
-    @NotNull
-    protected ConfigBuilder pretreatmentConfigBuilder(@NotNull ConfigBuilder config) {
-        /*
-         * 注入自定义配置
-         */
-        if (null != injectionConfig) {
-            injectionConfig.initMap();
-            config.setInjectionConfig(injectionConfig);
-        }
-        return config;
-    }
-
     public ConfigBuilder getConfig() {
         return config;
     }
 
     public InjectionConfig getInjectionConfig() {
-        return injectionConfig;
+        return injection;
     }
 
     public DataSourceConfig getDataSource() {
