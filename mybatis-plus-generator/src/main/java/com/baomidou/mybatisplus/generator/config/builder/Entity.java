@@ -15,22 +15,6 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -44,6 +28,14 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 实体属性配置
@@ -73,6 +65,12 @@ public class Entity implements ITemplate {
      * 自定义基础的Entity类，公共字段
      */
     private final Set<String> superEntityColumns = new HashSet<>();
+
+    /**
+     * 自定义忽略字段
+     * https://github.com/baomidou/generator/issues/46
+     */
+    private final Set<String> ignoreColumns = new HashSet<>();
 
     /**
      * 实体是否生成 serialVersionUID
@@ -129,12 +127,14 @@ public class Entity implements ITemplate {
 
     /**
      * 逻辑删除属性数据库字段名称
+     *
      * @since 3.5.0
      */
     private String logicDeleteColumnName;
 
     /**
      * 逻辑删除实体属性名称
+     *
      * @since 3.5.0
      */
     private String logicDeletePropertyName;
@@ -221,6 +221,17 @@ public class Entity implements ITemplate {
     public boolean matchSuperEntityColumns(String fieldName) {
         // 公共字段判断忽略大小写【 部分数据库大小写不敏感 】
         return superEntityColumns.stream().anyMatch(e -> e.equalsIgnoreCase(fieldName));
+    }
+
+    /**
+     * 匹配忽略字段(忽略大小写)
+     *
+     * @param fieldName 字段名
+     * @return 是否匹配
+     * @since 3.5.0
+     */
+    public boolean matchIgnoreColumns(String fieldName) {
+        return ignoreColumns.stream().anyMatch(e -> e.equalsIgnoreCase(fieldName));
     }
 
     @NotNull
@@ -501,6 +512,18 @@ public class Entity implements ITemplate {
          */
         public Builder addSuperEntityColumns(@NotNull String... superEntityColumns) {
             this.entity.superEntityColumns.addAll(Arrays.asList(superEntityColumns));
+            return this;
+        }
+
+        /**
+         * 添加忽略字段
+         *
+         * @param ignoreColumns 父类字段(数据库字段列名)
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder addIgnoreColumns(@NotNull String... ignoreColumns) {
+            this.entity.ignoreColumns.addAll(Arrays.asList(ignoreColumns));
             return this;
         }
 
