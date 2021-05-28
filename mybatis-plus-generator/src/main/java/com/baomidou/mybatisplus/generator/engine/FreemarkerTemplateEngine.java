@@ -34,7 +34,6 @@ import java.util.Map;
  * @since 2018-01-11
  */
 public class FreemarkerTemplateEngine extends AbstractTemplateEngine {
-
     private Configuration configuration;
 
     @Override

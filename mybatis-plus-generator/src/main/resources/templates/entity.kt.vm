@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since ${date}
  */
 #if(${table.convert})
-@TableName("${table.name}")
+@TableName("${schemaName}${table.name}")
 #end
 #if(${swagger2})
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")

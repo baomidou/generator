@@ -15,22 +15,21 @@
  */
 package com.baomidou.mybatisplus.generator.engine;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Map;
-import java.util.Properties;
-
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.generator.config.ConstVal;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.jetbrains.annotations.NotNull;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.generator.config.ConstVal;
-import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Velocity 模板引擎实现文件输出
@@ -39,12 +38,9 @@ import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
  * @since 2018-01-10
  */
 public class VelocityTemplateEngine extends AbstractTemplateEngine {
-
-    private static final String DOT_VM = ".vm";
     private VelocityEngine velocityEngine;
 
     {
-        // TODO 改为构造初始化检查了,一般项目也只会初始化一次.
         try {
             Class.forName("org.apache.velocity.util.DuckType");
         } catch (ClassNotFoundException e) {
@@ -81,6 +77,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
 
     @Override
     public @NotNull String templateFilePath(@NotNull String filePath) {
-        return filePath.endsWith(DOT_VM) ? filePath : filePath + DOT_VM;
+        final String dotVm = ".vm";
+        return filePath.endsWith(dotVm) ? filePath : filePath + dotVm;
     }
 }

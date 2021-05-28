@@ -33,7 +33,7 @@ import lombok.experimental.Accessors;
     <% } %>
 <% } %>
 <% if(table.convert){ %>
-@TableName("${table.name}")
+@TableName("${schemaName}${table.name}")
 <% } %>
 <% if(swagger2){ %>
 @ApiModel(value = "${entity}对象", description = "${table.comment!''}")
