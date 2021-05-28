@@ -127,7 +127,6 @@ public abstract class IDatabaseQuery {
                         }
                     }
                 });
-                //TODO 我要把这个打印不存在表的功能和正则匹配功能删掉，就算是苗老板来了也拦不住的那种
                 if (isExclude || isInclude) {
                     Map<String, String> notExistTables = new HashSet<>(isExclude ? strategyConfig.getExclude() : strategyConfig.getInclude())
                         .stream()
@@ -154,11 +153,12 @@ public abstract class IDatabaseQuery {
                 }
                 // 性能优化，只处理需执行表字段 github issues/219
                 tableList.forEach(this::convertTableFields);
-//                 数据库操作完成,释放连接对象
-                dbQuery.closeConnection();
                 return tableList;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+            } finally {
+                // 数据库操作完成,释放连接对象
+                dbQuery.closeConnection();
             }
         }
 
