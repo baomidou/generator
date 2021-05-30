@@ -7,16 +7,16 @@
 </dependency>
 ```
 
-### 暂时会以快照版本的方式迭代,等后续稳定之后发行3.5.0正式版本.(2021年2月1日)
-
-#### 3.5.0版本不兼容项
-
-| 类              | 方法             | 修改说明                                                  |
-| --------------- | ---------------- | --------------------------------------------------------- |
-| FileOutConfig   | outputFile       | 方法返回值修改为File,自定义类直接new File(xxxxx)返回即可. |
-| InjectionConfig | prepareObjectMap | 方法返回值修改为void                                      |
-
-
+### 使用（存在对历史版本的不兼容）
+```java
+new SimpleAutoGenerator() {
+    @Override
+    public IConfigBuilder<DataSourceConfig> dataSourceConfigBuilder() {
+        return new DataSourceConfig.Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE",
+        "sa", "");
+    }
+}.execute();
+```
 
 #### 数据库配置(DataSourceConfig)
 
