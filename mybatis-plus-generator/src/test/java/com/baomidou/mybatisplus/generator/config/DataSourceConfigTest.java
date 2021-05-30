@@ -39,7 +39,7 @@ public class DataSourceConfigTest {
             .dbQuery(new MySqlQuery()).schema("mp").keyWordsHandler(new MySqlKeyWordsHandler()).typeConvert(new PostgreSqlTypeConvert())
             .build();
         Assertions.assertEquals(dataSourceConfig.getSchemaName(), "mp");
-        Assertions.assertEquals(dataSourceConfig.getDbType(), DbType.MYSQL);
+        Assertions.assertEquals(dataSourceConfig.getDbType(), DbType.H2);
         Assertions.assertEquals(dataSourceConfig.getDbQuery().getClass(), MySqlQuery.class);
         Assertions.assertEquals(dataSourceConfig.getKeyWordsHandler().getClass(), MySqlKeyWordsHandler.class);
         Assertions.assertEquals(dataSourceConfig.getTypeConvert().getClass(), PostgreSqlTypeConvert.class);

@@ -23,9 +23,9 @@ public class TemplateEngineTest {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
         velocityTemplateEngine.setConfigBuilder(configBuilder);
         TableInfo tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig,
-            GeneratorBuilder.strategyConfig(), null, null), "user");
+            GeneratorBuilder.strategyConfig(), null, null, null), "user");
         tableInfo.processTable();
-        Map<String, Object> objectMap = velocityTemplateEngine.getObjectMap(tableInfo);
+        Map<String, Object> objectMap = velocityTemplateEngine.getObjectMap(configBuilder, tableInfo);
         Assertions.assertEquals(Boolean.FALSE, objectMap.get("enableCache"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("baseResultMap"));
         Assertions.assertEquals(Boolean.TRUE, objectMap.get("baseColumnList"));
@@ -42,6 +42,6 @@ public class TemplateEngineTest {
                 .mapperBuilder().enableBaseResultMap().enableBaseColumnList()
                 .build(),
             new TemplateConfig.Builder().build(),
-            GeneratorBuilder.globalConfig()));
+            GeneratorBuilder.globalConfig(), null));
     }
 }

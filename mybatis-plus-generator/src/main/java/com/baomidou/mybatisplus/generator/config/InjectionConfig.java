@@ -29,14 +29,14 @@ import java.util.function.BiConsumer;
  */
 public class InjectionConfig {
     /**
-     * 输出消费者
+     * 输出文件之前消费者
      */
-    private BiConsumer<TableInfo, Map<String, Object>> outputConsumer;
+    private BiConsumer<TableInfo, Map<String, Object>> beforeOutputFileBiConsumer;
 
     @NotNull
-    public void outputCustomFile(TableInfo tableInfo, Map<String, Object> objectMap) {
-        if (null != outputConsumer) {
-            outputConsumer.accept(tableInfo, objectMap);
+    public void beforeOutputFile(TableInfo tableInfo, Map<String, Object> objectMap) {
+        if (null != beforeOutputFileBiConsumer) {
+            beforeOutputFileBiConsumer.accept(tableInfo, objectMap);
         }
     }
 
@@ -51,8 +51,8 @@ public class InjectionConfig {
             this.injectionConfig = new InjectionConfig();
         }
 
-        public Builder outputFile(BiConsumer<TableInfo, Map<String, Object>> outputConsumer) {
-            this.injectionConfig.outputConsumer = outputConsumer;
+        public Builder beforeOutputFile(BiConsumer<TableInfo, Map<String, Object>> biConsumer) {
+            this.injectionConfig.beforeOutputFileBiConsumer = biConsumer;
             return this;
         }
 

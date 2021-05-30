@@ -1,5 +1,6 @@
 package com.baomidou.mybatisplus.generator;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
@@ -28,7 +29,12 @@ public abstract class SimpleAutoGenerator {
      */
     public String scannerNext(String message) {
         System.out.println(message);
-        return scanner.nextLine();
+        String nextLine = scanner.nextLine();
+        if (StringUtils.isBlank(nextLine)) {
+            // 如果输入空行继续等待
+            return scanner.next();
+        }
+        return nextLine;
     }
 
     /**
@@ -107,7 +113,7 @@ public abstract class SimpleAutoGenerator {
      * 注入配置 Builder
      */
     public IConfigBuilder<InjectionConfig> injectionConfigBuilder() {
-        return new InjectionConfig.Builder();
+        return null;
     }
 
     /**

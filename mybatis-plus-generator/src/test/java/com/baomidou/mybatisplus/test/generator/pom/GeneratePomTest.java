@@ -57,7 +57,7 @@ class GeneratePomTest {
             });
             Dependency extension = dependenciesMap.get("mybatis-plus");
             Assertions.assertEquals("compile", extension.getScope());
-            Assertions.assertFalse(extension.isOptional());
+            Assertions.assertTrue(extension.isOptional());
             Dependency velocity = dependenciesMap.get("velocity-engine-core");
             Assertions.assertEquals("compile", velocity.getScope());
             Assertions.assertTrue(velocity.isOptional());

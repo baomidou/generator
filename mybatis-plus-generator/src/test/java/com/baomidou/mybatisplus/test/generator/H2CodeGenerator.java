@@ -3,6 +3,7 @@ package com.baomidou.mybatisplus.test.generator;
 import com.baomidou.mybatisplus.generator.SimpleAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.IConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.InjectionConfig;
 
 /**
  * H2 代码生成
@@ -21,6 +22,15 @@ public class H2CodeGenerator {
             public IConfigBuilder<DataSourceConfig> dataSourceConfigBuilder() {
                 return new DataSourceConfig.Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE",
                     "sa", "");
+            }
+
+            @Override
+            public IConfigBuilder<InjectionConfig> injectionConfigBuilder() {
+                // 测试自定义输出文件之前注入操作，该操作再执行生成代码前 debug 查看
+                return new InjectionConfig.Builder().beforeOutputFile((tableInfo, objectMap) -> {
+                    System.out.println("tableInfo: " + tableInfo.getEntityName()
+                        + "objectMap: " + objectMap.size());
+                });
             }
         }.execute();
     }

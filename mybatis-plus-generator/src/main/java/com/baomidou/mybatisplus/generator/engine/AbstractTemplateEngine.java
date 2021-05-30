@@ -213,7 +213,7 @@ public abstract class AbstractTemplateEngine {
             List<TableInfo> tableInfoList = config.getTableInfoList();
             tableInfoList.forEach(tableInfo -> {
                 Map<String, Object> objectMap = this.getObjectMap(config, tableInfo);
-                Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> t.outputCustomFile(tableInfo, objectMap));
+                Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> t.beforeOutputFile(tableInfo, objectMap));
                 // Mp.java
                 outputEntity(tableInfo, objectMap);
                 // mapper and xml
@@ -276,8 +276,9 @@ public abstract class AbstractTemplateEngine {
      */
     public void open() {
         String outDir = getConfigBuilder().getGlobalConfig().getOutputDir();
-        if (getConfigBuilder().getGlobalConfig().isOpen()
-            && StringUtils.isNotBlank(outDir)) {
+        if (StringUtils.isBlank(outDir) || !new File(outDir).exists()) {
+            System.err.println("未找到输出目录：" + outDir);
+        } else if (getConfigBuilder().getGlobalConfig().isOpen()) {
             try {
                 RuntimeUtils.openDir(outDir);
             } catch (IOException e) {
