@@ -2,6 +2,7 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import org.h2.Driver;
 import org.junit.jupiter.api.Assertions;
@@ -36,26 +37,26 @@ public class ConfigBuilderTest {
     @Test
     void pathInfoTest() {
         ConfigBuilder configBuilder;
-        Map<String, String> pathInfo;
+        Map<OutputFile, String> pathInfo;
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), DATA_SOURCE_CONFIG, GeneratorBuilder.strategyConfig(),
             GeneratorBuilder.templateConfig(), null, null);
         pathInfo = configBuilder.getPathInfo();
         Assertions.assertFalse(pathInfo.isEmpty());
         Assertions.assertEquals(6, pathInfo.size());
-        Assertions.assertTrue(pathInfo.containsKey(ConstVal.ENTITY_PATH));
-        Assertions.assertTrue(pathInfo.containsKey(ConstVal.CONTROLLER_PATH));
-        Assertions.assertTrue(pathInfo.containsKey(ConstVal.SERVICE_PATH));
-        Assertions.assertTrue(pathInfo.containsKey(ConstVal.SERVICE_IMPL_PATH));
-        Assertions.assertTrue(pathInfo.containsKey(ConstVal.XML_PATH));
-        Assertions.assertTrue(pathInfo.containsKey(ConstVal.MAPPER_PATH));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.entity));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.controller));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.service));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.serviceImpl));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.mapperXml));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.mapper));
 
         configBuilder = new ConfigBuilder(
-            GeneratorBuilder.packageConfigBuilder().pathInfo(Collections.singletonMap(ConstVal.ENTITY_PATH,
+            GeneratorBuilder.packageConfigBuilder().pathInfo(Collections.singletonMap(OutputFile.entity,
                 "/tmp/code/entity")).build(), DATA_SOURCE_CONFIG, GeneratorBuilder.strategyConfig(),
             GeneratorBuilder.templateConfig(), null, null);
         pathInfo = configBuilder.getPathInfo();
         Assertions.assertFalse(pathInfo.isEmpty());
-        Assertions.assertEquals(1, pathInfo.size());
-        Assertions.assertTrue(pathInfo.containsKey(ConstVal.ENTITY_PATH));
+        Assertions.assertEquals(6, pathInfo.size());
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.entity));
     }
 }

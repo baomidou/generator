@@ -79,7 +79,7 @@ public abstract class SimpleAutoGenerator {
     /**
      * 全局配置 Builder
      */
-    public IConfigBuilder<GlobalConfig> globalConfigBuilder() {
+    public GlobalConfig.Builder globalConfigBuilder() {
         String outputDir = new File(System.getProperty("user.dir")) + File.separator + "build" + File.separator + "code";
         System.out.println("\n输出文件目录：" + outputDir);
         return new GlobalConfig.Builder().fileOverride().enableSwagger().outputDir(outputDir)
@@ -89,14 +89,14 @@ public abstract class SimpleAutoGenerator {
     /**
      * 生成文件包名配置 Builder
      */
-    public IConfigBuilder<PackageConfig> packageConfigBuilder() {
+    public PackageConfig.Builder packageConfigBuilder() {
         return new PackageConfig.Builder().parent(scannerNext("\n请输入项目包名：")).moduleName(scannerNext("\n请输入项目模块名："));
     }
 
     /**
      * 自定义模板配置 Builder
      */
-    public IConfigBuilder<TemplateConfig> templateConfigBuilder() {
+    public TemplateConfig.Builder templateConfigBuilder() {
         return null;
     }
 

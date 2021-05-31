@@ -42,7 +42,7 @@ public class ConfigBuilder {
     /**
      * 路径配置信息
      */
-    private final Map<String, String> pathInfo = new HashMap<>();
+    private final Map<OutputFile, String> pathInfo = new HashMap<>();
     /**
      * 策略配置
      */
@@ -136,7 +136,7 @@ public class ConfigBuilder {
     }
 
     @NotNull
-    public Map<String, String> getPathInfo() {
+    public Map<OutputFile, String> getPathInfo() {
         return pathInfo;
     }
 

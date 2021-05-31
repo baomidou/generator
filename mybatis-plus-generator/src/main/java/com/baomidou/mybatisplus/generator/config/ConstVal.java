@@ -37,13 +37,6 @@ public interface ConstVal {
     String CONTROLLER = "Controller";
     String PARENT = "Parent";
 
-    String ENTITY_PATH = "entity_path";
-    String SERVICE_PATH = "service_path";
-    String SERVICE_IMPL_PATH = "service_impl_path";
-    String MAPPER_PATH = "mapper_path";
-    String XML_PATH = "xml_path";
-    String CONTROLLER_PATH = "controller_path";
-
     String JAVA_TMPDIR = "java.io.tmpdir";
     String UTF8 = StandardCharsets.UTF_8.name();
     String UNDERLINE = "_";

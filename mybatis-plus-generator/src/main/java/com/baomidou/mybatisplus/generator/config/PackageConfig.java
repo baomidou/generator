@@ -66,7 +66,7 @@ public class PackageConfig {
     /**
      * 路径配置信息
      */
-    private Map<String, String> pathInfo;
+    private Map<OutputFile, String> pathInfo;
 
     /**
      * 包配置信息
@@ -104,7 +104,6 @@ public class PackageConfig {
      * @return 包配置信息
      * @since 3.5.0
      */
-    //TODO xml需要自定义,可能不需要包定义
     @NotNull
     public Map<String, String> getPackageInfo() {
         if (packageInfo.isEmpty()) {
@@ -163,14 +162,14 @@ public class PackageConfig {
         return controller;
     }
 
-    public Map<String, String> getPathInfo() {
+    public Map<OutputFile, String> getPathInfo() {
         return pathInfo;
     }
 
     /**
      * 构建者
      *
-     * @author nieqiurong 2020/10/13.
+     * @author nieqiurong
      * @since 3.5.0
      */
     public static class Builder implements IConfigBuilder<PackageConfig> {
@@ -281,7 +280,7 @@ public class PackageConfig {
          * @param pathInfo 路径配置信息
          * @return this
          */
-        public Builder pathInfo(@NotNull Map<String, String> pathInfo) {
+        public Builder pathInfo(@NotNull Map<OutputFile, String> pathInfo) {
             this.packageConfig.pathInfo = pathInfo;
             return this;
         }
@@ -310,7 +309,6 @@ public class PackageConfig {
          */
         @Override
         public PackageConfig build() {
-            //TODO 后面考虑把那些entity包名挂到Entity上去
             return this.packageConfig;
         }
     }

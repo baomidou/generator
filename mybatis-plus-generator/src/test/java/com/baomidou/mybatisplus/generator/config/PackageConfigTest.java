@@ -28,7 +28,7 @@ public class PackageConfigTest {
         Assertions.assertEquals(packageConfig.getService(),"iservice");
         Assertions.assertEquals(packageConfig.getServiceImpl(),"serviceIm");
         Assertions.assertEquals(1,packageConfig.getPathInfo().size());
-        Assertions.assertTrue(packageConfig.getPathInfo().containsKey("aaaa"));
+        Assertions.assertTrue(packageConfig.getPathInfo().containsKey(OutputFile.controller));
     }
 
     @Test
@@ -36,6 +36,6 @@ public class PackageConfigTest {
         buildAssert(GeneratorBuilder.packageConfigBuilder().parent("com.baomihua")
             .moduleName("demo").controller("action").entity("entity")
             .mapper("dao").service("iservice").serviceImpl("serviceIm")
-            .pathInfo(Collections.singletonMap("aaaa","bbbb")).build());
+            .pathInfo(Collections.singletonMap(OutputFile.controller,"bbbb")).build());
     }
 }

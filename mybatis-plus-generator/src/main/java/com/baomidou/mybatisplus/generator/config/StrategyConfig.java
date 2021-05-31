@@ -36,7 +36,6 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * @since 2016/8/30
  */
 public class StrategyConfig {
-
     /**
      * 是否大写命名
      */

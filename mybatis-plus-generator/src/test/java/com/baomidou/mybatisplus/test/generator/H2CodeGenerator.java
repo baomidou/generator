@@ -1,9 +1,9 @@
 package com.baomidou.mybatisplus.test.generator;
 
 import com.baomidou.mybatisplus.generator.SimpleAutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.IConfigBuilder;
-import com.baomidou.mybatisplus.generator.config.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+
+import java.util.Collections;
 
 /**
  * H2 代码生成
@@ -31,6 +31,11 @@ public class H2CodeGenerator {
                     System.out.println("tableInfo: " + tableInfo.getEntityName()
                         + "objectMap: " + objectMap.size());
                 });
+            }
+
+            @Override
+            public PackageConfig.Builder packageConfigBuilder() {
+                return super.packageConfigBuilder().pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://"));
             }
         }.execute();
     }

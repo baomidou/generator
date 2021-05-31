@@ -18,52 +18,48 @@ package com.baomidou.mybatisplus.generator.config.builder;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.config.ConstVal;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 路径信息处理
  *
- * @author nieqiurong 2020/10/6.
+ * @author nieqiurong hubin
+ * @since 2020-10-06
  * @since 3.5.0
  */
 class PathInfoHandler {
-
-    private final Map<String, String> pathInfo = new HashMap<>();
-
+    private final Map<OutputFile, String> pathInfo = new HashMap<>();
     private final String outputDir;
-
     private final PackageConfig packageConfig;
 
     PathInfoHandler(GlobalConfig globalConfig, TemplateConfig templateConfig, PackageConfig packageConfig) {
         this.outputDir = globalConfig.getOutputDir();
         this.packageConfig = packageConfig;
-        Map<String, String> pathInfo = packageConfig.getPathInfo();
+        Map<OutputFile, String> pathInfo = packageConfig.getPathInfo();
         if (CollectionUtils.isNotEmpty(pathInfo)) {
             this.pathInfo.putAll(pathInfo);
-        } else {
-            putPathInfo(templateConfig.getEntity(globalConfig.isKotlin()), ConstVal.ENTITY_PATH, ConstVal.ENTITY);
-            putPathInfo(templateConfig.getMapper(), ConstVal.MAPPER_PATH, ConstVal.MAPPER);
-            putPathInfo(templateConfig.getXml(), ConstVal.XML_PATH, ConstVal.MAPPER);
-            putPathInfo(templateConfig.getService(), ConstVal.SERVICE_PATH, ConstVal.SERVICE);
-            putPathInfo(templateConfig.getServiceImpl(), ConstVal.SERVICE_IMPL_PATH, ConstVal.SERVICE_IMPL);
-            putPathInfo(templateConfig.getController(), ConstVal.CONTROLLER_PATH, ConstVal.CONTROLLER);
         }
+        // 设置默认输出路径
+        putPathInfo(templateConfig.getEntity(globalConfig.isKotlin()), OutputFile.entity, ConstVal.ENTITY);
+        putPathInfo(templateConfig.getMapper(), OutputFile.mapper, ConstVal.MAPPER);
+        putPathInfo(templateConfig.getXml(), OutputFile.mapperXml, ConstVal.MAPPER);
+        putPathInfo(templateConfig.getService(), OutputFile.service, ConstVal.SERVICE);
+        putPathInfo(templateConfig.getServiceImpl(), OutputFile.serviceImpl, ConstVal.SERVICE_IMPL);
+        putPathInfo(templateConfig.getController(), OutputFile.controller, ConstVal.CONTROLLER);
     }
 
-    public Map<String, String> getPathInfo() {
-        return Collections.unmodifiableMap(this.pathInfo);
+    public Map<OutputFile, String> getPathInfo() {
+        return this.pathInfo;
     }
 
-    private void putPathInfo(String template, String path, String module) {
-        if (StringUtils.isNotBlank(template)) pathInfo.put(path, joinPath(outputDir, packageConfig.getPackageInfo(module)));
+    private void putPathInfo(String template, OutputFile outputFile, String module) {
+        if (StringUtils.isNotBlank(template)) {
+            pathInfo.putIfAbsent(outputFile, joinPath(outputDir, packageConfig.getPackageInfo(module)));
+        }
     }
 
     /**
