@@ -58,6 +58,11 @@ public class StrategyConfig {
     @Setter(AccessLevel.NONE)
     private final Set<String> tablePrefix = new HashSet<>();
     /**
+     * 表后缀
+     */
+    @Setter(AccessLevel.NONE)
+    private final Set<String> tableSuffix = new HashSet<>();
+    /**
      * 字段前缀
      */
     @Setter(AccessLevel.NONE)
@@ -1132,6 +1137,17 @@ public class StrategyConfig {
          */
         public Builder addTablePrefix(String... tablePrefix) {
             this.strategyConfig.tablePrefix.addAll(Arrays.asList(tablePrefix));
+            return this;
+        }
+        /**
+         * 增加表后缀
+         *
+         * @param tableSuffix 表后缀
+         * @return this
+         * @since 3.4.1
+         */
+        public Builder addTableSuffix(String... tableSuffix) {
+            this.strategyConfig.tableSuffix.addAll(Arrays.asList(tableSuffix));
             return this;
         }
 

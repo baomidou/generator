@@ -62,20 +62,27 @@ public interface INameConvert {
 
         @Override
         public String entityNameConvert(TableInfo tableInfo) {
-            return NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix()));
+            return NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix(), strategyConfig.getTableSuffix()));
         }
 
         @Override
         public String propertyNameConvert(TableField field) {
-            return processName(field.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix());
+            return processName(field.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix(), strategyConfig.getTableSuffix());
         }
 
-        private String processName(String name, NamingStrategy strategy, Set<String> prefix) {
+        private String processName(String name, NamingStrategy strategy, Set<String> prefix, Set<String> suffix) {
             String propertyName;
             if (prefix.size() > 0) {
                 if (strategy == NamingStrategy.underline_to_camel) {
-                    // 删除前缀、下划线转驼峰
-                    propertyName = NamingStrategy.removePrefixAndCamel(name, prefix);
+                    if (suffix != null && !suffix.isEmpty()){
+                        // 删除前缀
+                        propertyName = NamingStrategy.removePrefix(name, prefix);
+                        // 删除后缀、下划线转驼峰
+                        propertyName = NamingStrategy.removeSuffixAndCamel(propertyName, suffix);
+                    }else {
+                        // 删除前缀、下划线转驼峰
+                        propertyName = NamingStrategy.removePrefixAndCamel(name, prefix);
+                    }
                 } else {
                     // 删除前缀
                     propertyName = NamingStrategy.removePrefix(name, prefix);
