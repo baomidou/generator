@@ -41,8 +41,15 @@ class PathInfoHandler {
         this.packageConfig = packageConfig;
         Map<OutputFile, String> pathInfo = packageConfig.getPathInfo();
         if (CollectionUtils.isNotEmpty(pathInfo)) {
+            setDefaultPathInfo(globalConfig, templateConfig);
             this.pathInfo.putAll(pathInfo);
+        }else{
+            setDefaultPathInfo(globalConfig, templateConfig);
         }
+
+    }
+
+    private void setDefaultPathInfo(GlobalConfig globalConfig, TemplateConfig templateConfig){
         // 设置默认输出路径
         putPathInfo(templateConfig.getEntity(globalConfig.isKotlin()), OutputFile.entity, ConstVal.ENTITY);
         putPathInfo(templateConfig.getMapper(), OutputFile.mapper, ConstVal.MAPPER);
