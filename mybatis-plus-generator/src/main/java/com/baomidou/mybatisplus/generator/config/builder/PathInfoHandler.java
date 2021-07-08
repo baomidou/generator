@@ -46,7 +46,7 @@ class PathInfoHandler {
         // 设置默认输出路径
         putPathInfo(templateConfig.getEntity(globalConfig.isKotlin()), OutputFile.entity, ConstVal.ENTITY);
         putPathInfo(templateConfig.getMapper(), OutputFile.mapper, ConstVal.MAPPER);
-        putPathInfo(templateConfig.getXml(), OutputFile.mapperXml, ConstVal.MAPPER);
+        putPathInfo(templateConfig.getXml(), OutputFile.mapperXml, ConstVal.XML);
         putPathInfo(templateConfig.getService(), OutputFile.service, ConstVal.SERVICE);
         putPathInfo(templateConfig.getServiceImpl(), OutputFile.serviceImpl, ConstVal.SERVICE_IMPL);
         putPathInfo(templateConfig.getController(), OutputFile.controller, ConstVal.CONTROLLER);
