@@ -8,6 +8,41 @@
 ```
 
 ### 使用（存在对历史版本的不兼容）
+#### 快速生成
+```java
+FastAutoGenerator.create("url", "username", "password")
+	.globalConfig(builder -> {
+		builder.author("L.cm")
+			.dateType(DateType.TIME_PACK)
+			.fileOverride()
+			.outputDir("目录");
+	})
+	.packageConfig(builder -> {
+		builder.parent("net.xxxx.project")
+			.moduleName("system");
+	})
+	.strategyConfig(builder -> {
+		builder.addInclude("sys_xxx")
+			.entityBuilder()
+			.enableLombok()
+			.superClass(BaseModel.class)
+			.addSuperEntityColumns("id", "created_by", "created_at", "updated_by", "updated_at")
+			.naming(NamingStrategy.underline_to_camel)
+			.controllerBuilder()
+			.superClass(BaseController.class)
+			.enableRestStyle()
+			.enableHyphenStyle()
+			.mapperBuilder()
+			.enableMapperAnnotation()
+			.enableBaseResultMap()
+			.enableBaseColumnList()
+		;
+	})
+	.templateEngine(new FreemarkerTemplateEngine())
+	.execute();
+```
+
+#### 交互式生成
 ```java
 new SimpleAutoGenerator() {
     @Override
