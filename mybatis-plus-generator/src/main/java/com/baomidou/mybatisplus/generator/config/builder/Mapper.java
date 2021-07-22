@@ -46,6 +46,13 @@ public class Mapper implements ITemplate {
     private String superClass = ConstVal.SUPER_MAPPER_CLASS;
 
     /**
+     * 是否添加 @Mapper 注解
+     *
+     * @since 3.5.1
+     */
+    private boolean mapperAnnotation;
+
+    /**
      * 是否开启BaseResultMap
      *
      * @since 3.5.0
@@ -85,6 +92,10 @@ public class Mapper implements ITemplate {
         return superClass;
     }
 
+    public boolean isMapperAnnotation() {
+        return mapperAnnotation;
+    }
+
     public boolean isBaseResultMap() {
         return baseResultMap;
     }
@@ -111,6 +122,7 @@ public class Mapper implements ITemplate {
         Map<String, Object> data = new HashMap<>();
         boolean enableCache = this.cache != null;
         data.put("enableCache", enableCache);
+        data.put("mapperAnnotation", this.mapperAnnotation);
         data.put("baseResultMap", this.baseResultMap);
         data.put("baseColumnList", this.baseColumnList);
         data.put("superMapperClassPackage", this.superClass);
@@ -151,6 +163,17 @@ public class Mapper implements ITemplate {
          */
         public Builder superClass(@NotNull Class<?> superClass) {
             return superClass(superClass.getName());
+        }
+
+        /**
+         * 开启 @Mapper 注解
+         *
+         * @return this
+         * @since 3.5.1
+         */
+        public Builder enableMapperAnnotation(){
+            this.mapper.mapperAnnotation = true;
+            return this;
         }
 
         /**
