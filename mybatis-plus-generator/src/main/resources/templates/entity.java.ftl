@@ -94,12 +94,8 @@ public class ${entity} implements Serializable {
     <#if field.logicDeleteField>
     @TableLogic
     </#if>
-    <#if entityBooleanColumnRemoveIsPrefix>
-    <#if (field.propertyName)?contains("is")>
+    <#if entityBooleanColumnRemoveIsPrefix && (field.propertyName)?contains("is")>
     private Boolean ${field.propertyName?replace("is","")?uncap_first};
-    <#else>
-    private ${field.propertyType} ${field.propertyName};
-    </#if>
     <#else>
     private ${field.propertyType} ${field.propertyName};
     </#if>
