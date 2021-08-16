@@ -48,7 +48,6 @@ public class Entity implements ITemplate {
     private final static Logger LOGGER = LoggerFactory.getLogger(Entity.class);
 
     private Entity() {
-
     }
 
     /**
@@ -73,7 +72,7 @@ public class Entity implements ITemplate {
     private final Set<String> ignoreColumns = new HashSet<>();
 
     /**
-     * 实体是否生成 serialVersionUID
+     * 实体是否生成 serialVersionUID（默认 false）
      */
     private boolean serialVersionUID;
 
@@ -106,10 +105,9 @@ public class Entity implements ITemplate {
     private boolean booleanColumnRemoveIsPrefix;
 
     /**
-     * 是否生成实体时，生成字段注解
+     * 是否生成实体时，生成字段注解（默认 false）
      */
     private boolean tableFieldAnnotationEnable;
-
 
     /**
      * 乐观锁字段名称(数据库字段)
@@ -126,14 +124,14 @@ public class Entity implements ITemplate {
     private String versionPropertyName;
 
     /**
-     * 逻辑删除属性数据库字段名称
+     * 逻辑删除字段名称(数据库字段)
      *
      * @since 3.5.0
      */
     private String logicDeleteColumnName;
 
     /**
-     * 逻辑删除实体属性名称
+     * 逻辑删除属性名称(实体字段)
      *
      * @since 3.5.0
      */
@@ -156,7 +154,7 @@ public class Entity implements ITemplate {
     private NamingStrategy columnNaming = null;
 
     /**
-     * 开启 ActiveRecord 模式
+     * 开启 ActiveRecord 模式（默认 false）
      *
      * @since 3.5.0
      */
@@ -201,10 +199,6 @@ public class Entity implements ITemplate {
         }).collect(Collectors.toSet()));
     }
 
-    public Set<String> getSuperEntityColumns() {
-        return this.superEntityColumns;
-    }
-
     @NotNull
     public NamingStrategy getColumnNaming() {
         // 未指定以 naming 策略为准
@@ -242,6 +236,10 @@ public class Entity implements ITemplate {
     @Nullable
     public String getSuperClass() {
         return superClass;
+    }
+
+    public Set<String> getSuperEntityColumns() {
+        return this.superEntityColumns;
     }
 
     public boolean isSerialVersionUID() {

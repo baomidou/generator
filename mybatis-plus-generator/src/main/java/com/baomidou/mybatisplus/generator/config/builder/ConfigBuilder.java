@@ -31,39 +31,50 @@ import java.util.regex.Pattern;
  * @since 2016-08-30
  */
 public class ConfigBuilder {
+
     /**
      * 模板路径配置信息
      */
     private final TemplateConfig templateConfig;
+
     /**
      * 数据库表信息
      */
     private final List<TableInfo> tableInfoList = new ArrayList<>();
+
     /**
      * 路径配置信息
      */
     private final Map<OutputFile, String> pathInfo = new HashMap<>();
+
     /**
      * 策略配置
      */
     private StrategyConfig strategyConfig;
+
     /**
      * 全局配置信息
      */
     private GlobalConfig globalConfig;
+
     /**
      * 注入配置信息
      */
     private InjectionConfig injectionConfig;
+
     /**
      * 过滤正则
      */
     private static final Pattern REGX = Pattern.compile("[~!/@#$%^&*()+\\\\\\[\\]|{};:'\",<.>?]+");
+
     /**
      * 包配置信息
      */
     private final PackageConfig packageConfig;
 
+    /**
+     * 数据库配置信息
+     */
     private final DataSourceConfig dataSourceConfig;
 
     /**

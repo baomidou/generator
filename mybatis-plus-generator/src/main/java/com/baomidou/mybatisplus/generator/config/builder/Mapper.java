@@ -15,19 +15,18 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.ibatis.cache.Cache;
-import org.apache.ibatis.cache.decorators.LoggingCache;
-import org.jetbrains.annotations.NotNull;
-
 import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
+import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.decorators.LoggingCache;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 控制器属性配置
@@ -46,21 +45,21 @@ public class Mapper implements ITemplate {
     private String superClass = ConstVal.SUPER_MAPPER_CLASS;
 
     /**
-     * 是否添加 @Mapper 注解
+     * 是否添加 @Mapper 注解（默认 false）
      *
      * @since 3.5.1
      */
     private boolean mapperAnnotation;
 
     /**
-     * 是否开启BaseResultMap
+     * 是否开启BaseResultMap（默认 false）
      *
      * @since 3.5.0
      */
     private boolean baseResultMap;
 
     /**
-     * 是否开启baseColumnList
+     * 是否开启baseColumnList（默认 false）
      *
      * @since 3.5.0
      */
@@ -126,7 +125,7 @@ public class Mapper implements ITemplate {
         data.put("baseResultMap", this.baseResultMap);
         data.put("baseColumnList", this.baseColumnList);
         data.put("superMapperClassPackage", this.superClass);
-        if(enableCache){
+        if (enableCache) {
             Class<? extends Cache> cacheClass = this.getCache();
             data.put("cache", cacheClass);
             data.put("cacheClassName", cacheClass.getName());
@@ -171,7 +170,7 @@ public class Mapper implements ITemplate {
          * @return this
          * @since 3.5.1
          */
-        public Builder enableMapperAnnotation(){
+        public Builder enableMapperAnnotation() {
             this.mapper.mapperAnnotation = true;
             return this;
         }
@@ -182,7 +181,7 @@ public class Mapper implements ITemplate {
          * @return this
          * @since 3.5.0
          */
-        public Builder enableBaseResultMap(){
+        public Builder enableBaseResultMap() {
             this.mapper.baseResultMap = true;
             return this;
         }
@@ -233,7 +232,6 @@ public class Mapper implements ITemplate {
             this.mapper.converterXmlFileName = converter;
             return this;
         }
-
 
         /**
          * 格式化Mapper文件名称

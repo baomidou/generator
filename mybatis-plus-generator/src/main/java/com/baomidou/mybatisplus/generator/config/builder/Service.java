@@ -41,6 +41,7 @@ public class Service implements ITemplate {
      * 自定义继承的Service类全称，带包名
      */
     private String superServiceClass = ConstVal.SUPER_SERVICE_CLASS;
+
     /**
      * 自定义继承的ServiceImpl类全称，带包名
      */

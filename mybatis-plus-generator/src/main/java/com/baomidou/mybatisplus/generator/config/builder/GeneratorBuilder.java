@@ -28,7 +28,6 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
  */
 public class GeneratorBuilder {
 
-
     /**
      * 全局配置
      *
@@ -38,7 +37,6 @@ public class GeneratorBuilder {
         return new GlobalConfig.Builder().build();
     }
 
-
     /**
      * 全局配置 Builder
      *
@@ -47,7 +45,6 @@ public class GeneratorBuilder {
     public static GlobalConfig.Builder globalConfigBuilder() {
         return new GlobalConfig.Builder();
     }
-
 
     /**
      * 包相关的配置项
@@ -68,15 +65,6 @@ public class GeneratorBuilder {
     }
 
     /**
-     * 策略配置项 Builder
-     *
-     * @return StrategyConfig.Builder
-     */
-    public static StrategyConfig.Builder strategyConfigBuilder() {
-        return new StrategyConfig.Builder();
-    }
-
-    /**
      * 策略配置项
      *
      * @return StrategyConfig
@@ -86,12 +74,12 @@ public class GeneratorBuilder {
     }
 
     /**
-     * 模板路径配置项 Builder
+     * 策略配置项 Builder
      *
-     * @return TemplateConfig.Builder
+     * @return StrategyConfig.Builder
      */
-    public static TemplateConfig.Builder templateConfigBuilder() {
-        return new TemplateConfig.Builder();
+    public static StrategyConfig.Builder strategyConfigBuilder() {
+        return new StrategyConfig.Builder();
     }
 
     /**
@@ -103,4 +91,12 @@ public class GeneratorBuilder {
         return new TemplateConfig.Builder().build();
     }
 
+    /**
+     * 模板路径配置项 Builder
+     *
+     * @return TemplateConfig.Builder
+     */
+    public static TemplateConfig.Builder templateConfigBuilder() {
+        return new TemplateConfig.Builder();
+    }
 }
