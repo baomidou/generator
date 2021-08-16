@@ -45,13 +45,40 @@ public interface ConstVal {
     String KT_SUFFIX = ".kt";
     String XML_SUFFIX = ".xml";
 
+    /**
+     * 实体模板路径
+     */
     String TEMPLATE_ENTITY_JAVA = "/templates/entity.java";
+
+    /**
+     * 实体模板路径(kotlin模板)
+     */
     String TEMPLATE_ENTITY_KT = "/templates/entity.kt";
-    String TEMPLATE_MAPPER = "/templates/mapper.java";
-    String TEMPLATE_XML = "/templates/mapper.xml";
-    String TEMPLATE_SERVICE = "/templates/service.java";
-    String TEMPLATE_SERVICE_IMPL = "/templates/serviceImpl.java";
+
+    /**
+     * 控制器模板路径
+     */
     String TEMPLATE_CONTROLLER = "/templates/controller.java";
+
+    /**
+     * Mapper模板路径
+     */
+    String TEMPLATE_MAPPER = "/templates/mapper.java";
+
+    /**
+     * MapperXml模板路径
+     */
+    String TEMPLATE_XML = "/templates/mapper.xml";
+
+    /**
+     * Service模板路径
+     */
+    String TEMPLATE_SERVICE = "/templates/service.java";
+
+    /**
+     * ServiceImpl模板路径
+     */
+    String TEMPLATE_SERVICE_IMPL = "/templates/serviceImpl.java";
 
     String VM_LOAD_PATH_KEY = "file.resource.loader.class";
     String VM_LOAD_PATH_VALUE = "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader";
