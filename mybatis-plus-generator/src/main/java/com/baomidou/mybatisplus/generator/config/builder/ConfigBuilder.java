@@ -91,8 +91,6 @@ public class ConfigBuilder {
                          @Nullable GlobalConfig globalConfig, @Nullable InjectionConfig injectionConfig) {
         this.dataSourceConfig = dataSourceConfig;
         this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(() -> GeneratorBuilder.strategyConfig());
-        //TODO 先把验证插在这里，后续改成build构建的话在build的时候验证
-        this.strategyConfig.validate();
         this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(() -> GeneratorBuilder.globalConfig());
         this.templateConfig = Optional.ofNullable(templateConfig).orElseGet(() -> GeneratorBuilder.templateConfig());
         this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(() -> GeneratorBuilder.packageConfig());
