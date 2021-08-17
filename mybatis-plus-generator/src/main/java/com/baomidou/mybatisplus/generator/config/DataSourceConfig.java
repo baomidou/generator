@@ -37,42 +37,54 @@ import java.util.Optional;
  * @since 2016/8/30
  */
 public class DataSourceConfig {
+
+    private DataSourceConfig() {
+    }
+
     /**
      * 数据库信息查询
      */
     private IDbQuery dbQuery;
+
     /**
      * schemaName
      */
     private String schemaName;
+
     /**
      * 类型转换
      */
     private ITypeConvert typeConvert;
+
     /**
      * 关键字处理器
      *
      * @since 3.3.2
      */
     private IKeyWordsHandler keyWordsHandler;
+
     /**
      * 驱动连接的URL
      */
     private String url;
+
     /**
      * 数据库连接用户名
      */
     private String username;
+
     /**
      * 数据库连接密码
      */
     private String password;
+
     /**
      * 数据源实例
      *
      * @since 3.5.0
      */
     private DataSource dataSource;
+
     /**
      * 数据库连接
      *
@@ -80,10 +92,9 @@ public class DataSourceConfig {
      */
     private Connection connection;
 
-    private DataSourceConfig() {
-        // 不推荐使用
-    }
-
+    /**
+     * 获取数据库查询
+     */
     @NotNull
     public IDbQuery getDbQuery() {
         if (null == dbQuery) {
@@ -142,13 +153,16 @@ public class DataSourceConfig {
             return DbType.FIREBIRD;
         } else if (str.contains(":xugu:")) {
             return DbType.XU_GU;
-        }  else if (str.contains(":clickhouse:")) {
+        } else if (str.contains(":clickhouse:")) {
             return DbType.CLICK_HOUSE;
         } else {
             return DbType.OTHER;
         }
     }
 
+    /**
+     * 获取数据库字段类型转换
+     */
     @NotNull
     public ITypeConvert getTypeConvert() {
         if (null == typeConvert) {

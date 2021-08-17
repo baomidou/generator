@@ -32,8 +32,20 @@ import java.util.Map;
  * @since 3.5.0
  */
 class PathInfoHandler {
+
+    /**
+     * 输出文件Map
+     */
     private final Map<OutputFile, String> pathInfo = new HashMap<>();
+
+    /**
+     * 输出目录
+     */
     private final String outputDir;
+
+    /**
+     * 包配置信息
+     */
     private final PackageConfig packageConfig;
 
     PathInfoHandler(GlobalConfig globalConfig, TemplateConfig templateConfig, PackageConfig packageConfig) {

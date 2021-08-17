@@ -56,6 +56,7 @@ public class BaseBuilder implements IConfigBuilder<StrategyConfig> {
     @NotNull
     @Override
     public StrategyConfig build() {
+        this.strategyConfig.validate();
         return this.strategyConfig;
     }
 }

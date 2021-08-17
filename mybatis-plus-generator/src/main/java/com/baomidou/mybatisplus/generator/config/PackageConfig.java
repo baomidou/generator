@@ -15,7 +15,6 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
-
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -31,38 +30,50 @@ import java.util.Map;
  * @since 2016-08-30
  */
 public class PackageConfig {
+
+    private PackageConfig() {
+    }
+
     /**
      * 父包名。如果为空，将下面子包名必须写全部， 否则就只需写子包名
      */
     private String parent = "com.baomidou";
+
     /**
      * 父包模块名
      */
     private String moduleName = "";
+
     /**
      * Entity包名
      */
     private String entity = "entity";
+
     /**
      * Service包名
      */
     private String service = "service";
+
     /**
      * Service Impl包名
      */
     private String serviceImpl = "service.impl";
+
     /**
      * Mapper包名
      */
     private String mapper = "mapper";
+
     /**
      * Mapper XML包名
      */
     private String xml = "mapper.xml";
+
     /**
      * Controller包名
      */
     private String controller = "controller";
+
     /**
      * 路径配置信息
      */
@@ -117,10 +128,6 @@ public class PackageConfig {
             packageInfo.put(ConstVal.PARENT, this.getParent());
         }
         return Collections.unmodifiableMap(this.packageInfo);
-    }
-
-    private PackageConfig() {
-        // 不推荐使用
     }
 
     /**

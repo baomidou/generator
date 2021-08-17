@@ -15,12 +15,6 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.ITemplate;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -28,6 +22,11 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.baomidou.mybatisplus.generator.util.ClassUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 控制器属性配置
@@ -41,14 +40,15 @@ public class Controller implements ITemplate {
     }
 
     /**
-     * 生成 <code>@RestController</code> 控制器
+     * 生成 <code>@RestController</code> 控制器（默认 false）
      * <pre>
      *      <code>@Controller</code> -> <code>@RestController</code>
      * </pre>
      */
     private boolean restStyle;
+
     /**
-     * 驼峰转连字符
+     * 驼峰转连字符（默认 false）
      * <pre>
      *      <code>@RequestMapping("/managerUserActionHistory")</code> -> <code>@RequestMapping("/manager-user-action-history")</code>
      * </pre>

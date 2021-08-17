@@ -15,19 +15,15 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.builder.*;
+import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.IFill;
-import com.baomidou.mybatisplus.generator.config.po.LikeTable;
-import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 策略配置项
@@ -36,54 +32,66 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * @since 2016/8/30
  */
 public class StrategyConfig {
+
+    private StrategyConfig() {
+    }
+
     /**
-     * 是否大写命名
+     * 是否大写命名（默认 false）
      */
     private boolean isCapitalMode;
+
     /**
-     * 是否跳过视图
+     * 是否跳过视图（默认 false）
      */
     private boolean skipView;
+
     /**
-     * 表前缀
+     * 过滤表前缀
+     * example: addTablePrefix("t_")
+     * result: t_simple -> Simple
      */
     private final Set<String> tablePrefix = new HashSet<>();
+
     /**
-     * 字段前缀
+     * 过滤字段前缀
+     * example: addFieldPrefix("is_")
+     * result: is_deleted -> deleted
      */
     private final Set<String> fieldPrefix = new HashSet<>();
+
     /**
      * 需要包含的表名，允许正则表达式（与exclude二选一配置）<br/>
      * 当{@link #enableSqlFilter}为true时，正则表达式无效.
      */
     private final Set<String> include = new HashSet<>();
+
     /**
      * 需要排除的表名，允许正则表达式<br/>
      * 当{@link #enableSqlFilter}为true时，正则表达式无效.
      */
     private final Set<String> exclude = new HashSet<>();
+
     /**
      * 启用sql过滤，语法不能支持使用sql过滤表的话，可以考虑关闭此开关.
      *
      * @since 3.3.1
      */
     private boolean enableSqlFilter = true;
+
     /**
      * 包含表名
      *
      * @since 3.3.0
      */
     private LikeTable likeTable;
+
     /**
      * 不包含表名
      *
      * @since 3.3.0
      */
     private LikeTable notLikeTable;
-
-    private StrategyConfig() {
-        // 不推荐使用
-    }
 
     private final Entity.Builder entityBuilder = new Entity.Builder(this);
 
@@ -95,11 +103,11 @@ public class StrategyConfig {
 
     private Entity entity;
 
+    private Controller controller;
+
     private Mapper mapper;
 
     private Service service;
-
-    private Controller controller;
 
     /**
      * 实体配置构建者
@@ -113,6 +121,8 @@ public class StrategyConfig {
     }
 
     /**
+     * 实体配置
+     *
      * @return 实体配置
      * @since 3.5.0
      */
@@ -185,7 +195,6 @@ public class StrategyConfig {
         return serviceBuilder;
     }
 
-
     /**
      * Service配置
      *
@@ -210,7 +219,7 @@ public class StrategyConfig {
     }
 
     /**
-     * 表名称匹配表前缀
+     * 表名称匹配过滤表前缀
      *
      * @param tableName 表名称
      * @since 3.3.2
@@ -360,30 +369,21 @@ public class StrategyConfig {
         }
 
         /**
-         * 禁用sql过滤
+         * 增加过滤表前缀
          *
+         * @param tablePrefix 过滤表前缀
          * @return this
          * @since 3.5.0
          */
-        public Builder disableSqlFilter() {
-            this.strategyConfig.enableSqlFilter = false;
-            return this;
-        }
-
-        public Builder likeTable(@NotNull LikeTable likeTable) {
-            this.strategyConfig.likeTable = likeTable;
-            return this;
-        }
-
-        public Builder notLikeTable(@NotNull LikeTable notLikeTable) {
-            this.strategyConfig.notLikeTable = notLikeTable;
+        public Builder addTablePrefix(@NotNull String... tablePrefix) {
+            this.strategyConfig.tablePrefix.addAll(Arrays.asList(tablePrefix));
             return this;
         }
 
         /**
-         * 增加字段前缀
+         * 增加过滤字段前缀
          *
-         * @param fieldPrefix 字段前缀
+         * @param fieldPrefix 过滤字段前缀
          * @return this
          * @since 3.5.0
          */
@@ -417,14 +417,33 @@ public class StrategyConfig {
         }
 
         /**
-         * 增加表前缀
+         * 禁用sql过滤
          *
-         * @param tablePrefix 表前缀
          * @return this
          * @since 3.5.0
          */
-        public Builder addTablePrefix(@NotNull String... tablePrefix) {
-            this.strategyConfig.tablePrefix.addAll(Arrays.asList(tablePrefix));
+        public Builder disableSqlFilter() {
+            this.strategyConfig.enableSqlFilter = false;
+            return this;
+        }
+
+        /**
+         * 包含表名
+         *
+         * @return this
+         */
+        public Builder likeTable(@NotNull LikeTable likeTable) {
+            this.strategyConfig.likeTable = likeTable;
+            return this;
+        }
+
+        /**
+         * 不包含表名
+         *
+         * @return this
+         */
+        public Builder notLikeTable(@NotNull LikeTable notLikeTable) {
+            this.strategyConfig.notLikeTable = notLikeTable;
             return this;
         }
 

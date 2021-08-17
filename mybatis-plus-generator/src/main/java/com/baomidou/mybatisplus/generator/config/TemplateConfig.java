@@ -30,36 +30,57 @@ public class TemplateConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TemplateConfig.class);
 
+    /**
+     * 设置实体模板路径
+     */
     private String entity;
-
-    private boolean disableEntity;
 
     /**
      * 设置实体模板路径(kotlin模板)
      */
     private String entityKt;
 
-    private String service;
+    /**
+     * 设置控制器模板路径
+     */
+    private String controller;
 
-    private String serviceImpl;
-
+    /**
+     * 设置Mapper模板路径
+     */
     private String mapper;
 
+    /**
+     * 设置MapperXml模板路径
+     */
     private String xml;
 
-    private String controller;
+    /**
+     * 设置Service模板路径
+     */
+    private String service;
+
+    /**
+     * 设置ServiceImpl模板路径
+     */
+    private String serviceImpl;
+
+    /**
+     * 是否禁用实体模板（默认 false）
+     */
+    private boolean disableEntity;
 
     /**
      * 不对外爆露
      */
     private TemplateConfig() {
-        this.controller = ConstVal.TEMPLATE_CONTROLLER;
         this.entity = ConstVal.TEMPLATE_ENTITY_JAVA;
         this.entityKt = ConstVal.TEMPLATE_ENTITY_KT;
+        this.controller = ConstVal.TEMPLATE_CONTROLLER;
+        this.mapper = ConstVal.TEMPLATE_MAPPER;
         this.xml = ConstVal.TEMPLATE_XML;
         this.service = ConstVal.TEMPLATE_SERVICE;
         this.serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
-        this.mapper = ConstVal.TEMPLATE_MAPPER;
     }
 
     /**
