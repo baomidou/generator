@@ -122,24 +122,26 @@ public class TemplateConfig {
         if (templateTypes != null && templateTypes.length > 0) {
             for (TemplateType templateType : templateTypes) {
                 switch (templateType) {
-                    case XML:
-                        this.xml = null;
-                        break;
                     case ENTITY:
                         this.entity = null;
                         this.entityKt = null;
                         //暂时没其他多的需求,使用一个单独的boolean变量进行支持一下.
                         this.disableEntity = true;
                         break;
+                    case CONTROLLER:
+                        this.controller = null;
+                        break;
                     case MAPPER:
                         this.mapper = null;
                         break;
+                    case XML:
+                        this.xml = null;
+                        break;
                     case SERVICE:
                         this.service = null;
-                        this.serviceImpl = null;
                         break;
-                    case CONTROLLER:
-                        this.controller = null;
+                    case SERVICEIMPL:
+                        this.serviceImpl = null;
                         break;
                     default:
                 }
