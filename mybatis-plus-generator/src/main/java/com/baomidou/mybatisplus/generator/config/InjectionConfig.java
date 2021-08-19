@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.config;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -28,13 +29,22 @@ import java.util.function.BiConsumer;
  * @since 2016-12-07
  */
 public class InjectionConfig {
+
     /**
      * 输出文件之前消费者
      */
     private BiConsumer<TableInfo, Map<String, Object>> beforeOutputFileBiConsumer;
 
+    /**
+     * 自定义配置 Map 对象
+     */
+    private Map<String, Object> map = new HashMap<>();
+
     @NotNull
     public void beforeOutputFile(TableInfo tableInfo, Map<String, Object> objectMap) {
+        if (!map.isEmpty()) {
+            objectMap.putAll(map);
+        }
         if (null != beforeOutputFileBiConsumer) {
             beforeOutputFileBiConsumer.accept(tableInfo, objectMap);
         }
@@ -51,8 +61,25 @@ public class InjectionConfig {
             this.injectionConfig = new InjectionConfig();
         }
 
-        public Builder beforeOutputFile(BiConsumer<TableInfo, Map<String, Object>> biConsumer) {
+        /**
+         * 输出文件之前消费者
+         *
+         * @param biConsumer 消费者
+         * @return this
+         */
+        public Builder beforeOutputFile(@NotNull BiConsumer<TableInfo, Map<String, Object>> biConsumer) {
             this.injectionConfig.beforeOutputFileBiConsumer = biConsumer;
+            return this;
+        }
+
+        /**
+         * 自定义配置 Map 对象
+         *
+         * @param map Map 对象
+         * @return this
+         */
+        public Builder map(@NotNull Map<String, Object> map) {
+            this.injectionConfig.map = map;
             return this;
         }
 
