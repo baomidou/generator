@@ -115,6 +115,9 @@ public class TableField {
         } else {
             this.convert = !propertyName.equalsIgnoreCase(this.columnName);
         }
+        if (entity.isTableFieldAnnotationEnable()) {
+            this.convert = true;
+        }
         this.propertyName = propertyName;
         return this;
     }
