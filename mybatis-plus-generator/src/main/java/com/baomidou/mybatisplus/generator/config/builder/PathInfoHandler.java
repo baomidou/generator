@@ -62,6 +62,7 @@ class PathInfoHandler {
         putPathInfo(templateConfig.getService(), OutputFile.service, ConstVal.SERVICE);
         putPathInfo(templateConfig.getServiceImpl(), OutputFile.serviceImpl, ConstVal.SERVICE_IMPL);
         putPathInfo(templateConfig.getController(), OutputFile.controller, ConstVal.CONTROLLER);
+        putPathInfo(OutputFile.other,ConstVal.OTHER);
     }
 
     public Map<OutputFile, String> getPathInfo() {
@@ -70,8 +71,12 @@ class PathInfoHandler {
 
     private void putPathInfo(String template, OutputFile outputFile, String module) {
         if (StringUtils.isNotBlank(template)) {
-            pathInfo.putIfAbsent(outputFile, joinPath(outputDir, packageConfig.getPackageInfo(module)));
+            putPathInfo(outputFile,module);
         }
+    }
+
+    private void putPathInfo(OutputFile outputFile, String module){
+        pathInfo.putIfAbsent(outputFile, joinPath(outputDir, packageConfig.getPackageInfo(module)));
     }
 
     /**

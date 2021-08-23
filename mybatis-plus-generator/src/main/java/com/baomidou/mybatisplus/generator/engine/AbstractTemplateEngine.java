@@ -53,12 +53,28 @@ public abstract class AbstractTemplateEngine {
      */
     private ConfigBuilder configBuilder;
 
-
     /**
      * 模板引擎初始化
      */
     @NotNull
     public abstract AbstractTemplateEngine init(@NotNull ConfigBuilder configBuilder);
+
+    /**
+     * 输出自定义模板文件
+     *
+     * @param customFile 自定义配置模板文件信息
+     * @param tableInfo 表信息
+     * @param objectMap 渲染数据
+     * @since 3.5.1
+     */
+    protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+        String entityName = tableInfo.getEntityName();
+        String otherPath = getPathInfo(OutputFile.other);
+        customFile.forEach((key, value) -> {
+            String fileName = String.format((otherPath + File.separator + entityName + File.separator + "%s"), key);
+            outputFile(new File(fileName), objectMap, value);
+        });
+    }
 
     /**
      * 输出实体文件
@@ -213,7 +229,11 @@ public abstract class AbstractTemplateEngine {
             List<TableInfo> tableInfoList = config.getTableInfoList();
             tableInfoList.forEach(tableInfo -> {
                 Map<String, Object> objectMap = this.getObjectMap(config, tableInfo);
-                Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> t.beforeOutputFile(tableInfo, objectMap));
+                Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> {
+                    t.beforeOutputFile(tableInfo, objectMap);
+                    // 输出自定义文件
+                    outputCustomFile(t.getCustomFile(), tableInfo, objectMap);
+                });
                 // Mp.java
                 outputEntity(tableInfo, objectMap);
                 // mapper and xml
