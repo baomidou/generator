@@ -140,7 +140,7 @@ public class ${entity} implements Serializable {
 <% } %>
 <% if(activeRecord){ %>
     @Override
-    protected Serializable pkVal() {
+    public Serializable pkVal() {
     <% if(isNotEmpty(keyPropertyName)){ %>
         return this.${keyPropertyName};
     <% }else{ %>
