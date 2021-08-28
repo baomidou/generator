@@ -46,6 +46,7 @@ public class DbQueryRegistry {
         db_query_enum_map.put(DbType.FIREBIRD, new FirebirdQuery());
         db_query_enum_map.put(DbType.XU_GU, new XuguQuery());
         db_query_enum_map.put(DbType.CLICK_HOUSE, new ClickHouseQuery());
+        db_query_enum_map.put(DbType.GBASE, new GbaseQuery());
     }
 
     public IDbQuery getDbQuery(DbType dbType) {
