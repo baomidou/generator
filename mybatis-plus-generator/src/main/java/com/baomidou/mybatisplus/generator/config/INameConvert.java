@@ -15,6 +15,7 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
@@ -48,7 +49,6 @@ public interface INameConvert {
     @NotNull
     String propertyNameConvert(@NotNull TableField field);
 
-
     /**
      * 默认名称转换接口类
      *
@@ -65,30 +65,30 @@ public interface INameConvert {
 
         @Override
         public @NotNull String entityNameConvert(@NotNull TableInfo tableInfo) {
-            return NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix()));
+            return NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategyConfig.entity().getNaming(), strategyConfig.getTablePrefix(), strategyConfig.getTableSuffix()));
         }
 
         @Override
         public @NotNull String propertyNameConvert(@NotNull TableField field) {
-            return processName(field.getName(), strategyConfig.entity().getColumnNaming(), strategyConfig.getFieldPrefix());
+            return processName(field.getName(), strategyConfig.entity().getNaming(), strategyConfig.getFieldPrefix(), strategyConfig.getFieldSuffix());
         }
 
-        private String processName(String name, NamingStrategy strategy, Set<String> prefix) {
-            String propertyName;
+        private String processName(String name, NamingStrategy strategy, Set<String> prefix, Set<String> suffix) {
+            String propertyName = name;
+            // 删除前缀
             if (prefix.size() > 0) {
-                if (strategy == NamingStrategy.underline_to_camel) {
-                    // 删除前缀、下划线转驼峰
-                    propertyName = NamingStrategy.removePrefixAndCamel(name, prefix);
-                } else {
-                    // 删除前缀
-                    propertyName = NamingStrategy.removePrefix(name, prefix);
-                }
-            } else if (strategy == NamingStrategy.underline_to_camel) {
-                // 下划线转驼峰
-                propertyName = NamingStrategy.underlineToCamel(name);
-            } else {
-                // 不处理
-                propertyName = name;
+                propertyName = NamingStrategy.removePrefix(propertyName, prefix);
+            }
+            // 删除后缀
+            if (suffix.size() > 0) {
+                propertyName = NamingStrategy.removeSuffix(propertyName, suffix);
+            }
+            if (StringUtils.isBlank(propertyName)) {
+                throw new RuntimeException(String.format("%s 的名称转换结果为空，请检查是否配置问题", name));
+            }
+            // 下划线转驼峰
+            if (NamingStrategy.underline_to_camel.equals(strategy)) {
+                return NamingStrategy.underlineToCamel(propertyName);
             }
             return propertyName;
         }

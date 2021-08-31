@@ -54,11 +54,25 @@ public class StrategyConfig {
     private final Set<String> tablePrefix = new HashSet<>();
 
     /**
+     * 过滤表后缀
+     * example: addTableSuffix("_0")
+     * result: t_simple_0 -> Simple
+     */
+    private final Set<String> tableSuffix = new HashSet<>();
+
+    /**
      * 过滤字段前缀
      * example: addFieldPrefix("is_")
      * result: is_deleted -> deleted
      */
     private final Set<String> fieldPrefix = new HashSet<>();
+
+    /**
+     * 过滤字段后缀
+     * example: addFieldSuffix("_flag")
+     * result: deleted_flag -> deleted
+     */
+    private final Set<String> fieldSuffix = new HashSet<>();
 
     /**
      * 需要包含的表名，允许正则表达式（与exclude二选一配置）<br/>
@@ -303,8 +317,18 @@ public class StrategyConfig {
     }
 
     @NotNull
+    public Set<String> getTableSuffix() {
+        return tableSuffix;
+    }
+
+    @NotNull
     public Set<String> getFieldPrefix() {
         return fieldPrefix;
+    }
+
+    @NotNull
+    public Set<String> getFieldSuffix() {
+        return fieldSuffix;
     }
 
     @NotNull
@@ -381,6 +405,18 @@ public class StrategyConfig {
         }
 
         /**
+         * 增加过滤表后缀
+         *
+         * @param tableSuffix 过滤表后缀
+         * @return this
+         * @since 3.5.1
+         */
+        public Builder addTableSuffix(String... tableSuffix) {
+            this.strategyConfig.tableSuffix.addAll(Arrays.asList(tableSuffix));
+            return this;
+        }
+
+        /**
          * 增加过滤字段前缀
          *
          * @param fieldPrefix 过滤字段前缀
@@ -389,6 +425,18 @@ public class StrategyConfig {
          */
         public Builder addFieldPrefix(@NotNull String... fieldPrefix) {
             this.strategyConfig.fieldPrefix.addAll(Arrays.asList(fieldPrefix));
+            return this;
+        }
+
+        /**
+         * 增加过滤字段后缀
+         *
+         * @param fieldSuffix 过滤字段后缀
+         * @return this
+         * @since 3.5.1
+         */
+        public Builder addFieldSuffix(@NotNull String... fieldSuffix) {
+            this.strategyConfig.fieldSuffix.addAll(Arrays.asList(fieldSuffix));
             return this;
         }
 

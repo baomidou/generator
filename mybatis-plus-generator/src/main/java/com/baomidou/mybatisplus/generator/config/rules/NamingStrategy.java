@@ -29,15 +29,22 @@ import java.util.Set;
  * @since 2016/8/30
  */
 public enum NamingStrategy {
+
     /**
      * 不做任何改变，原样输出
      */
     no_change,
+
     /**
      * 下划线转驼峰命名
      */
     underline_to_camel;
 
+    /**
+     * 下划线转驼峰
+     *
+     * @param name 待转内容
+     */
     public static String underlineToCamel(String name) {
         // 快速检查
         if (StringUtils.isBlank(name)) {
@@ -82,10 +89,43 @@ public enum NamingStrategy {
             .findFirst().map(pf -> name.substring(pf.length())).orElse(name);
     }
 
-    public static String removePrefixAndCamel(String name, Set<String> tablePrefix) {
-        return underlineToCamel(removePrefix(name, tablePrefix));
+    /**
+     * 去掉下划线前缀并转成驼峰格式
+     *
+     * @param name   表名
+     * @param prefix 前缀
+     * @return 转换后的字符串
+     */
+    public static String removePrefixAndCamel(String name, Set<String> prefix) {
+        return underlineToCamel(removePrefix(name, prefix));
     }
 
+    /**
+     * 去掉指定的后缀
+     *
+     * @param name   表名
+     * @param suffix 后缀
+     * @return 转换后的字符串
+     */
+    public static String removeSuffix(String name, Set<String> suffix) {
+        if (StringUtils.isBlank(name)) {
+            return StringPool.EMPTY;
+        }
+        // 判断是否有匹配的后缀，然后截取后缀
+        return suffix.stream().filter(sf -> name.toLowerCase().endsWith(sf.toLowerCase()))
+            .findFirst().map(sf -> name.substring(0, name.length() - sf.length())).orElse(name);
+    }
+
+    /**
+     * 去掉下划线后缀并转成驼峰格式
+     *
+     * @param name   表名
+     * @param suffix 后缀
+     * @return 转换后的字符串
+     */
+    public static String removeSuffixAndCamel(String name, Set<String> suffix) {
+        return underlineToCamel(removeSuffix(name, suffix));
+    }
 
     /**
      * 实体首字母大写
