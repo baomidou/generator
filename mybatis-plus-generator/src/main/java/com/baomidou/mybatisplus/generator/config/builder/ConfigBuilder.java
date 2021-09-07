@@ -94,7 +94,7 @@ public class ConfigBuilder {
         this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(() -> GeneratorBuilder.globalConfig());
         this.templateConfig = Optional.ofNullable(templateConfig).orElseGet(() -> GeneratorBuilder.templateConfig());
         this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(() -> GeneratorBuilder.packageConfig());
-        this.injectionConfig = injectionConfig;
+        this.injectionConfig = Optional.ofNullable(injectionConfig).orElseGet(() -> GeneratorBuilder.injectionConfig());
         this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.templateConfig, this.packageConfig).getPathInfo());
     }
 

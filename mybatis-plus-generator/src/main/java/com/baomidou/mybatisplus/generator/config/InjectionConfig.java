@@ -38,7 +38,7 @@ public class InjectionConfig {
     /**
      * 自定义配置 Map 对象
      */
-    private Map<String, Object> map = new HashMap<>();
+    private Map<String, Object> customMap = new HashMap<>();
 
     /**
      * 自定义模板文件，key为文件名称，value为模板路径
@@ -47,14 +47,20 @@ public class InjectionConfig {
 
     @NotNull
     public void beforeOutputFile(TableInfo tableInfo, Map<String, Object> objectMap) {
-        if (!map.isEmpty()) {
-            objectMap.putAll(map);
+        if (!customMap.isEmpty()) {
+            objectMap.putAll(customMap);
         }
         if (null != beforeOutputFileBiConsumer) {
             beforeOutputFileBiConsumer.accept(tableInfo, objectMap);
         }
     }
 
+    @NotNull
+    public Map<String, Object> getCustomMap() {
+        return customMap;
+    }
+
+    @NotNull
     public Map<String, String> getCustomFile() {
         return customFile;
     }
@@ -84,11 +90,11 @@ public class InjectionConfig {
         /**
          * 自定义配置 Map 对象
          *
-         * @param map Map 对象
+         * @param customMap Map 对象
          * @return this
          */
-        public Builder map(@NotNull Map<String, Object> map) {
-            this.injectionConfig.map = map;
+        public Builder customMap(@NotNull Map<String, Object> customMap) {
+            this.injectionConfig.customMap = customMap;
             return this;
         }
 
