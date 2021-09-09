@@ -24,14 +24,12 @@ public class TemplateConfigTest {
 
 
         templateConfig = GeneratorBuilder.templateConfig().disable(TemplateType.SERVICE);
-        Assertions.assertNull(templateConfig.getServiceImpl());
         Assertions.assertNull(templateConfig.getService());
         Assertions.assertNotNull(templateConfig.getEntity(true));
         Assertions.assertNotNull(templateConfig.getEntity(false));
 
-        templateConfig = GeneratorBuilder.templateConfig().disable(TemplateType.SERVICE);
+        templateConfig = GeneratorBuilder.templateConfig().disable(TemplateType.SERVICEIMPL);
         Assertions.assertNull(templateConfig.getServiceImpl());
-        Assertions.assertNull(templateConfig.getService());
         Assertions.assertNotNull(templateConfig.getEntity(true));
         Assertions.assertNotNull(templateConfig.getEntity(false));
 
@@ -46,7 +44,6 @@ public class TemplateConfigTest {
         Assertions.assertNotNull(templateConfig.getService());
         Assertions.assertNull(templateConfig.getEntity(true));
         Assertions.assertNull(templateConfig.getEntity(false));
-
     }
 
     @Test
