@@ -13,12 +13,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.baomidou.mybatisplus.test.generator;
+package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.IFill;
-import com.baomidou.mybatisplus.generator.config.INameConvert;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.GeneratorBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
@@ -26,8 +24,8 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.po.TableInfoTest;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.fill.Column;
-import com.baomidou.mybatisplus.test.generator.entity.BaseEntity;
-import com.baomidou.mybatisplus.test.generator.entity.SuperEntity;
+import com.baomidou.mybatisplus.generator.entity.BaseEntity;
+import com.baomidou.mybatisplus.generator.entity.SuperEntity;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
@@ -153,6 +151,11 @@ class StrategyConfigTest {
         Assertions.assertEquals("User", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
+        strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
+        strategyConfigBuilder.addTableSuffix("_user");
+        Assertions.assertEquals("T", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
+
+        strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         strategyConfigBuilder.entityBuilder().nameConvert(new INameConvert() {
             @Override
             public @NotNull String entityNameConvert(@NotNull TableInfo tableInfo) {
@@ -174,7 +177,7 @@ class StrategyConfigTest {
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, strategyConfigBuilder.build(), null, null, null);
         TableField tableField = new TableField(configBuilder,"c_user_name");
         Assertions.assertEquals("c_user_name", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
-        strategyConfigBuilder.addTablePrefix("t_", "c_");
+        strategyConfigBuilder.addFieldPrefix("t_", "c_");
         Assertions.assertEquals("user_name", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
@@ -182,8 +185,13 @@ class StrategyConfigTest {
         Assertions.assertEquals("cUserName", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
 
         strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
-        strategyConfigBuilder.addTablePrefix("t_", "c_");
+        strategyConfigBuilder.addFieldPrefix("t_", "c_");
         Assertions.assertEquals("userName", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
+
+        strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
+        strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
+        strategyConfigBuilder.addFieldSuffix("_name");
+        Assertions.assertEquals("cUser", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         strategyConfigBuilder.entityBuilder().nameConvert(new INameConvert() {
@@ -249,7 +257,7 @@ class StrategyConfigTest {
     void builderTest() {
         StrategyConfig strategyConfig;
         strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().enableSkipView()
-            .entityBuilder().enableLombok().enableSerialVersionUID()
+            .entityBuilder().enableChainModel().enableLombok().enableSerialVersionUID()
             .controllerBuilder().enableHyphenStyle().enableRestStyle().superClass("com.baomidou.mp.SuperController")
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
 

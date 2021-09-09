@@ -27,14 +27,6 @@ public class DataSourceConfigTest {
         Assertions.assertEquals(dataSourceConfig.getDbType(), DbType.H2);
         Assertions.assertEquals(dataSourceConfig.getDbQuery().getClass(), H2Query.class);
 
-        dataSourceConfig = new DataSourceConfig.Builder("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE", "sa", "").build();
-        Assertions.assertNotNull(dataSourceConfig.getDbType());
-        Assertions.assertNotNull(dataSourceConfig.getConn());
-        Assertions.assertNotNull(dataSourceConfig.getTypeConvert());
-//        Assertions.assertEquals(Driver.class.getName(), dataSourceConfig.getDriverName());
-        Assertions.assertEquals(dataSourceConfig.getDbType(), DbType.H2);
-        Assertions.assertEquals(dataSourceConfig.getDbQuery().getClass(), H2Query.class);
-
         dataSourceConfig = new DataSourceConfig.Builder("jdbc:h2:mem:test;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE", "sa", "")
             .dbQuery(new MySqlQuery()).schema("mp").keyWordsHandler(new MySqlKeyWordsHandler()).typeConvert(new PostgreSqlTypeConvert())
             .build();
@@ -56,5 +48,4 @@ public class DataSourceConfigTest {
         Assertions.assertEquals(dataSourceConfig.getDbType(), DbType.H2);
         Assertions.assertEquals(dataSourceConfig.getDbQuery().getClass(), H2Query.class);
     }
-
 }

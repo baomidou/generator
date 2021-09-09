@@ -13,12 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.baomidou.mybatisplus.test.generator.entity;
+package com.baomidou.mybatisplus.generator.entity;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -29,14 +28,14 @@ import lombok.EqualsAndHashCode;
  * @since 2019-02-20
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class BaseEntity extends SuperEntity {
+public class SuperEntity implements Serializable {
 
     /**
 	 * serialVersionUID
 	 */
-	private static final long serialVersionUID = 199327361052220940L;
-	private Boolean deleted;
-    private Date createTime;
+	private static final long serialVersionUID = -4801865210961587582L;
+
+	private Long id;
+    private Boolean deleted;
 
 }

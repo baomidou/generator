@@ -55,7 +55,7 @@ public class TableInfoTest {
         tableInfo.processTable();
         Assertions.assertFalse(tableInfo.isConvert());
         Assertions.assertEquals("UserMapper", tableInfo.getMapperName());
-        Assertions.assertEquals("UserXml", tableInfo.getXmlName());
+        Assertions.assertEquals("UserMapper", tableInfo.getXmlName());
         Assertions.assertEquals("IUserService", tableInfo.getServiceName());
         Assertions.assertEquals("UserServiceImpl", tableInfo.getServiceImplName());
         Assertions.assertEquals("UserController", tableInfo.getControllerName());
@@ -103,7 +103,7 @@ public class TableInfoTest {
         Assertions.assertEquals(1, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
 
-        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null, null), "user").setConvert();
+        tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfig(), null, null, null), "user").setEntityName("userEntity").setConvert();
         tableInfo.importPackage();
         Assertions.assertEquals(2, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
@@ -129,9 +129,10 @@ public class TableInfoTest {
         tableInfo = new TableInfo(configBuilder, "user");
         tableInfo.addField(new TableField(configBuilder, "u_id").setColumnName("u_id").setPropertyName("uid", DbColumnType.LONG).primaryKey(true));
         tableInfo.importPackage();
-        Assertions.assertEquals(2, tableInfo.getImportPackages().size());
+        Assertions.assertEquals(3, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
+        Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig(), null);
@@ -149,11 +150,12 @@ public class TableInfoTest {
         tableInfo.addField(new TableField(configBuilder, "u_id").setColumnName("u_id").setPropertyName("uid", DbColumnType.LONG).primaryKey(true));
         tableInfo.addField(new TableField(configBuilder, "delete_flag").setColumnName("delete_flag").setPropertyName("deleteFlag", DbColumnType.BOOLEAN));
         tableInfo.importPackage();
-        Assertions.assertEquals(4, tableInfo.getImportPackages().size());
+        Assertions.assertEquals(5, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(com.baomidou.mybatisplus.annotation.TableField.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableLogic.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
+        Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig.entityBuilder().idType(IdType.ASSIGN_ID).build(), null, null, null);
@@ -173,15 +175,16 @@ public class TableInfoTest {
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
 
-        strategyConfig = GeneratorBuilder.strategyConfig().entityBuilder().addTableFills(new Column("createTime", FieldFill.DEFAULT)).build();
+        strategyConfig = GeneratorBuilder.strategyConfig().entityBuilder().addTableFills(new Column("create_time", FieldFill.DEFAULT)).build();
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, GeneratorBuilder.globalConfig(), null);
         tableInfo = new TableInfo(configBuilder, "user").setHavePrimaryKey(true);
         tableInfo.addField(new TableField(configBuilder, "u_id").setColumnName("u_id").setPropertyName("uid", DbColumnType.LONG).primaryKey(true));
         tableInfo.addField(new TableField(configBuilder, "create_time").setColumnName("create_time").setPropertyName("createTime", DbColumnType.DATE));
         tableInfo.importPackage();
-        Assertions.assertEquals(5, tableInfo.getImportPackages().size());
+        Assertions.assertEquals(6, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Date.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
+        Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(com.baomidou.mybatisplus.annotation.TableField.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(FieldFill.class.getName()));
@@ -192,8 +195,9 @@ public class TableInfoTest {
         tableInfo.addField(new TableField(configBuilder, "u_id").setPropertyName("uid", DbColumnType.LONG).primaryKey(true));
         tableInfo.addField(new TableField(configBuilder, "version").setPropertyName("version", DbColumnType.LONG));
         tableInfo.importPackage();
-        Assertions.assertEquals(3, tableInfo.getImportPackages().size());
+        Assertions.assertEquals(4, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
+        Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Version.class.getName()));
     }

@@ -1,10 +1,7 @@
 package com.baomidou.mybatisplus.generator.config.builder;
 
-import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
-import org.h2.Driver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +17,7 @@ public class ConfigBuilderTest {
         "sa", "").build();
 
     @Test
-    void matcherRegTableTest(){
+    void matcherRegTableTest() {
         Assertions.assertFalse(ConfigBuilder.matcherRegTable("user"));
         Assertions.assertFalse(ConfigBuilder.matcherRegTable("USER"));
         Assertions.assertFalse(ConfigBuilder.matcherRegTable("t_user"));
@@ -42,13 +39,14 @@ public class ConfigBuilderTest {
             GeneratorBuilder.templateConfig(), null, null);
         pathInfo = configBuilder.getPathInfo();
         Assertions.assertFalse(pathInfo.isEmpty());
-        Assertions.assertEquals(6, pathInfo.size());
+        Assertions.assertEquals(7, pathInfo.size());
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.entity));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.controller));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.service));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.serviceImpl));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.mapperXml));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.mapper));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.other));
 
         configBuilder = new ConfigBuilder(
             GeneratorBuilder.packageConfigBuilder().pathInfo(Collections.singletonMap(OutputFile.entity,
@@ -56,7 +54,7 @@ public class ConfigBuilderTest {
             GeneratorBuilder.templateConfig(), null, null);
         pathInfo = configBuilder.getPathInfo();
         Assertions.assertFalse(pathInfo.isEmpty());
-        Assertions.assertEquals(6, pathInfo.size());
+        Assertions.assertEquals(7, pathInfo.size());
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.entity));
     }
 }

@@ -23,8 +23,8 @@ public class TableFieldTest {
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfig(), null, GeneratorBuilder.globalConfig(), null);
         Assertions.assertFalse(new TableField(configBuilder, "desc").setColumnName("desc").setPropertyName("desc", DbColumnType.STRING).isConvert());
         Assertions.assertTrue(new TableField(configBuilder, "desc").setColumnName("desc").setPropertyName("desc1", DbColumnType.STRING).isConvert());
-        Assertions.assertTrue(new TableField(configBuilder, "DESC").setColumnName("DESC").setPropertyName("desc", DbColumnType.STRING).isConvert());
-        Assertions.assertTrue(new TableField(configBuilder, "desc").setColumnName("desc").setPropertyName("desc", DbColumnType.STRING).isConvert());
+        Assertions.assertFalse(new TableField(configBuilder, "DESC").setColumnName("DESC").setPropertyName("desc", DbColumnType.STRING).isConvert());
+        Assertions.assertFalse(new TableField(configBuilder, "desc").setColumnName("desc").setPropertyName("desc", DbColumnType.STRING).isConvert());
         Assertions.assertTrue(new TableField(configBuilder, "desc").setColumnName("desc").setPropertyName("desc1", DbColumnType.STRING).isConvert());
 
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfigBuilder().entityBuilder().enableTableFieldAnnotation().build(), null, GeneratorBuilder.globalConfig(), null);
@@ -38,13 +38,13 @@ public class TableFieldTest {
         Assertions.assertTrue(new TableField(configBuilder, "USER_NAME").setColumnName("USER_NAME").setPropertyName("userName", DbColumnType.STRING).isConvert());
 
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfigBuilder().entityBuilder().columnNaming(NamingStrategy.underline_to_camel).build(), null, GeneratorBuilder.globalConfig(), null);
-        Assertions.assertFalse(new TableField(configBuilder, "user_name").setColumnName("user_name").setPropertyName("userName", DbColumnType.STRING).isConvert());
+        Assertions.assertTrue(new TableField(configBuilder, "user_name").setColumnName("user_name").setPropertyName("userName", DbColumnType.STRING).isConvert());
         Assertions.assertTrue(new TableField(configBuilder, "USER_NAME").setColumnName("USER_NAME").setPropertyName("userName", DbColumnType.STRING).isConvert());
 
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfigBuilder().entityBuilder().columnNaming(NamingStrategy.no_change).build(), null, GeneratorBuilder.globalConfig(), null);
         Assertions.assertTrue(new TableField(configBuilder, "user_name").setColumnName("user_name").setPropertyName("userName", DbColumnType.STRING).isConvert());
         Assertions.assertFalse(new TableField(configBuilder, "USER_NAME").setColumnName("USER_NAME").setPropertyName("USER_NAME", DbColumnType.STRING).isConvert());
-        Assertions.assertTrue(new TableField(configBuilder, "NAME").setColumnName("NAME").setPropertyName("name", DbColumnType.STRING).isConvert());
+        Assertions.assertFalse(new TableField(configBuilder, "NAME").setColumnName("NAME").setPropertyName("name", DbColumnType.STRING).isConvert());
 
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, GeneratorBuilder.strategyConfigBuilder().entityBuilder().enableRemoveIsPrefix().build(), null, GeneratorBuilder.globalConfig(), null);
         tableField = new TableField(configBuilder, "delete").setColumnName("delete").setPropertyName("delete", DbColumnType.BOOLEAN);

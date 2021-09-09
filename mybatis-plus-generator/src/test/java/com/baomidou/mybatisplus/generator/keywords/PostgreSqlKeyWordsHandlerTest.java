@@ -1,6 +1,5 @@
-package com.baomidou.mybatisplus.test.generator.keywords;
+package com.baomidou.mybatisplus.generator.keywords;
 
-import com.baomidou.mybatisplus.generator.keywords.PostgreSqlKeyWordsHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Test;
  * @author nieqiurong 2020/5/9.
  */
 class PostgreSqlKeyWordsHandlerTest {
-    
+
     @Test
     void test() {
         PostgreSqlKeyWordsHandler keyWordsHandler = new PostgreSqlKeyWordsHandler();
@@ -18,5 +17,5 @@ class PostgreSqlKeyWordsHandlerTest {
         Assertions.assertFalse(keyWordsHandler.isKeyWords("SYSTEM"));
         Assertions.assertEquals(keyWordsHandler.formatColumn("with"), "\"with\"");
     }
-    
+
 }
