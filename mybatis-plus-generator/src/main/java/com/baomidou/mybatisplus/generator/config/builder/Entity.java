@@ -72,9 +72,9 @@ public class Entity implements ITemplate {
     private final Set<String> ignoreColumns = new HashSet<>();
 
     /**
-     * 实体是否生成 serialVersionUID（默认 false）
+     * 实体是否生成 serialVersionUID
      */
-    private boolean serialVersionUID;
+    private boolean serialVersionUID = true;
 
     /**
      * 【实体】是否生成字段常量（默认 false）<br>
@@ -370,13 +370,13 @@ public class Entity implements ITemplate {
         }
 
         /**
-         * 开启生成serialVersionUID
+         * 禁用生成serialVersionUID
          *
          * @return this
          * @since 3.5.0
          */
-        public Builder enableSerialVersionUID() {
-            this.entity.serialVersionUID = true;
+        public Builder disableSerialVersionUID() {
+            this.entity.serialVersionUID = false;
             return this;
         }
 

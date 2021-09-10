@@ -157,20 +157,17 @@ public class TableInfo {
      * @since 3.5.0
      */
     public void importPackage() {
-        boolean importSerializable = true;
         String superEntity = entity.getSuperClass();
         if (StringUtils.isNotBlank(superEntity)) {
             // 自定义父类
-            importSerializable = false;
             this.importPackages.add(superEntity);
         } else {
             if (entity.isActiveRecord()) {
                 // 无父类开启 AR 模式
                 this.importPackages.add(Model.class.getCanonicalName());
-                importSerializable = false;
             }
         }
-        if (importSerializable) {
+        if (entity.isSerialVersionUID()) {
             this.importPackages.add(Serializable.class.getCanonicalName());
         }
         if (this.isConvert()) {

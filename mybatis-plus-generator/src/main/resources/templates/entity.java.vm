@@ -44,11 +44,13 @@ import lombok.experimental.Accessors;
 public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
 #elseif(${activeRecord})
 public class ${entity} extends Model<${entity}> {
-#else
+#elseif(${entitySerialVersionUID})
 public class ${entity} implements Serializable {
+#else
+public class ${entity} {
 #end
-
 #if(${entitySerialVersionUID})
+
     private static final long serialVersionUID = 1L;
 #end
 ## ----------  BEGIN 字段循环遍历  ----------
