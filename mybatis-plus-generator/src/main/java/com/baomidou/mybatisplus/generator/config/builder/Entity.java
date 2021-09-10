@@ -143,9 +143,9 @@ public class Entity implements ITemplate {
     private final List<IFill> tableFillList = new ArrayList<>();
 
     /**
-     * 数据库表映射到实体的命名策略
+     * 数据库表映射到实体的命名策略，默认下划线转驼峰命名
      */
-    private NamingStrategy naming = NamingStrategy.no_change;
+    private NamingStrategy naming = NamingStrategy.underline_to_camel;
 
     /**
      * 数据库表字段映射到实体的命名策略
