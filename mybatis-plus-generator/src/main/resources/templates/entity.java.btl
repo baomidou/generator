@@ -1,4 +1,5 @@
 package ${package.Entity};
+
 <% for(pkg in table.importPackages){ %>
 import ${pkg};
 <% } %>
@@ -13,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 <% } %>
 <% } %>
+
 /**
  * <p>
  * ${table.comment!}
@@ -42,11 +44,13 @@ import lombok.experimental.Accessors;
 public class ${entity} extends ${superEntityClass}<% if(activeRecord){ %><${entity}><%}%>{
 <% }else if(activeRecord){ %>
 public class ${entity} extends Model<${entity}> {
-<% }else{ %>
+<% }else if(entitySerialVersionUID){ %>
 public class ${entity} implements Serializable {
+<% }else{ %>
+public class ${entity} {
 <% } %>
-
 <% if(entitySerialVersionUID){ %>
+
     private static final long serialVersionUID = 1L;
 <% } %>
 <% /** -----------BEGIN 字段循环遍历----------- **/ %>
