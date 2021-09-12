@@ -59,6 +59,8 @@ public class TypeConverts {
                 return SqlServerTypeConvert.INSTANCE;
             case FIREBIRD:
                 return FirebirdTypeConvert.INSTANCE;
+            case CLICK_HOUSE:
+                return ClickHouseTypeConvert.INSTANCE;
         }
         return null;
     }

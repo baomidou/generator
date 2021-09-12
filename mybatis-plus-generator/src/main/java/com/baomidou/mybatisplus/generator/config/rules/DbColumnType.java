@@ -59,6 +59,7 @@ public enum DbColumnType implements IColumnType {
     INSTANT("Instant", "java.time.Instant"),
 
     // 其他杂类
+    MAP("Map", "java.util.Map"),
     BYTE_ARRAY("byte[]", null),
     OBJECT("Object", null),
     DATE("Date", "java.util.Date"),
