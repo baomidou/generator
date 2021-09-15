@@ -7,6 +7,7 @@ import ${pkg};
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 #end
+
 /**
  * <p>
  * $!{table.comment}
@@ -25,8 +26,10 @@ import io.swagger.annotations.ApiModelProperty;
 class ${entity} : ${superEntityClass}#if(${activeRecord})<${entity}>#end() {
 #elseif(${activeRecord})
 class ${entity} : Model<${entity}>() {
-#else
+#elseif(${entitySerialVersionUID})
 class ${entity} : Serializable {
+#else
+class ${entity} {
 #end
 
 ## ----------  BEGIN 字段循环遍历  ----------
@@ -64,11 +67,11 @@ class ${entity} : Serializable {
     @TableField("${field.annotationColumnName}")
 #end
 ## 乐观锁注解
-#if(field.versionField)
+#if(${field.versionField})
     @Version
 #end
 ## 逻辑删除注解
-#if(field.logicDeleteField)
+#if(${field.logicDeleteField})
     @TableLogic
 #end
     #if(${field.propertyType} == "Integer")
@@ -76,10 +79,9 @@ class ${entity} : Serializable {
     #else
     var ${field.propertyName}: ${field.propertyType}? = null
     #end
+
 #end
 ## ----------  END 字段循环遍历  ----------
-
-
 #if(${entityColumnConstant})
     companion object {
 #foreach($field in ${table.fields})

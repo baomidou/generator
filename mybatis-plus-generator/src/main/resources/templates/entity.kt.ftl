@@ -7,6 +7,7 @@ import ${pkg}
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
+
 /**
  * <p>
  * ${table.comment}
@@ -25,8 +26,10 @@ import io.swagger.annotations.ApiModelProperty;
 class ${entity} : ${superEntityClass}<#if activeRecord><${entity}></#if> {
 <#elseif activeRecord>
 class ${entity} : Model<${entity}>() {
-<#else>
+<#elseif entitySerialVersionUID>
 class ${entity} : Serializable {
+<#else>
+class ${entity} {
 </#if>
 
 <#-- ----------  BEGIN 字段循环遍历  ---------->
@@ -34,7 +37,6 @@ class ${entity} : Serializable {
 <#if field.keyFlag>
     <#assign keyPropertyName="${field.propertyName}"/>
 </#if>
-
 <#if field.comment!?length gt 0>
 <#if swagger>
         @ApiModelProperty(value = "${field.comment}")
@@ -77,10 +79,9 @@ class ${entity} : Serializable {
     <#else>
     var ${field.propertyName}: ${field.propertyType}? = null
     </#if>
+
 </#list>
 <#-- ----------  END 字段循环遍历  ---------->
-
-
 <#if entityColumnConstant>
     companion object {
 <#list table.fields as field>
