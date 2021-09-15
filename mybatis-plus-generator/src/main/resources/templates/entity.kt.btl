@@ -1,4 +1,5 @@
 package ${package.Entity}
+
 <% for(pkg in table.importPackages){ %>
 import ${pkg}
 <% } %>
@@ -6,6 +7,7 @@ import ${pkg}
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 <% } %>
+
 /**
  * <p>
  * ${table.comment!}
@@ -24,8 +26,10 @@ import io.swagger.annotations.ApiModelProperty
 class ${entity} : ${superEntityClass}<% if(activeRecord){ %><${entity}><%}%>{
 <% }else if(activeRecord){ %>
 class ${entity} : Model<${entity}> {
-<% }else{ %>
+<% }else if(entitySerialVersionUID){ %>
 class ${entity} : Serializable {
+<% }else{ %>
+class ${entity} {
 <% } %>
 
 <% /** -----------BEGIN 字段循环遍历----------- **/ %>
@@ -35,7 +39,6 @@ class ${entity} : Serializable {
         var keyPropertyName = field.propertyName;
     }
     %>
-
     <% if(isNotEmpty(field.comment)){ %>
         <% if(swagger){ %>
     @ApiModelProperty(value = "${field.comment}")
@@ -85,9 +88,9 @@ class ${entity} : Serializable {
     <% }else{ %>
     var ${field.propertyName}: ${field.propertyType} ? = null
     <% } %>
+
 <% } %>
 <% /** -----------END 字段循环遍历----------- **/ %>
-
 <% if(entityColumnConstant){ %>
     companion object {
    <% for(field in table.fields){ %>
@@ -106,7 +109,6 @@ class ${entity} : Serializable {
     }
 
 <% } %>
-
 <% if(!entityLombokModel){ %>
     @Override
     override fun toString(): String  {
