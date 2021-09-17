@@ -26,16 +26,44 @@ import java.util.function.Consumer;
 /**
  * mybatis plus FastAutoGenerator
  *
- * @author L.cm
+ * @author L.cm,lanjerry
  * @since 2021-07-22
  */
 public final class FastAutoGenerator {
+
+    /**
+     * 数据源配置 Builder
+     */
     private final DataSourceConfig.Builder dataSourceConfigBuilder;
+
+    /**
+     * 全局配置 Builder
+     */
     private final GlobalConfig.Builder globalConfigBuilder;
-    private final TemplateConfig.Builder templateConfigBuilder;
+
+    /**
+     * 包配置 Builder
+     */
     private final PackageConfig.Builder packageConfigBuilder;
+
+    /**
+     * 策略配置 Builder
+     */
     private final StrategyConfig.Builder strategyConfigBuilder;
+
+    /**
+     * 注入配置 Builder
+     */
     private final InjectionConfig.Builder injectionConfigBuilder;
+
+    /**
+     * 模板配置 Builder
+     */
+    private final TemplateConfig.Builder templateConfigBuilder;
+
+    /**
+     * 模板引擎
+     */
     private AbstractTemplateEngine templateEngine;
 
     private FastAutoGenerator(DataSourceConfig.Builder dataSourceConfigBuilder) {
@@ -51,13 +79,8 @@ public final class FastAutoGenerator {
         return new FastAutoGenerator(new DataSourceConfig.Builder(url, username, password));
     }
 
-    public static FastAutoGenerator create(@NotNull DataSource dataSource) {
-        return new FastAutoGenerator(new DataSourceConfig.Builder(dataSource));
-    }
-
-    public FastAutoGenerator dataSourceConfig(Consumer<DataSourceConfig.Builder> consumer) {
-        consumer.accept(this.dataSourceConfigBuilder);
-        return this;
+    public static FastAutoGenerator create(@NotNull DataSourceConfig.Builder dataSourceConfigBuilder) {
+        return new FastAutoGenerator(dataSourceConfigBuilder);
     }
 
     public FastAutoGenerator globalConfig(Consumer<GlobalConfig.Builder> consumer) {
@@ -94,16 +117,15 @@ public final class FastAutoGenerator {
         new AutoGenerator(this.dataSourceConfigBuilder.build())
             // 全局配置
             .global(this.globalConfigBuilder.build())
-            // 模板配置
-            .template(this.templateConfigBuilder.build())
             // 包配置
             .packageInfo(this.packageConfigBuilder.build())
             // 策略配置
             .strategy(this.strategyConfigBuilder.build())
             // 注入配置
             .injection(this.injectionConfigBuilder.build())
+            // 模板配置
+            .template(this.templateConfigBuilder.build())
             // 执行
             .execute(this.templateEngine);
     }
-
 }

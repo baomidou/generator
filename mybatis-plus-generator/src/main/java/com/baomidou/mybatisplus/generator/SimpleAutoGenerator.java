@@ -16,6 +16,7 @@ import java.util.Scanner;
  * @since 2021-02-08
  */
 public abstract class SimpleAutoGenerator {
+
     /**
      * 读取控制台输入内容
      */
@@ -48,12 +49,12 @@ public abstract class SimpleAutoGenerator {
         new AutoGenerator(this.configBuilder(dataSourceConfigBuilder()))
             // 全局配置
             .global(this.configBuilder(globalConfigBuilder()))
-            // 模板配置
-            .template(this.configBuilder(templateConfigBuilder()))
             // 包配置
             .packageInfo(this.configBuilder(packageConfigBuilder()))
             // 策略配置
             .strategy(this.configBuilder(strategyConfigBuilder()))
+            // 模板配置
+            .template(this.configBuilder(templateConfigBuilder()))
             // 注入配置
             .injection(this.configBuilder(injectionConfigBuilder()))
             // 执行
@@ -94,13 +95,6 @@ public abstract class SimpleAutoGenerator {
     }
 
     /**
-     * 自定义模板配置 Builder
-     */
-    public TemplateConfig.Builder templateConfigBuilder() {
-        return null;
-    }
-
-    /**
      * 代码生成策略配置 Builder
      */
     public IConfigBuilder<StrategyConfig> strategyConfigBuilder() {
@@ -110,10 +104,17 @@ public abstract class SimpleAutoGenerator {
     }
 
     /**
+     * 自定义模板配置 Builder
+     */
+    public TemplateConfig.Builder templateConfigBuilder() {
+        return new TemplateConfig.Builder();
+    }
+
+    /**
      * 注入配置 Builder
      */
     public IConfigBuilder<InjectionConfig> injectionConfigBuilder() {
-        return null;
+        return new InjectionConfig.Builder();
     }
 
     /**
