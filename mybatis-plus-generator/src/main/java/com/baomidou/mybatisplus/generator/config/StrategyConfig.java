@@ -393,6 +393,17 @@ public class StrategyConfig {
         }
 
         /**
+         * 禁用sql过滤
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder disableSqlFilter() {
+            this.strategyConfig.enableSqlFilter = false;
+            return this;
+        }
+
+        /**
          * 增加过滤表前缀
          *
          * @param tablePrefix 过滤表前缀
@@ -461,17 +472,6 @@ public class StrategyConfig {
          */
         public Builder addExclude(@NotNull String... exclude) {
             this.strategyConfig.exclude.addAll(Arrays.asList(exclude));
-            return this;
-        }
-
-        /**
-         * 禁用sql过滤
-         *
-         * @return this
-         * @since 3.5.0
-         */
-        public Builder disableSqlFilter() {
-            this.strategyConfig.enableSqlFilter = false;
             return this;
         }
 

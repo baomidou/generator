@@ -113,15 +113,15 @@ public class TableInfoTest {
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, strategyConfig, null, null, null);
         tableInfo = new TableInfo(configBuilder, "user");
         tableInfo.importPackage();
-        Assertions.assertEquals(1, tableInfo.getImportPackages().size());
-        Assertions.assertFalse(tableInfo.getImportPackages().contains(Serializable.class.getName()));
+        Assertions.assertEquals(2, tableInfo.getImportPackages().size());
+        Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains("con.baomihua.demo.SuperEntity"));
 
         tableInfo = new TableInfo(new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfigBuilder()
             .entityBuilder().enableActiveRecord().build(), null, null, null), "user");
         tableInfo.importPackage();
-        Assertions.assertEquals(1, tableInfo.getImportPackages().size());
-        Assertions.assertFalse(tableInfo.getImportPackages().contains(Serializable.class.getName()));
+        Assertions.assertEquals(2, tableInfo.getImportPackages().size());
+        Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Model.class.getName()));
 
         strategyConfig = GeneratorBuilder.strategyConfig();
@@ -216,7 +216,7 @@ public class TableInfoTest {
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfigBuilder().entityBuilder().naming(NamingStrategy.no_change).build(), null, null, null);
         Assertions.assertFalse(new TableInfo(configBuilder, "user").setEntityName("User").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfigBuilder().entityBuilder().naming(NamingStrategy.underline_to_camel).build(), null, null, null);
-        Assertions.assertFalse(new TableInfo(configBuilder, "test_user").setEntityName("TestUser").isConvert());
+        Assertions.assertTrue(new TableInfo(configBuilder, "test_user").setEntityName("TestUser").isConvert());
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), dataSourceConfig, GeneratorBuilder.strategyConfigBuilder().entityBuilder().naming(NamingStrategy.underline_to_camel).build(), null, null, null);
         Assertions.assertTrue(new TableInfo(configBuilder, "TEST_USER").setEntityName("TestUser").isConvert());
     }

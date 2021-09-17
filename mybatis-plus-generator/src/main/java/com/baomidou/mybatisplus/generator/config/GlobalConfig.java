@@ -133,10 +133,10 @@ public class GlobalConfig {
         }
 
         /**
-         * 是否打开输出目录
+         * 禁止打开输出目录
          */
-        public Builder openDir(boolean open) {
-            this.globalConfig.open = open;
+        public Builder disableOpenDir(){
+            this.globalConfig.open = false;
             return this;
         }
 

@@ -15,10 +15,11 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *     自定义模板
+ * 自定义模板entity
+ * 自定义属性注入abc=$!{abc}
  * $!{table.comment}
  * </p>
- * 自定义属性注入abc=$!{cfg.abc}
+ *
  * @author ${author}
  * @since ${date}
  */

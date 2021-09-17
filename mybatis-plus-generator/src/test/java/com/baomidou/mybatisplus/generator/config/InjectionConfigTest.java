@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author linjierong
+ * @author lanjerry
  * @since 2021-09-06
  */
 public class InjectionConfigTest {
@@ -18,11 +18,11 @@ public class InjectionConfigTest {
         Map<String, Object> customMap = new HashMap<>();
         customMap.put("test", "baomidou");
         Map<String, String> customFile = new HashMap<>();
-        customFile.put("query.sql", "/templates/query.sql.vm");
+        customFile.put("test.txt", "/templates/test.vm");
         InjectionConfig injectionConfig = GeneratorBuilder.injectionConfigBuilder().customMap(customMap).customFile(customFile).build();
         Assertions.assertEquals(1, injectionConfig.getCustomMap().size());
         Assertions.assertEquals("baomidou",injectionConfig.getCustomMap().get("test"));
         Assertions.assertEquals(1, injectionConfig.getCustomFile().size());
-        Assertions.assertEquals("/templates/query.sql.vm",injectionConfig.getCustomFile().get("query.sql"));
+        Assertions.assertEquals("/templates/test.vm",injectionConfig.getCustomFile().get("test.txt"));
     }
 }

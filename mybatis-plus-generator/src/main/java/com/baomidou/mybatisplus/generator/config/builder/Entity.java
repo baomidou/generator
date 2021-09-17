@@ -436,6 +436,17 @@ public class Entity implements ITemplate {
         }
 
         /**
+         * 开启 ActiveRecord 模式
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableActiveRecord() {
+            this.entity.activeRecord = true;
+            return this;
+        }
+
+        /**
          * 设置乐观锁数据库表字段名称
          *
          * @param versionColumnName 乐观锁数据库字段名称
@@ -516,7 +527,7 @@ public class Entity implements ITemplate {
         /**
          * 添加忽略字段
          *
-         * @param ignoreColumns 父类字段(数据库字段列名)
+         * @param ignoreColumns 需要忽略的字段(数据库字段列名)
          * @return this
          * @since 3.5.0
          */
@@ -546,17 +557,6 @@ public class Entity implements ITemplate {
          */
         public Builder addTableFills(@NotNull List<IFill> tableFillList) {
             this.entity.tableFillList.addAll(tableFillList);
-            return this;
-        }
-
-        /**
-         * 开启 ActiveRecord 模式
-         *
-         * @return this
-         * @since 3.5.0
-         */
-        public Builder enableActiveRecord() {
-            this.entity.activeRecord = true;
             return this;
         }
 

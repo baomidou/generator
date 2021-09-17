@@ -292,6 +292,17 @@ public class PackageConfig {
         }
 
         /**
+         * 指定自定义文件包名
+         *
+         * @param other 自定义文件包名
+         * @return this
+         */
+        public Builder other(@NotNull String other) {
+            this.packageConfig.other = other;
+            return this;
+        }
+
+        /**
          * 路径配置信息
          *
          * @param pathInfo 路径配置信息

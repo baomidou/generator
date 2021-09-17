@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 /**
- * 抽象的对外接口
+ * 注入配置
  *
  * @author hubin
  * @since 2016-12-07
