@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author nieqiurong 2020/10/10.
  */
 public class TemplateConfigTest {
@@ -67,7 +66,7 @@ public class TemplateConfigTest {
         Assertions.assertNotNull(templateConfig.getService());
         Assertions.assertNotNull(templateConfig.getServiceImpl());
 
-        templateConfig = new TemplateConfig.Builder().entity("/tmp/entity.java").entityKt("/tmp/entity.kt").service("/tmp/service.java", "/tmp/serviceImpl.java").build();
+        templateConfig = new TemplateConfig.Builder().entity("/tmp/entity.java").entityKt("/tmp/entity.kt").service("/tmp/service.java").serviceImpl("/tmp/serviceImpl.java").build();
         Assertions.assertNotNull(templateConfig.getEntity(true));
         Assertions.assertNotNull(templateConfig.getEntity(false));
         Assertions.assertNotNull(templateConfig.getService());

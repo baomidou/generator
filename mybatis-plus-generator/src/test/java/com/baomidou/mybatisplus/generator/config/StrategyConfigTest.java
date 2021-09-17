@@ -138,7 +138,7 @@ class StrategyConfigTest {
             null, null, null), "t_user");
 
         StrategyConfig.Builder strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
-        Assertions.assertEquals("T_user", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
+        Assertions.assertEquals("TUser", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
         strategyConfigBuilder.addTablePrefix("t_", "a_");
         Assertions.assertEquals("User", strategyConfigBuilder.build().entity().getNameConvert().entityNameConvert(tableInfo));
 
@@ -176,9 +176,9 @@ class StrategyConfigTest {
         StrategyConfig.Builder strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         configBuilder = new ConfigBuilder(GeneratorBuilder.packageConfig(), TableInfoTest.dataSourceConfig, strategyConfigBuilder.build(), null, null, null);
         TableField tableField = new TableField(configBuilder,"c_user_name");
-        Assertions.assertEquals("c_user_name", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
+        Assertions.assertEquals("cUserName", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
         strategyConfigBuilder.addFieldPrefix("t_", "c_");
-        Assertions.assertEquals("user_name", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
+        Assertions.assertEquals("userName", strategyConfigBuilder.build().entity().getNameConvert().propertyNameConvert(tableField));
 
         strategyConfigBuilder = GeneratorBuilder.strategyConfigBuilder();
         strategyConfigBuilder.entityBuilder().naming(NamingStrategy.underline_to_camel);
@@ -257,13 +257,13 @@ class StrategyConfigTest {
     void builderTest() {
         StrategyConfig strategyConfig;
         strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().enableSkipView()
-            .entityBuilder().enableChainModel().enableLombok().enableSerialVersionUID()
+            .entityBuilder().enableChainModel().enableLombok()
             .controllerBuilder().enableHyphenStyle().enableRestStyle().superClass("com.baomidou.mp.SuperController")
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
 
         buildAssert(strategyConfig);
         strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableSkipView()
-            .entityBuilder().enableChainModel().enableLombok().enableSerialVersionUID()
+            .entityBuilder().enableChainModel().enableLombok()
             .controllerBuilder().superClass("com.baomidou.mp.SuperController").enableHyphenStyle().enableRestStyle()
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
         buildAssert(strategyConfig);
