@@ -244,11 +244,20 @@ public class TemplateConfig {
          * 设置service模板路径
          *
          * @param serviceTemplate     service接口模板路径
+         * @return this
+         */
+        public Builder service(@NotNull String serviceTemplate) {
+            this.templateConfig.service = serviceTemplate;
+            return this;
+        }
+
+        /**
+         * 设置serviceImpl模板路径
+         *
          * @param serviceImplTemplate service实现类模板路径
          * @return this
          */
-        public Builder service(@NotNull String serviceTemplate, @NotNull String serviceImplTemplate) {
-            this.templateConfig.service = serviceTemplate;
+        public Builder serviceImpl(@NotNull String serviceImplTemplate) {
             this.templateConfig.serviceImpl = serviceImplTemplate;
             return this;
         }
