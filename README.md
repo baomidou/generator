@@ -52,6 +52,8 @@ new SimpleAutoGenerator() {
 
 ### 说明
 
+#### 数据库配置(DataSourceConfig)
+
 ##### 基础配置
 
 | 属性          | 说明       | 示例 |
