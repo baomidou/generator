@@ -271,11 +271,11 @@ new StrategyConfig.Builder()
 ##### Controller策略配置
 
 | 方法                               | 说明                           | 示例                               |
-| ---------------------------------- | ------------------------------ | ---------------------------------- | --- |
+| ---------------------------------- | ------------------------------ | ---------------------------------- |
 | superClass(Class<?>)               | 设置父类                       | BaseController.class               |
 | superClass(String)                 | 设置父类                       | com.baomidou.global.BaseController |
 | enableHyphenStyle                  | 开启驼峰转连字符               | 默认值:false                       |
-| enableRestStyle                    | 开启生成@RestController 控制器 | 默认值:false                       |     |
+| enableRestStyle                    | 开启生成@RestController 控制器 | 默认值:false                       |
 | convertFileName(ConverterFileName) | 转换文件名称                   |                                    |
 | formatFileName(String)             | 格式化文件名称                 |                                    |
 
