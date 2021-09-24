@@ -95,6 +95,11 @@ public class StrategyConfig {
     private boolean enableSqlFilter = true;
 
     /**
+     * 启用 schema 默认 false
+     */
+    private boolean enableSchema;
+
+    /**
      * 包含表名
      *
      * @since 3.3.0
@@ -346,6 +351,10 @@ public class StrategyConfig {
         return enableSqlFilter;
     }
 
+    public boolean isEnableSchema() {
+        return enableSchema;
+    }
+
     @Nullable
     public LikeTable getLikeTable() {
         return likeTable;
@@ -401,6 +410,17 @@ public class StrategyConfig {
          */
         public Builder disableSqlFilter() {
             this.strategyConfig.enableSqlFilter = false;
+            return this;
+        }
+
+        /**
+         * 启用 schema
+         *
+         * @return this
+         * @since 3.5.1
+         */
+        public Builder enableSchema() {
+            this.strategyConfig.enableSchema = true;
             return this;
         }
 

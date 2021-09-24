@@ -16,10 +16,7 @@
 package com.baomidou.mybatisplus.generator.engine;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.generator.config.ConstVal;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.util.FileUtils;
@@ -63,8 +60,8 @@ public abstract class AbstractTemplateEngine {
      * 输出自定义模板文件
      *
      * @param customFile 自定义配置模板文件信息
-     * @param tableInfo 表信息
-     * @param objectMap 渲染数据
+     * @param tableInfo  表信息
+     * @param objectMap  渲染数据
      * @since 3.5.1
      */
     protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
@@ -316,28 +313,31 @@ public abstract class AbstractTemplateEngine {
      */
     @NotNull
     public Map<String, Object> getObjectMap(@NotNull ConfigBuilder config, @NotNull TableInfo tableInfo) {
-        GlobalConfig globalConfig = config.getGlobalConfig();
-        Map<String, Object> controllerData = config.getStrategyConfig().controller().renderData(tableInfo);
+        StrategyConfig strategyConfig = config.getStrategyConfig();
+        Map<String, Object> controllerData = strategyConfig.controller().renderData(tableInfo);
         Map<String, Object> objectMap = new HashMap<>(controllerData);
-        Map<String, Object> mapperData = config.getStrategyConfig().mapper().renderData(tableInfo);
+        Map<String, Object> mapperData = strategyConfig.mapper().renderData(tableInfo);
         objectMap.putAll(mapperData);
-        Map<String, Object> serviceData = config.getStrategyConfig().service().renderData(tableInfo);
+        Map<String, Object> serviceData = strategyConfig.service().renderData(tableInfo);
         objectMap.putAll(serviceData);
-        Map<String, Object> entityData = config.getStrategyConfig().entity().renderData(tableInfo);
+        Map<String, Object> entityData = strategyConfig.entity().renderData(tableInfo);
         objectMap.putAll(entityData);
         objectMap.put("config", config);
         objectMap.put("package", config.getPackageConfig().getPackageInfo());
+        GlobalConfig globalConfig = config.getGlobalConfig();
         objectMap.put("author", globalConfig.getAuthor());
         objectMap.put("kotlin", globalConfig.isKotlin());
         objectMap.put("swagger", globalConfig.isSwagger());
         objectMap.put("date", globalConfig.getCommentDate());
-        // 存在 schemaName 设置拼接 . 组合表名
-        String schemaName = config.getDataSourceConfig().getSchemaName();
-        if (StringUtils.isNotBlank(schemaName)) {
-            schemaName += ".";
-            tableInfo.setConvert(true);
-        } else {
-            schemaName = "";
+        // 启用 schema 处理逻辑
+        String schemaName = "";
+        if (strategyConfig.isEnableSchema()) {
+            // 存在 schemaName 设置拼接 . 组合表名
+            schemaName = config.getDataSourceConfig().getSchemaName();
+            if (StringUtils.isNotBlank(schemaName)) {
+                schemaName += ".";
+                tableInfo.setConvert(true);
+            }
         }
         objectMap.put("schemaName", schemaName);
         objectMap.put("table", tableInfo);
