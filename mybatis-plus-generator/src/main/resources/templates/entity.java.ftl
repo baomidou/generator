@@ -57,7 +57,7 @@ public class ${entity} {
 
     <#if field.comment!?length gt 0>
         <#if swagger>
-    @ApiModelProperty(value = "${field.comment}")
+    @ApiModelProperty("${field.comment}")
         <#else>
     /**
      * ${field.comment}

@@ -41,7 +41,7 @@ class ${entity} {
     %>
     <% if(isNotEmpty(field.comment)){ %>
         <% if(swagger){ %>
-    @ApiModelProperty(value = "${field.comment}")
+    @ApiModelProperty("${field.comment}")
         <% }else{ %>
     /**
      * ${field.comment}
