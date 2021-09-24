@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -460,6 +461,11 @@ public class StrategyConfig {
          */
         public Builder addInclude(@NotNull String... include) {
             this.strategyConfig.include.addAll(Arrays.asList(include));
+            return this;
+        }
+
+        public Builder addInclude(@NotNull List<String> includes) {
+            this.strategyConfig.include.addAll(includes);
             return this;
         }
 

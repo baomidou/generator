@@ -3,8 +3,6 @@ package com.baomidou.mybatisplus.generator.samples;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import org.apache.ibatis.jdbc.ScriptRunner;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,7 +22,6 @@ public class FastAutoGeneratorTest {
     /**
      * 执行初始化数据库脚本
      */
-    @BeforeAll
     public static void before() throws SQLException {
         Connection conn = DATA_SOURCE_CONFIG.build().getConn();
         InputStream inputStream = H2CodeGeneratorTest.class.getResourceAsStream("/sql/init.sql");
@@ -40,22 +37,23 @@ public class FastAutoGeneratorTest {
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig
         .Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;MODE=MYSQL", "sa", "");
 
-    @Test
-    public void testFastAutoGenerator() {
+    /**
+     * 执行 run
+     */
+    public static void main(String[] args) throws SQLException {
+        before();
         FastAutoGenerator.create(DATA_SOURCE_CONFIG)
             // 全局配置
-            .globalConfig(builder -> {
-                builder.author("baomidou")
-                    .fileOverride();
-            })
+            .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称？")).fileOverride())
             // 包配置
-            .packageConfig(builder -> {
-                builder.parent("com.baomidou");
-            })
+            .packageConfig((scanner, builder) -> builder.parent(scanner.apply("请输入包名？")))
             // 策略配置
-            .strategyConfig(builder -> {
-                builder.addInclude("t_simple");
-            })
+            .strategyConfig(builder -> builder.addInclude("t_simple"))
+            /*
+                模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker
+               .templateEngine(new BeetlTemplateEngine())
+               .templateEngine(new FreemarkerTemplateEngine())
+             */
             .execute();
     }
 }

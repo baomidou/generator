@@ -36,18 +36,23 @@ FastAutoGenerator.create("url", "username", "password")
 #### 交互式生成
 
 ```java
-new SimpleAutoGenerator() {
-    @Override
-    public IConfigBuilder<DataSourceConfig> dataSourceConfigBuilder() {
-        return new DataSourceConfig.Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE",
-        "sa", "");
-    }
-}.execute();
+FastAutoGenerator.create(DATA_SOURCE_CONFIG)
+    // 全局配置
+    .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称？")).fileOverride())
+    // 包配置
+    .packageConfig((scanner, builder) -> builder.parent(scanner.apply("请输入包名？")))
+    // 策略配置
+    .strategyConfig(builder -> builder.addInclude("t_simple"))
+    /*
+        模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker
+       .templateEngine(new BeetlTemplateEngine())
+       .templateEngine(new FreemarkerTemplateEngine())
+     */
+    .execute();
 ```
 
 * `更多例子可查看test包下面的samples`
 * [H2CodeGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/H2CodeGeneratorTest.java)
-* [SimpleAutoGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/SimpleAutoGeneratorTest.java)
 * [FastAutoGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/FastAutoGeneratorTest.java)
 
 ### 说明
