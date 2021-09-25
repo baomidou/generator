@@ -104,7 +104,6 @@ public class TableField {
      * @return this
      * @since 3.5.0
      */
-    //TODO 待调整.
     public TableField setPropertyName(@NotNull String propertyName, @NotNull IColumnType columnType) {
         this.columnType = columnType;
         if (entity.isBooleanColumnRemoveIsPrefix()
@@ -112,7 +111,8 @@ public class TableField {
             this.convert = true;
             this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
             return this;
-        } else {
+        } else if(this.entity.getColumnNaming() != NamingStrategy.underline_to_camel) {
+            // 非下划线转驼峰策略，判断是否一致
             this.convert = !propertyName.equalsIgnoreCase(this.columnName);
         }
         if (entity.isTableFieldAnnotationEnable()) {

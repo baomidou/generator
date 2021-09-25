@@ -1,3 +1,10 @@
+
+[官方文档](https://baomidou.com)
+
+[Mybatis-Plus](https://gitee.com/baomidou/mybatis-plus)
+
+[企业版 Mybatis-Mate 高级特性](https://gitee.com/baomidou/mybatis-mate-examples)
+
 ### 安装
 
 ``` xml
@@ -8,7 +15,7 @@
 </dependency>
 ```
 
-### 使用（存在对历史版本的不兼容）
+### 使用（以下教程仅适用 3.5.1 以上版本，对历史版本的不兼容）
 
 #### 快速生成
 
@@ -194,7 +201,8 @@ new InjectionConfig.Builder()
 | ------------------------- | ------------------------ | ----------------------------------------------------------------- |
 | enableCapitalMode         | 开启大写命名             | 默认值:false                                                      |
 | enableSkipView            | 开启跳过视图             | 默认值:false                                                      |
-| disableSqlFilter          | 禁用 sql 过滤            | 默认值:true，语法不能支持使用 sql 过滤表的话，可以考虑关闭此开关. |
+| disableSqlFilter          | 禁用 sql 过滤            | 默认值:true，语法不能支持使用 sql 过滤表的话，可以考虑关闭此开关        |
+| enableSchema              | 启用 schema             | 默认值:false，多 schema 场景的时候打开                              |
 | likeTable(LikeTable)      | 模糊表匹配(sql 过滤)     | likeTable 与 notLikeTable 只能配置一项                            |
 | notLikeTable(LikeTable)   | 模糊表排除(sql 过滤)     | likeTable 与 notLikeTable 只能配置一项                            |
 | addInclude(String...)     | 增加表匹配(内存过滤)     | include 与 exclude 只能配置一项                                   |

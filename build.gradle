@@ -20,7 +20,7 @@ ext {
     ]
 
     libraries = [
-        mybatisPlusVersion = '3.4.3.2',
+        mybatisPlusVersion = '3.4.3.4',
         junitVersion = '5.6.2',
     ]
 
@@ -49,16 +49,16 @@ ext {
         "firebird"            : "org.firebirdsql.jdbc:jaybird:4.0.1.java8",
         //code generator
         "mybatis-plus"        : "com.baomidou:mybatis-plus:${mybatisPlusVersion}",
-        "velocity"            : "org.apache.velocity:velocity-engine-core:2.2",
-        "freemarker"          : "org.freemarker:freemarker:2.3.30",
-        "beetl"               : "com.ibeetl:beetl:3.2.1.RELEASE",
+        "velocity"            : "org.apache.velocity:velocity-engine-core:2.3",
+        "freemarker"          : "org.freemarker:freemarker:2.3.31",
+        "beetl"               : "com.ibeetl:beetl:3.7.0.RELEASE",
         "swagger-annotations" : "io.swagger:swagger-annotations:1.6.2",
     ]
 }
 
 allprojects {
     group = 'com.baomidou'
-    version = "3.5.0"
+    version = "3.5.1"
 }
 
 description = "Mybatis 增强工具包 - 只做增强不做改变，简化CRUD操作"
