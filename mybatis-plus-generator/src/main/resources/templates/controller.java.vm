@@ -1,8 +1,6 @@
 package ${package.Controller};
 
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
 #if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
 #else
@@ -37,5 +35,4 @@ public class ${table.controllerName} {
 #end
 
 }
-
 #end
