@@ -520,7 +520,11 @@ public class Entity implements ITemplate {
          * @since 3.5.0
          */
         public Builder addSuperEntityColumns(@NotNull String... superEntityColumns) {
-            this.entity.superEntityColumns.addAll(Arrays.asList(superEntityColumns));
+            return addSuperEntityColumns(Arrays.asList(superEntityColumns));
+        }
+
+        public Builder addSuperEntityColumns(@NotNull List<String> superEntityColumnList) {
+            this.entity.superEntityColumns.addAll(superEntityColumnList);
             return this;
         }
 
@@ -532,20 +536,23 @@ public class Entity implements ITemplate {
          * @since 3.5.0
          */
         public Builder addIgnoreColumns(@NotNull String... ignoreColumns) {
-            this.entity.ignoreColumns.addAll(Arrays.asList(ignoreColumns));
+            return addIgnoreColumns(Arrays.asList(ignoreColumns));
+        }
+
+        public Builder addIgnoreColumns(@NotNull List<String> ignoreColumnList) {
+            this.entity.ignoreColumns.addAll(ignoreColumnList);
             return this;
         }
 
         /**
          * 添加表字段填充
          *
-         * @param tableFill 填充字段
+         * @param tableFills 填充字段
          * @return this
          * @since 3.5.0
          */
-        public Builder addTableFills(@NotNull IFill... tableFill) {
-            this.entity.tableFillList.addAll(Arrays.asList(tableFill));
-            return this;
+        public Builder addTableFills(@NotNull IFill... tableFills) {
+            return addTableFills(Arrays.asList(tableFills));
         }
 
         /**
