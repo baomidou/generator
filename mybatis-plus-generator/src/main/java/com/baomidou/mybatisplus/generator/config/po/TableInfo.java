@@ -123,7 +123,11 @@ public class TableInfo {
      * @since 3.5.0
      */
     public TableInfo addImportPackages(@NotNull String... pkgs) {
-        importPackages.addAll(Arrays.asList(pkgs));
+        return addImportPackages(Arrays.asList(pkgs));
+    }
+
+    public TableInfo addImportPackages(@NotNull List<String> pkgList) {
+        importPackages.addAll(pkgList);
         return this;
     }
 
