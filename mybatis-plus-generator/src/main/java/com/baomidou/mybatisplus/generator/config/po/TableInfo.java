@@ -107,10 +107,10 @@ public class TableInfo {
      * @since 3.5.0
      */
     public void addField(@NotNull TableField field) {
-        if (entity.matchIgnoreColumns(field.getColumnName())) {
+        if (entity.matchIgnoreColumns(field.getPropertyName())) {
             // 忽略字段不在处理
             return;
-        } else if (entity.matchSuperEntityColumns(field.getColumnName())) {
+        } else if (entity.matchSuperEntityColumns(field.getPropertyName())) {
             this.commonFields.add(field);
         } else {
             this.fields.add(field);
