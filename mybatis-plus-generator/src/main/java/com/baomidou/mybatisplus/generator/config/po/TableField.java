@@ -45,6 +45,10 @@ public class TableField {
      * 主键是否为自增类型
      */
     private boolean keyIdentityFlag;
+    /**
+     * 是否为父类字段
+     */
+    private boolean superEntityColumn;
     private String name;
     private String type;
     private String propertyName;
@@ -241,6 +245,14 @@ public class TableField {
         return keyIdentityFlag;
     }
 
+    public boolean isSuperEntityColumn() {
+        return superEntityColumn;
+    }
+
+    public void setSuperEntityColumn(boolean superEntityColumn) {
+        this.superEntityColumn = superEntityColumn;
+    }
+
     public String getName() {
         return name;
     }
@@ -346,6 +358,8 @@ public class TableField {
         public JdbcType getJdbcType() {
             return jdbcType;
         }
+
+
 
         @Override
         public String toString() {

@@ -51,10 +51,6 @@ public class TableInfo {
     private String controllerName;
     private final List<TableField> fields = new ArrayList<>();
     private boolean havePrimaryKey;
-    /**
-     * 公共字段
-     */
-    private final List<TableField> commonFields = new ArrayList<>();
     private String fieldNames;
 
     private final Entity entity;
@@ -111,7 +107,7 @@ public class TableInfo {
             // 忽略字段不在处理
             return;
         } else if (entity.matchSuperEntityColumns(field.getPropertyName())) {
-            this.commonFields.add(field);
+            field.setSuperEntityColumn(true);
         } else {
             this.fields.add(field);
         }
@@ -284,10 +280,5 @@ public class TableInfo {
 
     public boolean isHavePrimaryKey() {
         return havePrimaryKey;
-    }
-
-    @NotNull
-    public List<TableField> getCommonFields() {
-        return commonFields;
     }
 }
