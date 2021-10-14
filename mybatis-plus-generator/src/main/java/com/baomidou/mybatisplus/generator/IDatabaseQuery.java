@@ -110,7 +110,7 @@ public abstract class IDatabaseQuery {
             List<TableInfo> includeTableList = new ArrayList<>();
             List<TableInfo> excludeTableList = new ArrayList<>();
             try {
-                dbQuery.query(dbQuery.tablesSql(), result -> {
+                dbQuery.execute(dbQuery.tablesSql(), result -> {
                     String tableName = result.getStringResult(dbQuery.tableName());
                     if (StringUtils.isNotBlank(tableName)) {
                         TableInfo tableInfo = new TableInfo(this.configBuilder, tableName);
@@ -176,7 +176,7 @@ public abstract class IDatabaseQuery {
                 String tableFieldsSql = dbQuery.tableFieldsSql(tableName);
                 Set<String> h2PkColumns = new HashSet<>();
                 if (DbType.H2 == dbType) {
-                    dbQuery.query(String.format(H2Query.PK_QUERY_SQL, tableName), result -> {
+                    dbQuery.execute(String.format(H2Query.PK_QUERY_SQL, tableName), result -> {
                         String primaryKey = result.getStringResult(dbQuery.fieldKey());
                         if (Boolean.parseBoolean(primaryKey)) {
                             h2PkColumns.add(result.getStringResult(dbQuery.fieldName()));
@@ -184,7 +184,7 @@ public abstract class IDatabaseQuery {
                     });
                 }
                 Entity entity = strategyConfig.entity();
-                dbQuery.query(tableFieldsSql, result -> {
+                dbQuery.execute(tableFieldsSql, result -> {
                     String columnName = result.getStringResult(dbQuery.fieldName());
                     TableField field = new TableField(this.configBuilder, columnName);
                     // 避免多重主键设置，目前只取第一个找到ID，并放到list中的索引为0的位置

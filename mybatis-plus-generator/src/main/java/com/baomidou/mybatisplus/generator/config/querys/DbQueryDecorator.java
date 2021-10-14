@@ -178,7 +178,14 @@ public class DbQueryDecorator extends AbstractDbQuery {
         return Collections.emptyMap();
     }
 
-    public void query(String sql, Consumer<ResultSetWrapper> consumer) throws SQLException {
+    /**
+     * 执行 SQL 查询，回调返回结果
+     *
+     * @param sql      执行SQL
+     * @param consumer 结果处理
+     * @throws SQLException
+     */
+    public void execute(String sql, Consumer<ResultSetWrapper> consumer) throws SQLException {
         logger.debug("执行SQL:{}", sql);
         int count = 0;
         long start = System.nanoTime();
