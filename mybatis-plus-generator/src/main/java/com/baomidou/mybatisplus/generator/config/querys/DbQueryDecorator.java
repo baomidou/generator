@@ -39,13 +39,13 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
- * 装饰DbQuery
+ * DbQuery 装饰器
  *
  * @author nieqiurong 2020/9/17.
+ * @author hubin
  * @since 3.5.0
  */
-public class DecoratorDbQuery extends AbstractDbQuery {
-
+public class DbQueryDecorator extends AbstractDbQuery {
     private final IDbQuery dbQuery;
     private final Connection connection;
     private final DbType dbType;
@@ -53,7 +53,7 @@ public class DecoratorDbQuery extends AbstractDbQuery {
     private final String schema;
     private final Logger logger;
 
-    public DecoratorDbQuery(@NotNull DataSourceConfig dataSourceConfig, @NotNull StrategyConfig strategyConfig) {
+    public DbQueryDecorator(@NotNull DataSourceConfig dataSourceConfig, @NotNull StrategyConfig strategyConfig) {
         this.dbQuery = dataSourceConfig.getDbQuery();
         this.connection = dataSourceConfig.getConn();
         this.dbType = dataSourceConfig.getDbType();

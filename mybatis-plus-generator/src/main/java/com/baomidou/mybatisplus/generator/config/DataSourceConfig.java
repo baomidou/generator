@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
-import com.baomidou.mybatisplus.generator.config.querys.DecoratorDbQuery;
+import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -181,7 +181,7 @@ public class DataSourceConfig {
      * 这方法建议只调用一次，毕竟只是代码生成，用一个连接就行。
      *
      * @return Connection
-     * @see DecoratorDbQuery#getConnection()
+     * @see DbQueryDecorator#getConnection()
      */
     @NotNull
     public Connection getConn() {
