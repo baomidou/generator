@@ -33,30 +33,94 @@ import java.util.stream.Collectors;
 /**
  * 表信息，关联到当前字段信息
  *
- * @author YangHu
+ * @author YangHu, lanjerry
  * @since 2016/8/30
  */
 public class TableInfo {
+
+    /**
+     * 策略配置
+     */
     private final StrategyConfig strategyConfig;
+
+    /**
+     * 全局配置信息
+     */
     private final GlobalConfig globalConfig;
+
+    /**
+     * 包导入信息
+     */
     private final Set<String> importPackages = new TreeSet<>();
+
+    /**
+     * 是否转换
+     */
     private boolean convert;
+
+    /**
+     * 表名称
+     */
     private String name;
+
+    /**
+     * 表注释
+     */
     private String comment;
+
+    /**
+     * 实体名称
+     */
     private String entityName;
+
+    /**
+     * mapper名称
+     */
     private String mapperName;
+
+    /**
+     * xml名称
+     */
     private String xmlName;
+
+    /**
+     * service名称
+     */
     private String serviceName;
+
+    /**
+     * serviceImpl名称
+     */
     private String serviceImplName;
+
+    /**
+     * controller名称
+     */
     private String controllerName;
+
+    /**
+     * 表字段
+     */
     private final List<TableField> fields = new ArrayList<>();
+
+    /**
+     * 是否有主键
+     */
     private boolean havePrimaryKey;
+
     /**
      * 公共字段
      */
     private final List<TableField> commonFields = new ArrayList<>();
+
+    /**
+     * 字段名称集
+     */
     private String fieldNames;
 
+    /**
+     * 实体
+     */
     private final Entity entity;
 
     /**

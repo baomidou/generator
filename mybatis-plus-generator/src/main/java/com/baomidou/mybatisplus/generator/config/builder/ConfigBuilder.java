@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 /**
  * 配置汇总 传递给文件生成工具
  *
- * @author YangHu, tangguo, hubin, Juzi
+ * @author YangHu, tangguo, hubin, Juzi, lanjerry
  * @since 2016-08-30
  */
 public class ConfigBuilder {
@@ -48,7 +48,7 @@ public class ConfigBuilder {
     private final Map<OutputFile, String> pathInfo = new HashMap<>();
 
     /**
-     * 策略配置
+     * 策略配置信息
      */
     private StrategyConfig strategyConfig;
 
