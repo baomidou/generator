@@ -151,7 +151,7 @@ public abstract class IDatabaseQuery {
                         tableList.addAll(includeTableList);
                     }
                 }
-                // 性能优化，只处理需执行表字段 github issues/219
+                // 性能优化，只处理需执行表字段 https://github.com/baomidou/mybatis-plus/issues/219
                 tableList.forEach(this::convertTableFields);
                 return tableList;
             } catch (SQLException e) {
