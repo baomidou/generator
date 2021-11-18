@@ -222,7 +222,7 @@ public class TableInfo {
                 this.importPackages.add(Model.class.getCanonicalName());
             }
         }
-        if (entity.isSerialVersionUID()) {
+        if (entity.isSerialVersionUID() || entity.isActiveRecord()) {
             this.importPackages.add(Serializable.class.getCanonicalName());
         }
         if (this.isConvert()) {
