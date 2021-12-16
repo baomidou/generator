@@ -175,6 +175,13 @@ public class Entity implements ITemplate {
     private ConverterFileName converterFileName = (entityName -> entityName);
 
     /**
+     * 是否覆盖已有文件（默认 false）
+     *
+     * @since 3.5.2
+     */
+    private boolean fileOverride;
+
+    /**
      * <p>
      * 父类 Class 反射属性转换为公共字段
      * </p>
@@ -308,6 +315,10 @@ public class Entity implements ITemplate {
     @NotNull
     public ConverterFileName getConverterFileName() {
         return converterFileName;
+    }
+
+    public boolean isFileOverride() {
+        return fileOverride;
     }
 
     @Override
@@ -600,6 +611,14 @@ public class Entity implements ITemplate {
          */
         public Builder formatFileName(String format) {
             return convertFileName((entityName) -> String.format(format, entityName));
+        }
+
+        /**
+         * 覆盖已有文件
+         */
+        public Builder fileOverride() {
+            this.entity.fileOverride = true;
+            return this;
         }
 
         public Entity get() {

@@ -67,6 +67,13 @@ public class Controller implements ITemplate {
      */
     private ConverterFileName converterFileName = (entityName -> entityName + ConstVal.CONTROLLER);
 
+    /**
+     * 是否覆盖已有文件（默认 false）
+     *
+     * @since 3.5.2
+     */
+    private boolean fileOverride;
+
     public boolean isRestStyle() {
         return restStyle;
     }
@@ -83,6 +90,10 @@ public class Controller implements ITemplate {
     @NotNull
     public ConverterFileName getConverterFileName() {
         return converterFileName;
+    }
+
+    public boolean isFileOverride() {
+        return fileOverride;
     }
 
     @Override
@@ -169,6 +180,14 @@ public class Controller implements ITemplate {
          */
         public Builder formatFileName(@NotNull String format) {
             return convertFileName((entityName) -> String.format(format, entityName));
+        }
+
+        /**
+         * 覆盖已有文件
+         */
+        public Builder fileOverride() {
+            this.controller.fileOverride = true;
+            return this;
         }
 
         @NotNull

@@ -80,6 +80,13 @@ public class Mapper implements ITemplate {
     private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.MAPPER);
 
     /**
+     * 是否覆盖已有文件（默认 false）
+     *
+     * @since 3.5.2
+     */
+    private boolean fileOverride;
+
+    /**
      * 设置缓存实现类
      *
      * @since 3.5.0
@@ -113,6 +120,10 @@ public class Mapper implements ITemplate {
 
     public Class<? extends Cache> getCache() {
         return this.cache == null ? LoggingCache.class : this.cache;
+    }
+
+    public boolean isFileOverride() {
+        return fileOverride;
     }
 
     @Override
@@ -253,6 +264,14 @@ public class Mapper implements ITemplate {
          */
         public Builder formatXmlFileName(@NotNull String format) {
             return convertXmlFileName((entityName) -> String.format(format, entityName));
+        }
+
+        /**
+         * 覆盖已有文件
+         */
+        public Builder fileOverride() {
+            this.mapper.fileOverride = true;
+            return this;
         }
 
         @NotNull
