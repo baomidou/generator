@@ -40,8 +40,9 @@ public class GlobalConfig {
     private String outputDir = System.getProperty("os.name").toLowerCase().contains("windows") ? "D://" : "/tmp";
 
     /**
-     * 是否覆盖已有文件（默认 false）
+     * 是否覆盖已有文件（默认 false）（3.5.3版本会删除此方法）
      */
+    @Deprecated
     private boolean fileOverride;
 
     /**
@@ -80,6 +81,10 @@ public class GlobalConfig {
         return outputDir;
     }
 
+    /**
+     * 是否覆盖已有文件（3.5.3版本会删除此方法）
+     */
+    @Deprecated
     public boolean isFileOverride() {
         return fileOverride;
     }
@@ -125,8 +130,9 @@ public class GlobalConfig {
         }
 
         /**
-         * 覆盖已有文件
+         * 覆盖已有文件（3.5.3版本会删除此方法）
          */
+        @Deprecated
         public Builder fileOverride() {
             this.globalConfig.fileOverride = true;
             return this;
@@ -135,7 +141,7 @@ public class GlobalConfig {
         /**
          * 禁止打开输出目录
          */
-        public Builder disableOpenDir(){
+        public Builder disableOpenDir() {
             this.globalConfig.open = false;
             return this;
         }

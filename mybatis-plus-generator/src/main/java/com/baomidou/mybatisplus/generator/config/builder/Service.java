@@ -71,6 +71,13 @@ public class Service implements ITemplate {
      */
     private ConverterFileName converterServiceImplFileName = (entityName -> entityName + ConstVal.SERVICE_IMPL);
 
+    /**
+     * 是否覆盖已有文件（默认 false）
+     *
+     * @since 3.5.2
+     */
+    private boolean fileOverride;
+
     @NotNull
     public ConverterFileName getConverterServiceFileName() {
         return converterServiceFileName;
@@ -79,6 +86,10 @@ public class Service implements ITemplate {
     @NotNull
     public ConverterFileName getConverterServiceImplFileName() {
         return converterServiceImplFileName;
+    }
+
+    public boolean isFileOverride() {
+        return fileOverride;
     }
 
     @Override
@@ -186,6 +197,14 @@ public class Service implements ITemplate {
          */
         public Builder formatServiceImplFileName(@NotNull String format) {
             return convertServiceImplFileName((entityName) -> String.format(format, entityName));
+        }
+
+        /**
+         * 覆盖已有文件
+         */
+        public Builder fileOverride() {
+            this.service.fileOverride = true;
+            return this;
         }
 
         @NotNull

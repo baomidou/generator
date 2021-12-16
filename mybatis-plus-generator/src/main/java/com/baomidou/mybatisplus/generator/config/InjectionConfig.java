@@ -45,6 +45,13 @@ public class InjectionConfig {
      */
     private Map<String, String> customFile = new HashMap<>();
 
+    /**
+     * 是否覆盖已有文件（默认 false）
+     *
+     * @since 3.5.2
+     */
+    private boolean fileOverride;
+
     @NotNull
     public void beforeOutputFile(TableInfo tableInfo, Map<String, Object> objectMap) {
         if (!customMap.isEmpty()) {
@@ -63,6 +70,10 @@ public class InjectionConfig {
     @NotNull
     public Map<String, String> getCustomFile() {
         return customFile;
+    }
+
+    public boolean isFileOverride() {
+        return fileOverride;
     }
 
     /**
@@ -106,6 +117,14 @@ public class InjectionConfig {
          */
         public Builder customFile(@NotNull Map<String, String> customFile) {
             this.injectionConfig.customFile = customFile;
+            return this;
+        }
+
+        /**
+         * 覆盖已有文件
+         */
+        public Builder fileOverride() {
+            this.injectionConfig.fileOverride = true;
             return this;
         }
 

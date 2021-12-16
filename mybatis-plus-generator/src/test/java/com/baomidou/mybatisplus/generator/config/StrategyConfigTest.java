@@ -247,8 +247,10 @@ class StrategyConfigTest {
         Assertions.assertTrue(strategyConfig.entity().isChain());
         Assertions.assertTrue(strategyConfig.entity().isLombok());
         Assertions.assertTrue(strategyConfig.entity().isSerialVersionUID());
+        Assertions.assertTrue(strategyConfig.entity().isFileOverride());
         Assertions.assertTrue(strategyConfig.controller().isHyphenStyle());
         Assertions.assertTrue(strategyConfig.controller().isRestStyle());
+        Assertions.assertFalse(strategyConfig.controller().isFileOverride());
         Assertions.assertEquals("com.baomidou.mp.SuperController", strategyConfig.controllerBuilder().get().getSuperClass());
         Assertions.assertEquals("com.baomidou.mp.SuperMapper", strategyConfig.mapper().getSuperClass());
     }
@@ -257,13 +259,13 @@ class StrategyConfigTest {
     void builderTest() {
         StrategyConfig strategyConfig;
         strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().enableSkipView()
-            .entityBuilder().enableChainModel().enableLombok()
+            .entityBuilder().enableChainModel().enableLombok().fileOverride()
             .controllerBuilder().enableHyphenStyle().enableRestStyle().superClass("com.baomidou.mp.SuperController")
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
 
         buildAssert(strategyConfig);
         strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableSkipView()
-            .entityBuilder().enableChainModel().enableLombok()
+            .entityBuilder().enableChainModel().enableLombok().fileOverride()
             .controllerBuilder().superClass("com.baomidou.mp.SuperController").enableHyphenStyle().enableRestStyle()
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
         buildAssert(strategyConfig);
