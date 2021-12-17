@@ -49,11 +49,12 @@ public class ${entity} {
 
     private static final long serialVersionUID = 1L;
 <% } %>
+<% var keyPropertyName; %>
 <% /** -----------BEGIN 字段循环遍历----------- **/ %>
 <% for(field in table.fields){ %>
     <%
     if(field.keyFlag){
-        var keyPropertyName = field.propertyName;
+        keyPropertyName = field.propertyName;
     }
     %>
 
