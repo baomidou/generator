@@ -15,9 +15,15 @@
  */
 package com.baomidou.mybatisplus.generator.engine;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
+import com.baomidou.mybatisplus.generator.config.INameConvert;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.po.TableField;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.entity.ColumnConstant;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -28,8 +34,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Velocity 模板引擎实现文件输出
@@ -39,6 +50,9 @@ import java.util.Properties;
  */
 public class VelocityTemplateEngine extends AbstractTemplateEngine {
     private VelocityEngine velocityEngine;
+    private static Pattern humpPattern = Pattern.compile("[A-Z]");
+    private static final String TABLE_KEY = "table";
+    private static final String ENTITY_COLUMN_CONSTANT_KEY = "entityColumnConstant";
 
     {
         try {
@@ -70,14 +84,77 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
         try (FileOutputStream fos = new FileOutputStream(outputFile);
              OutputStreamWriter ow = new OutputStreamWriter(fos, ConstVal.UTF8);
              BufferedWriter writer = new BufferedWriter(ow)) {
-            template.merge(new VelocityContext(objectMap), writer);
+             //处理实体类常量配置
+             handleEntityConstant(objectMap);
+             template.merge(new VelocityContext(objectMap), writer);
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 
     @Override
     public @NotNull String templateFilePath(@NotNull String filePath) {
         final String dotVm = ".vm";
         return filePath.endsWith(dotVm) ? filePath : filePath + dotVm;
+    }
+
+
+
+
+
+    /**
+     * @Description 如果用户指定了对象的属性名称（驼峰命名规则）。将会将实体类常量的 名字 改为用户自定义的名字
+     * 例如：
+     *  1.用户已实现 {@link INameConvert#propertyNameConvert(com.baomidou.mybatisplus.generator.config.po.TableField)}
+     *  2.数据库中的字段名为a1
+     *  3.用户已将a1转化为app_name
+     * 但是此时生成的实体类常量字段却是A1 = "a1" 。
+     * 正常的场景应该是 当用户自定义了实体类名称，那么常量的名称应该优先采用用户自定义名称
+     * @param objectMap velocity模板入参数据
+     * @return void
+     * @auther liming
+     * @date: 2021/12/30 8:31
+     */
+    private void handleEntityConstant(Map<String, Object> objectMap) {
+        if (null == objectMap  || !objectMap.containsKey(TABLE_KEY) || !objectMap.containsKey(ENTITY_COLUMN_CONSTANT_KEY) || !(Boolean) objectMap.get(ENTITY_COLUMN_CONSTANT_KEY)) {
+            return;
+        }
+        TableInfo tableObj = (TableInfo) objectMap.get(TABLE_KEY);
+        if (null == tableObj) {
+            return;
+        }
+
+        List<TableField> fields = tableObj.getFields();
+        if (CollectionUtils.isEmpty(fields)) {
+            return;
+        }
+
+        List<ColumnConstant> columnConstantList = new ArrayList<>();
+        for (TableField field : fields) {
+            ColumnConstant columnConstant = new ColumnConstant();
+            String propertyName = field.getPropertyName();
+            String name = field.getName();
+            String str ;
+            if (StringUtils.isNotBlank(propertyName) && !StringUtils.equals(name, propertyName)){
+                str =propertyName;
+            }else{
+                str =name;
+            }
+            columnConstant.setValue(name);
+            columnConstant.setName(camelToLine(str));
+            columnConstantList.add(columnConstant);
+        }
+        objectMap.put("columnConstantList",columnConstantList);
+    }
+
+
+    public static String camelToLine(String str) {
+        Matcher matcher = humpPattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, "_" + matcher.group(0));
+        }
+        matcher.appendTail(sb);
+        return sb.toString().toUpperCase(Locale.ROOT);
     }
 }

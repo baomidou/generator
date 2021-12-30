@@ -124,10 +124,15 @@ public class ${entity} {
 ## --end of #if(!${entityLombokModel})--
 
 #if(${entityColumnConstant})
-  #foreach($field in ${table.fields})
+    #if(${columnConstantList})
+        #foreach($columnConstant in ${columnConstantList})
+    public static final String ${columnConstant.name} = "${columnConstant.value}";
+        #end
+    #else
+        #foreach($field in ${table.fields})
     public static final String ${field.name.toUpperCase()} = "${field.name}";
-
-  #end
+        #end
+    #end
 #end
 #if(${activeRecord})
     @Override
