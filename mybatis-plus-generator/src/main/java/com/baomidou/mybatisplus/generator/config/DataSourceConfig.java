@@ -155,6 +155,8 @@ public class DataSourceConfig {
             return DbType.XU_GU;
         } else if (str.contains(":clickhouse:")) {
             return DbType.CLICK_HOUSE;
+        } else if (str.contains(":sybase:")) {
+            return DbType.SYBASE;
         } else {
             return DbType.OTHER;
         }
