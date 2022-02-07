@@ -202,7 +202,11 @@ public class DataSourceConfig {
             String schema = StringUtils.isNotBlank(schemaName) ? schemaName : getDefaultSchema();
             if (StringUtils.isNotBlank(schema)) {
                 schemaName = schema;
-                connection.setSchema(schemaName);
+                try{
+                    connection.setSchema(schemaName);
+                }catch (AbstractMethodError error){
+                    // 部分jdbc驱动不适用setSchema方法的问题处理
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
