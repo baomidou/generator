@@ -179,6 +179,22 @@ public class GlobalConfig {
         }
 
         /**
+         * 开启 kotlin 模式
+         */
+        public Builder enableKotlin(boolean condition) {
+            this.globalConfig.kotlin = condition;
+            return this;
+        }
+
+        /**
+         * 开启 swagger 模式
+         */
+        public Builder enableSwagger(boolean condition) {
+            this.globalConfig.swagger = condition;
+            return this;
+        }
+
+        /**
          * 时间类型对应策略
          */
         public Builder dateType(@NotNull DateType dateType) {

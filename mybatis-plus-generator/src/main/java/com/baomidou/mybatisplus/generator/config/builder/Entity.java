@@ -414,6 +414,17 @@ public class Entity implements ITemplate {
         }
 
         /**
+         * 开启链式模型
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableChainModel(boolean condition) {
+            this.entity.chain = condition;
+            return this;
+        }
+
+        /**
          * 开启lombok模型
          *
          * @return this
@@ -421,6 +432,17 @@ public class Entity implements ITemplate {
          */
         public Builder enableLombok() {
             this.entity.lombok = true;
+            return this;
+        }
+
+        /**
+         * 开启lombok模型
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableLombok(boolean condition) {
+            this.entity.lombok = condition;
             return this;
         }
 

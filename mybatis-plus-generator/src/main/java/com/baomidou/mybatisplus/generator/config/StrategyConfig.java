@@ -392,6 +392,17 @@ public class StrategyConfig {
         }
 
         /**
+         * 开启大写命名
+         *
+         * @return this
+         * @since 3.5.0
+         */
+        public Builder enableCapitalMode(boolean condition) {
+            this.strategyConfig.isCapitalMode = condition;
+            return this;
+        }
+
+        /**
          * 开启跳过视图
          *
          * @return this

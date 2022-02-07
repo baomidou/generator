@@ -128,6 +128,14 @@ public class InjectionConfig {
             return this;
         }
 
+        /**
+         * 覆盖已有文件
+         */
+        public Builder fileOverride(boolean condition) {
+            this.injectionConfig.fileOverride = condition;
+            return this;
+        }
+
         @Override
         public InjectionConfig build() {
             return this.injectionConfig;
