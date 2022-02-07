@@ -13,7 +13,8 @@ public class SybaseQuery extends AbstractDbQuery {
 
     @Override
     public String tablesSql() {
-        return "select name TABLE_NAME, '' TABLE_COMMENT from sysobjects ";
+        return "select * from (select name TABLE_NAME, '' TABLE_COMMENT from sysobjects) a " +
+            "where 1=1 ";
     }
 
     @Override
