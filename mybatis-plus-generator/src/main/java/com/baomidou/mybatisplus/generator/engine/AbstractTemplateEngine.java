@@ -109,7 +109,7 @@ public abstract class AbstractTemplateEngine {
             });
         }
         // MpMapper.xml
-        String xmlPath = getPathInfo(OutputFile.mapperXml);
+        String xmlPath = getPathInfo(OutputFile.xml);
         if (StringUtils.isNotBlank(tableInfo.getXmlName()) && StringUtils.isNotBlank(xmlPath)) {
             getTemplateFilePath(TemplateConfig::getXml).ifPresent(xml -> {
                 String xmlFile = String.format((xmlPath + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);

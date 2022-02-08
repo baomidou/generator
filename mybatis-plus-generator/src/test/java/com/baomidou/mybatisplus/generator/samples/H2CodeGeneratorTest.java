@@ -3,8 +3,6 @@ package com.baomidou.mybatisplus.generator.samples;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
 import org.apache.ibatis.jdbc.ScriptRunner;
@@ -182,7 +180,7 @@ public class H2CodeGeneratorTest {
     public void testCustomTemplatePath() {
         // 设置自定义路径
         Map<OutputFile, String> pathInfo = new HashMap<>();
-        pathInfo.put(OutputFile.mapperXml, "D://");
+        pathInfo.put(OutputFile.xml, "D://");
         pathInfo.put(OutputFile.entity, "D://entity//");
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig().build());

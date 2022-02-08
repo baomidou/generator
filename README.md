@@ -30,7 +30,7 @@ FastAutoGenerator.create("url", "username", "password")
 	.packageConfig(builder -> {
 		builder.parent("com.baomidou.mybatisplus.samples.generator") // 设置父包名
 			.moduleName("system") // 设置父包模块名
-            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://")); // 设置mapperXml生成路径
+            .pathInfo(Collections.singletonMap(OutputFile.xml, "D://")); // 设置mapperXml生成路径
 	})
 	.strategyConfig(builder -> {
 		builder.addInclude("t_simple") // 设置需要生成的表名
@@ -131,10 +131,10 @@ new GlobalConfig.Builder().
 | service(String)                   | Service 包名      | 默认值:service                                         |
 | serviceImpl(String)               | Service Impl 包名 | 默认值:service.impl                                    |
 | mapper(String)                    | Mapper 包名       | 默认值:mapper                                          |
-| mapperXml(String)                 | Mapper XML 包名   | 默认值:mapper.xml                                      |
+| xml(String)                       | Mapper XML 包名   | 默认值:mapper.xml                                      |
 | controller(String)                | Controller 包名   | 默认值:controller                                      |
 | other(String)                     | 自定义文件包名    | 输出自定义文件时所用到的包名                           |
-| pathInfo(Map<OutputFile, String>) | 路径配置信息      | Collections.singletonMap(OutputFile.mapperXml, "D://") |
+| pathInfo(Map<OutputFile, String>) | 路径配置信息      | Collections.singletonMap(OutputFile.xml, "D://") |
 
 ```java
 new PackageConfig.Builder()
@@ -144,10 +144,10 @@ new PackageConfig.Builder()
     .service("service")
     .serviceImpl("service.impl")
     .mapper("mapper")
-    .mapperXml("mapper.xml")
+    .xml("mapper.xml")
     .controller("controller")
     .other("other")
-    .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://")
+    .pathInfo(Collections.singletonMap(OutputFile.xml, "D://")
     .build();
 ```
 
@@ -162,7 +162,7 @@ new PackageConfig.Builder()
 | service(String)          | 设置 service 模板路径     | /templates/service.java     |
 | serviceImpl(String)      | 设置 serviceImpl 模板路径 | /templates/serviceImpl.java |
 | mapper(String)           | 设置 mapper 模板路径      | /templates/mapper.java      |
-| mapperXml(String)        | 设置 mapperXml 模板路径   | /templates/mapper.xml       |
+| xml(String)              | 设置 mapperXml 模板路径   | /templates/mapper.xml       |
 | controller(String)       | 设置 controller 模板路径  | /templates/controller.java  |
 
 ```java
@@ -172,7 +172,7 @@ new TemplateConfig.Builder()
     .service("/templates/service.java")
     .serviceImpl("/templates/serviceImpl.java")
     .mapper("/templates/mapper.java")
-    .mapperXml("/templates/mapper.xml")
+    .xml("/templates/mapper.xml")
     .controller("/templates/controller.java")
     .build();
 ```

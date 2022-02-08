@@ -276,11 +276,11 @@ public class TemplateConfig {
         /**
          * 设置mapperXml模板路径
          *
-         * @param mapperXmlTemplate xml模板路径
+         * @param xmlTemplate xml模板路径
          * @return this
          */
-        public Builder mapperXml(@NotNull String mapperXmlTemplate) {
-            this.templateConfig.xml = mapperXmlTemplate;
+        public Builder xml(@NotNull String xmlTemplate) {
+            this.templateConfig.xml = xmlTemplate;
             return this;
         }
 

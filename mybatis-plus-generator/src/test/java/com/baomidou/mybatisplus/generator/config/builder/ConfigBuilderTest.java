@@ -44,7 +44,7 @@ public class ConfigBuilderTest {
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.controller));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.service));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.serviceImpl));
-        Assertions.assertTrue(pathInfo.containsKey(OutputFile.mapperXml));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.xml));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.mapper));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.other));
 
