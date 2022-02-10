@@ -505,6 +505,11 @@ public class StrategyConfig {
             return this;
         }
 
+        public Builder addInclude(@NotNull String include) {
+            this.strategyConfig.include.addAll(Arrays.asList(include.split(",")));
+            return this;
+        }
+
         /**
          * 增加排除表
          *
