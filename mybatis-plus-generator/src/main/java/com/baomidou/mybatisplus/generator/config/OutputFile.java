@@ -26,7 +26,7 @@ public enum OutputFile {
     service,
     serviceImpl,
     mapper,
-    mapperXml,
+    xml,
     controller,
     other;
 }

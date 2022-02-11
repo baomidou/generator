@@ -111,8 +111,13 @@ public class TableField {
             this.convert = true;
             this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
             return this;
-        } else if(this.entity.getColumnNaming() != NamingStrategy.underline_to_camel) {
-            // 非下划线转驼峰策略，判断是否一致
+        }
+        // 下划线转驼峰策略
+        if (NamingStrategy.underline_to_camel.equals(this.entity.getColumnNaming())) {
+            this.convert = !propertyName.equalsIgnoreCase(NamingStrategy.underlineToCamel(this.columnName));
+        }
+        // 原样输出策略
+        if (NamingStrategy.no_change.equals(this.entity.getColumnNaming())) {
             this.convert = !propertyName.equalsIgnoreCase(this.columnName);
         }
         if (entity.isTableFieldAnnotationEnable()) {
