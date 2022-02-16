@@ -110,6 +110,8 @@ public class DbQueryDecorator extends AbstractDbQuery {
         } else if (DbType.DM == dbType) {
             tableName = tableName.toUpperCase();
             tableFieldsSql = String.format(tableFieldsSql, tableName);
+        } else if (DbType.POSTGRE_SQL == dbType) {
+            tableFieldsSql = String.format(tableFieldsSql, tableName, tableName, tableName);
         } else {
             tableFieldsSql = String.format(tableFieldsSql, tableName);
         }
