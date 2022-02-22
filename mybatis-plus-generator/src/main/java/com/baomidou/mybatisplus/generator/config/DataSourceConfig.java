@@ -23,6 +23,8 @@ import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -37,6 +39,7 @@ import java.util.Optional;
  * @since 2016/8/30
  */
 public class DataSourceConfig {
+    protected final Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
 
     private DataSourceConfig() {
     }
@@ -202,7 +205,11 @@ public class DataSourceConfig {
             String schema = StringUtils.isNotBlank(schemaName) ? schemaName : getDefaultSchema();
             if (StringUtils.isNotBlank(schema)) {
                 schemaName = schema;
-                connection.setSchema(schemaName);
+                try {
+                    connection.setSchema(schemaName);
+                } catch (Throwable t) {
+                    logger.error("There may be exceptions in the driver and version of the database, " + t.getMessage());
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
