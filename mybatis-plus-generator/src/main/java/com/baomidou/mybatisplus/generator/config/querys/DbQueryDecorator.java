@@ -105,8 +105,7 @@ public class DbQueryDecorator extends AbstractDbQuery {
         if (DbType.KINGBASE_ES == dbType || DbType.DB2 == dbType) {
             tableFieldsSql = String.format(tableFieldsSql, this.schema, tableName);
         } else if (DbType.ORACLE == dbType) {
-            tableName = tableName.toUpperCase();
-            tableFieldsSql = String.format(tableFieldsSql.replace("#schema", this.schema), tableName);
+            tableFieldsSql = String.format(tableFieldsSql.replace("#schema", this.schema), tableName, tableName.toUpperCase());
         } else if (DbType.DM == dbType) {
             tableName = tableName.toUpperCase();
             tableFieldsSql = String.format(tableFieldsSql, tableName);
