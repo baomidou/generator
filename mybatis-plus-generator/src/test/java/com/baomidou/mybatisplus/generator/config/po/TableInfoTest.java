@@ -150,9 +150,8 @@ public class TableInfoTest {
         tableInfo.addField(new TableField(configBuilder, "u_id").setColumnName("u_id").setPropertyName("uid", DbColumnType.LONG).primaryKey(true));
         tableInfo.addField(new TableField(configBuilder, "delete_flag").setColumnName("delete_flag").setPropertyName("deleteFlag", DbColumnType.BOOLEAN));
         tableInfo.importPackage();
-        Assertions.assertEquals(5, tableInfo.getImportPackages().size());
+        Assertions.assertEquals(4, tableInfo.getImportPackages().size());
         Assertions.assertTrue(tableInfo.getImportPackages().contains(Serializable.class.getName()));
-        Assertions.assertTrue(tableInfo.getImportPackages().contains(com.baomidou.mybatisplus.annotation.TableField.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableLogic.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(TableId.class.getName()));
         Assertions.assertTrue(tableInfo.getImportPackages().contains(IdType.class.getName()));
