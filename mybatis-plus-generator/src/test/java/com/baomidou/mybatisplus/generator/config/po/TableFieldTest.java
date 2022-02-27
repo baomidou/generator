@@ -58,6 +58,14 @@ public class TableFieldTest {
         tableField = new TableField(configBuilder, "is_delete").setColumnName("is_delete").setPropertyName("isDelete", DbColumnType.BOOLEAN);
         Assertions.assertEquals("delete", tableField.getPropertyName());
         Assertions.assertTrue(tableField.isConvert());
+
+        tableField = new TableField(configBuilder, "package").setColumnName("package").setPropertyName("package", DbColumnType.STRING);
+        Assertions.assertEquals("package_", tableField.getPropertyName());
+        Assertions.assertFalse(tableField.isConvert());
+        tableField = new TableField(configBuilder, "packages").setColumnName("packages").setPropertyName("packages", DbColumnType.STRING);
+        Assertions.assertEquals("packages", tableField.getPropertyName());
+        Assertions.assertFalse(tableField.isConvert());
+
     }
 
     @Test

@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
 import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
+import com.baomidou.mybatisplus.generator.util.KeyWordsUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,6 +52,7 @@ public class TableField {
     private IColumnType columnType;
     private String comment;
     private String fill;
+    private String capitalName;
     /**
      * 是否关键字
      *
@@ -255,7 +257,7 @@ public class TableField {
     }
 
     public String getPropertyName() {
-        return propertyName;
+        return KeyWordsUtils.filterJavaKeyWords(propertyName);
     }
 
     public IColumnType getColumnType() {
