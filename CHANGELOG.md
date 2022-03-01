@@ -1,5 +1,41 @@
 ﻿# CHANGELOG
 
+## [v3.5.2] 2022-03-01
+
+- MySqlKeyWordsHandler 添加MySQL8.0关键字
+- Merge pull request #121 from Max-Qiu/develop
+- 优化 jetbrains annotations 依赖
+- 去掉controller模板中多余的空白行
+- Merge pull request #128 from lanjerry/develop
+- Merge pull request #123 from ChunMengLu/develop
+- 包含String...参数方法新增重载list参数
+- refactor:修改 dbQuery 装饰类命名及执行 sql 方法名为 execute
+- Merge pull request #146 from lanjerry/develop
+- 修复开启AR模式时，生成的实体Serializable未导入依赖bug
+- 文件覆盖属性fileOverride()从全局配置移到策略配置中，Entity、Controller、Map
+- Merge pull request #157 from lanjerry/develop
+- 修复btl模板生成Entity时"pkVal"方法无法获取主键id属性问题
+- Merge pull request #160 from wzjjwxy/develop
+- 修复controller模板enableHyphenStyle永远为true的bug
+- Update controller.java.btl
+- Merge pull request #162 from i-Vincent/develop
+- fix: tabschema param needs quotes
+- Merge pull request #1 from jiminsc/DB2-Tabschema-参数处理错误
+- Merge pull request #168 from jiminsc/develop
+- Sybase代码生成适配
+- Merge pull request #170 from Lroyia/develop
+- 统一变量xml的命名，跟之前保持一致，mapperXml->xml
+- 修复字段的是否需要转换的属性的BUG
+- 策略模式支持需要生成的表，输入用字符串，","号隔开
+- Merge pull request #179 from lanjerry/develop
+- 修复postgres 高版本（>11 ）数据库的主键判断的BUG.
+- Merge pull request #181 from lanjerry/develop
+- refactor: 兼容 GitHub issues/151
+- refactor: 兼容 Oracle 11版本的字段查询sql
+- Merge pull request #186 from lanjerry/develop
+- Merge pull request #188 from lanjerry/develop
+
+
 ## [v3.5.1] 2021-09-25
 
 - 重构文件输出路径设置逻辑
