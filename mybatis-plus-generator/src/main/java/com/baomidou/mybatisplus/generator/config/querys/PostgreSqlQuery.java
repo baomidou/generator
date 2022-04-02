@@ -35,28 +35,15 @@ public class PostgreSqlQuery extends AbstractDbQuery {
 
     @Override
     public String tableFieldsSql() {
-        return "SELECT\n" +
-            "   A.attname AS name,format_type (A.atttypid,A.atttypmod) AS type,col_description (A.attrelid,A.attnum) AS comment,\n" +
-            "\t D.column_default,\n" +
-            "   CASE WHEN length(B.attname) > 0 THEN 'PRI' ELSE '' END AS key\n" +
-            "FROM\n" +
-            "   pg_attribute A\n" +
-            "LEFT JOIN (\n" +
-            "    SELECT\n" +
-            "        pg_attribute.attname\n" +
-            "    FROM\n" +
-            "        pg_index,\n" +
-            "        pg_class,\n" +
-            "        pg_attribute\n" +
-            "    WHERE\n" +
-            "        pg_class.oid ='\"%s\"' :: regclass\n" +
-            "    AND pg_index.indrelid = pg_class.oid\n" +
-            "    AND pg_attribute.attrelid = pg_class.oid\n" +
-            "    AND pg_attribute.attnum = ANY (pg_index.indkey)\n" +
-            ") B ON A.attname = b.attname\n" +
-            "INNER JOIN pg_class C on A.attrelid = C.oid\n" +
-            "INNER JOIN information_schema.columns D on A.attname = D.column_name\n" +
-            "WHERE A.attrelid ='\"%s\"' :: regclass AND A.attnum> 0 AND NOT A.attisdropped AND D.table_name = '%s'\n" +
+        return "SELECT " +
+            "   A.attname AS name,format_type (A.atttypid,A.atttypmod) AS type,col_description (A.attrelid,A.attnum) AS comment, " +
+            "   D.column_default, " +
+            "   (CASE WHEN (SELECT COUNT (*) FROM pg_constraint AS PC WHERE A.attnum = PC.conkey[1] AND PC.contype = 'p' AND A.attrelid = PC.conrelid) > 0 THEN 'PRI' ELSE '' END) AS key " +
+            "FROM " +
+            "   pg_attribute A " +
+            "INNER JOIN pg_class C on A.attrelid = C.oid " +
+            "INNER JOIN information_schema.columns D on A.attname = D.column_name " +
+            "WHERE A.attrelid ='\"%s\"' :: regclass AND A.attnum> 0 AND NOT A.attisdropped AND D.table_name = '%s' " +
             "ORDER BY A.attnum;";
     }
 
