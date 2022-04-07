@@ -15,12 +15,12 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiConsumer;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * 注入配置
@@ -31,35 +31,25 @@ import java.util.function.BiConsumer;
 public class InjectionConfig {
 
     /**
-     * 输出文件之前消费者
-     */
-    private BiConsumer<TableInfo, Map<String, Object>> beforeOutputFileBiConsumer;
-
-    /**
      * 自定义配置 Map 对象
      */
     private Map<String, Object> customMap = new HashMap<>();
 
     /**
-     * 自定义模板文件，key为文件名称，value为模板路径
+     * 自定义模板文件
      */
-    private Map<String, String> customFile = new HashMap<>();
-
-    /**
-     * 是否覆盖已有文件（默认 false）
-     *
-     * @since 3.5.2
-     */
-    private boolean fileOverride;
+    private List<CustomFile> customFile = new ArrayList<>();
 
     @NotNull
     public void beforeOutputFile(TableInfo tableInfo, Map<String, Object> objectMap) {
         if (!customMap.isEmpty()) {
             objectMap.putAll(customMap);
         }
-        if (null != beforeOutputFileBiConsumer) {
-            beforeOutputFileBiConsumer.accept(tableInfo, objectMap);
-        }
+        Optional.ofNullable(customFile).ifPresent(list -> list.forEach(customFile -> {
+            if (null != customFile.getBeforeOutputFileBiConsumer()) {
+                customFile.getBeforeOutputFileBiConsumer().accept(tableInfo, objectMap);
+            }
+        }));
     }
 
     @NotNull
@@ -68,12 +58,8 @@ public class InjectionConfig {
     }
 
     @NotNull
-    public Map<String, String> getCustomFile() {
+    public List<CustomFile> getCustomFile() {
         return customFile;
-    }
-
-    public boolean isFileOverride() {
-        return fileOverride;
     }
 
     /**
@@ -88,43 +74,38 @@ public class InjectionConfig {
         }
 
         /**
-         * 输出文件之前消费者
-         *
-         * @param biConsumer 消费者
-         * @return this
-         */
-        public Builder beforeOutputFile(@NotNull BiConsumer<TableInfo, Map<String, Object>> biConsumer) {
-            this.injectionConfig.beforeOutputFileBiConsumer = biConsumer;
-            return this;
-        }
-
-        /**
          * 自定义配置 Map 对象
          *
          * @param customMap Map 对象
          * @return this
          */
         public Builder customMap(@NotNull Map<String, Object> customMap) {
-            this.injectionConfig.customMap = customMap;
+            this.injectionConfig.customMap.putAll(customMap);
+            return this;
+        }
+
+        /**
+         * 自定义配置 Map 对象
+         *
+         * @param key Map key
+         * @param value Map value
+         * @return this
+         */
+        public Builder putCustomMap(@NotNull String key, @NotNull Object value) {
+            this.injectionConfig.customMap.put(key, value);
             return this;
         }
 
         /**
          * 自定义配置模板文件
          *
-         * @param customFile key为文件名称，value为文件路径
+         * @param consumer 自定义模板文件配置
          * @return this
          */
-        public Builder customFile(@NotNull Map<String, String> customFile) {
-            this.injectionConfig.customFile = customFile;
-            return this;
-        }
-
-        /**
-         * 覆盖已有文件
-         */
-        public Builder fileOverride() {
-            this.injectionConfig.fileOverride = true;
+        public Builder customFile(Consumer<CustomFile.Builder> consumer) {
+            CustomFile.Builder builder = new CustomFile.Builder();
+            consumer.accept(builder);
+            this.injectionConfig.customFile.add(builder.build());
             return this;
         }
 

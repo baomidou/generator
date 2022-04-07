@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.engine;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.util.FileUtils;
 import com.baomidou.mybatisplus.generator.util.RuntimeUtils;
@@ -64,13 +65,12 @@ public abstract class AbstractTemplateEngine {
      * @param objectMap  渲染数据
      * @since 3.5.1
      */
-    protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+    protected void outputCustomFile(@NotNull CustomFile customFile, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
         String entityName = tableInfo.getEntityName();
-        String otherPath = getPathInfo(OutputFile.other);
-        customFile.forEach((key, value) -> {
-            String fileName = String.format((otherPath + File.separator + entityName + File.separator + "%s"), key);
-            outputFile(new File(fileName), objectMap, value, getConfigBuilder().getInjectionConfig().isFileOverride());
-        });
+        String parentPath = getPathInfo(OutputFile.parent);
+        String otherPath = parentPath + File.separator + customFile.getPackageName();
+        String fileName = String.format((otherPath + File.separator + customFile.getFormatFileName()), entityName);
+        outputFile(new File(fileName), objectMap, customFile.getTemplatePath(), customFile.isFileOverride());
     }
 
     /**
@@ -243,7 +243,8 @@ public abstract class AbstractTemplateEngine {
                 Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> {
                     t.beforeOutputFile(tableInfo, objectMap);
                     // 输出自定义文件
-                    outputCustomFile(t.getCustomFile(), tableInfo, objectMap);
+                    Optional.ofNullable(t.getCustomFile()).ifPresent(list ->
+                            list.forEach(customFile -> outputCustomFile(customFile, tableInfo, objectMap)));
                 });
                 // entity
                 outputEntity(tableInfo, objectMap);
