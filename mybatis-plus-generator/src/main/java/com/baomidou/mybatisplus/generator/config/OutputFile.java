@@ -28,5 +28,5 @@ public enum OutputFile {
     mapper,
     xml,
     controller,
-    other;
+    parent;
 }
