@@ -42,7 +42,9 @@ public interface IDbQuery {
 
     /**
      * 表注释
+     * @deprecated 3.5.3
      */
+    @Deprecated
     String tableComment();
 
     /**
@@ -57,12 +59,16 @@ public interface IDbQuery {
 
     /**
      * 字段注释
+     * @deprecated 3.5.3
      */
+    @Deprecated
     String fieldComment();
 
     /**
      * 主键字段
+     * @deprecated 3.5.3
      */
+    @Deprecated
     String fieldKey();
 
     /**
@@ -71,7 +77,9 @@ public interface IDbQuery {
      * @param results ResultSet
      * @return 主键是否为identity
      * @throws SQLException ignore
+     * @deprecated 3.5.3
      */
+    @Deprecated
     boolean isKeyIdentity(ResultSet results) throws SQLException;
 
     /**
