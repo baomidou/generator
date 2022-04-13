@@ -258,6 +258,11 @@ public class DbQueryDecorator extends AbstractDbQuery {
             return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
         }
 
+        /**
+         * @deprecated 3.5.3
+         * @return 是否主键
+         */
+        @Deprecated
         public boolean isPrimaryKey() {
             String key = this.getStringResult(dbQuery.fieldKey());
             if (DbType.DB2 == dbType || DbType.SQLITE == dbType || DbType.CLICK_HOUSE == dbType) {
