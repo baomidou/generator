@@ -15,6 +15,8 @@
  */
 package com.baomidou.mybatisplus.generator.jdbc;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +37,12 @@ public class DatabaseMetaDataWrapper {
 
     private final DatabaseMetaData databaseMetaData;
 
-    public DatabaseMetaDataWrapper(Connection connection) throws SQLException {
-        this.databaseMetaData = connection.getMetaData();
+    public DatabaseMetaDataWrapper(Connection connection) {
+        try {
+            this.databaseMetaData = connection.getMetaData();
+        } catch (SQLException e) {
+            throw new RuntimeException("获取元数据错误:", e);
+        }
     }
 
     /**
@@ -64,13 +70,59 @@ public class DatabaseMetaDataWrapper {
             columnsInfo.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
             columnsInfo.length = resultSet.getInt("COLUMN_SIZE");
             columnsInfo.scale = resultSet.getInt("DECIMAL_DIGITS");
-            columnsInfo.remarks = resultSet.getString("REMARKS");
+            columnsInfo.remarks = formatComment(resultSet.getString("REMARKS"));
             columnsInfo.defaultValue = resultSet.getString("COLUMN_DEF");
             columnsInfo.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
             columnsInfo.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
             columnsInfoMap.put(name.toLowerCase(), columnsInfo);
         }
         return Collections.unmodifiableMap(columnsInfoMap);
+    }
+
+    public String formatComment(String comment) {
+        return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
+    }
+
+    public Table getTableInfo(String catalog, String schemaPattern, String tableNamePattern) {
+        ResultSet resultSet;
+        Table table = new Table();
+        try {
+            resultSet = databaseMetaData.getTables(catalog, schemaPattern, tableNamePattern, new String[]{});
+            table.name = tableNamePattern;
+            while (resultSet.next()) {
+                table.remarks = formatComment(resultSet.getString("REMARKS"));
+                table.tableType = resultSet.getString("TABLE_TYPE");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("读取表信息:" + tableNamePattern + "错误:", e);
+        }
+        return table;
+    }
+
+    public static class Table {
+
+        private String name;
+
+        private String remarks;
+
+        private String tableType;
+
+        public String getRemarks() {
+            return remarks;
+        }
+
+        public String getTableType() {
+            return tableType;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public boolean isView() {
+            return "VIEW".equals(tableType);
+        }
+
     }
 
     public static class ColumnsInfo {

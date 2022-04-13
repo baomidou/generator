@@ -42,7 +42,9 @@ public interface IDbQuery {
 
     /**
      * 表注释
+     * @deprecated 3.5.3
      */
+    @Deprecated
     String tableComment();
 
     /**

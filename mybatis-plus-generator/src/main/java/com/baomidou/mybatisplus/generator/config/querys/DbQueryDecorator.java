@@ -241,19 +241,42 @@ public class DbQueryDecorator extends AbstractDbQuery {
             }
         }
 
+        /**
+         * @return 获取字段注释
+         * @deprecated 3.5.3
+         */
         public String getFiledComment() {
             return getComment(dbQuery.fieldComment());
-
         }
 
+        /**
+         * 获取格式化注释
+         *
+         * @param columnLabel 字段列
+         * @return 注释
+         * @deprecated 3.5.3
+         */
+        @Deprecated
         private String getComment(String columnLabel) {
             return StringUtils.isNotBlank(columnLabel) ? formatComment(getStringResult(columnLabel)) : StringPool.EMPTY;
         }
 
+        /**
+         * 获取表注释
+         *
+         * @return 表注释
+         * @deprecated 3.5.3
+         */
+        @Deprecated
         public String getTableComment() {
             return getComment(dbQuery.tableComment());
         }
 
+        /**
+         * @param comment 注释
+         * @return 格式化内容
+         * @deprecated 3.5.3
+         */
         public String formatComment(String comment) {
             return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
         }

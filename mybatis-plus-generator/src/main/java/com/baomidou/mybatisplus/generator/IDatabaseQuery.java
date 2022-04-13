@@ -88,11 +88,14 @@ public abstract class IDatabaseQuery {
 
         private final DbQueryDecorator dbQuery;
 
+        private final DatabaseMetaDataWrapper databaseMetaDataWrapper;
+
         public DefaultDatabaseQuery(@NotNull ConfigBuilder configBuilder) {
             super(configBuilder);
             this.strategyConfig = configBuilder.getStrategyConfig();
             this.dbQuery = new DbQueryDecorator(dataSourceConfig, strategyConfig);
             this.globalConfig = configBuilder.getGlobalConfig();
+            this.databaseMetaDataWrapper = new DatabaseMetaDataWrapper(dbQuery.getConnection());
         }
 
         @NotNull
@@ -110,11 +113,11 @@ public abstract class IDatabaseQuery {
                 dbQuery.execute(dbQuery.tablesSql(), result -> {
                     String tableName = result.getStringResult(dbQuery.tableName());
                     if (StringUtils.isNotBlank(tableName)) {
+                        DatabaseMetaDataWrapper.Table table = databaseMetaDataWrapper.getTableInfo(null, dataSourceConfig.getSchemaName(), tableName);
                         TableInfo tableInfo = new TableInfo(this.configBuilder, tableName);
-                        String tableComment = result.getTableComment();
                         // 跳过视图
-                        if (!(strategyConfig.isSkipView() && "VIEW".equals(tableComment))) {
-                            tableInfo.setComment(tableComment);
+                        if (!(strategyConfig.isSkipView() && table.isView())) {
+                            tableInfo.setComment(table.getRemarks());
                             if (isInclude && strategyConfig.matchIncludeTable(tableName)) {
                                 includeTableList.add(tableInfo);
                             } else if (isExclude && strategyConfig.matchExcludeTable(tableName)) {
@@ -165,7 +168,7 @@ public abstract class IDatabaseQuery {
                 final Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsMetaInfoMap = new HashMap<>();
                 //TODO 增加元数据信息获取,后面查询表字段要改成这个.
                 Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsInfoMap =
-                    new DatabaseMetaDataWrapper(dbQuery.getConnection()).getColumnsInfo(null, dataSourceConfig.getSchemaName(), tableName);
+                    databaseMetaDataWrapper.getColumnsInfo(null, dataSourceConfig.getSchemaName(), tableName);
                 if (columnsInfoMap != null && !columnsInfoMap.isEmpty()) {
                     columnsMetaInfoMap.putAll(columnsInfoMap);
                 }
