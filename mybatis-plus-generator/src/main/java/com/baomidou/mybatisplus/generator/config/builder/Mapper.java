@@ -25,6 +25,7 @@ import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.decorators.LoggingCache;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,9 +48,19 @@ public class Mapper implements ITemplate {
     /**
      * 是否添加 @Mapper 注解（默认 false）
      *
+     * @see #mapperAnnotationClass
      * @since 3.5.1
+     * @deprecated 3.5.3
      */
+    @Deprecated
     private boolean mapperAnnotation;
+
+    /**
+     * Mapper标记注解
+     *
+     * @since 3.5.3
+     */
+    private Class<? extends Annotation> mapperAnnotationClass;
 
     /**
      * 是否开启BaseResultMap（默认 false）
@@ -98,8 +109,9 @@ public class Mapper implements ITemplate {
         return superClass;
     }
 
+    @Deprecated
     public boolean isMapperAnnotation() {
-        return mapperAnnotation;
+        return mapperAnnotationClass != null;
     }
 
     public boolean isBaseResultMap() {
@@ -132,7 +144,8 @@ public class Mapper implements ITemplate {
         Map<String, Object> data = new HashMap<>();
         boolean enableCache = this.cache != null;
         data.put("enableCache", enableCache);
-        data.put("mapperAnnotation", this.mapperAnnotation);
+        data.put("mapperAnnotation", mapperAnnotationClass != null);
+        data.put("mapperAnnotationClass", mapperAnnotationClass);
         data.put("baseResultMap", this.baseResultMap);
         data.put("baseColumnList", this.baseColumnList);
         data.put("superMapperClassPackage", this.superClass);
@@ -179,10 +192,27 @@ public class Mapper implements ITemplate {
          * 开启 @Mapper 注解
          *
          * @return this
+         * @see #mapperAnnotation(Class)
          * @since 3.5.1
+         * @deprecated 3.5.3
          */
+        @Deprecated
         public Builder enableMapperAnnotation() {
             this.mapper.mapperAnnotation = true;
+            //TODO 因为现在mybatis-plus传递mybatis-spring依赖，这里是没问题的，但后面如果考虑脱离mybatis-spring的时候就需要把这里处理掉，建议使用mapperAnnotation方法来标记自己的注解。
+            this.mapper.mapperAnnotationClass = org.apache.ibatis.annotations.Mapper.class;
+            return this;
+        }
+
+        /**
+         * 标记 Mapper 注解
+         *
+         * @param annotationClass 注解Class
+         * @return this
+         * @since 3.5.3
+         */
+        public Builder mapperAnnotation(Class<? extends Annotation> annotationClass) {
+            this.mapper.mapperAnnotationClass = annotationClass;
             return this;
         }
 
