@@ -50,33 +50,41 @@ public class DatabaseMetaDataWrapper {
      *
      * @return 表字段信息 (小写字段名->字段信息)
      */
-    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
+    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schemaPattern, String tableNamePattern) {
         Set<String> primaryKeys = new HashSet<>();
-        ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schemaPattern, tableNamePattern);
-        while (primaryKeysResultSet.next()) {
-            String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
-            primaryKeys.add(columnName);
+        try {
+            ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schemaPattern, tableNamePattern);
+            while (primaryKeysResultSet.next()) {
+                String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
+                primaryKeys.add(columnName);
+            }
+            if (primaryKeys.size() > 1) {
+                logger.warn("当前表:{}，存在多主键情况！", tableNamePattern);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("读取表主键信息:" + tableNamePattern + "错误:", e);
         }
-        if (primaryKeys.size() > 1) {
-            logger.warn("当前表:{}，存在多主键情况！", tableNamePattern);
+        try {
+            ResultSet resultSet = databaseMetaData.getColumns(catalog, schemaPattern, tableNamePattern, "%");
+            Map<String, ColumnsInfo> columnsInfoMap = new HashMap<>();
+            while (resultSet.next()) {
+                ColumnsInfo columnsInfo = new ColumnsInfo();
+                String name = resultSet.getString("COLUMN_NAME");
+                columnsInfo.name = name;
+                columnsInfo.primaryKey = primaryKeys.contains(name);
+                columnsInfo.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
+                columnsInfo.length = resultSet.getInt("COLUMN_SIZE");
+                columnsInfo.scale = resultSet.getInt("DECIMAL_DIGITS");
+                columnsInfo.remarks = formatComment(resultSet.getString("REMARKS"));
+                columnsInfo.defaultValue = resultSet.getString("COLUMN_DEF");
+                columnsInfo.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+                columnsInfo.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
+                columnsInfoMap.put(name.toLowerCase(), columnsInfo);
+            }
+            return Collections.unmodifiableMap(columnsInfoMap);
+        } catch (SQLException e) {
+            throw new RuntimeException("读取表字段信息:" + tableNamePattern + "错误:", e);
         }
-        ResultSet resultSet = databaseMetaData.getColumns(catalog, schemaPattern, tableNamePattern, "%");
-        Map<String, ColumnsInfo> columnsInfoMap = new HashMap<>();
-        while (resultSet.next()) {
-            ColumnsInfo columnsInfo = new ColumnsInfo();
-            String name = resultSet.getString("COLUMN_NAME");
-            columnsInfo.name = name;
-            columnsInfo.primaryKey = primaryKeys.contains(name);
-            columnsInfo.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
-            columnsInfo.length = resultSet.getInt("COLUMN_SIZE");
-            columnsInfo.scale = resultSet.getInt("DECIMAL_DIGITS");
-            columnsInfo.remarks = formatComment(resultSet.getString("REMARKS"));
-            columnsInfo.defaultValue = resultSet.getString("COLUMN_DEF");
-            columnsInfo.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-            columnsInfo.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
-            columnsInfoMap.put(name.toLowerCase(), columnsInfo);
-        }
-        return Collections.unmodifiableMap(columnsInfoMap);
     }
 
     public String formatComment(String comment) {
@@ -84,10 +92,8 @@ public class DatabaseMetaDataWrapper {
     }
 
     public Table getTableInfo(String catalog, String schemaPattern, String tableNamePattern) {
-        ResultSet resultSet;
         Table table = new Table();
-        try {
-            resultSet = databaseMetaData.getTables(catalog, schemaPattern, tableNamePattern, new String[]{});
+        try (ResultSet resultSet = databaseMetaData.getTables(catalog, schemaPattern, tableNamePattern, new String[]{})) {
             table.name = tableNamePattern;
             while (resultSet.next()) {
                 table.remarks = formatComment(resultSet.getString("REMARKS"));
