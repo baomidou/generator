@@ -37,12 +37,24 @@ public class DatabaseMetaDataWrapper {
 
     private final DatabaseMetaData databaseMetaData;
 
+    //TODO 暂时只支持一种
+    private final String catalog;
+
+    //TODO 暂时只支持一种
+    private final String schema;
+
     public DatabaseMetaDataWrapper(Connection connection) {
         try {
             this.databaseMetaData = connection.getMetaData();
+            this.catalog = connection.getCatalog();
+            this.schema = connection.getSchema();
         } catch (SQLException e) {
             throw new RuntimeException("获取元数据错误:", e);
         }
+    }
+
+    public Map<String, ColumnsInfo> getColumnsInfo(String tableNamePattern) throws SQLException {
+        return getColumnsInfo(this.catalog, this.schema, tableNamePattern);
     }
 
     /**
@@ -50,23 +62,22 @@ public class DatabaseMetaDataWrapper {
      *
      * @return 表字段信息 (小写字段名->字段信息)
      */
-    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schemaPattern, String tableNamePattern) {
+    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schema, String tableName) throws SQLException {
         Set<String> primaryKeys = new HashSet<>();
-        try {
-            ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schemaPattern, tableNamePattern);
+        try (ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schema, tableName)) {
             while (primaryKeysResultSet.next()) {
                 String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
                 primaryKeys.add(columnName);
             }
             if (primaryKeys.size() > 1) {
-                logger.warn("当前表:{}，存在多主键情况！", tableNamePattern);
+                logger.warn("当前表:{}，存在多主键情况！", tableName);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("读取表主键信息:" + tableNamePattern + "错误:", e);
+            throw new RuntimeException("读取表主键信息:" + tableName + "错误:", e);
         }
-        try {
-            ResultSet resultSet = databaseMetaData.getColumns(catalog, schemaPattern, tableNamePattern, "%");
-            Map<String, ColumnsInfo> columnsInfoMap = new HashMap<>();
+
+        Map<String, ColumnsInfo> columnsInfoMap = new HashMap<>();
+        try (ResultSet resultSet = databaseMetaData.getColumns(catalog, schema, tableName, "%")) {
             while (resultSet.next()) {
                 ColumnsInfo columnsInfo = new ColumnsInfo();
                 String name = resultSet.getString("COLUMN_NAME");
@@ -83,7 +94,7 @@ public class DatabaseMetaDataWrapper {
             }
             return Collections.unmodifiableMap(columnsInfoMap);
         } catch (SQLException e) {
-            throw new RuntimeException("读取表字段信息:" + tableNamePattern + "错误:", e);
+            throw new RuntimeException("读取表字段信息:" + tableName + "错误:", e);
         }
     }
 
@@ -91,16 +102,21 @@ public class DatabaseMetaDataWrapper {
         return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
     }
 
-    public Table getTableInfo(String catalog, String schemaPattern, String tableNamePattern) {
+    public Table getTableInfo(String tableName) {
+        return getTableInfo(this.catalog, this.schema, tableName);
+    }
+
+    public Table getTableInfo(String catalog, String schema, String tableName) {
         Table table = new Table();
-        try (ResultSet resultSet = databaseMetaData.getTables(catalog, schemaPattern, tableNamePattern, new String[]{})) {
-            table.name = tableNamePattern;
+        //TODO 后面要根据表是否为试图来查询，后面重构表查询策略。
+        try (ResultSet resultSet = databaseMetaData.getTables(catalog, schema, tableName, new String[]{"TABLE", "VIEW"})) {
+            table.name = tableName;
             while (resultSet.next()) {
                 table.remarks = formatComment(resultSet.getString("REMARKS"));
                 table.tableType = resultSet.getString("TABLE_TYPE");
             }
         } catch (SQLException e) {
-            throw new RuntimeException("读取表信息:" + tableNamePattern + "错误:", e);
+            throw new RuntimeException("读取表信息:" + tableName + "错误:", e);
         }
         return table;
     }

@@ -113,7 +113,7 @@ public abstract class IDatabaseQuery {
                 dbQuery.execute(dbQuery.tablesSql(), result -> {
                     String tableName = result.getStringResult(dbQuery.tableName());
                     if (StringUtils.isNotBlank(tableName)) {
-                        DatabaseMetaDataWrapper.Table table = databaseMetaDataWrapper.getTableInfo(null, dataSourceConfig.getSchemaName(), tableName);
+                        DatabaseMetaDataWrapper.Table table = databaseMetaDataWrapper.getTableInfo(tableName);
                         TableInfo tableInfo = new TableInfo(this.configBuilder, tableName);
                         // 跳过视图
                         if (!(strategyConfig.isSkipView() && table.isView())) {
@@ -168,7 +168,7 @@ public abstract class IDatabaseQuery {
                 final Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsMetaInfoMap = new HashMap<>();
                 //TODO 增加元数据信息获取,后面查询表字段要改成这个.
                 Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsInfoMap =
-                    databaseMetaDataWrapper.getColumnsInfo(null, dataSourceConfig.getSchemaName(), tableName);
+                    databaseMetaDataWrapper.getColumnsInfo(tableName);
                 if (columnsInfoMap != null && !columnsInfoMap.isEmpty()) {
                     columnsMetaInfoMap.putAll(columnsInfoMap);
                 }
