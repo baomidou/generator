@@ -15,9 +15,9 @@
  */
 package com.baomidou.mybatisplus.generator.config.builder;
 
-import com.baomidou.mybatisplus.generator.IDatabaseQuery;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.query.DefaultDatabaseQuery;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -90,11 +90,11 @@ public class ConfigBuilder {
                          @Nullable StrategyConfig strategyConfig, @Nullable TemplateConfig templateConfig,
                          @Nullable GlobalConfig globalConfig, @Nullable InjectionConfig injectionConfig) {
         this.dataSourceConfig = dataSourceConfig;
-        this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(() -> GeneratorBuilder.strategyConfig());
-        this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(() -> GeneratorBuilder.globalConfig());
-        this.templateConfig = Optional.ofNullable(templateConfig).orElseGet(() -> GeneratorBuilder.templateConfig());
-        this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(() -> GeneratorBuilder.packageConfig());
-        this.injectionConfig = Optional.ofNullable(injectionConfig).orElseGet(() -> GeneratorBuilder.injectionConfig());
+        this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(GeneratorBuilder::strategyConfig);
+        this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(GeneratorBuilder::globalConfig);
+        this.templateConfig = Optional.ofNullable(templateConfig).orElseGet(GeneratorBuilder::templateConfig);
+        this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(GeneratorBuilder::packageConfig);
+        this.injectionConfig = Optional.ofNullable(injectionConfig).orElseGet(GeneratorBuilder::injectionConfig);
         this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.templateConfig, this.packageConfig).getPathInfo());
     }
 
@@ -136,7 +136,7 @@ public class ConfigBuilder {
     public List<TableInfo> getTableInfoList() {
         if (tableInfoList.isEmpty()) {
             // TODO 暂时不开放自定义
-            List<TableInfo> tableInfos = new IDatabaseQuery.DefaultDatabaseQuery(this).queryTables();
+            List<TableInfo> tableInfos = new DefaultDatabaseQuery(this).queryTables();
             if (!tableInfos.isEmpty()) {
                 this.tableInfoList.addAll(tableInfos);
             }

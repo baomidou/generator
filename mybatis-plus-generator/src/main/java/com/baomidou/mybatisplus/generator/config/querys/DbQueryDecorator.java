@@ -277,6 +277,7 @@ public class DbQueryDecorator extends AbstractDbQuery {
          * @return 格式化内容
          * @deprecated 3.5.3
          */
+        @Deprecated
         public String formatComment(String comment) {
             return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
         }
