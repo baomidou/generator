@@ -45,7 +45,9 @@ public interface IDbQuery {
      * @deprecated 3.5.3
      */
     @Deprecated
-    String tableComment();
+    default String tableComment() {
+        return null;
+    }
 
     /**
      * 字段名称
@@ -62,14 +64,18 @@ public interface IDbQuery {
      * @deprecated 3.5.3
      */
     @Deprecated
-    String fieldComment();
+    default String fieldComment() {
+        return null;
+    }
 
     /**
      * 主键字段
      * @deprecated 3.5.3
      */
     @Deprecated
-    String fieldKey();
+    default String fieldKey(){
+        return null;
+    }
 
     /**
      * 判断主键是否为identity
@@ -80,7 +86,9 @@ public interface IDbQuery {
      * @deprecated 3.5.3
      */
     @Deprecated
-    boolean isKeyIdentity(ResultSet results) throws SQLException;
+    default boolean isKeyIdentity(ResultSet results) throws SQLException {
+        return false;
+    }
 
     /**
      * 自定义字段名称

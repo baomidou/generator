@@ -15,9 +15,6 @@
  */
 package com.baomidou.mybatisplus.generator.config.querys;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.baomidou.mybatisplus.generator.config.IDbQuery;
 
 /**
@@ -27,13 +24,6 @@ import com.baomidou.mybatisplus.generator.config.IDbQuery;
  * @since 2018-01-16
  */
 public abstract class AbstractDbQuery implements IDbQuery {
-
-
-    @Override
-    public boolean isKeyIdentity(ResultSet results) throws SQLException {
-        return false;
-    }
-
 
     @Override
     public String[] fieldCustom() {
