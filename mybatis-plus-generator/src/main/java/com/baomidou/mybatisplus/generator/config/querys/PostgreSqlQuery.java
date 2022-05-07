@@ -30,7 +30,7 @@ public class PostgreSqlQuery extends AbstractDbQuery {
 
     @Override
     public String tableFieldsSql() {
-        return "select column_name as name, udt_name as type from information_schema.columns where table_schema='%s' and table_name='%s';";
+        return "select column_name as name, data_type as type from information_schema.columns where table_schema='%s' and table_name='%s'";
     }
 
     @Override
