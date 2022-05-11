@@ -21,6 +21,8 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
+import com.baomidou.mybatisplus.generator.query.DefaultDatabaseQuery;
+import com.baomidou.mybatisplus.generator.query.IDatabaseQuery;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -94,6 +96,13 @@ public class DataSourceConfig {
      * @since 3.5.0
      */
     private Connection connection;
+
+    /**
+     * 查询方式
+     *
+     * @since 3.5.3
+     */
+    private Class<? extends IDatabaseQuery> databaseQueryClass = DefaultDatabaseQuery.class;
 
     /**
      * 获取数据库查询
@@ -268,6 +277,10 @@ public class DataSourceConfig {
         return password;
     }
 
+    @NotNull
+    public Class<? extends IDatabaseQuery> getDatabaseQueryClass() {
+        return databaseQueryClass;
+    }
 
     /**
      * 数据库配置构建者
@@ -360,6 +373,18 @@ public class DataSourceConfig {
          */
         public Builder keyWordsHandler(@NotNull IKeyWordsHandler keyWordsHandler) {
             this.dataSourceConfig.keyWordsHandler = keyWordsHandler;
+            return this;
+        }
+
+        /**
+         * 指定数据库查询方式
+         *
+         * @param databaseQueryClass 查询类
+         * @return this
+         * @since 3.5.3
+         */
+        public Builder databaseQueryClass(@NotNull Class<? extends IDatabaseQuery> databaseQueryClass) {
+            this.dataSourceConfig.databaseQueryClass = databaseQueryClass;
             return this;
         }
 
