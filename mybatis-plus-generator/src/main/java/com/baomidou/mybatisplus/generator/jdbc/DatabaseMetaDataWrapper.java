@@ -76,7 +76,7 @@ public class DatabaseMetaDataWrapper {
             throw new RuntimeException("读取表主键信息:" + tableName + "错误:", e);
         }
 
-        Map<String, ColumnsInfo> columnsInfoMap = new HashMap<>();
+        Map<String, ColumnsInfo> columnsInfoMap = new LinkedHashMap<>();
         try (ResultSet resultSet = databaseMetaData.getColumns(catalog, schema, tableName, "%")) {
             while (resultSet.next()) {
                 ColumnsInfo columnsInfo = new ColumnsInfo();

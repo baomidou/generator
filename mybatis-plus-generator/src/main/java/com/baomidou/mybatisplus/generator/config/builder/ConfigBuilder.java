@@ -17,10 +17,11 @@ package com.baomidou.mybatisplus.generator.config.builder;
 
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.query.DefaultDatabaseQuery;
+import com.baomidou.mybatisplus.generator.query.IDatabaseQuery;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -78,6 +79,12 @@ public class ConfigBuilder {
     private final DataSourceConfig dataSourceConfig;
 
     /**
+     * 数据查询实例
+     * @since 3.5.3
+     */
+    private final IDatabaseQuery databaseQuery;
+
+    /**
      * 在构造器中处理配置
      *
      * @param packageConfig    包配置
@@ -96,6 +103,13 @@ public class ConfigBuilder {
         this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(GeneratorBuilder::packageConfig);
         this.injectionConfig = Optional.ofNullable(injectionConfig).orElseGet(GeneratorBuilder::injectionConfig);
         this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.templateConfig, this.packageConfig).getPathInfo());
+        Class<? extends IDatabaseQuery> databaseQueryClass = dataSourceConfig.getDatabaseQueryClass();
+        try {
+            Constructor<? extends IDatabaseQuery> declaredConstructor = databaseQueryClass.getDeclaredConstructor(this.getClass());
+            this.databaseQuery = declaredConstructor.newInstance(this);
+        } catch (ReflectiveOperationException exception) {
+            throw new RuntimeException("创建IDatabaseQuery实例出现错误:", exception);
+        }
     }
 
     /**
@@ -135,8 +149,7 @@ public class ConfigBuilder {
     @NotNull
     public List<TableInfo> getTableInfoList() {
         if (tableInfoList.isEmpty()) {
-            // TODO 暂时不开放自定义
-            List<TableInfo> tableInfos = new DefaultDatabaseQuery(this).queryTables();
+            List<TableInfo> tableInfos = this.databaseQuery.queryTables();
             if (!tableInfos.isEmpty()) {
                 this.tableInfoList.addAll(tableInfos);
             }

@@ -42,15 +42,15 @@ import java.util.stream.Collectors;
  */
 public class DefaultDatabaseQuery extends AbstractDatabaseQuery {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDatabaseQuery.class);
+    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    private final StrategyConfig strategyConfig;
+    protected final StrategyConfig strategyConfig;
 
-    private final GlobalConfig globalConfig;
+    protected final GlobalConfig globalConfig;
 
-    private final DbQueryDecorator dbQuery;
+    protected final DbQueryDecorator dbQuery;
 
-    private final DatabaseMetaDataWrapper databaseMetaDataWrapper;
+    protected final DatabaseMetaDataWrapper databaseMetaDataWrapper;
 
     public DefaultDatabaseQuery(@NotNull ConfigBuilder configBuilder) {
         super(configBuilder);
@@ -124,7 +124,7 @@ public class DefaultDatabaseQuery extends AbstractDatabaseQuery {
         }
     }
 
-    private void convertTableFields(@NotNull TableInfo tableInfo) {
+    protected void convertTableFields(@NotNull TableInfo tableInfo) {
         String tableName = tableInfo.getName();
         try {
             final Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsMetaInfoMap = new HashMap<>();

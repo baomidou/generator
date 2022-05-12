@@ -46,6 +46,11 @@ public class TableField {
      */
     private boolean keyIdentityFlag;
     private String name;
+
+    /**
+     * @deprecated 3.5.3
+     */
+    @Deprecated
     private String type;
     private String propertyName;
     private IColumnType columnType;
@@ -207,6 +212,11 @@ public class TableField {
         return this;
     }
 
+    /**
+     * @deprecated 3.5.3
+     * @param type 类型
+     * @return this
+     */
     public TableField setType(String type) {
         this.type = type;
         return this;
@@ -250,6 +260,10 @@ public class TableField {
         return name;
     }
 
+    /**
+     * @deprecated 3.5.3
+     * @return 类型
+     */
     public String getType() {
         return type;
     }
