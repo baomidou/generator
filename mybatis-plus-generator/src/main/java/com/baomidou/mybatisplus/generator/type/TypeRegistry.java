@@ -1,17 +1,16 @@
 package com.baomidou.mybatisplus.generator.type;
 
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
-import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
 
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author nieqiurong 2022/5/11.
  */
 public class TypeRegistry {
@@ -34,13 +33,13 @@ public class TypeRegistry {
         typeMap.put(Types.BIGINT, DbColumnType.LONG);
         //boolean
         typeMap.put(Types.BIT, DbColumnType.BOOLEAN);
-        typeMap.put(Types.BOOLEAN,DbColumnType.BOOLEAN);
+        typeMap.put(Types.BOOLEAN, DbColumnType.BOOLEAN);
         //short
         typeMap.put(Types.SMALLINT, DbColumnType.SHORT);
         //string
         typeMap.put(Types.CHAR, DbColumnType.STRING);
         typeMap.put(Types.CLOB, DbColumnType.STRING);
-        typeMap.put(Types.VARCHAR,DbColumnType.STRING);
+        typeMap.put(Types.VARCHAR, DbColumnType.STRING);
         typeMap.put(Types.LONGVARCHAR, DbColumnType.STRING);
         typeMap.put(Types.LONGNVARCHAR, DbColumnType.STRING);
         typeMap.put(Types.NCHAR, DbColumnType.STRING);
@@ -61,25 +60,49 @@ public class TypeRegistry {
         //TODO 类型需要补充完整
     }
 
-    public IColumnType getIColumnType(DatabaseMetaDataWrapper.ColumnsInfo columnsInfo) {
-        int typeCode = columnsInfo.getJdbcType().TYPE_CODE;
+    public IColumnType getColumnType(TableField.MetaInfo metaInfo) {
+        int typeCode = metaInfo.getJdbcType().TYPE_CODE;
         switch (typeCode) {
+            // TODO 需要增加类型处理，尚未补充完整
+            case Types.BIT:
+                return getBitType(metaInfo);
             case Types.DATE:
-                return getDateType();
+                return getDateType(metaInfo);
             case Types.TIME:
-                return getTimeType();
+                return getTimeType(metaInfo);
+            case Types.DECIMAL:
+            case Types.NUMERIC:
+                return getNumber(metaInfo);
             case Types.TIMESTAMP:
-                return getTimestampType();
+                return getTimestampType(metaInfo);
             default:
                 return typeMap.getOrDefault(typeCode, DbColumnType.OBJECT);
         }
     }
 
-    private IColumnType getDateType() {
+    private IColumnType getBitType(TableField.MetaInfo metaInfo) {
+        if (metaInfo.getLength() > 1) {
+            return DbColumnType.BYTE_ARRAY;
+        }
+        return DbColumnType.BOOLEAN;
+    }
+
+    private IColumnType getNumber(TableField.MetaInfo metaInfo) {
+        if (metaInfo.getScale() > 0 || metaInfo.getLength() > 18) {
+            return typeMap.get(metaInfo.getJdbcType().TYPE_CODE);
+        } else if (metaInfo.getLength() > 9) {
+            return DbColumnType.LONG;
+        } else if (metaInfo.getLength() > 4) {
+            return DbColumnType.INTEGER;
+        } else {
+            return DbColumnType.SHORT;
+        }
+    }
+
+    private IColumnType getDateType(TableField.MetaInfo metaInfo) {
         DbColumnType dbColumnType;
         DateType dateType = globalConfig.getDateType();
         switch (dateType) {
-            // TODO 需要增加类型处理，尚未补充完整
             case SQL_PACK:
                 dbColumnType = DbColumnType.DATE_SQL;
                 break;
@@ -92,7 +115,7 @@ public class TypeRegistry {
         return dbColumnType;
     }
 
-    private IColumnType getTimeType() {
+    private IColumnType getTimeType(TableField.MetaInfo metaInfo) {
         DbColumnType dbColumnType;
         DateType dateType = globalConfig.getDateType();
         if (dateType == DateType.TIME_PACK) {
@@ -103,7 +126,7 @@ public class TypeRegistry {
         return dbColumnType;
     }
 
-    private IColumnType getTimestampType() {
+    private IColumnType getTimestampType(TableField.MetaInfo metaInfo) {
         DbColumnType dbColumnType;
         DateType dateType = globalConfig.getDateType();
         if (dateType == DateType.TIME_PACK) {

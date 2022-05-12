@@ -21,8 +21,10 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
+import com.baomidou.mybatisplus.generator.query.AbstractDatabaseQuery;
 import com.baomidou.mybatisplus.generator.query.DefaultDatabaseQuery;
 import com.baomidou.mybatisplus.generator.query.IDatabaseQuery;
+import com.baomidou.mybatisplus.generator.type.ITypeConvertHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -102,7 +104,14 @@ public class DataSourceConfig {
      *
      * @since 3.5.3
      */
-    private Class<? extends IDatabaseQuery> databaseQueryClass = DefaultDatabaseQuery.class;
+    private Class<? extends AbstractDatabaseQuery> databaseQueryClass = DefaultDatabaseQuery.class;
+
+    /**
+     * 类型转换处理
+     *
+     * @since 3.5.3
+     */
+    private ITypeConvertHandler typeConvertHandler;
 
     /**
      * 获取数据库查询
@@ -282,6 +291,11 @@ public class DataSourceConfig {
         return databaseQueryClass;
     }
 
+    @Nullable
+    public ITypeConvertHandler getTypeConvertHandler() {
+        return typeConvertHandler;
+    }
+
     /**
      * 数据库配置构建者
      *
@@ -383,10 +397,23 @@ public class DataSourceConfig {
          * @return this
          * @since 3.5.3
          */
-        public Builder databaseQueryClass(@NotNull Class<? extends IDatabaseQuery> databaseQueryClass) {
+        public Builder databaseQueryClass(@NotNull Class<? extends AbstractDatabaseQuery> databaseQueryClass) {
             this.dataSourceConfig.databaseQueryClass = databaseQueryClass;
             return this;
         }
+
+        /**
+         * 指定类型转换器
+         *
+         * @param typeConvertHandler 类型转换器
+         * @return this
+         * @since 3.5.3
+         */
+        public Builder typeConvertHandler(@NotNull ITypeConvertHandler typeConvertHandler) {
+            this.dataSourceConfig.typeConvertHandler = typeConvertHandler;
+            return this;
+        }
+
 
         /**
          * 构建数据库配置

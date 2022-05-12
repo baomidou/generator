@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
+import com.baomidou.mybatisplus.generator.type.ITypeConvertHandler;
 import com.baomidou.mybatisplus.generator.type.TypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +18,7 @@ import java.util.Map;
  * 通过原数据查询数据库信息.
  *
  * @author nieqiurong 2022/5/11.
+ * @since 3.5.3
  */
 public class MetaDataQuery extends DefaultDatabaseQuery {
 
@@ -39,26 +41,29 @@ public class MetaDataQuery extends DefaultDatabaseQuery {
         try {
             Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsInfoMap = databaseMetaDataWrapper.getColumnsInfo(tableName);
             Entity entity = strategyConfig.entity();
-            columnsInfoMap.forEach((k, columnsInfo) -> {
-                TableField.MetaInfo metaInfo = new TableField.MetaInfo(columnsInfo);
-                String columnName = columnsInfo.getName();
+            columnsInfoMap.forEach((k, columnInfo) -> {
+                TableField.MetaInfo metaInfo = new TableField.MetaInfo(columnInfo);
+                String columnName = columnInfo.getName();
                 TableField field = new TableField(this.configBuilder, columnName);
                 // 处理ID
-                if (columnsInfo.isPrimaryKey()) {
-                    field.primaryKey(columnsInfo.isAutoIncrement());
+                if (columnInfo.isPrimaryKey()) {
+                    field.primaryKey(columnInfo.isAutoIncrement());
                     tableInfo.setHavePrimaryKey(true);
                     if (field.isKeyIdentityFlag() && entity.getIdType() != null) {
                         LOGGER.warn("当前表[{}]的主键为自增主键，会导致全局主键的ID类型设置失效!", tableName);
                     }
                 }
                 field.setColumnName(columnName)
-                    .setComment(columnsInfo.getRemarks());
+                    .setComment(columnInfo.getRemarks());
                 String propertyName = entity.getNameConvert().propertyNameConvert(field);
-                IColumnType columnType = typeRegistry.getIColumnType(columnsInfo);
+                IColumnType columnType = typeRegistry.getColumnType(metaInfo);
+                ITypeConvertHandler typeConvertHandler = dataSourceConfig.getTypeConvertHandler();
+                if (typeConvertHandler != null) {
+                    columnType = typeConvertHandler.convert(globalConfig, typeRegistry, metaInfo);
+                }
                 field.setPropertyName(propertyName, columnType);
                 field.setMetaInfo(metaInfo);
                 tableInfo.addField(field);
-
             });
         } catch (SQLException e) {
             throw new RuntimeException(e);
