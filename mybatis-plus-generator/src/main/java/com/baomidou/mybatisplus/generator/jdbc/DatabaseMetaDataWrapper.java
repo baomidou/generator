@@ -53,8 +53,8 @@ public class DatabaseMetaDataWrapper {
         }
     }
 
-    public Map<String, ColumnsInfo> getColumnsInfo(String tableNamePattern) throws SQLException {
-        return getColumnsInfo(this.catalog, this.schema, tableNamePattern);
+    public Map<String, ColumnsInfo> getColumnsInfo(String tableNamePattern, boolean queryPrimaryKey) throws SQLException {
+        return getColumnsInfo(this.catalog, this.schema, tableNamePattern,queryPrimaryKey);
     }
 
     /**
@@ -62,20 +62,22 @@ public class DatabaseMetaDataWrapper {
      *
      * @return 表字段信息 (小写字段名->字段信息)
      */
-    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schema, String tableName) throws SQLException {
+    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schema, String tableName, boolean queryPrimaryKey) throws SQLException {
         Set<String> primaryKeys = new HashSet<>();
-        try (ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schema, tableName)) {
-            while (primaryKeysResultSet.next()) {
-                String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
-                primaryKeys.add(columnName);
+        if(queryPrimaryKey){
+            //TODO 为了保持兼容性，回滚掉DefaultDatabaseQuery修改的代码，DefaultDatabaseQuery不查询主键信息，还是保持继续用原来的sql进行查询。
+            try (ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schema, tableName)) {
+                while (primaryKeysResultSet.next()) {
+                    String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
+                    primaryKeys.add(columnName);
+                }
+                if (primaryKeys.size() > 1) {
+                    logger.warn("当前表:{}，存在多主键情况！", tableName);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("读取表主键信息:" + tableName + "错误:", e);
             }
-            if (primaryKeys.size() > 1) {
-                logger.warn("当前表:{}，存在多主键情况！", tableName);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("读取表主键信息:" + tableName + "错误:", e);
         }
-
         Map<String, ColumnsInfo> columnsInfoMap = new LinkedHashMap<>();
         try (ResultSet resultSet = databaseMetaData.getColumns(catalog, schema, tableName, "%")) {
             while (resultSet.next()) {
@@ -97,7 +99,6 @@ public class DatabaseMetaDataWrapper {
             throw new RuntimeException("读取表字段信息:" + tableName + "错误:", e);
         }
     }
-
     public String formatComment(String comment) {
         return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
     }

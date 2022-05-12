@@ -16,12 +16,18 @@
 package com.baomidou.mybatisplus.generator.query;
 
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
+import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
 import org.jetbrains.annotations.NotNull;
 
 
 /**
+ *
  * @author nieqiurong
+ * @since 3.5.3
  */
 public abstract class AbstractDatabaseQuery implements IDatabaseQuery {
 
@@ -29,9 +35,23 @@ public abstract class AbstractDatabaseQuery implements IDatabaseQuery {
 
     protected final DataSourceConfig dataSourceConfig;
 
+    protected final StrategyConfig strategyConfig;
+
+    protected final GlobalConfig globalConfig;
+
+    protected final DbQueryDecorator dbQuery;
+
+    protected final DatabaseMetaDataWrapper databaseMetaDataWrapper;
+
+
     public AbstractDatabaseQuery(@NotNull ConfigBuilder configBuilder) {
         this.configBuilder = configBuilder;
         this.dataSourceConfig = configBuilder.getDataSourceConfig();
+        this.strategyConfig = configBuilder.getStrategyConfig();
+        this.dbQuery = new DbQueryDecorator(dataSourceConfig, strategyConfig);
+        this.globalConfig = configBuilder.getGlobalConfig();
+        this.databaseMetaDataWrapper = new DatabaseMetaDataWrapper(dbQuery.getConnection());
+
     }
 
     @NotNull

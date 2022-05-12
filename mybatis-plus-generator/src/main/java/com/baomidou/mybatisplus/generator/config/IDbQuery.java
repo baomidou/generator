@@ -42,9 +42,7 @@ public interface IDbQuery {
 
     /**
      * 表注释
-     * @deprecated 3.5.3
      */
-    @Deprecated
     default String tableComment() {
         return null;
     }
@@ -61,18 +59,14 @@ public interface IDbQuery {
 
     /**
      * 字段注释
-     * @deprecated 3.5.3
      */
-    @Deprecated
     default String fieldComment() {
         return null;
     }
 
     /**
      * 主键字段
-     * @deprecated 3.5.3
      */
-    @Deprecated
     default String fieldKey(){
         return null;
     }
@@ -83,9 +77,7 @@ public interface IDbQuery {
      * @param results ResultSet
      * @return 主键是否为identity
      * @throws SQLException ignore
-     * @deprecated 3.5.3
      */
-    @Deprecated
     default boolean isKeyIdentity(ResultSet results) throws SQLException {
         return false;
     }
