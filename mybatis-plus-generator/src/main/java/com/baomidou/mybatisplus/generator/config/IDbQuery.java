@@ -43,9 +43,7 @@ public interface IDbQuery {
     /**
      * 表注释
      */
-    default String tableComment() {
-        return null;
-    }
+    String tableComment();
 
     /**
      * 字段名称
@@ -60,16 +58,12 @@ public interface IDbQuery {
     /**
      * 字段注释
      */
-    default String fieldComment() {
-        return null;
-    }
+    String fieldComment();
 
     /**
      * 主键字段
      */
-    default String fieldKey(){
-        return null;
-    }
+    String fieldKey();
 
     /**
      * 判断主键是否为identity
@@ -78,9 +72,7 @@ public interface IDbQuery {
      * @return 主键是否为identity
      * @throws SQLException ignore
      */
-    default boolean isKeyIdentity(ResultSet results) throws SQLException {
-        return false;
-    }
+    boolean isKeyIdentity(ResultSet results) throws SQLException;
 
     /**
      * 自定义字段名称
