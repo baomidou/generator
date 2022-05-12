@@ -106,6 +106,27 @@ public class DatabaseMetaDataWrapper {
         return getTableInfo(this.catalog, this.schema, tableName);
     }
 
+    public List<Table> getTables(String tableNamePattern, String[] types) {
+        return getTables(this.catalog, this.schema, tableNamePattern, types);
+    }
+
+    public List<Table> getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) {
+        List<Table> tables = new ArrayList<>();
+        try (ResultSet resultSet = databaseMetaData.getTables(catalog, schemaPattern, tableNamePattern, types)) {
+            Table table;
+            while (resultSet.next()) {
+                table = new Table();
+                table.name = resultSet.getString("TABLE_NAME");
+                table.remarks = formatComment(resultSet.getString("REMARKS"));
+                table.tableType = resultSet.getString("TABLE_TYPE");
+                tables.add(table);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("读取数据库表信息出现错误", e);
+        }
+        return tables;
+    }
+
     public Table getTableInfo(String catalog, String schema, String tableName) {
         Table table = new Table();
         //TODO 后面要根据表是否为试图来查询，后面重构表查询策略。

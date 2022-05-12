@@ -61,6 +61,7 @@ public class TypeRegistry {
     }
 
     public IColumnType getColumnType(TableField.MetaInfo metaInfo) {
+        //TODO 是否用包装类??? 可以尝试判断字段是否允许为null来判断是否用包装类
         int typeCode = metaInfo.getJdbcType().TYPE_CODE;
         switch (typeCode) {
             // TODO 需要增加类型处理，尚未补充完整
