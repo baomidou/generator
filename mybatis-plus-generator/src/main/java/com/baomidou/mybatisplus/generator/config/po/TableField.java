@@ -19,7 +19,6 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
@@ -321,14 +320,14 @@ public class TableField {
 
         private JdbcType jdbcType;
 
-        public MetaInfo(DatabaseMetaDataWrapper.ColumnsInfo columnsInfo) {
-            if (columnsInfo != null) {
-                this.length = columnsInfo.getLength();
-                this.nullable = columnsInfo.isNullable();
-                this.remarks = columnsInfo.getRemarks();
-                this.defaultValue = columnsInfo.getDefaultValue();
-                this.scale = columnsInfo.getScale();
-                this.jdbcType = columnsInfo.getJdbcType();
+        public MetaInfo(DatabaseMetaDataWrapper.Column column) {
+            if (column != null) {
+                this.length = column.getLength();
+                this.nullable = column.isNullable();
+                this.remarks = column.getRemarks();
+                this.defaultValue = column.getDefaultValue();
+                this.scale = column.getScale();
+                this.jdbcType = column.getJdbcType();
             }
         }
 

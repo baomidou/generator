@@ -16,7 +16,6 @@
 package com.baomidou.mybatisplus.generator.query;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.IDbQuery;
 import com.baomidou.mybatisplus.generator.config.ITypeConvert;
@@ -28,12 +27,9 @@ import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 这是兼容以前旧版本提供的查询方式，需要每个数据库对接适配。
@@ -44,8 +40,6 @@ import java.util.stream.Collectors;
  * @since 3.5.0
  */
 public class DefaultQuery extends AbstractDatabaseQuery {
-
-    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     public DefaultQuery(@NotNull ConfigBuilder configBuilder) {
         super(configBuilder);
@@ -80,30 +74,7 @@ public class DefaultQuery extends AbstractDatabaseQuery {
                     }
                 }
             });
-            if (isExclude || isInclude) {
-                Map<String, String> notExistTables = new HashSet<>(isExclude ? strategyConfig.getExclude() : strategyConfig.getInclude())
-                    .stream()
-                    .filter(s -> !ConfigBuilder.matcherRegTable(s))
-                    .collect(Collectors.toMap(String::toLowerCase, s -> s, (o, n) -> n));
-                // 将已经存在的表移除，获取配置中数据库不存在的表
-                for (TableInfo tabInfo : tableList) {
-                    if (notExistTables.isEmpty()) {
-                        break;
-                    }
-                    //解决可能大小写不敏感的情况导致无法移除掉
-                    notExistTables.remove(tabInfo.getName().toLowerCase());
-                }
-                if (notExistTables.size() > 0) {
-                    LOGGER.warn("表[{}]在数据库中不存在！！！", String.join(StringPool.COMMA, notExistTables.values()));
-                }
-                // 需要反向生成的表信息
-                if (isExclude) {
-                    tableList.removeAll(excludeTableList);
-                } else {
-                    tableList.clear();
-                    tableList.addAll(includeTableList);
-                }
-            }
+            filter(tableList, includeTableList, excludeTableList);
             // 性能优化，只处理需执行表字段 https://github.com/baomidou/mybatis-plus/issues/219
             tableList.forEach(this::convertTableFields);
             return tableList;
@@ -120,7 +91,7 @@ public class DefaultQuery extends AbstractDatabaseQuery {
         String tableName = tableInfo.getName();
         try {
             //TODO 增加元数据信息获取,后面查询表字段要改成这个.
-            Map<String, DatabaseMetaDataWrapper.ColumnsInfo> columnsInfoMap = databaseMetaDataWrapper.getColumnsInfo(tableName, false);
+            Map<String, DatabaseMetaDataWrapper.Column> columnsInfoMap = databaseMetaDataWrapper.getColumnsInfo(tableName, false);
             String tableFieldsSql = dbQuery.tableFieldsSql(tableName);
             Set<String> h2PkColumns = new HashSet<>();
             if (DbType.H2 == dbType) {
@@ -135,8 +106,8 @@ public class DefaultQuery extends AbstractDatabaseQuery {
             dbQuery.execute(tableFieldsSql, result -> {
                 String columnName = result.getStringResult(dbQuery.fieldName());
                 TableField field = new TableField(this.configBuilder, columnName);
-                DatabaseMetaDataWrapper.ColumnsInfo columnInfo = columnsInfoMap.get(columnName.toLowerCase());
-                TableField.MetaInfo metaInfo = new TableField.MetaInfo(columnInfo);
+                DatabaseMetaDataWrapper.Column column = columnsInfoMap.get(columnName.toLowerCase());
+                TableField.MetaInfo metaInfo = new TableField.MetaInfo(column);
                 // 避免多重主键设置，目前只取第一个找到ID，并放到list中的索引为0的位置
                 boolean isId = DbType.H2 == dbType ? h2PkColumns.contains(columnName) : result.isPrimaryKey();
                 // 处理ID

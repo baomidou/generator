@@ -53,7 +53,7 @@ public class DatabaseMetaDataWrapper {
         }
     }
 
-    public Map<String, ColumnsInfo> getColumnsInfo(String tableNamePattern, boolean queryPrimaryKey) throws SQLException {
+    public Map<String, Column> getColumnsInfo(String tableNamePattern, boolean queryPrimaryKey) {
         return getColumnsInfo(this.catalog, this.schema, tableNamePattern,queryPrimaryKey);
     }
 
@@ -62,7 +62,7 @@ public class DatabaseMetaDataWrapper {
      *
      * @return 表字段信息 (小写字段名->字段信息)
      */
-    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schema, String tableName, boolean queryPrimaryKey) throws SQLException {
+    public Map<String, Column> getColumnsInfo(String catalog, String schema, String tableName, boolean queryPrimaryKey) {
         Set<String> primaryKeys = new HashSet<>();
         if(queryPrimaryKey){
             //TODO 为了保持兼容性，回滚掉DefaultDatabaseQuery修改的代码，DefaultDatabaseQuery不查询主键信息，还是保持继续用原来的sql进行查询。
@@ -78,21 +78,21 @@ public class DatabaseMetaDataWrapper {
                 throw new RuntimeException("读取表主键信息:" + tableName + "错误:", e);
             }
         }
-        Map<String, ColumnsInfo> columnsInfoMap = new LinkedHashMap<>();
+        Map<String, Column> columnsInfoMap = new LinkedHashMap<>();
         try (ResultSet resultSet = databaseMetaData.getColumns(catalog, schema, tableName, "%")) {
             while (resultSet.next()) {
-                ColumnsInfo columnsInfo = new ColumnsInfo();
+                Column column = new Column();
                 String name = resultSet.getString("COLUMN_NAME");
-                columnsInfo.name = name;
-                columnsInfo.primaryKey = primaryKeys.contains(name);
-                columnsInfo.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
-                columnsInfo.length = resultSet.getInt("COLUMN_SIZE");
-                columnsInfo.scale = resultSet.getInt("DECIMAL_DIGITS");
-                columnsInfo.remarks = formatComment(resultSet.getString("REMARKS"));
-                columnsInfo.defaultValue = resultSet.getString("COLUMN_DEF");
-                columnsInfo.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-                columnsInfo.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
-                columnsInfoMap.put(name.toLowerCase(), columnsInfo);
+                column.name = name;
+                column.primaryKey = primaryKeys.contains(name);
+                column.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
+                column.length = resultSet.getInt("COLUMN_SIZE");
+                column.scale = resultSet.getInt("DECIMAL_DIGITS");
+                column.remarks = formatComment(resultSet.getString("REMARKS"));
+                column.defaultValue = resultSet.getString("COLUMN_DEF");
+                column.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+                column.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
+                columnsInfoMap.put(name.toLowerCase(), column);
             }
             return Collections.unmodifiableMap(columnsInfoMap);
         } catch (SQLException e) {
@@ -169,7 +169,7 @@ public class DatabaseMetaDataWrapper {
 
     }
 
-    public static class ColumnsInfo {
+    public static class Column {
 
         private boolean primaryKey;
 

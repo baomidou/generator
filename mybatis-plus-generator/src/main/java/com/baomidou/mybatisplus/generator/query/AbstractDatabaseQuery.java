@@ -15,13 +15,22 @@
  */
 package com.baomidou.mybatisplus.generator.query;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
 import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,6 +39,8 @@ import org.jetbrains.annotations.NotNull;
  * @since 3.5.3
  */
 public abstract class AbstractDatabaseQuery implements IDatabaseQuery {
+
+    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     protected final ConfigBuilder configBuilder;
 
@@ -64,4 +75,32 @@ public abstract class AbstractDatabaseQuery implements IDatabaseQuery {
         return dataSourceConfig;
     }
 
+    protected void filter(List<TableInfo> tableList, List<TableInfo> includeTableList, List<TableInfo> excludeTableList) {
+        boolean isInclude = strategyConfig.getInclude().size() > 0;
+        boolean isExclude = strategyConfig.getExclude().size() > 0;
+        if (isExclude || isInclude) {
+            Map<String, String> notExistTables = new HashSet<>(isExclude ? strategyConfig.getExclude() : strategyConfig.getInclude())
+                .stream()
+                .filter(s -> !ConfigBuilder.matcherRegTable(s))
+                .collect(Collectors.toMap(String::toLowerCase, s -> s, (o, n) -> n));
+            // 将已经存在的表移除，获取配置中数据库不存在的表
+            for (TableInfo tabInfo : tableList) {
+                if (notExistTables.isEmpty()) {
+                    break;
+                }
+                //解决可能大小写不敏感的情况导致无法移除掉
+                notExistTables.remove(tabInfo.getName().toLowerCase());
+            }
+            if (notExistTables.size() > 0) {
+                LOGGER.warn("表[{}]在数据库中不存在！！！", String.join(StringPool.COMMA, notExistTables.values()));
+            }
+            // 需要反向生成的表信息
+            if (isExclude) {
+                tableList.removeAll(excludeTableList);
+            } else {
+                tableList.clear();
+                tableList.addAll(includeTableList);
+            }
+        }
+    }
 }
