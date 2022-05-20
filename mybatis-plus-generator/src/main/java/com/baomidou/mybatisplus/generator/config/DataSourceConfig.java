@@ -22,8 +22,9 @@ import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
 import com.baomidou.mybatisplus.generator.query.AbstractDatabaseQuery;
-import com.baomidou.mybatisplus.generator.query.DefaultDatabaseQuery;
+import com.baomidou.mybatisplus.generator.query.DefaultQuery;
 import com.baomidou.mybatisplus.generator.query.IDatabaseQuery;
+import com.baomidou.mybatisplus.generator.query.MetaDataQuery;
 import com.baomidou.mybatisplus.generator.type.ITypeConvertHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -102,9 +103,11 @@ public class DataSourceConfig {
     /**
      * 查询方式
      *
+     * @see MetaDataQuery 元数据查询方式，配合{@link #getTypeConvertHandler()} 使用
+     * @see DefaultQuery 默认查询方式，配合{@link #typeConvert} 使用
      * @since 3.5.3
      */
-    private Class<? extends AbstractDatabaseQuery> databaseQueryClass = DefaultDatabaseQuery.class;
+    private Class<? extends AbstractDatabaseQuery> databaseQueryClass = DefaultQuery.class;
 
     /**
      * 类型转换处理

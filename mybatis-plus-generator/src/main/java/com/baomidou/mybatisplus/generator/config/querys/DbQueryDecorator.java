@@ -110,7 +110,7 @@ public class DbQueryDecorator extends AbstractDbQuery {
             tableName = tableName.toUpperCase();
             tableFieldsSql = String.format(tableFieldsSql, tableName);
         } else if (DbType.POSTGRE_SQL == dbType) {
-            tableFieldsSql = String.format(tableFieldsSql, this.schema, tableName);
+            tableFieldsSql = String.format(tableFieldsSql, tableName, tableName, tableName);
         } else {
             tableFieldsSql = String.format(tableFieldsSql, tableName);
         }
@@ -243,7 +243,6 @@ public class DbQueryDecorator extends AbstractDbQuery {
 
         /**
          * @return 获取字段注释
-         * @deprecated 3.5.3
          */
         public String getFiledComment() {
             return getComment(dbQuery.fieldComment());
@@ -254,9 +253,7 @@ public class DbQueryDecorator extends AbstractDbQuery {
          *
          * @param columnLabel 字段列
          * @return 注释
-         * @deprecated 3.5.3
          */
-        @Deprecated
         private String getComment(String columnLabel) {
             return StringUtils.isNotBlank(columnLabel) ? formatComment(getStringResult(columnLabel)) : StringPool.EMPTY;
         }
@@ -265,9 +262,7 @@ public class DbQueryDecorator extends AbstractDbQuery {
          * 获取表注释
          *
          * @return 表注释
-         * @deprecated 3.5.3
          */
-        @Deprecated
         public String getTableComment() {
             return getComment(dbQuery.tableComment());
         }
@@ -275,18 +270,14 @@ public class DbQueryDecorator extends AbstractDbQuery {
         /**
          * @param comment 注释
          * @return 格式化内容
-         * @deprecated 3.5.3
          */
-        @Deprecated
         public String formatComment(String comment) {
             return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
         }
 
         /**
-         * @deprecated 3.5.3
          * @return 是否主键
          */
-        @Deprecated
         public boolean isPrimaryKey() {
             String key = this.getStringResult(dbQuery.fieldKey());
             if (DbType.DB2 == dbType || DbType.SQLITE == dbType || DbType.CLICK_HOUSE == dbType) {

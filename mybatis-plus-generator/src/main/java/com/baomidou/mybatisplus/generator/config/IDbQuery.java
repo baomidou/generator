@@ -42,12 +42,8 @@ public interface IDbQuery {
 
     /**
      * 表注释
-     * @deprecated 3.5.3
      */
-    @Deprecated
-    default String tableComment() {
-        return null;
-    }
+    String tableComment();
 
     /**
      * 字段名称
@@ -61,21 +57,13 @@ public interface IDbQuery {
 
     /**
      * 字段注释
-     * @deprecated 3.5.3
      */
-    @Deprecated
-    default String fieldComment() {
-        return null;
-    }
+    String fieldComment();
 
     /**
      * 主键字段
-     * @deprecated 3.5.3
      */
-    @Deprecated
-    default String fieldKey(){
-        return null;
-    }
+    String fieldKey();
 
     /**
      * 判断主键是否为identity
@@ -83,12 +71,8 @@ public interface IDbQuery {
      * @param results ResultSet
      * @return 主键是否为identity
      * @throws SQLException ignore
-     * @deprecated 3.5.3
      */
-    @Deprecated
-    default boolean isKeyIdentity(ResultSet results) throws SQLException {
-        return false;
-    }
+    boolean isKeyIdentity(ResultSet results) throws SQLException;
 
     /**
      * 自定义字段名称

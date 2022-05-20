@@ -53,8 +53,8 @@ public class DatabaseMetaDataWrapper {
         }
     }
 
-    public Map<String, ColumnsInfo> getColumnsInfo(String tableNamePattern) throws SQLException {
-        return getColumnsInfo(this.catalog, this.schema, tableNamePattern);
+    public Map<String, Column> getColumnsInfo(String tableNamePattern, boolean queryPrimaryKey) {
+        return getColumnsInfo(this.catalog, this.schema, tableNamePattern,queryPrimaryKey);
     }
 
     /**
@@ -62,48 +62,70 @@ public class DatabaseMetaDataWrapper {
      *
      * @return 表字段信息 (小写字段名->字段信息)
      */
-    public Map<String, ColumnsInfo> getColumnsInfo(String catalog, String schema, String tableName) throws SQLException {
+    public Map<String, Column> getColumnsInfo(String catalog, String schema, String tableName, boolean queryPrimaryKey) {
         Set<String> primaryKeys = new HashSet<>();
-        try (ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schema, tableName)) {
-            while (primaryKeysResultSet.next()) {
-                String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
-                primaryKeys.add(columnName);
+        if(queryPrimaryKey){
+            //TODO 为了保持兼容性，回滚掉DefaultDatabaseQuery修改的代码，DefaultDatabaseQuery不查询主键信息，还是保持继续用原来的sql进行查询。
+            try (ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schema, tableName)) {
+                while (primaryKeysResultSet.next()) {
+                    String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
+                    primaryKeys.add(columnName);
+                }
+                if (primaryKeys.size() > 1) {
+                    logger.warn("当前表:{}，存在多主键情况！", tableName);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("读取表主键信息:" + tableName + "错误:", e);
             }
-            if (primaryKeys.size() > 1) {
-                logger.warn("当前表:{}，存在多主键情况！", tableName);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("读取表主键信息:" + tableName + "错误:", e);
         }
-
-        Map<String, ColumnsInfo> columnsInfoMap = new LinkedHashMap<>();
+        Map<String, Column> columnsInfoMap = new LinkedHashMap<>();
         try (ResultSet resultSet = databaseMetaData.getColumns(catalog, schema, tableName, "%")) {
             while (resultSet.next()) {
-                ColumnsInfo columnsInfo = new ColumnsInfo();
+                Column column = new Column();
                 String name = resultSet.getString("COLUMN_NAME");
-                columnsInfo.name = name;
-                columnsInfo.primaryKey = primaryKeys.contains(name);
-                columnsInfo.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
-                columnsInfo.length = resultSet.getInt("COLUMN_SIZE");
-                columnsInfo.scale = resultSet.getInt("DECIMAL_DIGITS");
-                columnsInfo.remarks = formatComment(resultSet.getString("REMARKS"));
-                columnsInfo.defaultValue = resultSet.getString("COLUMN_DEF");
-                columnsInfo.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-                columnsInfo.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
-                columnsInfoMap.put(name.toLowerCase(), columnsInfo);
+                column.name = name;
+                column.primaryKey = primaryKeys.contains(name);
+                column.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
+                column.length = resultSet.getInt("COLUMN_SIZE");
+                column.scale = resultSet.getInt("DECIMAL_DIGITS");
+                column.remarks = formatComment(resultSet.getString("REMARKS"));
+                column.defaultValue = resultSet.getString("COLUMN_DEF");
+                column.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+                column.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
+                columnsInfoMap.put(name.toLowerCase(), column);
             }
             return Collections.unmodifiableMap(columnsInfoMap);
         } catch (SQLException e) {
             throw new RuntimeException("读取表字段信息:" + tableName + "错误:", e);
         }
     }
-
     public String formatComment(String comment) {
         return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
     }
 
     public Table getTableInfo(String tableName) {
         return getTableInfo(this.catalog, this.schema, tableName);
+    }
+
+    public List<Table> getTables(String tableNamePattern, String[] types) {
+        return getTables(this.catalog, this.schema, tableNamePattern, types);
+    }
+
+    public List<Table> getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) {
+        List<Table> tables = new ArrayList<>();
+        try (ResultSet resultSet = databaseMetaData.getTables(catalog, schemaPattern, tableNamePattern, types)) {
+            Table table;
+            while (resultSet.next()) {
+                table = new Table();
+                table.name = resultSet.getString("TABLE_NAME");
+                table.remarks = formatComment(resultSet.getString("REMARKS"));
+                table.tableType = resultSet.getString("TABLE_TYPE");
+                tables.add(table);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("读取数据库表信息出现错误", e);
+        }
+        return tables;
     }
 
     public Table getTableInfo(String catalog, String schema, String tableName) {
@@ -147,7 +169,7 @@ public class DatabaseMetaDataWrapper {
 
     }
 
-    public static class ColumnsInfo {
+    public static class Column {
 
         private boolean primaryKey;
 
