@@ -34,7 +34,7 @@ public class MariadbQuery extends AbstractDbQuery {
 
     @Override
     public String tableFieldsSql() {
-        return "show full fields from `%s`";
+        return "show full columns from `%s`";
     }
 
 
