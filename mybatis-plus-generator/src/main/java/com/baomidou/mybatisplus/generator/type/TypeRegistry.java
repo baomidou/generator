@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 类型注册处理类
+ *
  * @author nieqiurong 2022/5/11.
  */
 public class TypeRegistry {
@@ -33,7 +35,6 @@ public class TypeRegistry {
     private final GlobalConfig globalConfig;
 
     private final Map<Integer, IColumnType> typeMap = new HashMap<>();
-    ;
 
     public TypeRegistry(GlobalConfig globalConfig) {
         this.globalConfig = globalConfig;

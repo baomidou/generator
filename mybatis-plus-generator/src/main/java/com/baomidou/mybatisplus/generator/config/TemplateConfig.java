@@ -140,7 +140,7 @@ public class TemplateConfig {
                     case SERVICE:
                         this.service = null;
                         break;
-                    case SERVICEIMPL:
+                    case SERVICE_IMPL:
                         this.serviceImpl = null;
                         break;
                     default:

@@ -99,7 +99,7 @@ public class Controller implements ITemplate {
     @Override
     @NotNull
     public Map<String, Object> renderData(@NotNull TableInfo tableInfo) {
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(5);
         data.put("controllerMappingHyphen", StringUtils.camelToHyphen(tableInfo.getEntityPath()));
         data.put("controllerMappingHyphenStyle", this.hyphenStyle);
         data.put("restControllerStyle", this.restStyle);

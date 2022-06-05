@@ -271,7 +271,9 @@ public abstract class AbstractTemplateEngine {
      */
     @Deprecated
     protected void writerFile(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {
-        if (StringUtils.isNotBlank(templatePath)) this.writer(objectMap, templatePath, outputFile);
+        if (StringUtils.isNotBlank(templatePath)) {
+            this.writer(objectMap, templatePath, outputFile);
+        }
     }
 
     /**

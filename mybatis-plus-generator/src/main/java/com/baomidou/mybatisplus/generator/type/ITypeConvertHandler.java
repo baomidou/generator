@@ -21,6 +21,8 @@ import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * 类型转换处理器
+ *
  * @author nieqiurong 2022/5/12.
  * @since 3.5.3
  */
