@@ -344,6 +344,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("author", globalConfig.getAuthor());
         objectMap.put("kotlin", globalConfig.isKotlin());
         objectMap.put("swagger", globalConfig.isSwagger());
+        objectMap.put("springdoc", globalConfig.isSpringdoc());
         objectMap.put("date", globalConfig.getCommentDate());
         // 启用 schema 处理逻辑
         String schemaName = "";

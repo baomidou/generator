@@ -3,7 +3,9 @@ package ${package.Entity};
 <% for(pkg in table.importPackages){ %>
 import ${pkg};
 <% } %>
-<% if(swagger){ %>
+<% if(springdoc){ %>
+import io.swagger.v3.oas.annotations.media.Schema;
+<% }else if(swagger){ %>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 <% } %>
@@ -33,7 +35,9 @@ import lombok.experimental.Accessors;
 <% if(table.convert){ %>
 @TableName("${schemaName}${table.name}")
 <% } %>
-<% if(swagger){ %>
+<% if(springdoc){ %>
+@Schema(name = "${entity}", description = "$!{table.comment}")
+<% }else if(swagger){ %>
 @ApiModel(value = "${entity}对象", description = "${table.comment!''}")
 <% } %>
 <% if(isNotEmpty(superEntityClass)){ %>
@@ -59,7 +63,10 @@ public class ${entity} {
     %>
 
     <% if(isNotEmpty(field.comment)){ %>
-        <% if(swagger){ %>
+
+        <% if(springdoc){ %>
+    @Schema(description = "${field.comment}")
+        <% }else if(swagger){ %>
     @ApiModelProperty(value = "${field.comment}")
         <% }else{ %>
     /**

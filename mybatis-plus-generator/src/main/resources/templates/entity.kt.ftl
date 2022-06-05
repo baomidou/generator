@@ -3,7 +3,9 @@ package ${package.Entity}
 <#list table.importPackages as pkg>
 import ${pkg}
 </#list>
-<#if swagger>
+<#if springdoc>
+import io.swagger.v3.oas.annotations.media.Schema;
+<#elseif swagger>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
@@ -19,7 +21,9 @@ import io.swagger.annotations.ApiModelProperty;
 <#if table.convert>
 @TableName("${schemaName}${table.name}")
 </#if>
-<#if swagger>
+<#if springdoc>
+@Schema(name = "${entity}", description = "$!{table.comment}")
+<#elseif swagger>
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
@@ -38,13 +42,15 @@ class ${entity} {
     <#assign keyPropertyName="${field.propertyName}"/>
 </#if>
 <#if field.comment!?length gt 0>
-<#if swagger>
-        @ApiModelProperty("${field.comment}")
-<#else>
+    <#if springdoc>
+    @Schema(description = "${field.comment}")
+    <#elseif swagger>
+    @ApiModelProperty("${field.comment}")
+    <#else>
     /**
      * ${field.comment}
      */
-</#if>
+    </#if>
 </#if>
 <#if field.keyFlag>
 <#-- 主键 -->

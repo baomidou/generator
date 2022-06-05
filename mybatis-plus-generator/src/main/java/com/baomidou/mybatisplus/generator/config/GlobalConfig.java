@@ -61,9 +61,13 @@ public class GlobalConfig {
     private boolean kotlin;
 
     /**
-     * 开启 swagger 模式（默认 false）
+     * 开启 swagger 模式（默认 false 与 springdoc 不可同时使用）
      */
     private boolean swagger;
+    /**
+     * 开启 springdoc 模式（默认 false 与 swagger 不可同时使用）
+     */
+    private boolean springdoc;
 
     /**
      * 时间类型对应策略
@@ -102,7 +106,12 @@ public class GlobalConfig {
     }
 
     public boolean isSwagger() {
-        return swagger;
+        // springdoc 设置优先于 swagger
+        return springdoc ? false : swagger;
+    }
+
+    public boolean isSpringdoc() {
+        return springdoc;
     }
 
     @NotNull
@@ -175,6 +184,14 @@ public class GlobalConfig {
          */
         public Builder enableSwagger() {
             this.globalConfig.swagger = true;
+            return this;
+        }
+
+        /**
+         * 开启 springdoc 模式
+         */
+        public Builder enableSpringdoc() {
+            this.globalConfig.springdoc = true;
             return this;
         }
 

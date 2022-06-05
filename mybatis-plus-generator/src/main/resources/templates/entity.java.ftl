@@ -3,7 +3,9 @@ package ${package.Entity};
 <#list table.importPackages as pkg>
 import ${pkg};
 </#list>
-<#if swagger>
+<#if springdoc>
+import io.swagger.v3.oas.annotations.media.Schema;
+<#elseif swagger>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
@@ -33,7 +35,9 @@ import lombok.experimental.Accessors;
 <#if table.convert>
 @TableName("${schemaName}${table.name}")
 </#if>
-<#if swagger>
+<#if springdoc>
+@Schema(name = "${entity}", description = "$!{table.comment}")
+<#elseif swagger>
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
@@ -56,7 +60,9 @@ public class ${entity} {
     </#if>
 
     <#if field.comment!?length gt 0>
-        <#if swagger>
+        <#if springdoc>
+    @Schema(description = "${field.comment}")
+        <#elseif swagger>
     @ApiModelProperty("${field.comment}")
         <#else>
     /**
