@@ -17,6 +17,7 @@ package com.baomidou.mybatisplus.generator.jdbc;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import org.apache.ibatis.type.JdbcType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,11 +44,27 @@ public class DatabaseMetaDataWrapper {
     //TODO 暂时只支持一种
     private final String schema;
 
+    /**
+     * @since 3.5.3
+     * @param connection
+     */
+    @Deprecated
     public DatabaseMetaDataWrapper(Connection connection) {
         try {
             this.databaseMetaData = connection.getMetaData();
             this.catalog = connection.getCatalog();
             this.schema = connection.getSchema();
+        } catch (SQLException e) {
+            throw new RuntimeException("获取元数据错误:", e);
+        }
+    }
+
+    public DatabaseMetaDataWrapper(DataSourceConfig dataSourceConfig) {
+        try {
+            Connection connection = dataSourceConfig.getConn();
+            this.databaseMetaData = connection.getMetaData();
+            this.catalog = connection.getCatalog();
+            this.schema = dataSourceConfig.getSchemaName();
         } catch (SQLException e) {
             throw new RuntimeException("获取元数据错误:", e);
         }
@@ -91,7 +108,12 @@ public class DatabaseMetaDataWrapper {
                 column.remarks = formatComment(resultSet.getString("REMARKS"));
                 column.defaultValue = resultSet.getString("COLUMN_DEF");
                 column.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-                column.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
+                try {
+                    column.autoIncrement = "YES".equals(resultSet.getString("IS_AUTOINCREMENT"));
+                } catch (SQLException sqlException) {
+                    logger.warn("获取IS_AUTOINCREMENT出现异常:", sqlException);
+                    //TODO 目前测试在oracle旧驱动下存在问题，降级成false.
+                }
                 columnsInfoMap.put(name.toLowerCase(), column);
             }
             return Collections.unmodifiableMap(columnsInfoMap);
