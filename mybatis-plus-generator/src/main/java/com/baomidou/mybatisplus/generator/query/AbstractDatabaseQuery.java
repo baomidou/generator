@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 
 /**
+ * 数据库查询抽象类
  *
  * @author nieqiurong
  * @since 3.5.3
