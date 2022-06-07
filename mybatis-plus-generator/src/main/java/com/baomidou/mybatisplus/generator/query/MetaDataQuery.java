@@ -16,6 +16,7 @@
 package com.baomidou.mybatisplus.generator.query;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
@@ -37,7 +38,12 @@ import java.util.Map;
  * @see ITypeConvertHandler 类型转换器(如果默认逻辑不能满足，可实现此接口重写类型转换)
  * <p>
  * FAQ:
- * 1.Mysql无法读取表注释: 链接增加属性 remarks=true&useInformationSchema=true
+ * <p>
+ * 1.Mysql无法读取表注释: 链接增加属性 remarks=true&useInformationSchema=true 或者通过{@link DataSourceConfig.Builder#addConnectionProperty(String, String)}设置
+ * </p>
+ * <p>
+ * 2.Oracle无法读取注释: 增加属性remarks=true，也有些驱动版本说是增加remarksReporting=true {@link DataSourceConfig.Builder#addConnectionProperty(String, String)}
+ * </p>
  * @since 3.5.3
  */
 public class MetaDataQuery extends AbstractDatabaseQuery {
@@ -84,7 +90,7 @@ public class MetaDataQuery extends AbstractDatabaseQuery {
         return tableList;
     }
 
-    protected Map<String, DatabaseMetaDataWrapper.Column> getColumnsInfo(String tableName){
+    protected Map<String, DatabaseMetaDataWrapper.Column> getColumnsInfo(String tableName) {
         return databaseMetaDataWrapper.getColumnsInfo(tableName, true);
     }
 

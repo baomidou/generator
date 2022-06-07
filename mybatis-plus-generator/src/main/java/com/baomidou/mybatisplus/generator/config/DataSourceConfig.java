@@ -35,7 +35,10 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
 /**
  * 数据库配置
@@ -99,6 +102,12 @@ public class DataSourceConfig {
      * @since 3.5.0
      */
     private Connection connection;
+
+    /**
+     * 数据库连接属性
+     * @since 3.5.3
+     */
+    private final Map<String,String> connectionProperties = new HashMap<>();
 
     /**
      * 查询方式
@@ -219,17 +228,12 @@ public class DataSourceConfig {
                     if (dataSource != null) {
                         connection = dataSource.getConnection();
                     } else {
-                        this.connection = DriverManager.getConnection(url, username, password);
+                        Properties properties = new Properties();
+                        connectionProperties.forEach(properties::setProperty);
+                        properties.put("user",username);
+                        properties.put("password",password);
+                        this.connection = DriverManager.getConnection(url, properties);
                     }
-                }
-            }
-            String schema = StringUtils.isNotBlank(schemaName) ? schemaName : getDefaultSchema();
-            if (StringUtils.isNotBlank(schema)) {
-                schemaName = schema;
-                try {
-                    connection.setSchema(schemaName);
-                } catch (Throwable t) {
-                    logger.error("There may be exceptions in the driver and version of the database, " + t.getMessage());
                 }
             }
         } catch (SQLException e) {
@@ -341,7 +345,11 @@ public class DataSourceConfig {
             try {
                 Connection conn = dataSource.getConnection();
                 this.dataSourceConfig.url = conn.getMetaData().getURL();
-                this.dataSourceConfig.schemaName = conn.getSchema();
+                try {
+                    this.dataSourceConfig.schemaName = conn.getSchema();
+                } catch (Throwable exception) {
+                    //ignore  如果使用低版本的驱动，这里由于是1.7新增的方法，所以会报错，如果驱动太低，需要自行指定了。
+                }
                 this.dataSourceConfig.connection = conn;
                 this.dataSourceConfig.username = conn.getMetaData().getUserName();
             } catch (SQLException ex) {
@@ -414,6 +422,19 @@ public class DataSourceConfig {
          */
         public Builder typeConvertHandler(@NotNull ITypeConvertHandler typeConvertHandler) {
             this.dataSourceConfig.typeConvertHandler = typeConvertHandler;
+            return this;
+        }
+
+        /**
+         * 增加数据库连接属性
+         *
+         * @param key   属性名
+         * @param value 属性值
+         * @return this
+         * @since 3.5.3
+         */
+        public Builder addConnectionProperty(@NotNull String key, @NotNull String value) {
+            this.dataSourceConfig.connectionProperties.put(key, value);
             return this;
         }
 
