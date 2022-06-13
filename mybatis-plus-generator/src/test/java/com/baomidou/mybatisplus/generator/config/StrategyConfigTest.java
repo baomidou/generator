@@ -259,13 +259,13 @@ class StrategyConfigTest {
     void builderTest() {
         StrategyConfig strategyConfig;
         strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableCapitalMode().enableSkipView()
-            .entityBuilder().enableChainModel().enableLombok().fileOverride()
+            .entityBuilder().enableChainModel().enableLombok().enableFileOverride()
             .controllerBuilder().enableHyphenStyle().enableRestStyle().superClass("com.baomidou.mp.SuperController")
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
 
         buildAssert(strategyConfig);
         strategyConfig = GeneratorBuilder.strategyConfigBuilder().enableSkipView()
-            .entityBuilder().enableChainModel().enableLombok().fileOverride()
+            .entityBuilder().enableChainModel().enableLombok().enableFileOverride()
             .controllerBuilder().superClass("com.baomidou.mp.SuperController").enableHyphenStyle().enableRestStyle()
             .mapperBuilder().superClass("com.baomidou.mp.SuperMapper").build();
         buildAssert(strategyConfig);
