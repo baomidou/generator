@@ -17,6 +17,8 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,8 @@ import java.util.function.BiConsumer;
  * @since 2016-12-07
  */
 public class InjectionConfig {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(InjectionConfig.class);
 
     /**
      * 输出文件之前消费者
@@ -121,9 +125,21 @@ public class InjectionConfig {
         }
 
         /**
+         * 覆盖已有文件（该方法后续会删除，替代方法为enableFileOverride方法）
+         *
+         * @see #enableFileOverride()
+         */
+        @Deprecated
+        public Builder fileOverride() {
+            LOGGER.warn("fileOverride方法后续会删除，替代方法为enableFileOverride方法");
+            this.injectionConfig.fileOverride = true;
+            return this;
+        }
+
+        /**
          * 覆盖已有文件
          */
-        public Builder fileOverride() {
+        public Builder enableFileOverride() {
             this.injectionConfig.fileOverride = true;
             return this;
         }

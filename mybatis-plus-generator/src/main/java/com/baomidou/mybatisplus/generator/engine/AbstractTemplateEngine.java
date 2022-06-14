@@ -404,7 +404,9 @@ public abstract class AbstractTemplateEngine {
      * @since 3.5.2
      */
     protected boolean isCreate(@NotNull File file, boolean fileOverride) {
-        // 全局判断【默认】
+        if (file.exists() && !fileOverride) {
+            logger.warn("文件[{}]已存在，且未开启文件覆盖配置，需要开启配置可到策略配置中设置！！！", file.getName());
+        }
         return !file.exists() || fileOverride;
     }
 

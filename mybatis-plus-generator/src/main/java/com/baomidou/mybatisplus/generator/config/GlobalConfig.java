@@ -17,6 +17,8 @@ package com.baomidou.mybatisplus.generator.config;
 
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,13 +36,15 @@ public class GlobalConfig {
     private GlobalConfig() {
     }
 
+    protected static final Logger LOGGER = LoggerFactory.getLogger(GlobalConfig.class);
+
     /**
      * 生成文件的输出目录【 windows:D://  linux or mac:/tmp 】
      */
     private String outputDir = System.getProperty("os.name").toLowerCase().contains("windows") ? "D://" : "/tmp";
 
     /**
-     * 是否覆盖已有文件（默认 false）（3.5.3版本会删除此方法）
+     * 是否覆盖已有文件（默认 false）（已迁移到策略配置中，3.5.3版本会删除此方法）
      */
     @Deprecated
     private boolean fileOverride;
@@ -53,7 +57,7 @@ public class GlobalConfig {
     /**
      * 作者
      */
-    private String author = "作者";
+    private String author = "baomidou";
 
     /**
      * 开启 Kotlin 模式（默认 false）
@@ -86,7 +90,7 @@ public class GlobalConfig {
     }
 
     /**
-     * 是否覆盖已有文件（3.5.3版本会删除此方法）
+     * 是否覆盖已有文件（已迁移到策略配置中，3.5.3版本会删除此方法）
      */
     @Deprecated
     public boolean isFileOverride() {
@@ -139,10 +143,11 @@ public class GlobalConfig {
         }
 
         /**
-         * 覆盖已有文件（3.5.3版本会删除此方法）
+         * 覆盖已有文件（已迁移到策略配置中，3.5.3版本会删除此方法）
          */
         @Deprecated
         public Builder fileOverride() {
+            LOGGER.warn("全局覆盖已有文件的配置已失效，已迁移到策略配置中");
             this.globalConfig.fileOverride = true;
             return this;
         }
