@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 
 /**
  * 运行工具类
@@ -42,7 +43,7 @@ public class RuntimeUtils {
             if (osName.contains("Mac")) {
                 Runtime.getRuntime().exec("open " + outDir);
             } else if (osName.contains("Windows")) {
-                Runtime.getRuntime().exec("cmd /c start " + outDir);
+                Runtime.getRuntime().exec(MessageFormat.format("cmd /c start \"\" \"{0}\"", outDir));
             } else {
                 LOGGER.debug("文件输出目录:{}", outDir);
             }
