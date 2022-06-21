@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 /**
  * 数据库查询抽象类
  *
@@ -55,7 +54,6 @@ public abstract class AbstractDatabaseQuery implements IDatabaseQuery {
 
     protected final DatabaseMetaDataWrapper databaseMetaDataWrapper;
 
-
     public AbstractDatabaseQuery(@NotNull ConfigBuilder configBuilder) {
         this.configBuilder = configBuilder;
         this.dataSourceConfig = configBuilder.getDataSourceConfig();
@@ -63,7 +61,6 @@ public abstract class AbstractDatabaseQuery implements IDatabaseQuery {
         this.dbQuery = new DbQueryDecorator(dataSourceConfig, strategyConfig);
         this.globalConfig = configBuilder.getGlobalConfig();
         this.databaseMetaDataWrapper = new DatabaseMetaDataWrapper(dataSourceConfig);
-
     }
 
     @NotNull

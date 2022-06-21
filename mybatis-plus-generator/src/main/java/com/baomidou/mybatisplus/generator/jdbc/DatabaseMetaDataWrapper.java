@@ -73,7 +73,7 @@ public class DatabaseMetaDataWrapper {
     }
 
     public Map<String, Column> getColumnsInfo(String tableNamePattern, boolean queryPrimaryKey) {
-        return getColumnsInfo(this.catalog, this.schema, tableNamePattern,queryPrimaryKey);
+        return getColumnsInfo(this.catalog, this.schema, tableNamePattern, queryPrimaryKey);
     }
 
     /**
@@ -83,8 +83,7 @@ public class DatabaseMetaDataWrapper {
      */
     public Map<String, Column> getColumnsInfo(String catalog, String schema, String tableName, boolean queryPrimaryKey) {
         Set<String> primaryKeys = new HashSet<>();
-        if(queryPrimaryKey){
-            //TODO 为了保持兼容性，回滚掉DefaultDatabaseQuery修改的代码，DefaultDatabaseQuery不查询主键信息，还是保持继续用原来的sql进行查询。
+        if (queryPrimaryKey) {
             try (ResultSet primaryKeysResultSet = databaseMetaData.getPrimaryKeys(catalog, schema, tableName)) {
                 while (primaryKeysResultSet.next()) {
                     String columnName = primaryKeysResultSet.getString("COLUMN_NAME");
@@ -123,6 +122,7 @@ public class DatabaseMetaDataWrapper {
             throw new RuntimeException("读取表字段信息:" + tableName + "错误:", e);
         }
     }
+
     public String formatComment(String comment) {
         return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
     }
