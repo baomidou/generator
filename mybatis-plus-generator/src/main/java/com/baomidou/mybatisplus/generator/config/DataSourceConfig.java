@@ -19,12 +19,12 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.converts.TypeConverts;
-import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.config.querys.DbQueryDecorator;
+import com.baomidou.mybatisplus.generator.config.querys.DbQueryRegistry;
 import com.baomidou.mybatisplus.generator.query.AbstractDatabaseQuery;
 import com.baomidou.mybatisplus.generator.query.DefaultQuery;
 import com.baomidou.mybatisplus.generator.query.IDatabaseQuery;
-import com.baomidou.mybatisplus.generator.query.MetaDataQuery;
+import com.baomidou.mybatisplus.generator.query.SQLQuery;
 import com.baomidou.mybatisplus.generator.type.ITypeConvertHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -105,15 +105,16 @@ public class DataSourceConfig {
 
     /**
      * 数据库连接属性
+     *
      * @since 3.5.3
      */
-    private final Map<String,String> connectionProperties = new HashMap<>();
+    private final Map<String, String> connectionProperties = new HashMap<>();
 
     /**
      * 查询方式
      *
-     * @see MetaDataQuery 元数据查询方式，配合{@link #getTypeConvertHandler()} 使用
-     * @see DefaultQuery 默认查询方式，配合{@link #typeConvert} 使用
+     * @see DefaultQuery 默认查询方式，配合{@link #getTypeConvertHandler()} 使用
+     * @see SQLQuery SQL语句查询方式，配合{@link #typeConvert} 使用
      * @since 3.5.3
      */
     private Class<? extends AbstractDatabaseQuery> databaseQueryClass = DefaultQuery.class;
@@ -230,8 +231,10 @@ public class DataSourceConfig {
                     } else {
                         Properties properties = new Properties();
                         connectionProperties.forEach(properties::setProperty);
-                        properties.put("user",username);
-                        properties.put("password",password);
+                        properties.put("user", username);
+                        properties.put("password", password);
+                        // 使用元数据查询方式时，有些数据库需要增加属性才能读取注释
+                        this.processProperties(properties);
                         this.connection = DriverManager.getConnection(url, properties);
                     }
                 }
@@ -240,6 +243,21 @@ public class DataSourceConfig {
             throw new RuntimeException(e);
         }
         return connection;
+    }
+
+    private void processProperties(Properties properties) {
+        if (this.databaseQueryClass.getName().equals(DefaultQuery.class.getName())) {
+            switch (this.getDbType()) {
+                case MYSQL:
+                    properties.put("remarks", "true");
+                    properties.put("useInformationSchema", "true");
+                    break;
+                case ORACLE:
+                    properties.put("remarks", "true");
+                    properties.put("remarksReporting", "true");
+                    break;
+            }
+        }
     }
 
     /**
