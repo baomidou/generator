@@ -5,19 +5,18 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import org.junit.jupiter.api.Test;
 
 /**
- * Oracle 代码生成
+ * PostgreSQL 代码生成
  *
  * @author lanjerry
  * @since 3.5.3
  */
-public class OracleGeneratorTest extends BaseGeneratorTest {
+public class PostgreSQLGeneratorTest extends BaseGeneratorTest {
 
     /**
      * 数据源配置
      */
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig
-        .Builder("jdbc:oracle:thin:@xxxx:1521:helowin", "system", "system")
-        .schema("ANONYMOUS")
+        .Builder("jdbc:postgresql://xxxx:5432/postgres", "postgres", "postgres")
         .build();
 
     @Test

@@ -2,16 +2,14 @@ package com.baomidou.mybatisplus.generator.samples;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
-import org.apache.ibatis.jdbc.ScriptRunner;
+import com.baomidou.mybatisplus.generator.query.SQLQuery;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,22 +17,17 @@ import java.util.Map;
 /**
  * H2 代码生成
  *
- * @author hubin,lanjerry
+ * @author hubin, lanjerry
  * @since 1.0
  */
-public class H2CodeGeneratorTest {
+public class H2CodeGeneratorTest extends BaseGeneratorTest {
 
     /**
      * 执行初始化数据库脚本
      */
     @BeforeAll
     public static void before() throws SQLException {
-        Connection conn = DATA_SOURCE_CONFIG.getConn();
-        InputStream inputStream = H2CodeGeneratorTest.class.getResourceAsStream("/sql/init.sql");
-        ScriptRunner scriptRunner = new ScriptRunner(conn);
-        scriptRunner.setAutoCommit(true);
-        scriptRunner.runScript(new InputStreamReader(inputStream));
-        conn.close();
+        initDataSource(DATA_SOURCE_CONFIG);
     }
 
     /**
@@ -42,45 +35,8 @@ public class H2CodeGeneratorTest {
      */
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig
         .Builder("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;MODE=MYSQL", "sa", "")
+        .databaseQueryClass(SQLQuery.class) // 设置SQL查询方式，默认的是元数据查询方式
         .build();
-
-    /**
-     * 策略配置
-     */
-    private StrategyConfig.Builder strategyConfig() {
-        return new StrategyConfig.Builder().addInclude("t_simple"); // 设置需要生成的表名
-    }
-
-    /**
-     * 全局配置
-     */
-    private GlobalConfig.Builder globalConfig() {
-        return new GlobalConfig.Builder().fileOverride();
-    }
-
-    /**
-     * 包配置
-     */
-    private PackageConfig.Builder packageConfig() {
-        return new PackageConfig.Builder();
-    }
-
-    /**
-     * 模板配置
-     */
-    private TemplateConfig.Builder templateConfig() {
-        return new TemplateConfig.Builder();
-    }
-
-    /**
-     * 注入配置
-     */
-    private InjectionConfig.Builder injectionConfig() {
-        // 测试自定义输出文件之前注入操作，该操作再执行生成代码前 debug 查看
-        return new InjectionConfig.Builder().beforeOutputFile((tableInfo, objectMap) -> {
-            System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
-        });
-    }
 
     /**
      * 简单生成
@@ -88,7 +44,9 @@ public class H2CodeGeneratorTest {
     @Test
     public void testSimple() {
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
-        generator.strategy(strategyConfig().build());
+        generator.strategy(strategyConfig()
+            .addInclude("t_simple") // 设置需要生成的表名
+            .build());
         generator.global(globalConfig().build());
         generator.execute();
     }
@@ -180,8 +138,8 @@ public class H2CodeGeneratorTest {
     public void testCustomTemplatePath() {
         // 设置自定义路径
         Map<OutputFile, String> pathInfo = new HashMap<>();
-        pathInfo.put(OutputFile.xml, "D://");
-        pathInfo.put(OutputFile.entity, "D://entity//");
+        //pathInfo.put(OutputFile.xml, "D://");
+        pathInfo.put(OutputFile.other, "D://test//");
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig().build());
         generator.packageInfo(packageConfig().pathInfo(pathInfo).build());
@@ -231,9 +189,15 @@ public class H2CodeGeneratorTest {
         // 设置自定义输出文件
         Map<String, String> customFile = new HashMap<>();
         customFile.put("test.txt", "/templates/test.vm");
+
+        // 设置自定义路径
+        Map<OutputFile, String> pathInfo = new HashMap<>();
+        pathInfo.put(OutputFile.other, "D://test//");
+
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig().build());
         generator.injection(injectionConfig().customFile(customFile).build());
+        generator.packageInfo(packageConfig().pathInfo(pathInfo).build());
         generator.global(globalConfig().build());
         generator.execute();
     }
