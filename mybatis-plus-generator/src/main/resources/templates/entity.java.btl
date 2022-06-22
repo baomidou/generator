@@ -61,7 +61,6 @@ public class ${entity} {
         keyPropertyName = field.propertyName;
     }
     %>
-
     <% if(isNotEmpty(field.comment)){ %>
 
         <% if(springdoc){ %>
@@ -112,7 +111,6 @@ public class ${entity} {
     private ${field.propertyType} ${field.propertyName};
 <% } %>
 <% /** -----------END 字段循环遍历----------- **/ %>
-
 <% if(!entityLombokModel){ %>
     <% for(field in table.fields){ %>
         <%
@@ -123,6 +121,7 @@ public class ${entity} {
             getprefix='get';
         }
         %>
+
     public ${field.propertyType} ${getprefix}${field.capitalName}() {
         return ${field.propertyName};
     }
@@ -137,16 +136,16 @@ public class ${entity} {
         return this;
         <% } %>
     }
-
     <% } %>
 <% } %>
 <% if(entityColumnConstant){ %>
    <% for(field in table.fields){ %>
-    public static final String ${strutil.toUpperCase(field.name)} = "${field.name}";
 
+    public static final String ${strutil.toUpperCase(field.name)} = "${field.name}";
    <% } %>
 <% } %>
 <% if(activeRecord){ %>
+
     @Override
     public Serializable pkVal() {
     <% if(isNotEmpty(keyPropertyName)){ %>
@@ -155,17 +154,17 @@ public class ${entity} {
         return null;
     <% } %>
     }
-
 <% } %>
 <% if(!entityLombokModel){ %>
+
     @Override
     public String toString() {
         return "${entity}{" +
     <% for(field in table.fields){ %>
        <% if(fieldLP.index==0){ %>
-        "${field.propertyName}=" + ${field.propertyName} +
+        "${field.propertyName} = " + ${field.propertyName} +
        <% }else{ %>
-        ", ${field.propertyName}=" + ${field.propertyName} +
+        ", ${field.propertyName} = " + ${field.propertyName} +
        <% } %>
     <% } %>
         "}";

@@ -18,7 +18,7 @@ import java.util.Map;
  * H2 代码生成
  *
  * @author hubin, lanjerry
- * @since 1.0
+ * @since 3.5.3
  */
 public class H2CodeGeneratorTest extends BaseGeneratorTest {
 
@@ -138,8 +138,8 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     public void testCustomTemplatePath() {
         // 设置自定义路径
         Map<OutputFile, String> pathInfo = new HashMap<>();
-        //pathInfo.put(OutputFile.xml, "D://");
-        pathInfo.put(OutputFile.other, "D://test//");
+        pathInfo.put(OutputFile.xml, "D://");
+        pathInfo.put(OutputFile.entity, "D://entity//");
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig().build());
         generator.packageInfo(packageConfig().pathInfo(pathInfo).build());
@@ -189,15 +189,9 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
         // 设置自定义输出文件
         Map<String, String> customFile = new HashMap<>();
         customFile.put("test.txt", "/templates/test.vm");
-
-        // 设置自定义路径
-        Map<OutputFile, String> pathInfo = new HashMap<>();
-        pathInfo.put(OutputFile.other, "D://test//");
-
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig().build());
         generator.injection(injectionConfig().customFile(customFile).build());
-        generator.packageInfo(packageConfig().pathInfo(pathInfo).build());
         generator.global(globalConfig().build());
         generator.execute();
     }
