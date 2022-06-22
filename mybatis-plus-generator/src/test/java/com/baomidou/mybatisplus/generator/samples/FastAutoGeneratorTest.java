@@ -2,11 +2,7 @@ package com.baomidou.mybatisplus.generator.samples;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import org.apache.ibatis.jdbc.ScriptRunner;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -17,19 +13,7 @@ import java.sql.SQLException;
  * @author lanjerry
  * @since 2021-09-16
  */
-public class FastAutoGeneratorTest {
-
-    /**
-     * 执行初始化数据库脚本
-     */
-    public static void before() throws SQLException {
-        Connection conn = DATA_SOURCE_CONFIG.build().getConn();
-        InputStream inputStream = H2CodeGeneratorTest.class.getResourceAsStream("/sql/init.sql");
-        ScriptRunner scriptRunner = new ScriptRunner(conn);
-        scriptRunner.setAutoCommit(true);
-        scriptRunner.runScript(new InputStreamReader(inputStream));
-        conn.close();
-    }
+public class FastAutoGeneratorTest extends BaseGeneratorTest {
 
     /**
      * 数据源配置
@@ -41,7 +25,8 @@ public class FastAutoGeneratorTest {
      * 执行 run
      */
     public static void main(String[] args) throws SQLException {
-        before();
+        // 初始化数据库脚本
+        initDataSource(DATA_SOURCE_CONFIG.build());
         FastAutoGenerator.create(DATA_SOURCE_CONFIG)
             // 全局配置
             .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称")))

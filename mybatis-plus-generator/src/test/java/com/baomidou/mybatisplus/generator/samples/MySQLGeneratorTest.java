@@ -5,19 +5,19 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import org.junit.jupiter.api.Test;
 
 /**
- * Oracle 代码生成
+ * MySQL 代码生成
  *
  * @author lanjerry
  * @since 3.5.3
  */
-public class OracleGeneratorTest extends BaseGeneratorTest {
+public class MySQLGeneratorTest extends BaseGeneratorTest {
 
     /**
      * 数据源配置
      */
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig
-        .Builder("jdbc:oracle:thin:@xxxx:1521:helowin", "system", "system")
-        .schema("ANONYMOUS")
+        .Builder("jdbc:mysql://xxxx:3306/baomidou?serverTimezone=Asia/Shanghai", "root", "123456")
+        .schema("baomidou")
         .build();
 
     @Test
