@@ -83,7 +83,7 @@ public class CustomFile {
         }
 
         /**
-         * 包路径，默认为 PackageConfig.parent 路径
+         * 包路径
          */
         public CustomFile.Builder packageName(String packageName) {
             this.customFile.packageName = packageName;
@@ -91,7 +91,7 @@ public class CustomFile {
         }
 
         /**
-         * 文件路径，默认为 PackageConfig.parent + this.packageName 路径
+         * 文件路径，默认为 PackageConfig.parent 路径
          */
         public CustomFile.Builder filePath(String filePath) {
             this.customFile.filePath = filePath;
