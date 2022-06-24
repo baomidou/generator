@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
 import com.baomidou.mybatisplus.generator.query.SQLQuery;
@@ -11,7 +13,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +35,13 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     }
 
     /**
+     * 策略配置
+     */
+    public static StrategyConfig.Builder strategyConfig() {
+        return new StrategyConfig.Builder().addInclude("t_simple"); // 设置需要生成的表名
+    }
+
+    /**
      * 数据源配置
      */
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig
@@ -44,9 +55,7 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     @Test
     public void testSimple() {
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
-        generator.strategy(strategyConfig()
-            .addInclude("t_simple") // 设置需要生成的表名
-            .build());
+        generator.strategy(strategyConfig().build());
         generator.global(globalConfig().build());
         generator.execute();
     }
@@ -113,7 +122,7 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     }
 
     /**
-     * 自定义模板生成的文件名称
+     * 重命名模板生成的文件名称
      * result: TSimple -> TSimpleEntity
      */
     @Test
@@ -130,7 +139,7 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     }
 
     /**
-     * 自定义模板生成的文件路径
+     * 更改模板生成的文件路径
      *
      * @see OutputFile
      */
@@ -148,7 +157,7 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     }
 
     /**
-     * 自定义模板
+     * 替换模板
      */
     @Test
     public void testCustomTemplate() {
@@ -162,7 +171,7 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     }
 
     /**
-     * 自定义注入属性
+     * 注入自定义属性
      */
     @Test
     public void testCustomMap() {
@@ -180,18 +189,74 @@ public class H2CodeGeneratorTest extends BaseGeneratorTest {
     }
 
     /**
-     * 自定义文件
+     * 自定义模板（Map）
      * key为文件名称，value为文件路径
-     * 输出目录为 other
      */
     @Test
-    public void testCustomFile() {
+    public void testCustomFileByMap() {
         // 设置自定义输出文件
         Map<String, String> customFile = new HashMap<>();
-        customFile.put("test.txt", "/templates/test.vm");
+        customFile.put("DTO.java", "/templates/dto.java.vm");
         AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
         generator.strategy(strategyConfig().build());
         generator.injection(injectionConfig().customFile(customFile).build());
+        generator.global(globalConfig().build());
+        generator.execute();
+    }
+
+    /**
+     * 自定义模板（单个文件）
+     */
+    @Test
+    public void testCustomFileBySingle() {
+        // 设置自定义输出文件
+        CustomFile customFile = new CustomFile.Builder().fileName("DTO.java").templatePath("/templates/dto.java.vm").packageName("dto").build();
+        AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
+        generator.strategy(strategyConfig().build());
+        generator.injection(injectionConfig().customFile(customFile).build());
+        generator.global(globalConfig().build());
+        generator.execute();
+    }
+
+    /**
+     * 自定义模板（列表）
+     */
+    @Test
+    public void testCustomFileByList() {
+        // 设置自定义输出文件
+        List<CustomFile> customFiles = new ArrayList<>();
+        customFiles.add(new CustomFile.Builder().fileName("DTO.java").templatePath("/templates/dto.java.vm").packageName("dto").build());
+        customFiles.add(new CustomFile.Builder().fileName("VO.java").templatePath("/templates/vo.java.vm").packageName("vo").build());
+        AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
+        generator.strategy(strategyConfig().build());
+        generator.injection(injectionConfig().customFile(customFiles).build());
+        generator.global(globalConfig().build());
+        generator.execute();
+    }
+
+    /**
+     * 自定义模板（列表）
+     */
+    @Test
+    public void testCustomFileByLambda() {
+        // 设置自定义属性
+        Map<String, Object> map = new HashMap<>();
+        map.put("abc", 118);
+        // 设置自定义输出文件
+        AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
+        generator.strategy(strategyConfig().build());
+        generator.injection(injectionConfig()
+            .customMap(map)
+            .customFile(file ->
+                file.fileName("DTO.java")
+                    .templatePath("/templates/dto.java.vm")
+                    .filePath("D://"))
+            .customFile(file ->
+                file.fileName("VO.java")
+                    .templatePath("/templates/vo.java.vm")
+                    .enableFileOverride()
+                    .filePath("D://"))
+            .build());
         generator.global(globalConfig().build());
         generator.execute();
     }
