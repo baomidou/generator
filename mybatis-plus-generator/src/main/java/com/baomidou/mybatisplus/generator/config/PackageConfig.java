@@ -75,11 +75,6 @@ public class PackageConfig {
     private String controller = "controller";
 
     /**
-     * Other包名
-     */
-    private String other = "other";
-
-    /**
      * 路径配置信息
      */
     private Map<OutputFile, String> pathInfo;
@@ -130,7 +125,6 @@ public class PackageConfig {
             packageInfo.put(ConstVal.SERVICE, this.joinPackage(this.getService()));
             packageInfo.put(ConstVal.SERVICE_IMPL, this.joinPackage(this.getServiceImpl()));
             packageInfo.put(ConstVal.CONTROLLER, this.joinPackage(this.getController()));
-            packageInfo.put(ConstVal.OTHER, this.joinPackage(this.getOther()));
             packageInfo.put(ConstVal.PARENT, this.getParent());
         }
         return Collections.unmodifiableMap(this.packageInfo);
@@ -173,10 +167,6 @@ public class PackageConfig {
 
     public String getController() {
         return controller;
-    }
-
-    public String getOther() {
-        return other;
     }
 
     public Map<OutputFile, String> getPathInfo() {
@@ -288,17 +278,6 @@ public class PackageConfig {
          */
         public Builder controller(@NotNull String controller) {
             this.packageConfig.controller = controller;
-            return this;
-        }
-
-        /**
-         * 指定自定义文件包名
-         *
-         * @param other 自定义文件包名
-         * @return this
-         */
-        public Builder other(@NotNull String other) {
-            this.packageConfig.other = other;
             return this;
         }
 

@@ -18,6 +18,7 @@ package com.baomidou.mybatisplus.generator.engine;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.util.FileUtils;
 import com.baomidou.mybatisplus.generator.util.RuntimeUtils;
@@ -59,17 +60,21 @@ public abstract class AbstractTemplateEngine {
     /**
      * 输出自定义模板文件
      *
-     * @param customFile 自定义配置模板文件信息
-     * @param tableInfo  表信息
-     * @param objectMap  渲染数据
-     * @since 3.5.1
+     * @param customFiles 自定义模板文件列表
+     * @param tableInfo   表信息
+     * @param objectMap   渲染数据
+     * @since 3.5.3
      */
-    protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+    protected void outputCustomFile(@NotNull List<CustomFile> customFiles, @NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
         String entityName = tableInfo.getEntityName();
-        String otherPath = getPathInfo(OutputFile.other);
-        customFile.forEach((key, value) -> {
-            String fileName = String.format((otherPath + File.separator + entityName + File.separator + "%s"), key);
-            outputFile(new File(fileName), objectMap, value, getConfigBuilder().getInjectionConfig().isFileOverride());
+        String parentPath = getPathInfo(OutputFile.parent);
+        customFiles.forEach(file -> {
+            String filePath = StringUtils.isNotBlank(file.getFilePath()) ? file.getFilePath() : parentPath;
+            if (StringUtils.isNotBlank(file.getPackageName())) {
+                filePath = filePath + File.separator + file.getPackageName();
+            }
+            String fileName = filePath + File.separator + entityName + file.getFileName();
+            outputFile(new File(fileName), objectMap, file.getTemplatePath(), file.isFileOverride());
         });
     }
 
@@ -241,9 +246,10 @@ public abstract class AbstractTemplateEngine {
             tableInfoList.forEach(tableInfo -> {
                 Map<String, Object> objectMap = this.getObjectMap(config, tableInfo);
                 Optional.ofNullable(config.getInjectionConfig()).ifPresent(t -> {
+                    // 添加自定义属性
                     t.beforeOutputFile(tableInfo, objectMap);
                     // 输出自定义文件
-                    outputCustomFile(t.getCustomFile(), tableInfo, objectMap);
+                    outputCustomFile(t.getCustomFiles(), tableInfo, objectMap);
                 });
                 // entity
                 outputEntity(tableInfo, objectMap);

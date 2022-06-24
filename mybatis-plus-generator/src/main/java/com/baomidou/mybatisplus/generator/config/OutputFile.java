@@ -28,5 +28,10 @@ public enum OutputFile {
     mapper,
     xml,
     controller,
-    other;
+    /**
+     * 已弃用，已重构自定义文件生成，3.5.3版本会删除
+     */
+    @Deprecated
+    other,
+    parent;
 }
