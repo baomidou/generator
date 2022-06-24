@@ -44,7 +44,7 @@ public class GlobalConfig {
     private String outputDir = System.getProperty("os.name").toLowerCase().contains("windows") ? "D://" : "/tmp";
 
     /**
-     * 是否覆盖已有文件（默认 false）（已迁移到策略配置中，3.5.3版本会删除此方法）
+     * 是否覆盖已有文件（默认 false）（已迁移到策略配置中，3.5.4版本会删除此方法）
      */
     @Deprecated
     private boolean fileOverride;
@@ -90,7 +90,7 @@ public class GlobalConfig {
     }
 
     /**
-     * 是否覆盖已有文件（已迁移到策略配置中，3.5.3版本会删除此方法）
+     * 是否覆盖已有文件（已迁移到策略配置中，3.5.4版本会删除此方法）
      */
     @Deprecated
     public boolean isFileOverride() {
@@ -143,7 +143,7 @@ public class GlobalConfig {
         }
 
         /**
-         * 覆盖已有文件（已迁移到策略配置中，3.5.3版本会删除此方法）
+         * 覆盖已有文件（已迁移到策略配置中，3.5.4版本会删除此方法）
          */
         @Deprecated
         public Builder fileOverride() {

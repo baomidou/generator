@@ -170,7 +170,7 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 输出文件（3.5.3版本会删除此方法）
+     * 输出文件（3.5.4版本会删除此方法）
      *
      * @param file         文件
      * @param objectMap    渲染信息
@@ -267,7 +267,7 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 输出文件（3.5.3版本会删除此方法）
+     * 输出文件（3.5.4版本会删除此方法）
      *
      * @param objectMap    渲染数据
      * @param templatePath 模板路径
@@ -283,7 +283,7 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 将模板转化成为文件（3.5.3版本会删除此方法）
+     * 将模板转化成为文件（3.5.4版本会删除此方法）
      *
      * @param objectMap    渲染对象 MAP 信息
      * @param templatePath 模板文件
@@ -378,7 +378,7 @@ public abstract class AbstractTemplateEngine {
     public abstract String templateFilePath(@NotNull String filePath);
 
     /**
-     * 检测文件是否存在（3.5.3版本会删除此方法）
+     * 检测文件是否存在（3.5.4版本会删除此方法）
      *
      * @return 文件是否存在
      * @deprecated 3.5.0
@@ -389,7 +389,7 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 检查文件是否创建文件（3.5.3版本会删除此方法）
+     * 检查文件是否创建文件（3.5.4版本会删除此方法）
      *
      * @param file 文件
      * @return 是否创建文件

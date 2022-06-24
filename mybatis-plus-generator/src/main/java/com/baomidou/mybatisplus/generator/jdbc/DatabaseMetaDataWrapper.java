@@ -47,8 +47,10 @@ public class DatabaseMetaDataWrapper {
     private final String schema;
 
     /**
-     * @since 3.5.3
+     * 3.5.4版本会删除此方法
+     *
      * @param connection
+     * @see #DatabaseMetaDataWrapper(DataSourceConfig)
      */
     @Deprecated
     public DatabaseMetaDataWrapper(Connection connection) {

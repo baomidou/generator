@@ -54,7 +54,7 @@ public class Mapper implements ITemplate {
      *
      * @see #mapperAnnotationClass
      * @since 3.5.1
-     * @deprecated 3.5.3
+     * @deprecated 3.5.4
      */
     @Deprecated
     private boolean mapperAnnotation;
@@ -198,7 +198,7 @@ public class Mapper implements ITemplate {
          * @return this
          * @see #mapperAnnotation(Class)
          * @since 3.5.1
-         * @deprecated 3.5.3
+         * @deprecated 3.5.4
          */
         @Deprecated
         public Builder enableMapperAnnotation() {
