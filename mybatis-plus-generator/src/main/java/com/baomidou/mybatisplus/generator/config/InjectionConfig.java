@@ -15,14 +15,19 @@
  */
 package com.baomidou.mybatisplus.generator.config;
 
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * 注入配置
@@ -45,17 +50,29 @@ public class InjectionConfig {
     private Map<String, Object> customMap = new HashMap<>();
 
     /**
-     * 自定义模板文件，key为文件名称，value为模板路径
+     * 自定义模板文件，key为文件名称，value为模板路径（已弃用，换成了customFiles，3.5.4版本会删除此方法）
      */
+    @Deprecated
     private Map<String, String> customFile = new HashMap<>();
 
     /**
-     * 是否覆盖已有文件（默认 false）
+     * 自定义模板文件列表
+     *
+     * @since 3.5.3
+     */
+    private List<CustomFile> customFiles = new ArrayList<>();
+
+    /**
+     * 是否覆盖已有文件（默认 false）（已弃用，已放到自定义文件类CustomFile中，3.5.4版本会删除此方法）
      *
      * @since 3.5.2
      */
+    @Deprecated
     private boolean fileOverride;
 
+    /**
+     * 输出文件前
+     */
     @NotNull
     public void beforeOutputFile(TableInfo tableInfo, Map<String, Object> objectMap) {
         if (!customMap.isEmpty()) {
@@ -66,16 +83,35 @@ public class InjectionConfig {
         }
     }
 
+    /**
+     * 获取自定义配置 Map 对象
+     */
     @NotNull
     public Map<String, Object> getCustomMap() {
         return customMap;
     }
 
+    /**
+     * 已弃用，换成了customFiles，3.5.4版本会删除此方法
+     */
     @NotNull
+    @Deprecated
     public Map<String, String> getCustomFile() {
         return customFile;
     }
 
+    /**
+     * 获取自定义模板文件列表
+     */
+    @NotNull
+    public List<CustomFile> getCustomFiles() {
+        return customFiles;
+    }
+
+    /**
+     * 已弃用，已放到自定义文件类CustomFile中，3.5.4版本会删除此方法
+     */
+    @Deprecated
     public boolean isFileOverride() {
         return fileOverride;
     }
@@ -120,26 +156,34 @@ public class InjectionConfig {
          * @return this
          */
         public Builder customFile(@NotNull Map<String, String> customFile) {
-            this.injectionConfig.customFile = customFile;
+            return customFile(customFile.entrySet().stream()
+                .map(e -> new CustomFile.Builder().fileName(e.getKey()).templatePath(e.getValue()).build())
+                .collect(Collectors.toList()));
+        }
+
+        public Builder customFile(@NotNull CustomFile customFile) {
+            this.injectionConfig.customFiles.add(customFile);
+            return this;
+        }
+
+        public Builder customFile(@NotNull List<CustomFile> customFiles) {
+            this.injectionConfig.customFiles.addAll(customFiles);
+            return this;
+        }
+
+        public Builder customFile(Consumer<CustomFile.Builder> consumer) {
+            CustomFile.Builder builder = new CustomFile.Builder();
+            consumer.accept(builder);
+            this.injectionConfig.customFiles.add(builder.build());
             return this;
         }
 
         /**
-         * 覆盖已有文件（该方法后续会删除，替代方法为enableFileOverride方法）
-         *
-         * @see #enableFileOverride()
+         * 覆盖已有文件（已弃用，已放到自定义文件类CustomFile中，3.5.4版本会删除此方法）
          */
         @Deprecated
         public Builder fileOverride() {
             LOGGER.warn("fileOverride方法后续会删除，替代方法为enableFileOverride方法");
-            this.injectionConfig.fileOverride = true;
-            return this;
-        }
-
-        /**
-         * 覆盖已有文件
-         */
-        public Builder enableFileOverride() {
             this.injectionConfig.fileOverride = true;
             return this;
         }

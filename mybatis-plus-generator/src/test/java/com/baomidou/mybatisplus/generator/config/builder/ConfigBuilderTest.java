@@ -46,7 +46,7 @@ public class ConfigBuilderTest {
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.serviceImpl));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.xml));
         Assertions.assertTrue(pathInfo.containsKey(OutputFile.mapper));
-        Assertions.assertTrue(pathInfo.containsKey(OutputFile.other));
+        Assertions.assertTrue(pathInfo.containsKey(OutputFile.parent));
 
         configBuilder = new ConfigBuilder(
             GeneratorBuilder.packageConfigBuilder().pathInfo(Collections.singletonMap(OutputFile.entity,
