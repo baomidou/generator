@@ -26,7 +26,6 @@ FastAutoGenerator.create("url", "username", "password")
 	.globalConfig(builder -> {
 		builder.author("baomidou") // 设置作者
             .enableSwagger() // 开启 swagger 模式
-			.fileOverride() // 覆盖已生成文件
 			.outputDir("D://"); // 指定输出目录
 	})
 	.packageConfig(builder -> {
@@ -45,9 +44,9 @@ FastAutoGenerator.create("url", "username", "password")
 #### 交互式生成
 
 ```java
-FastAutoGenerator.create(DATA_SOURCE_CONFIG)
+FastAutoGenerator.create("url", "username", "password")
     // 全局配置
-    .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称？")).fileOverride())
+    .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称？")))
     // 包配置
     .packageConfig((scanner, builder) -> builder.parent(scanner.apply("请输入包名？")))
     // 策略配置
@@ -62,6 +61,10 @@ FastAutoGenerator.create(DATA_SOURCE_CONFIG)
 
 * `更多例子可查看test包下面的samples`
 * [H2CodeGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/H2CodeGeneratorTest.java)
+* [MySQLGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/MySQLGeneratorTest.java)
+* [OracleGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/OracleGeneratorTest.java)
+* [PostgreSQLGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/PostgreSQLGeneratorTest.java)
+* [DMGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/DMGeneratorTest.java)
 * [FastAutoGeneratorTest](https://github.com/baomidou/generator/blob/develop/mybatis-plus-generator/src/test/java/com/baomidou/mybatisplus/generator/samples/FastAutoGeneratorTest.java)
 
 ### 说明
@@ -77,17 +80,20 @@ FastAutoGenerator.create(DATA_SOURCE_CONFIG)
 | password        | 数据库密码 | 123456 |
 
 ```java
-new DataSourceConfig.
-    Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","123456").build();
+new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","123456")
+    .build();
 ```
 ##### 可选配置
 
-| 方法         | 说明                         | 示例                                  |
+| 方法         | 说明                         | 示例                                       |
 | --------------- | ---------------------------- | ------------------------------------- |
-| dbQuery(IDbQuery)         | 数据库查询                   | new MySqlQuery()                      |
-| schema(String)          | 数据库schema(部分数据库适用) | mybatis-plus                          |
-| typeConvert(ITypeConvert)     | 数据库类型转换器             | new MySqlTypeConvert()                |
-| keyWordsHandler(IKeyWordsHandler) | 数据库关键字处理器          | new MySqlKeyWordsHandler()            |
+| dbQuery(IDbQuery)         | 数据库查询                   | new MySqlQuery()              |
+| schema(String)          | 数据库schema(部分数据库适用) | mybatis-plus                      |
+| typeConvert(ITypeConvert)     | 数据库类型转换器（配合SQLQuery）| new MySqlTypeConvert()    |
+| keyWordsHandler(IKeyWordsHandler) | 数据库关键字处理器          | new MySqlKeyWordsHandler()|
+| databaseQueryClass(IDatabaseQuery) | 数据库查询方式          | SQLQuery.class            |
+| typeConvertHandler(ITypeConvertHandler) | 数据库类型转换器（配合DefaultQuery）   |        |
+| addConnectionProperty(String key, String value) | 增加数据库连接属性 |         |
 
 ```java
 new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","123456")
@@ -95,6 +101,8 @@ new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","
     .schema("mybatis-plus")
     .typeConvert(new MySqlTypeConvert())
     .keyWordsHandler(new MySqlKeyWordsHandler())
+    .databaseQueryClass(SQLQuery.class)
+    .addConnectionProperty("remarks", "true")
     .build();
 ```
 
@@ -102,7 +110,6 @@ new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","
 
 | 方法                | 说明              | 示例                                                    |
 | ------------------- | ----------------- | ------------------------------------------------------- |
-| fileOverride        | 覆盖已生成文件    | 默认值:false                                            |
 | disableOpenDir      | 禁止打开输出目录  | 默认值:true                                             |
 | outputDir(String)   | 指定输出目录      | /opt/baomidou/ 默认值: windows:D:// linux or mac : /tmp |
 | author(String)      | 作者名            | baomidou 默认值:作者                                    |
@@ -112,8 +119,7 @@ new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","
 | commentDate(String) | 注释日期          | 默认值: yyyy-MM-dd                                      |
 
 ```java
-new GlobalConfig.Builder().
-    .fileOverride()
+new GlobalConfig.Builder()
     .outputDir("/opt/baomidou")
     .author("baomidou")
     .enableKotlin()
@@ -135,7 +141,6 @@ new GlobalConfig.Builder().
 | mapper(String)                    | Mapper 包名       | 默认值:mapper                                          |
 | xml(String)                       | Mapper XML 包名   | 默认值:mapper.xml                                      |
 | controller(String)                | Controller 包名   | 默认值:controller                                      |
-| other(String)                     | 自定义文件包名    | 输出自定义文件时所用到的包名                           |
 | pathInfo(Map<OutputFile, String>) | 路径配置信息      | Collections.singletonMap(OutputFile.xml, "D://") |
 
 ```java
@@ -148,7 +153,6 @@ new PackageConfig.Builder()
     .mapper("mapper")
     .xml("mapper.xml")
     .controller("controller")
-    .other("other")
     .pathInfo(Collections.singletonMap(OutputFile.xml, "D://")
     .build();
 ```
@@ -185,7 +189,10 @@ new TemplateConfig.Builder()
 | ----------------------------------------------------------- | ----------------- | ----------------------------------------------------------- |
 | beforeOutputFile(BiConsumer<TableInfo, Map<String, Object>>)| 输出文件之前消费者    |                                                             |
 | customMap(Map<String, Object>)                              | 自定义配置 Map 对象  | Collections.singletonMap("test", "baomidou")                |
-| customFile(Map<String, String>)                             | 自定义配置模板文件    | Collections.singletonMap("test.txt", "/templates/test.vm")  |
+| customFile(Map<String, String>)                             | 自定义配置模板文件    | Collections.singletonMap("DTO.java", "/templates/dto.java.vm")  |
+| customFile(CustomFile)                             | 自定义配置模板文件    | new CustomFile.Builder().fileName("DTO.java").templatePath("/templates/dto.java.vm").packageName("dto").build()  |
+| customFile(List<CustomFile>)                             | 自定义配置模板文件    |   |
+| customFile(Consumer<CustomFile.Builder>)                             | 自定义配置模板文件    |   |
 
 ```java
 new InjectionConfig.Builder()
@@ -193,7 +200,8 @@ new InjectionConfig.Builder()
     System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
     })
     .customMap(Collections.singletonMap("test", "baomidou"))
-    .customFile(Collections.singletonMap("test.txt", "/templates/test.vm"))
+    .customFile(Collections.singletonMap("DTO.java", "/templates/dto.java.vm"))
+    .customFile(new CustomFile.Builder().fileName("DTO.java").templatePath("/templates/dto.java.vm").packageName("dto").build())
     .build();
 ```
 
@@ -244,6 +252,7 @@ new StrategyConfig.Builder()
 | enableRemoveIsPrefix               | 开启 Boolean 类型字段移除 is 前缀 | 默认值:false                                           |
 | enableTableFieldAnnotation         | 开启生成实体时生成字段注解        | 默认值:false                                           |
 | enableActiveRecord                 | 开启 ActiveRecord 模型            | 默认值:false                                           |
+| enableFileOverride                 | 覆盖已有文件            | 默认值:false                                           |
 | versionColumnName(String)          | 乐观锁字段名(数据库)              |                                                        |
 | versionPropertyName(String)        | 乐观锁属性名(实体)                |                                                        |
 | logicDeleteColumnName(String)      | 逻辑删除字段名(数据库)            |                                                        |
@@ -291,6 +300,7 @@ new StrategyConfig.Builder()
 | superClass(String)                 | 设置父类                       | com.baomidou.global.BaseController |
 | enableHyphenStyle                  | 开启驼峰转连字符               | 默认值:false                       |
 | enableRestStyle                    | 开启生成@RestController 控制器 | 默认值:false                       |
+| enableFileOverride                 | 覆盖已有文件            | 默认值:false                                           |
 | convertFileName(ConverterFileName) | 转换文件名称                   |                                    |
 | formatFileName(String)             | 格式化文件名称                 |                                    |
 
@@ -308,6 +318,7 @@ new StrategyConfig.Builder()
 
 | 方法                                          | 说明                          | 示例                                |
 | --------------------------------------------- | ----------------------------- | ----------------------------------- |
+| enableFileOverride                 | 覆盖已有文件            | 默认值:false                                           |
 | superServiceClass(Class<?>)                   | 设置 service 接口父类         | BaseService.class                   |
 | superServiceClass(String)                     | 设置 service 接口父类         | com.baomidou.global.BaseService     |
 | superServiceImplClass(Class<?>)               | 设置 service 实现类父类       | BaseServiceImpl.class               |
@@ -336,6 +347,7 @@ new StrategyConfig.Builder()
 | enableMapperAnnotation                   | 开启 @Mapper 注解         | 默认值:false                   |
 | enableBaseResultMap                      | 启用 BaseResultMap 生成   | 默认值:false                   |
 | enableBaseColumnList                     | 启用 BaseColumnList       | 默认值:false                   |
+| enableFileOverride                 | 覆盖已有文件            | 默认值:false                                           |
 | cache(Class<? extends Cache>)            | 设置缓存实现类            | MyMapperCache.class            |
 | convertMapperFileName(ConverterFileName) | 转换 mapper 类文件名称    |                                |
 | convertXmlFileName(ConverterFileName)    | 转换 xml 文件名称         |                                |
