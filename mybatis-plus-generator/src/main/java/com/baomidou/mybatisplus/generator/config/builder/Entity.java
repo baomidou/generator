@@ -84,9 +84,7 @@ public class Entity implements ITemplate {
     private boolean columnConstant;
 
     /**
-     * 【实体】是否为链式模型（默认 false）<br>
-     * -----------------------------------<br>
-     * public User setName(String name) { this.name = name; return this; }
+     * 【实体】是否为链式模型（默认 false）
      *
      * @since 3.3.2
      */

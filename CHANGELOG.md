@@ -1,5 +1,26 @@
 ﻿# CHANGELOG
 
+## [v3.5.3] 2022-06-26
+
+- 新增 springdoc 支持
+- 增加类型转换，开发类型转换接口
+- 增加数据库连接属性方法指定，去除初始化连接schema指定
+- 新增全局覆盖已有文件的配置失效的警告日志
+- 新增达梦数据库测试例子，删除多余的驱动引用
+- 重构主键，自增主键判断，字段注释获取，表信息获取
+- 修复license-gradle-plugin无法在 gradle7.1 下使用问题
+- 支持自定义Mapper注解(mapperAnnotation(Mapper.class))
+- 通过connection获取catalog与schema
+- 过滤方法调整，元数据开放表查询与字段查询方法
+- 修改查询Mysql，Mariadb查看列的信息Sql语句
+- 当没开启文件覆盖时，生成文件如果已经存在了，提示警告日志
+- fileOverride 替换为 enableFileOverride 表达更清晰
+- 作者默认值更改为"baomidou"
+- fix: 修复win系统下指定输出目录中有空格就报错的BUG
+- 默认查询方式为元数据查询
+- 删除多余的依赖，删除entity模板多余的空行，修复多余的db文件
+- 重构自定义模板生成的逻辑
+
 ## [v3.5.2] 2022-03-01
 
 - MySqlKeyWordsHandler 添加MySQL8.0关键字
