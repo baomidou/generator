@@ -15,6 +15,8 @@
 </dependency>
 ```
 
+[generator 版本查询](https://search.maven.org/search?q=a:mybatis-plus-generator)
+
 ### 使用（以下教程仅适用 3.5.1 以上版本，对历史版本的不兼容）
 
 #### 快速生成
