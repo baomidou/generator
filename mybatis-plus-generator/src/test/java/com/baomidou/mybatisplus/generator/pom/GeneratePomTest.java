@@ -67,6 +67,9 @@ class GeneratePomTest {
             Dependency beetl = dependenciesMap.get("beetl");
             Assertions.assertEquals("compile", beetl.getScope());
             Assertions.assertTrue(beetl.isOptional());
+            Dependency enjoy = dependenciesMap.get("enjoy");
+            Assertions.assertEquals("compile", enjoy.getScope());
+            Assertions.assertTrue(enjoy.isOptional());
         }
     }
 
