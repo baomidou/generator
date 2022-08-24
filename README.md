@@ -52,9 +52,10 @@ FastAutoGenerator.create("url", "username", "password")
     // 策略配置
     .strategyConfig(builder -> builder.addInclude("t_simple"))
     /*
-        模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker
+        模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker 或 Enjoy
        .templateEngine(new BeetlTemplateEngine())
        .templateEngine(new FreemarkerTemplateEngine())
+       .templateEngine(new EnjoyTemplateEngine())
      */
     .execute();
 ```
