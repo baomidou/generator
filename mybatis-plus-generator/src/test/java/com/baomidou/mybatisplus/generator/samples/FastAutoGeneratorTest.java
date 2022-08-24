@@ -2,6 +2,7 @@ package com.baomidou.mybatisplus.generator.samples;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.engine.EnjoyTemplateEngine;
 
 import java.sql.SQLException;
 
@@ -35,9 +36,10 @@ public class FastAutoGeneratorTest extends BaseGeneratorTest {
             // 策略配置
             .strategyConfig((scanner, builder) -> builder.addInclude(scanner.apply("请输入表名，多个表名用,隔开")))
             /*
-                模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker
+                模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker 或 Enjoy
                .templateEngine(new BeetlTemplateEngine())
                .templateEngine(new FreemarkerTemplateEngine())
+               .templateEngine(new EnjoyTemplateEngine())
              */
             .execute();
     }
