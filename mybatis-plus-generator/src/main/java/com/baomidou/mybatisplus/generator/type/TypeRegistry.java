@@ -148,6 +148,8 @@ public class TypeRegistry {
         DateType dateType = globalConfig.getDateType();
         if (dateType == DateType.TIME_PACK) {
             dbColumnType = DbColumnType.LOCAL_DATE_TIME;
+        } else if (dateType == DateType.ONLY_DATE) {
+            dbColumnType = DbColumnType.DATE;
         } else {
             dbColumnType = DbColumnType.TIMESTAMP;
         }
