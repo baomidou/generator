@@ -354,6 +354,9 @@ public class Entity implements ITemplate {
          */
         public Builder nameConvert(INameConvert nameConvert) {
             this.entity.nameConvert = nameConvert;
+            if (this.entity.nameConvert != null) {
+                this.entity.nameConvert.setStrategyConfig(getStrategyConfig());
+            }
             return this;
         }
 

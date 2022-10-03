@@ -29,6 +29,10 @@ public class BaseBuilder implements IConfigBuilder<StrategyConfig> {
 
     private final StrategyConfig strategyConfig;
 
+    public StrategyConfig getStrategyConfig() {
+        return strategyConfig;
+    }
+
     public BaseBuilder(@NotNull StrategyConfig strategyConfig) {
         this.strategyConfig = strategyConfig;
     }

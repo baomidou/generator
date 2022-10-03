@@ -50,6 +50,12 @@ public interface INameConvert {
     String propertyNameConvert(@NotNull TableField field);
 
     /**
+     * 设置策略配置
+     * @param strategyConfig
+     */
+    void setStrategyConfig(@NotNull StrategyConfig strategyConfig);
+
+    /**
      * 默认名称转换接口类
      *
      * @author nieqiurong 2020/9/20.
@@ -57,7 +63,7 @@ public interface INameConvert {
      */
     class DefaultNameConvert implements INameConvert {
 
-        private final StrategyConfig strategyConfig;
+        private StrategyConfig strategyConfig;
 
         public DefaultNameConvert(StrategyConfig strategyConfig) {
             this.strategyConfig = strategyConfig;
@@ -71,6 +77,11 @@ public interface INameConvert {
         @Override
         public @NotNull String propertyNameConvert(@NotNull TableField field) {
             return processName(field.getName(), strategyConfig.entity().getColumnNaming(), strategyConfig.getFieldPrefix(), strategyConfig.getFieldSuffix());
+        }
+
+        @Override
+        public void setStrategyConfig(@NotNull StrategyConfig strategyConfig) {
+            this.strategyConfig = strategyConfig;
         }
 
         private String processName(String name, NamingStrategy strategy, Set<String> prefix, Set<String> suffix) {
