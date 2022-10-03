@@ -65,6 +65,10 @@ public interface INameConvert {
 
         private StrategyConfig strategyConfig;
 
+        public DefaultNameConvert() {
+
+        }
+
         public DefaultNameConvert(StrategyConfig strategyConfig) {
             this.strategyConfig = strategyConfig;
         }
