@@ -85,9 +85,14 @@ public class DefaultQuery extends AbstractDatabaseQuery {
     }
 
     protected List<DatabaseMetaDataWrapper.Table> getTables() {
+        // 是否跳过视图
         boolean skipView = strategyConfig.isSkipView();
-        //TODO 暂时采取内存过滤，还需要找数据库测试schema
-        return databaseMetaDataWrapper.getTables(null, skipView ? new String[]{"TABLE"} : new String[]{"TABLE", "VIEW"});
+        // 获取表过滤
+        String tableNamePattern = null;
+        if (strategyConfig.getLikeTable() != null) {
+            tableNamePattern = strategyConfig.getLikeTable().getValue();
+        }
+        return databaseMetaDataWrapper.getTables(tableNamePattern, skipView ? new String[]{"TABLE"} : new String[]{"TABLE", "VIEW"});
     }
 
     protected void convertTableFields(@NotNull TableInfo tableInfo) {

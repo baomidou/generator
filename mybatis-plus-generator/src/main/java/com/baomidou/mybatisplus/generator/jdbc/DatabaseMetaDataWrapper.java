@@ -156,7 +156,7 @@ public class DatabaseMetaDataWrapper {
 
     public Table getTableInfo(String catalog, String schema, String tableName) {
         Table table = new Table();
-        //TODO 后面要根据表是否为试图来查询，后面重构表查询策略。
+        //TODO 后面要根据表是否为视图来查询，后面重构表查询策略。
         try (ResultSet resultSet = databaseMetaData.getTables(catalog, schema, tableName, new String[]{"TABLE", "VIEW"})) {
             table.name = tableName;
             while (resultSet.next()) {
