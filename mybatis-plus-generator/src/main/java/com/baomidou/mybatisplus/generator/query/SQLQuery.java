@@ -63,7 +63,7 @@ public class SQLQuery extends AbstractDatabaseQuery {
                     TableInfo tableInfo = new TableInfo(this.configBuilder, tableName);
                     String tableComment = result.getTableComment();
                     // 跳过视图
-                    if (!(strategyConfig.isSkipView() && "VIEW".equals(tableComment))) {
+                    if (!(strategyConfig.isSkipView() && tableComment.toUpperCase().contains("VIEW"))) {
                         tableInfo.setComment(tableComment);
                         if (isInclude && strategyConfig.matchIncludeTable(tableName)) {
                             includeTableList.add(tableInfo);
