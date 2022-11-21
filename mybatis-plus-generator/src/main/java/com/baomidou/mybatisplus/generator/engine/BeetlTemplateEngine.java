@@ -59,7 +59,7 @@ public class BeetlTemplateEngine extends AbstractTemplateEngine {
             Configuration cfg = Configuration.defaultConfiguration();
             groupTemplate = new GroupTemplate(new ClasspathResourceLoader("/"), cfg);
         } catch (IOException e) {
-            logger.error("初始化模板引擎失败:", e);
+            LOGGER.error("初始化模板引擎失败:", e);
             throw new RuntimeException(e);
         }
         return this;
@@ -72,6 +72,7 @@ public class BeetlTemplateEngine extends AbstractTemplateEngine {
             template.binding(objectMap);
             template.renderTo(fileOutputStream);
         }
+        LOGGER.debug("模板:" + templatePath + ";  文件:" + outputFile);
     }
 
     @Override
