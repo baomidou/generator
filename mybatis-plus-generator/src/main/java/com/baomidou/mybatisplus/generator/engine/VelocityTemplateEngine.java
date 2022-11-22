@@ -45,7 +45,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
             Class.forName("org.apache.velocity.util.DuckType");
         } catch (ClassNotFoundException e) {
             // velocity1.x的生成格式错乱 https://github.com/baomidou/generator/issues/5
-            logger.warn("Velocity 1.x is outdated, please upgrade to 2.x or later.");
+            LOGGER.warn("Velocity 1.x is outdated, please upgrade to 2.x or later.");
         }
     }
 
@@ -72,6 +72,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
              BufferedWriter writer = new BufferedWriter(ow)) {
             template.merge(new VelocityContext(objectMap), writer);
         }
+        LOGGER.debug("模板:" + templatePath + ";  文件:" + outputFile);
     }
 
 

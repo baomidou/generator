@@ -45,7 +45,7 @@ import java.util.function.Function;
  */
 public abstract class AbstractTemplateEngine {
 
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 配置信息
@@ -172,19 +172,6 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 输出文件（3.5.4版本会删除此方法）
-     *
-     * @param file         文件
-     * @param objectMap    渲染信息
-     * @param templatePath 模板路径
-     * @since 3.5.0
-     */
-    @Deprecated
-    protected void outputFile(@NotNull File file, @NotNull Map<String, Object> objectMap, @NotNull String templatePath) {
-        outputFile(file, objectMap, templatePath, false);
-    }
-
-    /**
      * 输出文件
      *
      * @param file         文件
@@ -269,36 +256,6 @@ public abstract class AbstractTemplateEngine {
     }
 
     /**
-     * 输出文件（3.5.4版本会删除此方法）
-     *
-     * @param objectMap    渲染数据
-     * @param templatePath 模板路径
-     * @param outputFile   输出文件
-     * @throws Exception ex
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    protected void writerFile(Map<String, Object> objectMap, String templatePath, String outputFile) throws Exception {
-        if (StringUtils.isNotBlank(templatePath)) {
-            this.writer(objectMap, templatePath, outputFile);
-        }
-    }
-
-    /**
-     * 将模板转化成为文件（3.5.4版本会删除此方法）
-     *
-     * @param objectMap    渲染对象 MAP 信息
-     * @param templatePath 模板文件
-     * @param outputFile   文件生成的目录
-     * @see #writer(Map, String, File)
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    public void writer(@NotNull Map<String, Object> objectMap, @NotNull String templatePath, @NotNull String outputFile) throws Exception {
-
-    }
-
-    /**
      * 将模板转化成为文件
      *
      * @param objectMap    渲染对象 MAP 信息
@@ -307,10 +264,12 @@ public abstract class AbstractTemplateEngine {
      * @throws Exception 异常
      * @since 3.5.0
      */
-    public void writer(@NotNull Map<String, Object> objectMap, @NotNull String templatePath, @NotNull File outputFile) throws Exception {
-        this.writer(objectMap, templatePath, outputFile.getPath());
-        logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
-    }
+//    public void writer(@NotNull Map<String, Object> objectMap, @NotNull String templatePath, @NotNull File outputFile) throws Exception {
+//        this.writer(objectMap, templatePath, outputFile.getPath());
+//        logger.debug("模板:" + templatePath + ";  文件:" + outputFile);
+//    }
+    @NotNull
+    public abstract void writer(@NotNull Map<String, Object> objectMap, @NotNull String templatePath, @NotNull File outputFile) throws Exception;
 
     /**
      * 打开输出目录
@@ -323,7 +282,7 @@ public abstract class AbstractTemplateEngine {
             try {
                 RuntimeUtils.openDir(outDir);
             } catch (IOException e) {
-                logger.error(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
@@ -380,30 +339,6 @@ public abstract class AbstractTemplateEngine {
     public abstract String templateFilePath(@NotNull String filePath);
 
     /**
-     * 检测文件是否存在（3.5.4版本会删除此方法）
-     *
-     * @return 文件是否存在
-     * @deprecated 3.5.0
-     */
-    @Deprecated
-    protected boolean isCreate(String filePath) {
-        return isCreate(new File(filePath));
-    }
-
-    /**
-     * 检查文件是否创建文件（3.5.4版本会删除此方法）
-     *
-     * @param file 文件
-     * @return 是否创建文件
-     * @since 3.5.0
-     */
-    @Deprecated
-    protected boolean isCreate(@NotNull File file) {
-        // 全局判断【默认】
-        return !file.exists() || getConfigBuilder().getGlobalConfig().isFileOverride();
-    }
-
-    /**
      * 检查文件是否创建文件
      *
      * @param file         文件
@@ -413,7 +348,7 @@ public abstract class AbstractTemplateEngine {
      */
     protected boolean isCreate(@NotNull File file, boolean fileOverride) {
         if (file.exists() && !fileOverride) {
-            logger.warn("文件[{}]已存在，且未开启文件覆盖配置，需要开启配置可到策略配置中设置！！！", file.getName());
+            LOGGER.warn("文件[{}]已存在，且未开启文件覆盖配置，需要开启配置可到策略配置中设置！！！", file.getName());
         }
         return !file.exists() || fileOverride;
     }
