@@ -307,6 +307,7 @@ public class TableField {
      * @since 3.5.0
      */
     public static class MetaInfo {
+        private String name;
 
         private int length;
 
@@ -322,6 +323,7 @@ public class TableField {
 
         public MetaInfo(DatabaseMetaDataWrapper.Column column) {
             if (column != null) {
+                this.name = column.getName();
                 this.length = column.getLength();
                 this.nullable = column.isNullable();
                 this.remarks = column.getRemarks();

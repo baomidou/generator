@@ -116,6 +116,7 @@ new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","
 | author(String)      | 作者名            | baomidou 默认值:作者                                    |
 | enableKotlin        | 开启 kotlin 模式  | 默认值:false                                            |
 | enableSwagger       | 开启 swagger 模式 | 默认值:false                                            |
+| enableSpringdoc       | 开启 springdoc 模式 | 默认值:false                                            |
 | dateType(DateType)  | 时间策略          | DateType.ONLY_DATE 默认值: DateType.TIME_PACK           |
 | commentDate(String) | 注释日期          | 默认值: yyyy-MM-dd                                      |
 
@@ -186,14 +187,14 @@ new TemplateConfig.Builder()
 
 #### 注入配置(InjectionConfig)
 
-| 方法                   | 说明                     | 示例                                                |
-| ----------------------------------------------------------- | ----------------- | ----------------------------------------------------------- |
-| beforeOutputFile(BiConsumer<TableInfo, Map<String, Object>>)| 输出文件之前消费者    |                                                             |
-| customMap(Map<String, Object>)                              | 自定义配置 Map 对象  | Collections.singletonMap("test", "baomidou")                |
-| customFile(Map<String, String>)                             | 自定义配置模板文件    | Collections.singletonMap("DTO.java", "/templates/dto.java.vm")  |
-| customFile(CustomFile)                             | 自定义配置模板文件    | new CustomFile.Builder().fileName("DTO.java").templatePath("/templates/dto.java.vm").packageName("dto").build()  |
-| customFile(List<CustomFile>)                             | 自定义配置模板文件    |   |
-| customFile(Consumer<CustomFile.Builder>)                             | 自定义配置模板文件    |   |
+| 方法                     | 说明                    | 示例                        |
+| ------------------------ |-----------------------| --------------------------- |
+| beforeOutputFile(BiConsumer<TableInfo, Map<String, Object>>)| 输出文件之前消费者             |                                                             |
+| customMap(Map<String, Object>)                              | 自定义配置 Map 对象          | Collections.singletonMap("test", "baomidou")                |
+| customFile(Map<String, String>)                             | 自定义配置模板文件（Map）        | Collections.singletonMap("DTO.java", "/templates/dto.java.vm")  |
+| customFile(CustomFile)                             | 自定义配置模板文件（CustomFile） | new CustomFile.Builder().fileName("DTO.java").templatePath("/templates/dto.java.vm").packageName("dto").build()  |
+| customFile(List<CustomFile>)              | 自定义配置模板文件（List）       |        |
+| customFile(Consumer<CustomFile.Builder>)       | 自定义配置模板文件（lambda）     |   |
 
 ```java
 new InjectionConfig.Builder()
