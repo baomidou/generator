@@ -29,6 +29,8 @@ public class FastAutoGeneratorTest extends BaseGeneratorTest {
         // 初始化数据库脚本
         initDataSource(DATA_SOURCE_CONFIG.build());
         FastAutoGenerator.create(DATA_SOURCE_CONFIG)
+            // 数据库配置
+            .dataSourceConfig((scanner, builder) -> builder.schema(scanner.apply("请输入表名称")))
             // 全局配置
             .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称")))
             // 包配置
