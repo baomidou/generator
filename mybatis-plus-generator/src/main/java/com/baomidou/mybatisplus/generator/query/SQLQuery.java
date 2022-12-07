@@ -105,8 +105,9 @@ public class SQLQuery extends AbstractDatabaseQuery {
             dbQuery.execute(tableFieldsSql, result -> {
                 String columnName = result.getStringResult(dbQuery.fieldName());
                 TableField field = new TableField(this.configBuilder, columnName);
-                DatabaseMetaDataWrapper.Column column = columnsInfoMap.get(columnName.toLowerCase());
-                TableField.MetaInfo metaInfo = new TableField.MetaInfo(column);
+                DatabaseMetaDataWrapper.Column columnInfo = columnsInfoMap.get(columnName.toLowerCase());
+                // 设置字段的元数据信息
+                TableField.MetaInfo metaInfo = new TableField.MetaInfo(columnInfo, tableInfo);
                 // 避免多重主键设置，目前只取第一个找到ID，并放到list中的索引为0的位置
                 boolean isId = DbType.H2 == dbType ? h2PkColumns.contains(columnName) : result.isPrimaryKey();
                 // 处理ID

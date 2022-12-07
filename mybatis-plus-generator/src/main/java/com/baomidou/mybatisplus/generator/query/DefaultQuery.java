@@ -100,7 +100,6 @@ public class DefaultQuery extends AbstractDatabaseQuery {
         Map<String, DatabaseMetaDataWrapper.Column> columnsInfoMap = getColumnsInfo(tableName);
         Entity entity = strategyConfig.entity();
         columnsInfoMap.forEach((k, columnInfo) -> {
-            TableField.MetaInfo metaInfo = new TableField.MetaInfo(columnInfo);
             String columnName = columnInfo.getName();
             TableField field = new TableField(this.configBuilder, columnName);
             // 处理ID
@@ -113,6 +112,8 @@ public class DefaultQuery extends AbstractDatabaseQuery {
             }
             field.setColumnName(columnName).setComment(columnInfo.getRemarks());
             String propertyName = entity.getNameConvert().propertyNameConvert(field);
+            // 设置字段的元数据信息
+            TableField.MetaInfo metaInfo = new TableField.MetaInfo(columnInfo, tableInfo);
             IColumnType columnType = typeRegistry.getColumnType(metaInfo);
             ITypeConvertHandler typeConvertHandler = dataSourceConfig.getTypeConvertHandler();
             if (typeConvertHandler != null) {
