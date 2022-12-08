@@ -38,30 +38,67 @@ import java.util.Map;
  * @since 2016-12-03
  */
 public class TableField {
+
+    /**
+     * 是否做注解转换
+     */
     private boolean convert;
+
+    /**
+     * 是否主键
+     */
     private boolean keyFlag;
+
     /**
      * 主键是否为自增类型
      */
     private boolean keyIdentityFlag;
+
+    /**
+     * 字段名称
+     */
     private String name;
+
+    /**
+     * 字段类型（已弃用，使用 {@link #columnType} 代替）
+     */
+    @Deprecated
     private String type;
+
+    /**
+     * 属性名称
+     */
     private String propertyName;
+
+    /**
+     * 字段类型
+     */
     private IColumnType columnType;
+
+    /**
+     * 字段注释
+     */
     private String comment;
+
+    /**
+     * 填充
+     */
     private String fill;
+
     /**
      * 是否关键字
      *
      * @since 3.3.2
      */
     private boolean keyWords;
+
     /**
      * 数据库字段（关键字含转义符号）
      *
      * @since 3.3.2
      */
     private String columnName;
+
     /**
      * 自定义查询字段列表
      */
@@ -74,10 +111,19 @@ public class TableField {
      */
     private MetaInfo metaInfo;
 
+    /**
+     * 实体属性配置
+     */
     private final Entity entity;
 
+    /**
+     * 数据库配置
+     */
     private final DataSourceConfig dataSourceConfig;
 
+    /**
+     * 全局配置
+     */
     private final GlobalConfig globalConfig;
 
     /**
@@ -307,23 +353,51 @@ public class TableField {
      * @since 3.5.0
      */
     public static class MetaInfo {
-        private String name;
 
+        /**
+         * 表名称
+         */
+        private String tableName;
+
+        /**
+         * 字段名称
+         */
+        private String columnName;
+
+        /**
+         * 字段长度
+         */
         private int length;
 
+        /**
+         * 是否非空
+         */
         private boolean nullable;
 
+        /**
+         * 字段注释
+         */
         private String remarks;
 
+        /**
+         * 字段默认值
+         */
         private String defaultValue;
 
+        /**
+         * 字段精度
+         */
         private int scale;
 
+        /**
+         * JDBC类型
+         */
         private JdbcType jdbcType;
 
-        public MetaInfo(DatabaseMetaDataWrapper.Column column) {
+        public MetaInfo(DatabaseMetaDataWrapper.Column column, TableInfo tableInfo) {
             if (column != null) {
-                this.name = column.getName();
+                this.tableName = tableInfo.getName();
+                this.columnName = column.getName();
                 this.length = column.getLength();
                 this.nullable = column.isNullable();
                 this.remarks = column.getRemarks();
@@ -360,7 +434,9 @@ public class TableField {
         @Override
         public String toString() {
             return "MetaInfo{" +
-                "length=" + length +
+                "tableName=" + tableName +
+                ", columnName=" + columnName +
+                ", length=" + length +
                 ", nullable=" + nullable +
                 ", remarks='" + remarks + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
