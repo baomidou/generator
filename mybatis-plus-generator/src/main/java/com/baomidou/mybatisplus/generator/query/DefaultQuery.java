@@ -23,8 +23,8 @@ import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.jdbc.DatabaseMetaDataWrapper;
-import com.baomidou.mybatisplus.generator.type.ITypeConvertHandler;
-import com.baomidou.mybatisplus.generator.type.TypeRegistry;
+import com.baomidou.mybatisplus.generator.config.po.type.ITypeConvertHandler;
+import com.baomidou.mybatisplus.generator.config.po.type.TypeRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

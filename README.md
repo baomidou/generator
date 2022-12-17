@@ -109,16 +109,17 @@ new DataSourceConfig.Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus","root","
 
 #### 全局配置(GlobalConfig)
 
-| 方法                | 说明              | 示例                                                    |
-| ------------------- | ----------------- | ------------------------------------------------------- |
+| 方法                  | 说明              | 示例                                                   |
+|---------------------| ----------------- |------------------------------------------------------|
 | disableOpenDir      | 禁止打开输出目录  | 默认值:true                                             |
 | outputDir(String)   | 指定输出目录      | /opt/baomidou/ 默认值: windows:D:// linux or mac : /tmp |
-| author(String)      | 作者名            | baomidou 默认值:作者                                    |
+| author(String)      | 作者名            | baomidou 默认值:作者                                      |
 | enableKotlin        | 开启 kotlin 模式  | 默认值:false                                            |
 | enableSwagger       | 开启 swagger 模式 | 默认值:false                                            |
-| enableSpringdoc       | 开启 springdoc 模式 | 默认值:false                                            |
+| enableSpringdoc     | 开启 springdoc 模式 | 默认值:false                                            |
 | dateType(DateType)  | 时间策略          | DateType.ONLY_DATE 默认值: DateType.TIME_PACK           |
 | commentDate(String) | 注释日期          | 默认值: yyyy-MM-dd                                      |
+| serviceInterface    | 生成service接口   | 默认值: true                                            |
 
 ```java
 new GlobalConfig.Builder()

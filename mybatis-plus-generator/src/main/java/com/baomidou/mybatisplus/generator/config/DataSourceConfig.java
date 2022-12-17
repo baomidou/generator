@@ -25,7 +25,7 @@ import com.baomidou.mybatisplus.generator.query.AbstractDatabaseQuery;
 import com.baomidou.mybatisplus.generator.query.DefaultQuery;
 import com.baomidou.mybatisplus.generator.query.IDatabaseQuery;
 import com.baomidou.mybatisplus.generator.query.SQLQuery;
-import com.baomidou.mybatisplus.generator.type.ITypeConvertHandler;
+import com.baomidou.mybatisplus.generator.config.po.type.ITypeConvertHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
