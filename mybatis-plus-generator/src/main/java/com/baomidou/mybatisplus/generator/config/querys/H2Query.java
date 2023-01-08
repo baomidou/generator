@@ -55,7 +55,7 @@ public class H2Query extends AbstractDbQuery {
 
     @Override
     public String fieldType() {
-        return "TYPE_NAME";
+        return "DATA_TYPE";
     }
 
     @Override
