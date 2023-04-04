@@ -141,6 +141,22 @@ public class TableField {
         this.globalConfig = configBuilder.getGlobalConfig();
     }
 
+
+    private boolean shouldConvertBooleanProperty(String propertyName) {
+        return entity.isBooleanColumnRemoveIsPrefix()
+            && "boolean".equalsIgnoreCase(this.getPropertyType())
+            && propertyName.startsWith("is");
+    }
+
+    private void convertBooleanProperty() {
+        this.convert = true;
+    }
+
+    private void updatePropertyName(String propertyName) {
+        this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
+    }
+
+
     /**
      * 设置属性名称
      *
@@ -151,12 +167,12 @@ public class TableField {
      */
     public TableField setPropertyName(@NotNull String propertyName, @NotNull IColumnType columnType) {
         this.columnType = columnType;
-        if (entity.isBooleanColumnRemoveIsPrefix()
-            && "boolean".equalsIgnoreCase(this.getPropertyType()) && propertyName.startsWith("is")) {
-            this.convert = true;
-            this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
+        if (shouldConvertBooleanProperty(propertyName)) {
+            convertBooleanProperty();
+            updatePropertyName(propertyName);
             return this;
         }
+
         // 下划线转驼峰策略
         if (NamingStrategy.underline_to_camel.equals(this.entity.getColumnNaming())) {
             this.convert = !propertyName.equalsIgnoreCase(NamingStrategy.underlineToCamel(this.columnName));
