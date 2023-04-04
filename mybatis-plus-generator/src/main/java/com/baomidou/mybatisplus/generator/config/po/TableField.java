@@ -173,8 +173,9 @@ public class TableField {
             return this;
         }
 
+        Boolean eligibleForCamelCase = NamingStrategy.underline_to_camel.equals(this.entity.getColumnNaming());
         // 下划线转驼峰策略
-        if (NamingStrategy.underline_to_camel.equals(this.entity.getColumnNaming())) {
+        if (eligibleForCamelCase) {
             this.convert = !propertyName.equalsIgnoreCase(NamingStrategy.underlineToCamel(this.columnName));
         }
         // 原样输出策略
