@@ -173,20 +173,24 @@ public class TableField {
             return this;
         }
 
-        Boolean eligibleForCamelCase = NamingStrategy.underline_to_camel.equals(this.entity.getColumnNaming());
-        // 下划线转驼峰策略
-        if (eligibleForCamelCase) {
-            this.convert = !propertyName.equalsIgnoreCase(NamingStrategy.underlineToCamel(this.columnName));
-        }
-        // 原样输出策略
-        if (NamingStrategy.no_change.equals(this.entity.getColumnNaming())) {
-            this.convert = !propertyName.equalsIgnoreCase(this.columnName);
-        }
+        ColumnNameStrategy columnNameStrategy = getColumnNameStrategy();
+
+        this.convert = !propertyName.equalsIgnoreCase(columnNameStrategy.convert(this.columnName));
         if (entity.isTableFieldAnnotationEnable()) {
             this.convert = true;
         }
         this.propertyName = propertyName;
         return this;
+    }
+
+    private ColumnNameStrategy getColumnNameStrategy() {
+        switch (this.entity.getColumnNaming()) {
+            case underline_to_camel:
+                return new UnderlineToCamelCaseStrategy();
+            case no_change:
+            default:
+                return new NoChangeStrategy();
+        }
     }
 
     public String getPropertyType() {
