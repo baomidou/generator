@@ -108,7 +108,8 @@ public class DatabaseMetaDataWrapper {
                 column.jdbcType = JdbcType.forCode(resultSet.getInt("DATA_TYPE"));
                 column.length = resultSet.getInt("COLUMN_SIZE");
                 column.scale = resultSet.getInt("DECIMAL_DIGITS");
-                column.remarks = formatComment(resultSet.getString("REMARKS"));
+                CommentFormatter formatter = new CommentFormatter();
+                column.remarks = formatter.formatComment(resultSet.getString("REMARKS"));
                 column.defaultValue = resultSet.getString("COLUMN_DEF");
                 column.nullable = resultSet.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
                 try {
@@ -125,9 +126,7 @@ public class DatabaseMetaDataWrapper {
         }
     }
 
-    public String formatComment(String comment) {
-        return StringUtils.isBlank(comment) ? StringPool.EMPTY : comment.replaceAll("\r\n", "\t");
-    }
+
 
     public Table getTableInfo(String tableName) {
         return getTableInfo(this.catalog, this.schema, tableName);
@@ -144,7 +143,8 @@ public class DatabaseMetaDataWrapper {
             while (resultSet.next()) {
                 table = new Table();
                 table.name = resultSet.getString("TABLE_NAME");
-                table.remarks = formatComment(resultSet.getString("REMARKS"));
+                CommentFormatter formatter = new CommentFormatter();
+                table.remarks = formatter.formatComment(resultSet.getString("REMARKS"));
                 table.tableType = resultSet.getString("TABLE_TYPE");
                 tables.add(table);
             }
@@ -160,7 +160,8 @@ public class DatabaseMetaDataWrapper {
         try (ResultSet resultSet = databaseMetaData.getTables(catalog, schema, tableName, new String[]{"TABLE", "VIEW"})) {
             table.name = tableName;
             while (resultSet.next()) {
-                table.remarks = formatComment(resultSet.getString("REMARKS"));
+                CommentFormatter formatter = new CommentFormatter();
+                table.remarks = formatter.formatComment(resultSet.getString("REMARKS"));
                 table.tableType = resultSet.getString("TABLE_TYPE");
             }
         } catch (SQLException e) {

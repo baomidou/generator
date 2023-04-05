@@ -141,6 +141,22 @@ public class TableField {
         this.globalConfig = configBuilder.getGlobalConfig();
     }
 
+
+    private boolean shouldConvertBooleanProperty(String propertyName) {
+        return entity.isBooleanColumnRemoveIsPrefix()
+            && "boolean".equalsIgnoreCase(this.getPropertyType())
+            && propertyName.startsWith("is");
+    }
+
+    private void convertBooleanProperty() {
+        this.convert = true;
+    }
+
+    private void updatePropertyName(String propertyName) {
+        this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
+    }
+
+
     /**
      * 设置属性名称
      *
@@ -151,25 +167,30 @@ public class TableField {
      */
     public TableField setPropertyName(@NotNull String propertyName, @NotNull IColumnType columnType) {
         this.columnType = columnType;
-        if (entity.isBooleanColumnRemoveIsPrefix()
-            && "boolean".equalsIgnoreCase(this.getPropertyType()) && propertyName.startsWith("is")) {
-            this.convert = true;
-            this.propertyName = StringUtils.removePrefixAfterPrefixToLower(propertyName, 2);
+        if (shouldConvertBooleanProperty(propertyName)) {
+            convertBooleanProperty();
+            updatePropertyName(propertyName);
             return this;
         }
-        // 下划线转驼峰策略
-        if (NamingStrategy.underline_to_camel.equals(this.entity.getColumnNaming())) {
-            this.convert = !propertyName.equalsIgnoreCase(NamingStrategy.underlineToCamel(this.columnName));
-        }
-        // 原样输出策略
-        if (NamingStrategy.no_change.equals(this.entity.getColumnNaming())) {
-            this.convert = !propertyName.equalsIgnoreCase(this.columnName);
-        }
+
+        ColumnNameStrategy columnNameStrategy = getColumnNameStrategy();
+
+        this.convert = !propertyName.equalsIgnoreCase(columnNameStrategy.convert(this.columnName));
         if (entity.isTableFieldAnnotationEnable()) {
             this.convert = true;
         }
         this.propertyName = propertyName;
         return this;
+    }
+
+    private ColumnNameStrategy getColumnNameStrategy() {
+        switch (this.entity.getColumnNaming()) {
+            case underline_to_camel:
+                return new UnderlineToCamelCaseStrategy();
+            case no_change:
+            default:
+                return new NoChangeStrategy();
+        }
     }
 
     public String getPropertyType() {
