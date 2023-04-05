@@ -124,7 +124,7 @@ public enum NamingStrategy {
      * @return 转换后的字符串
      */
     public static String removeSuffixAndCamel(String name, Set<String> suffix) {
-        return underlineToCamel(removeSuffix(name, suffix));
+        return NamingStrategyUtils.underlineToCamel(removeSuffix(name, suffix));
     }
 
     /**
